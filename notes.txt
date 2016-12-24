@@ -68,3 +68,25 @@ thing_factory$new()
 private = variables
 public = functions
 
+
+env <- new.envir() // always empty
+
+one difference]
+ENVIRONMENTS ARE POINTERS!
+
+shared = {
+	e = new.env()// new envir
+	  // assignments
+	e // return envir
+}
+
+since shared is an anonymous function, then you'll need to use shared$value to access values in the envir
+
+
+object$clone()
+object$clone( deep = TRUE)
+
+finalize()
+
+initialize = constructor
+finalize = destructor
