@@ -90,3 +90,11 @@ finalize()
 
 initialize = constructor
 finalize = destructor
+
+
+-----------------------------------
+Exploratory Data Analysis
+===================================
+
+gather(data, key, value, collapseCols) [ tidyr ]
+recode
