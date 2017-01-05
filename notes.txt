@@ -98,3 +98,16 @@ Exploratory Data Analysis
 
 gather(data, key, value, collapseCols) [ tidyr ]
 recode
+
+
+
+
+
+
+
+
+GGplot2 Chapter 2
+-----------------
+Geom_jitter is its own unique thing.
+separate()?
+spread?
