@@ -111,3 +111,34 @@ GGplot2 Chapter 2
 Geom_jitter is its own unique thing.
 separate()?
 spread?
+
+Chapter 4
+---------
+binwidth = .1 // no one best way
+aes( y = ..density..) //.. means internal dataframe
+
+position = dodge
+position = fill
+
+geom_bar
+1 kinds ( absolute or distribution)
+
+
+geom_bar( stat = 'identity' )
+geom_errorbar( aes( ymin = avg - stdev, ymax = avg + stdev), width = .2)
+
+scale_fill_brewer( palette = 'Set1')
+brewer.par ?
+colorRampPaleette ?
+
+
+linetpye
+
+linetype = Species
+geom_area(); ( position = fill )
+geom_ribbon( aes( ymax = Capture, ymin = 0), alpha = .3)
+
+geom_rect( data = recess, inherit.aes = FALSE, aes( xmin = begin, xmax = end, ymin = -Inf, ymax = Inf ), fill = 'red', alpha = .2)
+
+"gather() takes four arguments: the original data frame (fish.species), the name of the key column (Species), the name of the value column (Capture) and the name of the grouping variable, with a minus in front (-Year). They can all be specified as object names (i.e. no "")."
+
