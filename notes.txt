@@ -142,3 +142,90 @@ geom_rect( data = recess, inherit.aes = FALSE, aes( xmin = begin, xmax = end, ym
 
 "gather() takes four arguments: the original data frame (fish.species), the name of the key column (Species), the name of the value column (Capture) and the name of the grouping variable, with a minus in front (-Year). They can all be specified as object names (i.e. no "")."
 
+
+coordinates layer controlled by coord_cartesian()
+scale_x_continuous( limits= c(4.5, 5.5))
+xlim( c(4.5, 5.5) ) // limited behavior
+
+coord_cartesian( xlim = c(4.5, 5.5)) // just zooms; does not subset dataset.
+
+aspect ratio = height-to-width ratio
+
+coord_fixed( .055 ) // changes the ratio
+
+coord_equal() ?
+
+
+thin.bar <- ggplot(mtcars, aes(x = 1, fill = cyl)) +
+              geom_bar()
+
+# Convert thin.bar to pie chart
+thin.bar + coord_polar( theta = "y")
+
+
+facet_grid( [rows] ~ [columns] )
+
+
+GGplot2 Themes
+--------------
+control visual elements.
+Types: text, line, rectangle
+
+element_[type]()
+
+theme(
+line = element_line()
+text = element_text()
+title = 
+plot.title =
+legend.text = 
+legend.title =
+axis.title = 
+axis.title.x =
+axis.title.y = 
+axis.text = 
+axis.text.x = 
+axis.text.y = 
+strip.text = 
+strip.text.x = 
+strip.text.y = )
+
+all text elements inherit from text
+you can use element_blank() to remove an item.
+
+
+uniform_panels <- theme(panel.background = element_blank(), 
+                        legend.key = element_blank(), 
+                        legend.background=element_blank(), 
+                        strip.background = element_blank())
+
+# Move legend by position
+z + theme( legend.position = c( .85, .85 ))
+
+# Change direction
+z + theme( legend.direction = "horizontal")
+
+# Change location by name
+z + theme( legend.position = "bottom")
+
+# Remove legend entirely
+z + theme( legend.position = "none")
+
+> z + theme( panel.margin.x = unit( 2, "cm"))
+Warning message: `panel.margin` is deprecated. Please use `panel.spacing` property instead
+Warning message: `panel.margin.x` is deprecated. Please use `panel.spacing.x` property instead
+
+
+
+1] save theme as object
+2] Adjust as needed.
+
+
+theme_classic()
+
+[ ggtheme ]
+theme_tufte() ?
+theme_update()
+	returns an object of the old theme while it sets the new defualt
+theme_grey() // default
+
