@@ -1,0 +1,177 @@
+lists
+environments
+
+limited # of objects
+
+functional -> analysis
+oop -> tools
+
+
+
+9 systems?
+
+-R5
+-mutatr
+-OOP
+-proto
+-R.oo
+
+S3
+----
+1980s
+functions on diff objects
+MUST LEARN
+
+S4
+---
+mature.
+weird.
+bioconductor uses it.
+
+ReferenceClasses
+----------------
+?
+
+
+R6
+---
+
+
+class()
+typeof()
+mode() ?
+storate.mode() ?
+
+is_s3_generic() [ pryr ]
+check for UseMethod
+
+ls.str() ?
+methods()
+methods( class = '')
+
+returns S3, S4 
+
+.S3methods( class = '' )
+.S4methods( class = '')
+
+R - Primative -> C
+.S3PrimativeGenerics
+
+NextMethod // Calls the next generic for the next class vector
+
+class generator == factories
+
+define R6Class( "Name", private = list( a_field = 'a value', another_field = 'derp'))
+
+thing_factory$new()
+
+private = variables
+public = functions
+
+
+env <- new.envir() // always empty
+
+one difference]
+ENVIRONMENTS ARE POINTERS!
+
+shared = {
+	e = new.env()// new envir
+	  // assignments
+	e // return envir
+}
+
+since shared is an anonymous function, then you'll need to use shared$value to access values in the envir
+
+
+object$clone()
+object$clone( deep = TRUE)
+
+finalize()
+
+initialize = constructor
+finalize = destructor
+
+
+
+
+
+
+
+
+
+
+GGPlot2, Part 1:
+================
+Data visualization?
+
+- Statistics and design combined.
+
+Expore [Scientists] vs Explain [Laymens]
+
+Francis Anscombe - Plots. (1973)
+
+
+
+
+Grammar of Graphics
+
+Leland Wilkinson, Grammar of Graphics (1999)
+
+7 Grammar Elements
+------------------
+data
+Aesthetics
+Geometries
+------------------
+Facets
+Statistics
+Coordinates
+Themes
+=================
+
+aes() can be called inside geoms
+
+
+
+colour = outline
+fill = fill color
+size = diameter
+alpha = opacity
+linetype = obv.
+labels = text on plot
+shape = point type
+
+
+points have color but no fill.
+
+attributes take precedent over aesthetics.
+You can use geom_text to replace points with letters and words.
+
+can you adjust the position of labels?
+
+
+position data:
+position = 'jitter'
+
+scale_ functions
+
+factor - discrete - categorical
+
+Scale:
+	limits = c(x, y)
+	breaks = c( break_values)
+	expand = c( 2, 2) // multiplicative expansion
+	labels = c('x', 'y', 'z') // category names
+
+you can change labels quickly with the labs function
+
+barplot:
+	stack
+	dodge
+	fill
+
+
+
+Jacques Burton 1976
+William Cleveland 1990s
+"Form Follows Function"
