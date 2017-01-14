@@ -230,124 +230,14 @@ theme_update()
 theme_grey() // default
 
 
-[GGally]
-ggparcoord(mtcars, my_names_am, groupColumn = group_by_am, alpha = .8) // looks ugly as sin.
-scatter plot matrix 
-ggpairs[ GGally ]
 
-heatmaps
---------
-hard to plot continuous data with colors.
-facet_wrap vs facet_grid ?
-
-"# Create color palette
-myColors <- brewer.pal(9, "Reds")
-
-# Build the heat map from scratch
-ggplot( barley, aes( x = year, y = variety, fill = yield)) + geom_tile() +
-facet_wrap( ~ site, ncol = 1) +
-scale_fill_gradientn( colors = myColors )"
-
-^ Collect and fix ^
+GGplot - Best Practices
+m <- ggplot(mtcars, aes(x = cyl,y = wt, col = am, fill = am))
 
 
-Final chapter
--------------
-CHIS 
+why not pie chart?
+- only for Parts as a whole!
+- really only want one way to interperet plot. [angle, area, length]
 
 
-[vcd]
-mosiac( M, shade = TRUE, color = TRUE)
-
-
-
-"# The initial contingency table
-DF <- as.data.frame.matrix(table(adult$SRAGE_P, adult$RBMI))
-
-# Add the columns groupsSum, xmax and xmin. Remove groupSum again.
-DF$groupSum <- rowSums( DF )
-DF$xmax <- cumsum( DF$groupSum )
-DF$xmin <-  DF$xmax - DF$groupSum
-# The groupSum column needs to be removed, don't remove this line
-DF$groupSum <- NULL
-
-# Copy row names to variable X
-DF$X <- rownames( DF )
-
-# Melt the dataset
-library(reshape2)
-DF_melted <- melt(DF, id.vars = c("X", "xmin", "xmax"), variable.name = "FILL")
-
-# dplyr call to calculate ymin and ymax - don't change
-library(dplyr)
-DF_melted <- DF_melted %>% 
-  group_by(X) %>% 
-  mutate(ymax = cumsum(value/sum(value)),
-         ymin = ymax - value/sum(value))
-
-# Plot rectangles - don't change.
-library(ggthemes)
-ggplot(DF_melted, aes(ymin = ymin, 
-                 ymax = ymax,
-                 xmin = xmin, 
-                 xmax = xmax, 
-                 fill = FILL)) + 
-  geom_rect(colour = "white") +
-  scale_x_continuous(expand = c(0,0)) +
-  scale_y_continuous(expand = c(0,0)) +
-  BMI_fill +
-  theme_tufte()
-"
-
-results <- chisq.test(table(adult$RBMI, adult$SRAGE_P))
-
-library(ggplot2)
-library(reshape2)
-library(dplyr)
-library(ggthemes)
-
-# Script generalized into a function
-mosaicGG <- function(data, X, FILL) {
-  
-  # Proportions in raw data
-  DF <- as.data.frame.matrix(table(data[[X]], data[[FILL]]))
-  DF$groupSum <- rowSums(DF)
-  DF$xmax <- cumsum(DF$groupSum)
-  DF$xmin <- DF$xmax - DF$groupSum
-  DF$X <- row.names(DF)
-  DF$groupSum <- NULL
-  DF_melted <- melt(DF, id = c("X", "xmin", "xmax"), variable.name = "FILL")
-  library(dplyr)
-  DF_melted <- DF_melted %>% 
-    group_by(X) %>% 
-    mutate(ymax = cumsum(value/sum(value)),
-           ymin = ymax - value/sum(value))
-  
-  # Chi-sq test
-  results <- chisq.test(table(data[[FILL]], data[[X]])) # fill and then x
-  resid <- melt(results$residuals)
-  names(resid) <- c("FILL", "X", "residual")
-
-  # Merge data
-  DF_all <- merge(DF_melted, resid)
-  
-  # Positions for labels
-  DF_all$xtext <- DF_all$xmin + (DF_all$xmax - DF_all$xmin)/2
-  index <- DF_all$xmax == max(DF_all$xmax)
-  DF_all$ytext <- DF_all$ymin[index] + (DF_all$ymax[index] - DF_all$ymin[index])/2
-  
-  # plot:
-  g <- ggplot(DF_all, aes(ymin = ymin,  ymax = ymax, xmin = xmin, 
-                          xmax = xmax, fill = residual)) + 
-  geom_rect(col = "white") +
-  geom_text(aes(x = xtext, label = X),
-            y = 1, size = 3, angle = 90, hjust = 1, show.legend = FALSE) +
-  geom_text(aes(x = max(xmax),  y = ytext, label = FILL),
-            size = 3, hjust = 1, show.legend = FALSE) +
-  scale_fill_gradient2("Residuals") +
-  scale_x_continuous("Individuals", expand = c(0,0)) +
-  scale_y_continuous("Proportion", expand = c(0,0)) +
-  theme_tufte() +
-  theme(legend.position = "bottom")
-  print(g)
-}
+solution? Don't convert to pie chart!
