@@ -160,6 +160,210 @@ autoplot(iris_k, data = iris, frame = TRUE)
 autoplot(iris_k, data = iris, frame = TRUE, col = 'Species')
 ```
 
+Maps and animations:
+Geographic Infomration System [ GIS ]
+
+Choropleths
+Drawing bunch of polygons.
+
+```
+library( ggplot2 )
+usa<- map_data('usa')
+ggplot( usa, aes( long, lat, group = group)) +
+	geom_polygon() +
+	coord_map()
+```
+
+coord_proj( "+proj=wintri") ?
+
+```ggplot( usa, aes( long, lat, group = group, fill = region)) +
+	geom_polygon( color = "white") +
+	coord_map()
+```	
+
+```
+ggplot(usa, aes(x = long, y = lat, group = group )) +
+  geom_polygon() +
+  coord_map() +
+  theme_nothing()
+```
+
+```
+# usa, cities, and all required packages are available
+
+# Finish plot 1
+ggplot(usa, aes(x = long, y = lat, group = group)) +
+  geom_polygon() +
+  geom_point( data = cities, aes( group = State, size = Pop_est), col = "red", shape = 16, alpha = .6 ) +
+  coord_map() +
+  theme_map()
+
+# Arrange cities
+library(dplyr)
+cities_arr <- arrange(cities, Pop_est)
+
+# Copy-paste plot 1 and adapt
+ggplot(usa, aes(x = long, y = lat, group = group)) +
+  geom_polygon( fill = "grey90") +
+  geom_point( data = cities_arr, aes( group = State, size = 2, col = Pop_est), shape = 16, alpha = .6 ) +
+  coord_map() +
+  scale_color_viridis() +
+  theme_map()
+```
+
+```
+state<- map_data("state")
+
+# Map of states
+ggplot( state, aes( x = long, y = lat, group = group, fill = region )) +
+  geom_polygon( col = "white") +
+  coord_map() +
+  theme_nothing()
+
+# Merge state and pop: state2
+state2<- merge(state, pop, by = "region" )
+
+# Map of states with populations
+ggplot( state2, aes( x = long, y = lat, group = group, fill = Pop_est )) +
+  geom_polygon( col = "white") +
+  coord_map() +
+  theme_map()
+```
+
+Shapefiles:
+several different files
+.shp = shape geometry
+.shx = shape index
+.dbf = attributes for each shape
+
+```
+rgdal::readOGR()
+```
+
+```
+germany <- readOGR(dsn = "shapes", layer = "DEU_adm1")
+
+# fortify germany: bundes
+bundes <- fortify(germany)
+
+# Plot map of germany
+ggplot(bundes, aes(x = long, y = lat, group = group)) +
+    geom_polygon(fill = "blue", col = "white") +
+    coord_map() +
+    theme_nothing()
+```
+
+```
+bundes$state <- factor(as.numeric(bundes$id))
+levels(bundes$state) <- germany$NAME_1
+
+# Merge bundes and unemp: bundes_unemp
+bundes_unemp <- merge( bundes, unemp, by = "state")
+
+# Update the ggplot call
+ggplot(bundes_unemp, aes(x = long, y = lat, group = group, fill = unemployment)) +
+  geom_polygon() +
+  coord_map() +
+  theme_map()
+```
+
+
+
+
+Cartographic maps
+
+```
+# Load the ggmap package
+library( ggmap )
+
+# Create london_map_13 with get_map
+london_map_13 <- get_map( "London, England", zoom = 13)
+
+# Create the map of london
+ggmap( london_map_13 )
+
+# Experiment with get_map() and use ggmap() to plot it!
+london_data<- get_map( "London, England", source = "stamen", maptype = "toner")
+
+ggmap( london_data )
+```
+
+```
+xx <- geocode(london_sites)
+xx$location <- sub(", London", "", london_sites)
+xx$location[5] <- "Queen Elizabeth\nOlympic Park"
+
+# Create bounding box: bbox
+bbox <- make_bbox(lon = xx$lon, lat = xx$lat, f = .3)
+
+# Update get_map to use bbox
+london_ton_13 <- get_map(location = bbox, zoom = 13,
+                         source = "stamen", maptype = "toner")
+
+# Map from previous exercise
+ggmap(london_ton_13) +
+  geom_point(data = xx, aes(col = location), size = 6)
+
+# New map with labels
+ggmap( london_ton_13) +
+  geom_label(data = xx,  aes(label = location), size = 4, fontface = "bold", fill = "grey90", col = "#E41A1C" )
+```
+
+
+Animations
+Good for dense temproal data
+
+Use animation package
+package gganimate
+
+Motion chart?
+
+
+```
+# Inspect structure of japan
+str(japan)
+
+# Finish the code inside saveGIF
+saveGIF({
+
+  # Loop through all time points
+  for (i in unique( japan$time)) {
+
+    # Subset japan: data
+    data<- subset( japan, japan$time == i )
+
+    # Finish the ggplot command
+    p <- ggplot(data, aes(x = AGE, y = POP, fill = SEX, width = 1)) +
+      coord_flip() +
+      geom_bar(data = data[data$SEX == "Female",], stat = "identity") +
+      geom_bar(data = data[data$SEX == "Male",], stat = "identity") +
+      ggtitle(i)
+
+    print(p)
+
+  }
+
+}, movie.name = "pyramid.gif", interval = .1)
+```
+
+gg_animate()
+
+
+```
+# Update the static plot
+p <- ggplot(Vocab, aes(x = education, y = vocabulary,
+                       color = year, group = year, frame = year, cumulative = TRUE)) +
+  stat_smooth(method = "lm", se = FALSE, size = 3)
+
+# Call gg_animate on p
+gg_animate(p, interval = 1.0, filename = "vocab.gif")
+```
+
+
+
+
+
+
 
 
 # Investigate:
@@ -170,3 +374,4 @@ autoplot(iris_k, data = iris, frame = TRUE, col = 'Species')
 - kernel = "gaussian"
 - car package
 - cmdscale
+- saveGIF?
