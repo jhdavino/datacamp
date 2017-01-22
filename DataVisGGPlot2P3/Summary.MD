@@ -359,11 +359,140 @@ p <- ggplot(Vocab, aes(x = education, y = vocabulary,
 gg_animate(p, interval = 1.0, filename = "vocab.gif")
 ```
 
+Grid package
+
+2 plotting systems in R: base and Grid.
+
+Paul Murell designer.
+
+ggplot2 built on Grid
+
+Create graphics
+
+
+grid.rect()
+grid.lines()
+grid.circle()
+grid.polygon()
+grid.text()
+	(x = .5, y = .5, width = .5, height = .5, just = "center",
+	name = "myCircle")
+
+grid.edit("myCircle", gp = gpar( fill = "pink" ))
+
+gp = graphical parameter
+
+Viewports are a window which we draw graphic output.
+vp <- viewport( ... )
+pushViewport( vp )
+
+grid.xaxis()
+grid.yaxis()
+
+
+# Create data viewport: dvp
+dvp <- dataViewport( xData = mtcars$wt, yData = mtcars$mpg)
+
+
+```
+pushViewport(plotViewport(c(5, 4, 2, 2)))
+grid.rect(gp = gpar())
+pushViewport(dataViewport(xData = mtcars$wt, yData = mtcars$mpg))
+grid.xaxis()
+grid.yaxis()
+
+# Add text to x axis
+grid.text( label = "Weight", y = unit( -3, "lines" ))
+
+# Add text to y axis
+grid.text( label = "MPG", x = unit(-3, "lines" ), rot = 90)
+
+# Add points
+grid.points( x = mtcars$wt, y = mtcars$mpg, pch = 16)
+```
+
+
+Having a name allows you to call grid.edit
+
+
+Graphical Objects -> Grobs
+
+grid.rect() -> rectGrob()
+
+
+ggplotGrob( [object] )
+can access grobs via g$grob[[ # ]]
+
+library( gtable)
+gtable_show_layout(g$grob[[8]])
 
 
 
+```
+p <- ggplot(mtcars, aes(x = wt, y = mpg, col = factor(cyl))) + geom_point()
+
+# Create gtab with ggplotGrob()
+gtab<- ggplotGrob( p )
+
+# Print out gtab
+print( gtab )
+
+# Extract the grobs from gtab: gtab
+g<- gtab$grobs
+
+# Draw only the legend
+grid.draw( g[[ 8 ]] )
+```
+
+```
+# Code from before
+p <- ggplot(mtcars, aes(x = wt, y = mpg, col = factor(cyl))) + geom_point()
+gtab <- ggplotGrob(p)
+g <- gtab$grobs
+grid.draw(g[[8]])
+
+# Show layout of g[[8]]
+gtable_show_layout( g[[8]])
 
 
+
+# Create text grob
+my_text <- textGrob(label = "Motor Trend, 1974", gp = gpar(fontsize = 7, col = "gray25"))
+
+# Use gtable_add_grob to modify original gtab
+new_legend <- gtable_add_grob(gtab$grobs[[8]], my_text, 3, 2)
+
+# Update in gtab
+gtab$grobs[[8]] <- new_legend
+
+# Draw gtab
+grid.draw( gtab )
+```
+
+
+ggplot2 Objects
+
+renders ggplot2 with ggplot_build()
+convert ggplot to gtable using ggplot_gtable( object )
+
+
+gridExtra package ?
+
+plyr package
+
+```
+# Load gridExtra
+library( gridExtra )
+
+# Call grid.arrange()
+grid.arrange( g1, g2, ncol = 2)
+```
+
+```
+grid.arrange(g1_noleg, g2, my_legend,
+             layout_matrix = matrix(c(1, 3, 2, 3), ncol = 2),
+             heights = unit.c(unit(1, "npc") - legend_height, legend_height))
+```
 
 
 # Investigate:
