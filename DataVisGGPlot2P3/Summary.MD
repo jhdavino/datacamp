@@ -494,6 +494,55 @@ grid.arrange(g1_noleg, g2, my_legend,
              heights = unit.c(unit(1, "npc") - legend_height, legend_height))
 ```
 
+Write your own extensions in ggplot2
+
+john tukey ( Bag Plot )
+
+Bag Plot?
+
+package aplpack
+compute.bagplot( x = dat$group1, y = dat$group2 )
+
+
+bag<- compute.bagplot( test_data )
+
+# Display information
+bag$hull.loop
+bag$hull.bag
+
+ggproto | four arguments.
+1. Name
+2. What inherited from.
+3. Required Aesthetics
+4. Action taken.
+
+
+StatLoop <- ggproto("StatLoop", Stat,
+                    required_aes = c("x", "y"),
+                    compute_group = function(data, scales) {
+                      bag <- compute.bagplot(x = data$x, y = data$y)
+                      data.frame(x = bag$hull.loop[,1], y = bag$hull.loop[,2])
+                    })
+
+
+What is a layer function?
+
+list(
+    # StatLoop layer
+    layer(
+      stat = StatLoop, data = data, mapping = mapping, geom = geom, 
+      position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+      params = list(na.rm = na.rm, alpha = 0.35, col = NA, ...)
+    ),
+
+Case Study 2:
+
+
+  geom_linerange(aes(ymin = min, ymax = max), col = "#EED8AE", alpha = 0.2)
+
+
+CREATING NEW STAT LAYERS!
+
 
 # Investigate:
 - Grid Package.
