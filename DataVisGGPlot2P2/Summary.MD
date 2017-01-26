@@ -1,5 +1,3 @@
-# Clean Up.
-
 # Data Visualization with GGPlot2, Part 2 at a Glance
 - Coordinates layer controlled by coord_cartesian()
 - `scale_x_continuous( limits= c(4.5, 5.5))` will hard limit x values between 4.5 and 5.5
@@ -10,25 +8,30 @@
 
 
 ```
-thin.bar <- ggplot(mtcars, aes(x = 1, fill = cyl)) +
-              geom_bar()
+thin.bar <- ggplot(mtcars, aes(x = 1, fill = cyl)) + geom_bar()
 ```
-- 
+- Setting x = 1 will fill the area.
+- The local version of this code is not coloring the graph.
 
+```
 # Convert thin.bar to pie chart
 thin.bar + coord_polar( theta = "y")
+```
+- Change to Circles/Pie.
+- facet_grid( [rows] ~ [columns] )
 
 
-facet_grid( [rows] ~ [columns] )
+## GGplot2 Themes
+- Themes can be used to control visual elements.
+- There are three types:
+  1. Text
+  2. Line
+  3. Rectangle
 
+- Using this will take the form: element_[type](); where type is from [Text, Line, Rectangle]
 
-GGplot2 Themes
---------------
-control visual elements.
-Types: text, line, rectangle
-
-element_[type]()
-
+- Full list of possible elements:
+```
 theme(
 line = element_line()
 text = element_text()
@@ -45,130 +48,86 @@ axis.text.y =
 strip.text = 
 strip.text.x = 
 strip.text.y = )
+```
 
-all text elements inherit from text
-you can use element_blank() to remove an item.
+- All text elements inherit from text
+- You can use element_blank() to remove an item.
 
-
+```
+# Remove all the elements.
 uniform_panels <- theme(panel.background = element_blank(), 
                         legend.key = element_blank(), 
                         legend.background=element_blank(), 
                         strip.background = element_blank())
-
-# Move legend by position
-z + theme( legend.position = c( .85, .85 ))
-
-# Change direction
-z + theme( legend.direction = "horizontal")
-
-# Change location by name
-z + theme( legend.position = "bottom")
-
-# Remove legend entirely
-z + theme( legend.position = "none")
-
-> z + theme( panel.margin.x = unit( 2, "cm"))
-Warning message: `panel.margin` is deprecated. Please use `panel.spacing` property instead
-Warning message: `panel.margin.x` is deprecated. Please use `panel.spacing.x` property instead
+```
 
 
+- Move the legend position using legend.position = c( [x], [y] ).
+- Move the legend rotation using legend.direction = "horizontal"
+- Move the legend position using legend.position = "bottom"
+- Remove the legend fully  using legend.position = "none"
 
-1] save theme as object
-2] Adjust as needed.
+- Instead of panel.margin, use panel.spacing .
+- Instead of panel.margin.x, use panel.spacing.x .
 
-
-theme_classic()
-
-[ ggtheme ]
-theme_tufte() ?
-theme_update()
-	returns an object of the old theme while it sets the new defualt
-theme_grey() // default
-
-GGplot - Best Practices
-m <- ggplot(mtcars, aes(x = cyl,y = wt, col = am, fill = am))
+- Create space between graphs using panel.margin.x = units( 2, "cm")
+- You can save the base plot and then adjust as needed.
+- This can be used to reset the plot.
 
 
-why not pie chart?
-- only for Parts as a whole!
-- really only want one way to interperet plot. [angle, area, length]
+- theme_update() does two things:
+  1. Updates the current theme with your changes.
+  2. Returns a copy of the non-updated theme.
+- theme_grey() is the default.
 
 
-solution? Don't convert to pie chart!
+## ggplot2 - Best Practices
+`m <- ggplot(mtcars, aes(x = cyl, y = wt, col = am, fill = am) ) `
+
+- Don't use Pie Charts:
+  1. They only show parts of the whole.
+  2. Interpretation of graph is ambiguous. [angle?, area?, length?]
+
+- Solution is to avoid Pie Charts when possible.
 
 
+## GGally Package
 
-[GGally]
-ggparcoord(mtcars, my_names_am, groupColumn = group_by_am, alpha = .8) // looks ugly as sin.
-scatter plot matrix 
-ggpairs[ GGally ]
+- ggparcoord() is ugly; don't ever use this.
+- ggpairs() creates scatter plot matrix of features.
 
-heatmaps
---------
-hard to plot continuous data with colors.
-facet_wrap vs facet_grid ?
 
-"# Create color palette
-myColors <- brewer.pal(9, "Reds")
+## heatmaps
+- It is hard to plot continuous data with colors.
+- Use facet_wrap / facet_grid instead.
 
+- Use brewer.pal to create a pallete of colors to plot with:
+  + brewer.pal(
+  + 9,     // count of colors
+  + "Reds" // Color Target.
+
+```
 # Build the heat map from scratch
-ggplot( barley, aes( x = year, y = variety, fill = yield)) + geom_tile() +
-facet_wrap( ~ site, ncol = 1) +
-scale_fill_gradientn( colors = myColors )"
+ggplot( barley, aes( x = year, y = variety, fill = yield)) +
+  geom_tile() +  // Not a fan.
+  facet_wrap( ~ site,
+    ncol = 1) + // ncol adjusts how one should stack the facets
+  scale_fill_gradientn( colors = myColors )
+```
 
-^ Collect and fix ^
-
-
-Final chapter
--------------
-CHIS 
-
-
-[vcd]
-mosiac( M, shade = TRUE, color = TRUE)
+- scale_fill_gradientn is for an 'n' array of colors.
+- scale_fill_gradient is for two different colors.
 
 
+- California Health Interview Survey (CHIS)
+- Package vcd; "Visualizing Categorical Data"
+- `mosiac( M, shade = TRUE, color = TRUE)`
 
-"# The initial contingency table
-DF <- as.data.frame.matrix(table(adult$SRAGE_P, adult$RBMI))
 
-# Add the columns groupsSum, xmax and xmin. Remove groupSum again.
-DF$groupSum <- rowSums( DF )
-DF$xmax <- cumsum( DF$groupSum )
-DF$xmin <-  DF$xmax - DF$groupSum
-# The groupSum column needs to be removed, don't remove this line
-DF$groupSum <- NULL
 
-# Copy row names to variable X
-DF$X <- rownames( DF )
 
-# Melt the dataset
-library(reshape2)
-DF_melted <- melt(DF, id.vars = c("X", "xmin", "xmax"), variable.name = "FILL")
 
-# dplyr call to calculate ymin and ymax - don't change
-library(dplyr)
-DF_melted <- DF_melted %>% 
-  group_by(X) %>% 
-  mutate(ymax = cumsum(value/sum(value)),
-         ymin = ymax - value/sum(value))
-
-# Plot rectangles - don't change.
-library(ggthemes)
-ggplot(DF_melted, aes(ymin = ymin, 
-                 ymax = ymax,
-                 xmin = xmin, 
-                 xmax = xmax, 
-                 fill = FILL)) + 
-  geom_rect(colour = "white") +
-  scale_x_continuous(expand = c(0,0)) +
-  scale_y_continuous(expand = c(0,0)) +
-  BMI_fill +
-  theme_tufte()
-"
-
-results <- chisq.test(table(adult$RBMI, adult$SRAGE_P))
-
+```
 library(ggplot2)
 library(reshape2)
 library(dplyr)
@@ -219,9 +178,14 @@ mosaicGG <- function(data, X, FILL) {
   theme(legend.position = "bottom")
   print(g)
 }
+```
 
-
-## Investigate:
+## Research
 - coord_equal()
+- theme_tufte()
+- facet_wrap vs facet_grid?
+- Investigate vcd package.
+- as.data.frame.matrix
 
 ## Reading List:
+- None.

@@ -1,31 +1,40 @@
 # Data Visualization with GGPlot2, Part 3
 
-scale_y_log10() 
-scale_x_log10( expression( log[10](Carat) ), limits = c(.1, 10))
+- ```
+  stat_summary(fun.data = "mean_cl_normal", // mean "Confidence Levels" Normal
+    geom = "crossbar",                      // crossbar 
+    width = .2,                             // width of the bars.
+    col = 'red')                            // Obv.
+  ```
 
-Box plots and Density plots are useful for scientific audiances.
-John Tukey - Exploratory Data Analsis
 
-5 point summary displays distribution as 25% pieces.
-Also, shows outliers as distinct features.
 
-outlier = 1.5 * IQR [ Interquartile Range ]
-whiskers cannot be drawn outside the fence.
+- `scale_y_log10()` will scale the y axis.
+- ```scale_x_log10(
+      expression( log[10](Carat) ), // use this as the text
+      limits = c(.1, 10)           // set x limits as ..
+    )
+  ```
 
-cut_interval(x, n) cut with equal range
-cut_number( x, n) cut with equal number of observations.
-cut_width( x, n) cut with n sized groups; takes into account of range!
+- Box plots and Density plots are useful for scientific audiances.
+- 5 point summary displays distribution as 25% pieces.
+- Also, shows outliers as distinct features.
 
-plot_quart() 
+- defined as: outlier = 1.5 * IQR [ Interquartile Range ]
+- whiskers cannot be drawn outside the fence.
 
-density plot is good for univariate data
-Kernal Density Estimate( KDE) 
+- `cut_interval(x, n)` will cut with equal range.
+- `cut_number( x, n)` will cut with equal number of observations.
+- `cut_width( x, n)` cut with n sized groups; takes into account of range!
 
-how do you pick the bandwith in KDE? 
-Bandwith smooths out graph.
+- Density plot is good for univariate data
+- Kernal Density Estimate( KDE) 
+- Many overlapping lines -> Higher Value -> Higher Density.
+- How do you pick the bandwith in KDE? 
+- Bandwith smooths out graph.
 
-Density plots are just graphs of the underlying distribution.
-geom_density cuts off outer data when using limits; this means area under curve is no longer 1.
+- Density plots are just graphs of the underlying distribution.
+- geom_density cuts off outer data when using limits; this means area under curve is no longer 1.
 
 
 
@@ -35,28 +44,25 @@ p <- ggplot(faithful, aes(x = waiting, y = eruptions)) +
   scale_y_continuous(limits = c(1, 5.5), expand = c(0, 0)) +
   scale_x_continuous(limits = c(40, 100), expand = c(0, 0)) +
   coord_fixed(60 / 4.5)
-
-# Use geom_density_2d()
-p + geom_density_2d()
-
-# Use stat_density_2d()
-p + stat_density_2d(aes(col = ..level..), h = c(5, 0.5))
 ```
 
-library(viridis)
+- `p + geom_density_2d()` is the contour map of ggplot2
+- `p + stat_density_2d( aes(col = ..level..), h = c(5, 0.5))` uses the internal columns of data.
 
+- Problems with Large Data set:
+  1. Many observations
+  2. Many variables
+  3. Combination
 
+- Solutions: 
 
+- ```
+  stat_density_2d(    // Known.
+    geom = "title",   // 
+    aes( fill = ..denstiry..),
+    contour = FALSE)
+  ```
 
-Problems with Large Data set:
-Many observations
-Many variables
-Combination
-
-
-Many obs solutions:
-
-stat_density_2d( geom = "title", aes( fill = ..denstiry..), contour = FALSE)
 geom_bin2d( bins = 100 )
 geom_hex( bin = 100 )
 
@@ -585,12 +591,16 @@ ggplot(my_data, aes(x = x, y = y, year = year)) +
 Need to take this all apart.
 
 
-# Investigate:
+## Investigate:
 - Grid Package.
-- geom_rug()?
 - KDE?
 - bw = "nrd0"
 - kernel = "gaussian"
 - car package
 - cmdscale
 - saveGIF?
+- plot_quart() ?
+- viridis package
+
+## Reading List:
+["Exploratory Data Analysis" by John Tukey](https://www.amazon.com/Exploratory-Data-Analysis-John-Tukey/dp/0201076160)

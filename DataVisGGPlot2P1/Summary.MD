@@ -75,6 +75,7 @@ geom_errorbar(
 - `scale_fill_brewer( palette = 'x')` where x is the set of colors.
 - geom_ribbon( aes( ymax = Capture, ymin = 0), alpha = .3)
 
+
 ```
 geom_rect(
 	data = recess,
@@ -107,3 +108,4 @@ geom_rect(
 ## Reading List:
 - ["Grammar of Graphics" by Leland Wilkinson](https://smile.amazon.com/Grammar-Graphics-Statistics-Computing/dp/0387245448/ref=sr_1_1?ie=UTF8&qid=1484779645&sr=8-1&keywords=grammar+of+graphics)
 - ["Graphs in Statistical Analysis" by Francis Anscombe](www.sjsu.edu/faculty/gerstman/StatPrimer/anscombe1973.pdf)
+
