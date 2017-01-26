@@ -537,11 +537,52 @@ list(
 
 Case Study 2:
 
-
+```
   geom_linerange(aes(ymin = min, ymax = max), col = "#EED8AE", alpha = 0.2)
-
+```
 
 CREATING NEW STAT LAYERS!
+
+"StatHistorical" is the class name
+
+```
+# Create the stats object
+StatHistorical <- ggproto("StatHistorical", Stat,
+                    compute_group = function(data, scales, params) {
+                      data <- data %>%
+                        filter(year != max(year)) %>%
+                        group_by(x) %>%
+                        mutate(ymin = Hmisc::smean.cl.normal(y)[3],
+                               ymax = Hmisc::smean.cl.normal(y)[2]) %>%
+                        ungroup()
+                    },
+                    required_aes = c("x", "y", "year"))
+
+# Create the layer
+stat_historical <- function(mapping = NULL, data = NULL, geom = "point",
+                            position = "identity", na.rm = FALSE, show.legend = NA, 
+                            inherit.aes = TRUE, ...) {
+  list(
+    layer(
+      stat = "identity", data = data, mapping = mapping, geom = geom,
+      position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+      params = list(na.rm = na.rm, col = "#EED8AE", alpha = 0.3, shape = 16, ...)
+    ),
+    layer(
+      stat = StatHistorical, data = data, mapping = mapping, geom = "linerange",
+      position = position, show.legend = show.legend, inherit.aes = inherit.aes,
+      params = list(na.rm = na.rm, col = "#8B7E66", ...)
+    )
+  )
+}
+
+# Build the plot
+my_data <- clean_weather("NYNEWYOR.txt")
+ggplot(my_data, aes(x = x, y = y, year = year)) +
+  stat_historical()
+```
+
+Need to take this all apart.
 
 
 # Investigate:
