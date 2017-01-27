@@ -37,148 +37,146 @@
 - geom_density cuts off outer data when using limits; this means area under curve is no longer 1.
 
 
+- ```
+  fun_args <- list(mean = mean(test_data$norm), // mean of data
+                   sd   = sd(test_data$norm))   // st. dev. of data
+  ...
+  // this is basically do.call
+  stat_function( fun  = dnorm,    // function to call
+                 args = fun_args, // args to the function.
+                 col  = "blue")   // aes mappings to pass
+```
+- do.call use of function header
+  1. what is func.
+  2. args is args.
+  3. Don't really need to care about the rest.
 
-```
-# Base layers
-p <- ggplot(faithful, aes(x = waiting, y = eruptions)) +
-  scale_y_continuous(limits = c(1, 5.5), expand = c(0, 0)) +
-  scale_x_continuous(limits = c(40, 100), expand = c(0, 0)) +
-  coord_fixed(60 / 4.5)
-```
+
+- `geom_boxplot( varwidth = TRUE)` can be used to adjust width on observation count.
+- geom_density( aes( weight = n))` using n()/nrow( [item]) as n, will change volume of curve.
+- geom_violin will do this for you.
+- You can also weight this as well.
+
 
 - `p + geom_density_2d()` is the contour map of ggplot2
-- `p + stat_density_2d( aes(col = ..level..), h = c(5, 0.5))` uses the internal columns of data.
+- ```
+  stat_density_2d(            // Known.
+    geom = "tile",            // 
+    aes( fill = ..density..), // use internal
+    contour = FALSE)          // contour lines; = T will break former assignments.
+  ```
 
+- can replace `geom = ` with others: like "point"
+
+
+
+-```
+  # Base layers
+  p <- ggplot(faithful, aes(x = waiting, y = eruptions)) +
+  scale_y_continuous(limits = c(1, 5.5), expand = c(0, 0)) +
+  scale_x_continuous(limits = c(40, 100), expand = c(0, 0)) +
+  coord_fixed(60 / 4.5)  // force a specific fixed ratio.
+```
+- `p + stat_density_2d( aes(col = ..level..), h = c(5, 0.5))` uses the internal columns of data.
+- scale_fill_viridis() requires viridis package.
+
+## Graphics of Large Data
 - Problems with Large Data set:
   1. Many observations
   2. Many variables
   3. Combination
 
-- Solutions: 
+- Solutions:
+  1. Change your geom : ex `geom_bin2d( bins = 100 )` or `geom_hex( bin = 100 )`
+  2. Reducing over-plotting
+  3. Reducing amount of information plotted.
+  4. Data reduction | PCA [ Principle Component Analysis ]
+  5. Facets // limited when tons of 
+  6. Scatter PLOt Matrix - SPLOM
+  7. ggpairs() from GGally Package
+  8. ggparcoord() // This is ugly; don't use it.
+  8. Animations
 
+
+- You can get a pxp correlation using:
+  1. chart.Correlation from Package PerformanceAnalytics
+  2. ggpairs from Package GGally
+
+
+- Ternary Plot - Triangle Plot
+- Good Compsitional trivariate data
+- Who says "Zed" for "z"?
+- Use ggtern from Package ggtern
+- `geom_density_tern()` simple version of ternary plot
 - ```
-  stat_density_2d(    // Known.
-    geom = "title",   // 
-    aes( fill = ..denstiry..),
-    contour = FALSE)
+  ...
+  stat_density_tern(
+    geom = "polygon",              // how should info be drawn.
+      aes( fill = ..level..,       // fill by internal frame.
+           alpha = ..level..)) +   // opacity by internal frame.
+  guides(                          // Remove guide legend
+    fill = guide_legend( show = FALSE ))
   ```
 
-geom_bin2d( bins = 100 )
-geom_hex( bin = 100 )
 
-Reducing over-plotting
-reducing gamount of information taht is plotted.
-
-Many variables solutions:
-Data reduction | PCA [ Principle Component Analysis ]
-Facets // limited when tons of 
-
-
-Scatter PLOt Matrix - SPLOM
-ggpairs()
-
-ggparcoord()
-
-```
-# chart.Correlation
-library(PerformanceAnalytics)
-chart.Correlation( iris[1:4] )
-
-# ggpairs
-library(GGally)
-ggpairs( mtcars_fact[1:3] )
-
-
-Ternary Plot - Triangle Plot
-Compsitional trivariate data 
-
-libary( ggtern )
-ggtern( )
-
-
-africa_sample_tidy <- gather(africa_sample, key, value, -ID)
-
-# Load ggtern
-library(ggtern)
-
-# Build ternary plot
-ggtern(africa, aes(x = Sand, y = Silt, z = Clay)) +
-  geom_point( shape = 16, alpha = .2)
-
-
-ggtern(africa, aes(x = Sand, y = Silt, z = Clay)) +
-  geom_density_tern()
-
-
-ggtern(africa, aes(x = Sand, y = Silt, z = Clay )) +
-  stat_density_tern( geom = "polygon", aes( fill = ..level..,  alpha = ..level..)) +
-  guides( fill = guide_legend( show = FALSE ))
+## Network Plots
+- geomnet Package
+- The arrangement of nodes affects interpretation.
+- `aes(from_id = Name1, to_id = Name2))` will be used for Network Mapping.
+- ```
+  geom_net(
+    aes( col = Gender ),   // select via Gender
+    size = 6,              // Obv.
+    linewidth = 1,         // Obv.
+    label = TRUE,          // Add data labels to nodes.
+    fontsize = 3,          // Obv.
+    labelcolour = "black") // You can define text color: cool.
 ```
 
-# NETOWRK PLOTS
-packages:
+- Needs to be expanded, tbh.
+
+## Diagnostic Plots
+- Calling plot with linear model gets you:
+  1. Residuals vs Fitted
+  2. Q-Q Plot?
+  3. Scale-Location Plot
+  4. Residuals vs Leverage
+
+- qqPlot from car Package.
+- influencePlot from car Package.
+- `autoplot( [model], ncol = 2 )` from package ggfortify
+- autoplot, since it's based on ggplot, can be extended via ggplot
+- ```
+  autoplot(
+    cmdscale( eurodist, eig = TRUE ), // Classical Multidimensional Scaling of data.
+    label = TRUE,                     // add labels
+    label.size = 3,                   // Obv.
+    size = 0 )                        // Obv.
+  ```
+
+- kmeans( [ data ], [ k-centers] )
 
 
-```
-# geomnet is pre-loaded
-
-# Merge edges and vertices
-mmnet <- merge(madmen$edges, madmen$vertices,
-               by.x = "Name1", by.y = "label",
-               all = TRUE)
-
-# Finish the ggplot command
-ggplot(data = mmnet, aes(from_id = Name1, to_id = Name2)) +
-  geom_net( aes( col = Gender ), size = 6, linewidth = 1, label = TRUE, fontsize = 3, labelcolour = "black")
-```
+## Maps and animations:
+  1. Choropleths
+  2. Geographic Infomration System [ GIS ]
 
 
-Diagnostic Plots
+
+- Choropleth's Draw bunch of polygons representative of geography.
+- This is built into ggplot2
+- `[region] <- map_data( [region] )`
+- ```
+  ggplot( usa,
+    aes( x = long,          // Obv.
+         y = lat ,          // Obv.
+         group = group)) +  // Interesting?
+  geom_polygon() +          // Draw shapes.
+   coord_map() +            // adjust scales
+   theme_nothing()          // Remove background
+  ```
 
 
-Package car
-qqPlot
-influencePlot
-John Fox and Michael Friendly
-
-```
-library( ggfortify )
-autoplot( res, ncol = 2 )
-```
-
-```
-autoplot( Canada )
-```
-
-```
-# Autoplot of MDS
-autoplot( cmdscale( eurodist, eig = TRUE ), label = TRUE, label.size = 3, size = 0 )
-```
-
-```
-# perform clustering
-iris_k <- kmeans(iris[-5], 3)
-
-# autplot: coloring according to cluster
-autoplot(iris_k, data = iris, frame = TRUE)
-
-# autoplot: coloring according to species
-autoplot(iris_k, data = iris, frame = TRUE, col = 'Species')
-```
-
-Maps and animations:
-Geographic Infomration System [ GIS ]
-
-Choropleths
-Drawing bunch of polygons.
-
-```
-library( ggplot2 )
-usa<- map_data('usa')
-ggplot( usa, aes( long, lat, group = group)) +
-	geom_polygon() +
-	coord_map()
-```
 
 coord_proj( "+proj=wintri") ?
 
@@ -187,15 +185,7 @@ coord_proj( "+proj=wintri") ?
 	coord_map()
 ```	
 
-```
-ggplot(usa, aes(x = long, y = lat, group = group )) +
-  geom_polygon() +
-  coord_map() +
-  theme_nothing()
-```
 
-```
-# usa, cities, and all required packages are available
 
 # Finish plot 1
 ggplot(usa, aes(x = long, y = lat, group = group)) +
@@ -600,7 +590,11 @@ Need to take this all apart.
 - cmdscale
 - saveGIF?
 - plot_quart() ?
-- viridis package
+- viridis Package
+- PerformanceAnalytics Package
+- gather function from Package tidyr?
+- matlib Package
 
 ## Reading List:
 ["Exploratory Data Analysis" by John Tukey](https://www.amazon.com/Exploratory-Data-Analysis-John-Tukey/dp/0201076160)
+["An R Companion to Applied Regression" by John Fox & Sanford Weisberg](https://www.amazon.com/R-Companion-Applied-Regression/dp/141297514X)
