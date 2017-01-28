@@ -176,61 +176,116 @@
    theme_nothing()          // Remove background
   ```
 
+- `coord_map()` this actually quite complicated.
+- `state<- map_data("state")` will get United State's States.
+
+-```
+  ggplot(state,                    // State Data
+    aes( x = long,                 // Obv.
+         y = lat,                  // Obv.
+         group = group,            // Strange whites lines if missing?
+         fill = region )) +        // Color state inner region.
+    geom_polygon( col = "white") + // Remember that col = outside barrier.
+    coord_map() +
+    theme_nothing()
+  ```
+- As with other graphs, you can map fill onto different shades of color.
 
 
-coord_proj( "+proj=wintri") ?
+## Cartographic maps
+- `get_map( location = [ City, Country], zoom = [X])` can be used to query Google Maps.
+- `ggmap( def_03, extent = "device" )` // extent asks how much of the map should be plotted
+- Increasing `zoom` will get you closer.
+- There are different kinds of map types
+  1. "watercolor"   // Do you need source = "stamen"?
+  2. "toner"        // Do you need source = "stamen"?
+  3. "hybrid"       // Do you need source = "stamen"?
+  4. "satellite"    // Do you need source = "google"?
 
-```ggplot( usa, aes( long, lat, group = group, fill = region)) +
-	geom_polygon( color = "white") +
-	coord_map()
-```	
+- Use `geocode( [vector of Names])` to get latitudes and longitudes of cities.
+- Since ggmap is a ggplot object, you can add points just like other ggplot types
+- Map is not redrawn based on the points, so you can lose data.
+- Create a 'boundary box' using `make_bbox( lon = [longitudes], lat = [ latitudes], f = [fuzzing])
+- You can request locations using the bbox setting `location = bbox_name` in get_map
+- ```
+  ggmap( london_ton_13) +
+  geom_label(data = xx,     // geom_label is a thing.
+    aes(label = location),  // label = names
+    size = 4,               // Obv.
+    fontface = "bold",      // Obv.
+    fill = "grey90",        // Obv.
+    col = "#E41A1C" )       // Obv.
+  ```
+
+- You can combine maps from Google and adding polygons to it.
+- ```
+  geom_polygon( data = bundes,
+    aes(x = long,               // Obv.
+        y = lat,                // Obv.
+        group = group),         // Obv.
+    fill = NA,                  // Obv; Do this to maintain the background of the map.
+    col = "red")                // Obv.
+  ```
 
 
+## Animations
+- Good for dense temproal data
+- Can be used for exploration
+- Packages:
+  1. animation
+  2. gganimate
+- Motion chart? [ Hans Rosling ] // Gapminder
+- gganimate uses the `frame` variable to tell which variable to alter per image.
+- gganimate uses the `interval` variable to control the time, in seconds, to switch frames.
+- You will need to install package devtools, then use `devtools::install_github("dgrtwo/gganimate")` to install.
+- Then, you can load package.
+- gg_animate( [ggplot2_object], [nameOfGif])
+- saveGIF can be used from the animation Package.
+- saveGIF takes an expression, a name assigned to movie.name and interval.
 
-# Finish plot 1
-ggplot(usa, aes(x = long, y = lat, group = group)) +
-  geom_polygon() +
-  geom_point( data = cities, aes( group = State, size = Pop_est), col = "red", shape = 16, alpha = .6 ) +
-  coord_map() +
-  theme_map()
+-```
+saveGIF({
+  for (i in unique( japan$time)) {            // this could be done better with dplyr
+    data<- subset( japan, japan$time == i )   // subset; use filter( ... )
 
-# Arrange cities
-library(dplyr)
-cities_arr <- arrange(cities, Pop_est)
+    p <- ggplot(data, aes(x = AGE, y = POP, fill = SEX, width = 1)) +   // Obv.
+      coord_flip() +                                                    // Obv.
+      geom_bar(data = data[data$SEX == "Female",], stat = "identity") + // Obv.
+      geom_bar(data = data[data$SEX == "Male",], stat = "identity") +   // Obv.
+      ggtitle(i)                                                        // Obv.
 
-# Copy-paste plot 1 and adapt
-ggplot(usa, aes(x = long, y = lat, group = group)) +
-  geom_polygon( fill = "grey90") +
-  geom_point( data = cities_arr, aes( group = State, size = 2, col = Pop_est), shape = 16, alpha = .6 ) +
-  coord_map() +
-  scale_color_viridis() +
-  theme_map()
+    print(p)                                                            // Obv.
+
+  }
+
+}, movie.name = "pyramid.gif", interval = .1)                           // See Desc.
 ```
 
+
+
+
+gg_animate()
+
+
 ```
-state<- map_data("state")
+# Update the static plot
+p <- ggplot(Vocab, aes(x = education, y = vocabulary,
+                       color = year, group = year, frame = year, cumulative = TRUE)) +
+  stat_smooth(method = "lm", se = FALSE, size = 3)
 
-# Map of states
-ggplot( state, aes( x = long, y = lat, group = group, fill = region )) +
-  geom_polygon( col = "white") +
-  coord_map() +
-  theme_nothing()
-
-# Merge state and pop: state2
-state2<- merge(state, pop, by = "region" )
-
-# Map of states with populations
-ggplot( state2, aes( x = long, y = lat, group = group, fill = Pop_est )) +
-  geom_polygon( col = "white") +
-  coord_map() +
-  theme_map()
+# Call gg_animate on p
+gg_animate(p, interval = 1.0, filename = "vocab.gif")
 ```
 
-Shapefiles:
-several different files
-.shp = shape geometry
-.shx = shape index
-.dbf = attributes for each shape
+
+
+
+
+- Shapefiles:
+  1. several different files
+  2. .shp = shape geometry
+  3. .shx = shape index
+  4. .dbf = attributes for each shape
 
 ```
 rgdal::readOGR()
@@ -249,111 +304,10 @@ ggplot(bundes, aes(x = long, y = lat, group = group)) +
     theme_nothing()
 ```
 
-```
-bundes$state <- factor(as.numeric(bundes$id))
-levels(bundes$state) <- germany$NAME_1
-
-# Merge bundes and unemp: bundes_unemp
-bundes_unemp <- merge( bundes, unemp, by = "state")
-
-# Update the ggplot call
-ggplot(bundes_unemp, aes(x = long, y = lat, group = group, fill = unemployment)) +
-  geom_polygon() +
-  coord_map() +
-  theme_map()
-```
 
 
 
 
-Cartographic maps
-
-```
-# Load the ggmap package
-library( ggmap )
-
-# Create london_map_13 with get_map
-london_map_13 <- get_map( "London, England", zoom = 13)
-
-# Create the map of london
-ggmap( london_map_13 )
-
-# Experiment with get_map() and use ggmap() to plot it!
-london_data<- get_map( "London, England", source = "stamen", maptype = "toner")
-
-ggmap( london_data )
-```
-
-```
-xx <- geocode(london_sites)
-xx$location <- sub(", London", "", london_sites)
-xx$location[5] <- "Queen Elizabeth\nOlympic Park"
-
-# Create bounding box: bbox
-bbox <- make_bbox(lon = xx$lon, lat = xx$lat, f = .3)
-
-# Update get_map to use bbox
-london_ton_13 <- get_map(location = bbox, zoom = 13,
-                         source = "stamen", maptype = "toner")
-
-# Map from previous exercise
-ggmap(london_ton_13) +
-  geom_point(data = xx, aes(col = location), size = 6)
-
-# New map with labels
-ggmap( london_ton_13) +
-  geom_label(data = xx,  aes(label = location), size = 4, fontface = "bold", fill = "grey90", col = "#E41A1C" )
-```
-
-
-Animations
-Good for dense temproal data
-
-Use animation package
-package gganimate
-
-Motion chart?
-
-
-```
-# Inspect structure of japan
-str(japan)
-
-# Finish the code inside saveGIF
-saveGIF({
-
-  # Loop through all time points
-  for (i in unique( japan$time)) {
-
-    # Subset japan: data
-    data<- subset( japan, japan$time == i )
-
-    # Finish the ggplot command
-    p <- ggplot(data, aes(x = AGE, y = POP, fill = SEX, width = 1)) +
-      coord_flip() +
-      geom_bar(data = data[data$SEX == "Female",], stat = "identity") +
-      geom_bar(data = data[data$SEX == "Male",], stat = "identity") +
-      ggtitle(i)
-
-    print(p)
-
-  }
-
-}, movie.name = "pyramid.gif", interval = .1)
-```
-
-gg_animate()
-
-
-```
-# Update the static plot
-p <- ggplot(Vocab, aes(x = education, y = vocabulary,
-                       color = year, group = year, frame = year, cumulative = TRUE)) +
-  stat_smooth(method = "lm", se = FALSE, size = 3)
-
-# Call gg_animate on p
-gg_animate(p, interval = 1.0, filename = "vocab.gif")
-```
 
 Grid package
 
