@@ -202,6 +202,7 @@
   3. "hybrid"       // Do you need source = "stamen"?
   4. "satellite"    // Do you need source = "google"?
 
+
 - Use `geocode( [vector of Names])` to get latitudes and longitudes of cities.
 - Since ggmap is a ggplot object, you can add points just like other ggplot types
 - Map is not redrawn based on the points, so you can lose data.
@@ -378,117 +379,75 @@ saveGIF({
     legend_height))
  ```
 
-Write your own extensions in ggplot2
+## Your Own Extensions
 
-john tukey ( Bag Plot )
+- John Tukey wrote created the concept of the Bag Plot.
+- Create bagplot using `bagplot([ data ])` using package aplpack
+- Bagplot has four peieces:
+  1. The Hull - center of the plot
+  2. The Bag - which is similiar to the IQR.
+  3. The Loop - which contains all points inside the 'fence'
+  4. Points outside the bag are drawn as single points.
 
-Bag Plot?
+-Use `compute.bagplot( x = [x], y = [y] )` from package aplpack to create the data.
+- ggproto takes 4 arguments:
+  1. Name
+  2. What inherited from.
+  3. Required Aesthetics
+  4. Action taken.
 
-package aplpack
-compute.bagplot( x = dat$group1, y = dat$group2 )
-
-
-bag<- compute.bagplot( test_data )
-
-# Display information
-bag$hull.loop
-bag$hull.bag
-
-ggproto | four arguments.
-1. Name
-2. What inherited from.
-3. Required Aesthetics
-4. Action taken.
-
-
-StatLoop <- ggproto("StatLoop", Stat,
-                    required_aes = c("x", "y"),
-                    compute_group = function(data, scales) {
-                      bag <- compute.bagplot(x = data$x, y = data$y)
-                      data.frame(x = bag$hull.loop[,1], y = bag$hull.loop[,2])
-                    })
+- ```
+  StatLoop <-
+    ggproto("StatLoop",            // name of layer.
+      Stat,                        // class inherited from.
+      required_aes = c("x", "y"),  // Obv.
+      compute_group = function(data, scales){                  // actual calculations.
+      bag <- compute.bagplot(x = data$x, y = data$y)
+      data.frame(x = bag$hull.loop[,1], y = bag$hull.loop[,2])
+    })
+  ```
 
 
-What is a layer function?
-
-list(
-    # StatLoop layer
-    layer(
-      stat = StatLoop, data = data, mapping = mapping, geom = geom, 
-      position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-      params = list(na.rm = na.rm, alpha = 0.35, col = NA, ...)
-    ),
-
-Case Study 2:
-
-```
-  geom_linerange(aes(ymin = min, ymax = max), col = "#EED8AE", alpha = 0.2)
-```
-
-CREATING NEW STAT LAYERS!
-
-"StatHistorical" is the class name
-
-```
-# Create the stats object
-StatHistorical <- ggproto("StatHistorical", Stat,
-                    compute_group = function(data, scales, params) {
-                      data <- data %>%
-                        filter(year != max(year)) %>%
-                        group_by(x) %>%
-                        mutate(ymin = Hmisc::smean.cl.normal(y)[3],
-                               ymax = Hmisc::smean.cl.normal(y)[2]) %>%
-                        ungroup()
-                    },
-                    required_aes = c("x", "y", "year"))
-
-# Create the layer
-stat_historical <- function(mapping = NULL, data = NULL, geom = "point",
-                            position = "identity", na.rm = FALSE, show.legend = NA, 
-                            inherit.aes = TRUE, ...) {
-  list(
-    layer(
-      stat = "identity", data = data, mapping = mapping, geom = geom,
-      position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-      params = list(na.rm = na.rm, col = "#EED8AE", alpha = 0.3, shape = 16, ...)
-    ),
-    layer(
-      stat = StatHistorical, data = data, mapping = mapping, geom = "linerange",
-      position = position, show.legend = show.legend, inherit.aes = inherit.aes,
-      params = list(na.rm = na.rm, col = "#8B7E66", ...)
-    )
+-```
+  stat_bag <-
+    function(mapping = NULL,                   // what is mapping?
+    data = NULL,                               // Obv.
+    geom = "polygon",                          // Which internal geom to use.
+    position = "identity",                     // Obv.
+    na.rm = FALSE,                             // Obv.
+    show.legend = NA,                          // Obv.
+    inherit.aes = TRUE, loop = FALSE, ...) {   // What is loop for?
+      list(
+        # StatLoop layer
+        layer(
+          stat = StatLoop,                     // use defined ggproto
+          data = data,                         // use passeed data
+          mapping = mapping,                   // mapping?
+          geom = geom,                         // Obv.
+          position = position,                 // Obv.
+          show.legend = show.legend,           // Obv.
+          inherit.aes = inherit.aes,           // Obv.
+          params = list(na.rm = na.rm,         // aes information?
+                        alpha = 0.35,
+                        col = NA, ...)
+        ),
+    ...
+    )}
   )
-}
+  ```
 
-# Build the plot
-my_data <- clean_weather("NYNEWYOR.txt")
-ggplot(my_data, aes(x = x, y = y, year = year)) +
-  stat_historical()
-```
+- `geom_linerange()` is a thing.
+
+## Etc - Where did I get this stuff?
+- Package rgdal?
+- `rgdal::readOGR()` ?
+- `germany <- readOGR(dsn = "shapes", layer = "DEU_adm1")` ?
 
 - Shapefiles:
   1. several different files
   2. .shp = shape geometry
   3. .shx = shape index
   4. .dbf = attributes for each shape
-
-```
-rgdal::readOGR()
-```
-
-```
-germany <- readOGR(dsn = "shapes", layer = "DEU_adm1")
-
-# fortify germany: bundes
-bundes <- fortify(germany)
-
-# Plot map of germany
-ggplot(bundes, aes(x = long, y = lat, group = group)) +
-    geom_polygon(fill = "blue", col = "white") +
-    coord_map() +
-    theme_nothing()
-```
-
 
 
 ## Investigate:
