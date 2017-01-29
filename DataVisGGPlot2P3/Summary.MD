@@ -172,11 +172,11 @@
          y = lat ,          // Obv.
          group = group)) +  // Interesting?
   geom_polygon() +          // Draw shapes.
-   coord_map() +            // adjust scales
+   coord_map() +            // Adjust scales
    theme_nothing()          // Remove background
   ```
 
-- `coord_map()` this actually quite complicated.
+- `coord_map()` this is actually quite complicated.
 - `state<- map_data("state")` will get United State's States.
 
 -```
@@ -239,7 +239,7 @@
 - gganimate uses the `interval` variable to control the time, in seconds, to switch frames.
 - You will need to install package devtools, then use `devtools::install_github("dgrtwo/gganimate")` to install.
 - Then, you can load package.
-- gg_animate( [ggplot2_object], [nameOfGif])
+- `gg_animate( [ggplot2_object], [nameOfGif])`
 - saveGIF can be used from the animation Package.
 - saveGIF takes an expression, a name assigned to movie.name and interval.
 
@@ -261,188 +261,122 @@ saveGIF({
 }, movie.name = "pyramid.gif", interval = .1)                           // See Desc.
 ```
 
+- Use filename in gg_animate to specify saved file name.
 
 
+## Grid package
+- Two plotting systems in R: base and Grid.
+- Grid is module; base is static.
+- Paul Murell designed Grid.
+- Grid is low level builder for plots; does not make them.
+- ggplot2 built on Grid Graphics
+- Two components to Grid:
+  1. Create Layouts
+  2. Layer and Position with viewports
+- Grid low level functions:
+  - grid.rect()
+  - grid.lines()
+  - grid.circle()
+  - grid.polygon()
+  - grid.text()
+- Arguments:
+  ```
+  (x = .5,                    // Obv.
+   y = .5,                    // Obv.
+   width = .5,                // Obv.
+   height = .5,               // Obv.
+   just = "center",           // Obv.
+	 name = "myCircle",         // internal name to reference
+   gp = gpar( fill = 'pink')) // gpar means 'Graphical Part'
+  ```
+- grid.edit("myCircle", gp = gpar( fill = "pink" )) // allows one to change elements of named objects
 
-gg_animate()
+- Viewports are a window which we draw graphic output.
+- Default viewport is called the "Null Viewport"
 
+- `vp <- viewport( ... )` to create viewport // same args as gpar, etc.
+- Not active by default.
+- To show viewport use `pushViewport( vp )`.
+- You can also name viewports.
+- Using plotViewport allows one to define margins.
+- Define margins via  `margins = [vector_of_4_ints]`
 
-```
-# Update the static plot
-p <- ggplot(Vocab, aes(x = education, y = vocabulary,
-                       color = year, group = year, frame = year, cumulative = TRUE)) +
-  stat_smooth(method = "lm", se = FALSE, size = 3)
+- DataViewport pushes data onto the viewport
+- You can manage the axis of the plot using:
+  1. grid.xaxis()
+  2. grid.yaxis()
 
-# Call gg_animate on p
-gg_animate(p, interval = 1.0, filename = "vocab.gif")
-```
-
-
-
-
-
-- Shapefiles:
-  1. several different files
-  2. .shp = shape geometry
-  3. .shx = shape index
-  4. .dbf = attributes for each shape
-
-```
-rgdal::readOGR()
-```
-
-```
-germany <- readOGR(dsn = "shapes", layer = "DEU_adm1")
-
-# fortify germany: bundes
-bundes <- fortify(germany)
-
-# Plot map of germany
-ggplot(bundes, aes(x = long, y = lat, group = group)) +
-    geom_polygon(fill = "blue", col = "white") +
-    coord_map() +
-    theme_nothing()
-```
-
-
-
-
-
-
-Grid package
-
-2 plotting systems in R: base and Grid.
-
-Paul Murell designer.
-
-ggplot2 built on Grid
-
-Create graphics
+- You can use grid.text to add labels:
+  1. `grid.text( label = [x_label_name], y = unit( -3, "lines"))`
+  2. `grid.text( label = [y_label_name], x = unit(-3, "lines" ), rot = 90)`
 
 
-grid.rect()
-grid.lines()
-grid.circle()
-grid.polygon()
-grid.text()
-	(x = .5, y = .5, width = .5, height = .5, just = "center",
-	name = "myCircle")
-
-grid.edit("myCircle", gp = gpar( fill = "pink" ))
-
-gp = graphical parameter
-
-Viewports are a window which we draw graphic output.
-vp <- viewport( ... )
-pushViewport( vp )
-
-grid.xaxis()
-grid.yaxis()
+- Add points via `grid.points( x = mtcars$wt, y = mtcars$mpg, pch = 16)`
 
 
-# Create data viewport: dvp
-dvp <- dataViewport( xData = mtcars$wt, yData = mtcars$mpg)
+## Internals of ggplot2
+- Graphical Objects -> Grobs
+- Grids map to grobs as such: grid.rect() -> rectGrob()
+- All ggplot objects are a collection of grobs.
+- Access to grobs using Grid package
+- Convert to grob Table using `ggplotGrob( [object] )`
+- Access elements of table using `g$grob[[ # ]]`
+  1. Why not use the name column with %in%, which or grep?
+- Draw elements onto Null viewport using `grid.draw( g[[ # ]] )`
+- Use `gtable_show_layout( ... )` from Package gtable to see str of table.
 
-
-```
-pushViewport(plotViewport(c(5, 4, 2, 2)))
-grid.rect(gp = gpar())
-pushViewport(dataViewport(xData = mtcars$wt, yData = mtcars$mpg))
-grid.xaxis()
-grid.yaxis()
-
-# Add text to x axis
-grid.text( label = "Weight", y = unit( -3, "lines" ))
-
-# Add text to y axis
-grid.text( label = "MPG", x = unit(-3, "lines" ), rot = 90)
-
-# Add points
-grid.points( x = mtcars$wt, y = mtcars$mpg, pch = 16)
+- Objects are mini arrays/matrices of drawn objects.
+- ```
+  my_text <- textGrob( label = "My Added Text",   // The text to add.
+                        gp = gpar( fontsize = 4,  // text attributes
+                                   col = "blue")) // "
 ```
 
-
-Having a name allows you to call grid.edit
-
-
-Graphical Objects -> Grobs
-
-grid.rect() -> rectGrob()
-
-
-ggplotGrob( [object] )
-can access grobs via g$grob[[ # ]]
-
-library( gtable)
-gtable_show_layout(g$grob[[8]])
+- Use`var<- gtable_add_grob(object$grobs[[ # ]], my_text, [row], [column])` to create new grob element
+- You can replace the old grob object in the grob table by assigning new value to old object.
 
 
 
-```
-p <- ggplot(mtcars, aes(x = wt, y = mpg, col = factor(cyl))) + geom_point()
+## ggplot2 Objects
+- When you call ggplot, you get an object even if it's empty.
+- Object contains 9 elements:
+  1. data
+  2. layers
+  3. scales
+  4. mapping
+  5. theme
+  6. coordinates
+  7. facet
+  8.  plot_env
+  9. labels
 
-# Create gtab with ggplotGrob()
-gtab<- ggplotGrob( p )
-
-# Print out gtab
-print( gtab )
-
-# Extract the grobs from gtab: gtab
-g<- gtab$grobs
-
-# Draw only the legend
-grid.draw( g[[ 8 ]] )
-```
-
-```
-# Code from before
-p <- ggplot(mtcars, aes(x = wt, y = mpg, col = factor(cyl))) + geom_point()
-gtab <- ggplotGrob(p)
-g <- gtab$grobs
-grid.draw(g[[8]])
-
-# Show layout of g[[8]]
-gtable_show_layout( g[[8]])
+- Plot is rendered using `ggplot_build( [object] )`
+- The returned object contains:
+  1. data  // all layers of data
+  2. panel // axis info
+  3. plot  // the actual image returned
+- Convert ggplot -> gtable using `ggplot_gtable( [object] )`
+- Change the clipping of axis using `gtableObject$layout$clip <- "off"`
 
 
 
-# Create text grob
-my_text <- textGrob(label = "Motor Trend, 1974", gp = gpar(fontsize = 7, col = "gray25"))
 
-# Use gtable_add_grob to modify original gtab
-new_legend <- gtable_add_grob(gtab$grobs[[8]], my_text, 3, 2)
-
-# Update in gtab
-gtab$grobs[[8]] <- new_legend
-
-# Draw gtab
-grid.draw( gtab )
-```
-
-
-ggplot2 Objects
-
-renders ggplot2 with ggplot_build()
-convert ggplot to gtable using ggplot_gtable( object )
-
-
-gridExtra package ?
-
-plyr package
-
-```
-# Load gridExtra
-library( gridExtra )
-
-# Call grid.arrange()
-grid.arrange( g1, g2, ncol = 2)
-```
-
-```
-grid.arrange(g1_noleg, g2, my_legend,
-             layout_matrix = matrix(c(1, 3, 2, 3), ncol = 2),
-             heights = unit.c(unit(1, "npc") - legend_height, legend_height))
-```
+## gridExtra
+- Using plyr package. // purrr package is better.
+- Load gridExtra to gain access to `grid.arrange()`.
+- To combine plots, use `grid.arrange( [plot1], [plot2], ncol = #)` // ncol is optional
+- Use `do.call( grid.arrange, [list_of_plot_objects] )` to plot all plots.
+- Use `grid.arrange` when you are not able to make manual adjustments.
+-```
+  grid.arrange(
+    g1_noleg,          // plot1
+    g2,                // plot2
+    my_legend,         // extracted legend_grob
+    layout_matrix =    // creates matrix with form [ 1, 2 ]
+      matrix(c(1, 3, 2, 3),ncol = 2),    //        [ 3, 3 ]
+    heights = unit.c( unit(1, "npc") - legend_height, // what is a unit.c()?
+    legend_height))
+ ```
 
 Write your own extensions in ggplot2
 
@@ -532,7 +466,29 @@ ggplot(my_data, aes(x = x, y = y, year = year)) +
   stat_historical()
 ```
 
-Need to take this all apart.
+- Shapefiles:
+  1. several different files
+  2. .shp = shape geometry
+  3. .shx = shape index
+  4. .dbf = attributes for each shape
+
+```
+rgdal::readOGR()
+```
+
+```
+germany <- readOGR(dsn = "shapes", layer = "DEU_adm1")
+
+# fortify germany: bundes
+bundes <- fortify(germany)
+
+# Plot map of germany
+ggplot(bundes, aes(x = long, y = lat, group = group)) +
+    geom_polygon(fill = "blue", col = "white") +
+    coord_map() +
+    theme_nothing()
+```
+
 
 
 ## Investigate:
@@ -542,11 +498,10 @@ Need to take this all apart.
 - kernel = "gaussian"
 - car package
 - cmdscale
-- saveGIF?
 - plot_quart() ?
 - viridis Package
 - PerformanceAnalytics Package
-- gather function from Package tidyr?
+- gather function from Package tidyr
 - matlib Package
 
 ## Reading List:
