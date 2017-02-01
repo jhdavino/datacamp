@@ -1,0 +1,139 @@
+# Writing Functions in R
+
+Parts of functions:
+1. function declaration
+2. arguments to function
+3. Body of the function
+4. name of function
+
+
+-you can delcare a default argument using `y = 1`
+- pass by name, pass by position.
+
+three components:
+1. the format arguments
+2. the body
+3. the environment
+
+`formals()` to seee formal arguments to function
+`body()` to see body of function
+`environment()` to display running environment for function
+
+
+- The last evaluated expression is returned.
+- calling return will stop function; used for efficiency.
+- can create functions without a name; called anonymous functions
+- functions are normal R objects
+
+
+
+## Environments
+- scoping describes how R looks up values by name
+- Calling a funtion creates a new environment for variables
+- if it does not exist in current envir, then look up one environment
+- Scoping describes wehre not when
+- Never write functions that depend on global variables; more complicated than that.
+
+- Lookup by name works in functions.
+- ```
+	c = 2
+	c(c = c)
+  ```
+  - c is used as function, name, and variable here.
+
+- Each time function is called, it gets new envir
+`exists()` accepts a string and returns whether true.
+
+## Data Structures
+- There are two types of vectors:
+  1. Atomic Vectors:
+  	1. Logical.
+  	2. Integer.
+  	3. Double.
+  	4. Character.
+  	5. Complex.
+  	6. Raw ?
+  2. Lists: which are recursive.
+
+- Every vector has two key properties: type [ typeof() ] and length[ length() ]
+- R represents missing values differently whether inside a vector or a missing vector itself.
+- NULL is used for missing vector; has length 0.
+- NA is used for missing valeus in a vector; has length 1; type logical.
+- Missing values are contagious; ie. they overrride all operators.
+
+- Lists can contain heterogeneous objects
+- Created with list()
+- Subset using [, [[, or $.
+- [ extracts sublist
+- [[, $ extract elements.
+
+## For Loops
+- used for iteration, Obv.
+- Three parts common to all For Loops
+  1. Sequance.
+  2. Body.
+  3. Output.
+
+- Double brackets work on dataframes since they're just lists in reality.
+-`seq_along()` to create vector from 1 to ncol( df )
+
+
+
+## Functions
+- Algorithm of creating function.
+  1. Identify problem.
+  2. Get data.
+  3. Create working snippet of solution.
+  4. Rewrite the snippet using temporary variables.
+  5. Analyize to simplify.
+  6. FUNCTUN SUCES!
+
+- Functions should be correct and readable.
+- use consistent naming conventions
+- Avoid using reserved words and base function names.
+- my_awesome_function() is best name // sarcasm.
+- Data arguments should always coem first
+
+## Functional Programming
+- ```
+  for (i in seq_along(df)) {            
+    output[[i]]<- median( df[[i]])
+  }
+  ```
+- output will auto-return itself at the end.
+- Functions can be passed to functions as well.
+
+- purrr Package is awesome.
+- map funjctions take .x vector, .f for functions
+- There is one map function for each atomic vector map_*
+- Passing dataframe to map will ierate over the columns of dataframe.
+- Passing list to map will iterate over each element in the list.
+- Passing vector to map will iterate over each element in the vector.
+
+
+## Shortcuts
+- You can pass arguments after .x and .f
+- .f Can be an anonymous function.
+- `~sum( is.na( . ))` is a formula where '.' is used to replace .x
+- Using `"a"` will subset out ONLY 'a' when passed to map_*: `map( )
+- `split()` is something I didn't know I wanted.
+- `map( cyl, ~ lm(.$mpg ~ .$wt, data = .$df) )` keeping for reference.
+
+## Interesting Notes
+- Wrapping function in `safely()` will ensure that function returns both results and errors
+- `safely()` always returns a list split into two parts: result and error.
+- `possibly()` will be similar to `safely()` but can be passed a default value.
+- `quietly()` will collect all output from function.
+- `map2()` allows one to use .x AND .y to iterate over; uses position of args.
+- `pmap()` can iterate over any n lists;
+- `pmap()` should contain .l, which is the list of lists
+- `invoke_map()` can iterate over both variable args AND variable functions
+- .f should come first in `invoke_map`
+
+
+
+## Research
+- Raw vectors?
+
+
+## Further Reading.
