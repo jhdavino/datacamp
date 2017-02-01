@@ -130,10 +130,36 @@ three components:
 - `invoke_map()` can iterate over both variable args AND variable functions
 - .f should come first in `invoke_map`
 
+## Robust Code
+- R is for both interactive analysis and Programming.
+- This results in a tension between the two uses.
+- Three main problems
+  1. Type unstable outputs.
+  2. Non-Standard Evaluation of input.
+  3. Global Options impact commands.
+- `stopifnot()` is what you want to clean exits of improper inputs.
+- `stop( 'information to pass', call. = FALSE)` will do something similar.
+- `.call` specifies if the function call should be returned as well. 
+- A function that has no side effects is called pure.
+
+- The apply functions are not type-secure.
+
+- Non-Standard Evaluation are functions that don't use the normal lookup rules.
+- You CAN use non-standard evaluatig functions, but be careful not to pass globals into them.
+
+- Pure functions have two aspects:
+  1. Output only depends on input.
+  2. They don't affect anything outside of themselves.
+- Hidden arguments are those that affect what the function does, but you didn't insert them: ie. default args.
+- The worst kind are hidden inputs dependant on global options.
+- You can find global options by calling `options()`
+- You can get an option using getOption( [string ])
+- Set options using `options( arg = value )`
 
 
 ## Research
 - Raw vectors?
-
+- substitute()?
+- Metaprogramming?  
 
 ## Further Reading.
