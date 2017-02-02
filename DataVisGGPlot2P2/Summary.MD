@@ -1,4 +1,5 @@
 # Data Visualization with GGPlot2, Part 2 at a Glance
+
 - Coordinates layer controlled by coord_cartesian()
 - `scale_x_continuous( limits= c(4.5, 5.5))` will hard limit x values between 4.5 and 5.5
 - `xlim( c(4.5, 5.5) )` will impact how models and lines are displayed; lead to erroneous result.

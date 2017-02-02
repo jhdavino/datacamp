@@ -1,20 +1,21 @@
 # Data Visualization with GGPlot2, Part 3
 
-- ```
-  stat_summary(fun.data = "mean_cl_normal", // mean "Confidence Levels" Normal
-    geom = "crossbar",                      // crossbar 
-    width = .2,                             // width of the bars.
-    col = 'red')                            // Obv.
-  ```
+```
+stat_summary(fun.data = "mean_cl_normal", // mean "Confidence Levels" Normal
+  geom = "crossbar",                      // crossbar 
+  width = .2,                             // width of the bars.
+  col = 'red')                            // Obv.
+```
 
 
 
 - `scale_y_log10()` will scale the y axis.
-- ```scale_x_log10(
-      expression( log[10](Carat) ), // use this as the text
-      limits = c(.1, 10)           // set x limits as ..
-    )
-  ```
+```
+scale_x_log10(
+  expression( log[10](Carat) ),  // use this as the text
+    limits = c(.1, 10)           // set x limits as ..
+  )
+```
 
 - Box plots and Density plots are useful for scientific audiances.
 - 5 point summary displays distribution as 25% pieces.
@@ -37,14 +38,14 @@
 - geom_density cuts off outer data when using limits; this means area under curve is no longer 1.
 
 
-- ```
-  fun_args <- list(mean = mean(test_data$norm), // mean of data
-                   sd   = sd(test_data$norm))   // st. dev. of data
-  ...
-  // this is basically do.call
-  stat_function( fun  = dnorm,    // function to call
-                 args = fun_args, // args to the function.
-                 col  = "blue")   // aes mappings to pass
+```
+fun_args <- list(mean = mean(test_data$norm), // mean of data
+                 sd   = sd(test_data$norm))   // st. dev. of data
+...
+// this is basically do.call
+stat_function( fun  = dnorm,    // function to call
+               args = fun_args, // args to the function.
+               col  = "blue")   // aes mappings to pass
 ```
 - do.call use of function header
   1. what is func.
@@ -59,18 +60,17 @@
 
 
 - `p + geom_density_2d()` is the contour map of ggplot2
-- ```
-  stat_density_2d(            // Known.
-    geom = "tile",            // 
-    aes( fill = ..density..), // use internal
-    contour = FALSE)          // contour lines; = T will break former assignments.
-  ```
+```
+stat_density_2d(            // Known.
+  geom = "tile",            // 
+  aes( fill = ..density..), // use internal
+  contour = FALSE)          // contour lines; = T will break former assignments.
+```
 
 - can replace `geom = ` with others: like "point"
 
 
-
--```
+```
   # Base layers
   p <- ggplot(faithful, aes(x = waiting, y = eruptions)) +
   scale_y_continuous(limits = c(1, 5.5), expand = c(0, 0)) +
@@ -108,29 +108,29 @@
 - Who says "Zed" for "z"?
 - Use ggtern from Package ggtern
 - `geom_density_tern()` simple version of ternary plot
-- ```
-  ...
-  stat_density_tern(
-    geom = "polygon",              // how should info be drawn.
-      aes( fill = ..level..,       // fill by internal frame.
-           alpha = ..level..)) +   // opacity by internal frame.
-  guides(                          // Remove guide legend
-    fill = guide_legend( show = FALSE ))
-  ```
+```
+...
+stat_density_tern(
+  geom = "polygon",              // how should info be drawn.
+    aes( fill = ..level..,       // fill by internal frame.
+         alpha = ..level..)) +   // opacity by internal frame.
+guides(                          // Remove guide legend
+  fill = guide_legend( show = FALSE ))
+```
 
 
 ## Network Plots
 - geomnet Package
 - The arrangement of nodes affects interpretation.
 - `aes(from_id = Name1, to_id = Name2))` will be used for Network Mapping.
-- ```
-  geom_net(
-    aes( col = Gender ),   // select via Gender
-    size = 6,              // Obv.
-    linewidth = 1,         // Obv.
-    label = TRUE,          // Add data labels to nodes.
-    fontsize = 3,          // Obv.
-    labelcolour = "black") // You can define text color: cool.
+```
+geom_net(
+  aes( col = Gender ),   // select via Gender
+  size = 6,              // Obv.
+  linewidth = 1,         // Obv.
+  label = TRUE,          // Add data labels to nodes.
+  fontsize = 3,          // Obv.
+  labelcolour = "black") // You can define text color: cool.
 ```
 
 - Needs to be expanded, tbh.
@@ -146,16 +146,15 @@
 - influencePlot from car Package.
 - `autoplot( [model], ncol = 2 )` from package ggfortify
 - autoplot, since it's based on ggplot, can be extended via ggplot
-- ```
-  autoplot(
-    cmdscale( eurodist, eig = TRUE ), // Classical Multidimensional Scaling of data.
-    label = TRUE,                     // add labels
-    label.size = 3,                   // Obv.
-    size = 0 )                        // Obv.
-  ```
+```
+autoplot(
+  cmdscale( eurodist, eig = TRUE ), // Classical Multidimensional Scaling of data.
+  label = TRUE,                     // add labels
+  label.size = 3,                   // Obv.
+  size = 0 )                        // Obv.
+```
 
 - kmeans( [ data ], [ k-centers] )
-
 
 ## Maps and animations:
   1. Choropleths
@@ -166,20 +165,20 @@
 - Choropleth's Draw bunch of polygons representative of geography.
 - This is built into ggplot2
 - `[region] <- map_data( [region] )`
-- ```
-  ggplot( usa,
-    aes( x = long,          // Obv.
-         y = lat ,          // Obv.
-         group = group)) +  // Interesting?
+```
+ggplot( usa,
+  aes( x = long,          // Obv.
+       y = lat ,          // Obv.
+       group = group)) +  // Interesting?
   geom_polygon() +          // Draw shapes.
-   coord_map() +            // Adjust scales
-   theme_nothing()          // Remove background
-  ```
+  coord_map() +            // Adjust scales
+  theme_nothing()          // Remove background
+```
 
 - `coord_map()` this is actually quite complicated.
 - `state<- map_data("state")` will get United State's States.
 
--```
+```
   ggplot(state,                    // State Data
     aes( x = long,                 // Obv.
          y = lat,                  // Obv.
@@ -188,7 +187,7 @@
     geom_polygon( col = "white") + // Remember that col = outside barrier.
     coord_map() +
     theme_nothing()
-  ```
+```
 - As with other graphs, you can map fill onto different shades of color.
 
 
@@ -208,25 +207,25 @@
 - Map is not redrawn based on the points, so you can lose data.
 - Create a 'boundary box' using `make_bbox( lon = [longitudes], lat = [ latitudes], f = [fuzzing])
 - You can request locations using the bbox setting `location = bbox_name` in get_map
-- ```
-  ggmap( london_ton_13) +
+```
+ggmap( london_ton_13) +
   geom_label(data = xx,     // geom_label is a thing.
     aes(label = location),  // label = names
     size = 4,               // Obv.
     fontface = "bold",      // Obv.
     fill = "grey90",        // Obv.
     col = "#E41A1C" )       // Obv.
-  ```
+```
 
 - You can combine maps from Google and adding polygons to it.
-- ```
-  geom_polygon( data = bundes,
-    aes(x = long,               // Obv.
-        y = lat,                // Obv.
-        group = group),         // Obv.
-    fill = NA,                  // Obv; Do this to maintain the background of the map.
-    col = "red")                // Obv.
-  ```
+```
+geom_polygon( data = bundes,
+  aes(x = long,               // Obv.
+      y = lat,                // Obv.
+      group = group),         // Obv.
+  fill = NA,                  // Obv; Do this to maintain the background of the map.
+  col = "red")                // Obv.
+```
 
 
 ## Animations
@@ -244,7 +243,7 @@
 - saveGIF can be used from the animation Package.
 - saveGIF takes an expression, a name assigned to movie.name and interval.
 
--```
+```
 saveGIF({
   for (i in unique( japan$time)) {            // this could be done better with dplyr
     data<- subset( japan, japan$time == i )   // subset; use filter( ... )
@@ -281,7 +280,7 @@ saveGIF({
   - grid.polygon()
   - grid.text()
 - Arguments:
-  ```
+```
   (x = .5,                    // Obv.
    y = .5,                    // Obv.
    width = .5,                // Obv.
@@ -289,7 +288,7 @@ saveGIF({
    just = "center",           // Obv.
 	 name = "myCircle",         // internal name to reference
    gp = gpar( fill = 'pink')) // gpar means 'Graphical Part'
-  ```
+```
 - grid.edit("myCircle", gp = gpar( fill = "pink" )) // allows one to change elements of named objects
 
 - Viewports are a window which we draw graphic output.
@@ -327,10 +326,10 @@ saveGIF({
 - Use `gtable_show_layout( ... )` from Package gtable to see str of table.
 
 - Objects are mini arrays/matrices of drawn objects.
-- ```
-  my_text <- textGrob( label = "My Added Text",   // The text to add.
-                        gp = gpar( fontsize = 4,  // text attributes
-                                   col = "blue")) // "
+```
+my_text <- textGrob( label = "My Added Text",   // The text to add.
+                     gp = gpar( fontsize = 4,  // text attributes
+                                col = "blue")) // "
 ```
 
 - Use`var<- gtable_add_grob(object$grobs[[ # ]], my_text, [row], [column])` to create new grob element
@@ -368,7 +367,7 @@ saveGIF({
 - To combine plots, use `grid.arrange( [plot1], [plot2], ncol = #)` // ncol is optional
 - Use `do.call( grid.arrange, [list_of_plot_objects] )` to plot all plots.
 - Use `grid.arrange` when you are not able to make manual adjustments.
--```
+```
   grid.arrange(
     g1_noleg,          // plot1
     g2,                // plot2
@@ -377,7 +376,7 @@ saveGIF({
       matrix(c(1, 3, 2, 3),ncol = 2),    //        [ 3, 3 ]
     heights = unit.c( unit(1, "npc") - legend_height, // what is a unit.c()?
     legend_height))
- ```
+```
 
 ## Your Own Extensions
 
@@ -396,19 +395,19 @@ saveGIF({
   3. Required Aesthetics
   4. Action taken.
 
-- ```
-  StatLoop <-
-    ggproto("StatLoop",            // name of layer.
-      Stat,                        // class inherited from.
-      required_aes = c("x", "y"),  // Obv.
-      compute_group = function(data, scales){                  // actual calculations.
-      bag <- compute.bagplot(x = data$x, y = data$y)
-      data.frame(x = bag$hull.loop[,1], y = bag$hull.loop[,2])
-    })
-  ```
+```
+StatLoop <-
+  ggproto("StatLoop",            // name of layer.
+    Stat,                        // class inherited from.
+    required_aes = c("x", "y"),  // Obv.
+    compute_group = function(data, scales){                  // actual calculations.
+    bag <- compute.bagplot(x = data$x, y = data$y)
+    data.frame(x = bag$hull.loop[,1], y = bag$hull.loop[,2])
+  })
+```
 
 
--```
+```
   stat_bag <-
     function(mapping = NULL,                   // what is mapping?
     data = NULL,                               // Obv.
@@ -434,7 +433,7 @@ saveGIF({
     ...
     )}
   )
-  ```
+```
 
 - `geom_linerange()` is a thing.
 

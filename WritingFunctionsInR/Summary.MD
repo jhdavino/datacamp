@@ -35,11 +35,11 @@ three components:
 - Never write functions that depend on global variables; more complicated than that.
 
 - Lookup by name works in functions.
-- ```
+```
 	c = 2
 	c(c = c)
-  ```
-  - c is used as function, name, and variable here.
+```
+- c is used as function, name, and variable here.
 
 - Each time function is called, it gets new envir
 `exists()` accepts a string and returns whether true.
@@ -95,11 +95,11 @@ three components:
 - Data arguments should always coem first
 
 ## Functional Programming
-- ```
+```
   for (i in seq_along(df)) {            
     output[[i]]<- median( df[[i]])
   }
-  ```
+```
 - output will auto-return itself at the end.
 - Functions can be passed to functions as well.
 
