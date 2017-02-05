@@ -31,7 +31,43 @@
 - If the function is not from tm package, then wrap in `content_transformer()`
 - `stemDocument()` takes a vector and returns the word stem of all words.
 - Returned stems will sometimes need to be completed using `stemCompletion( [stems], [dictionary] )`
- 
+
+
+## Text Mining Visuals
+- Good visuals lead to quick conclusions
+- Due to brain's ability to efficiently process visual information.
+
+```
+frequency<-
+  freq_terms(
+    text,                       // Obv.
+    top = 10,                   // Obv.
+    at.least = 3,               // Obv.
+    stopwords = "Top200Words"   // Predefned set of words to remove
+  )
+
+- Creating a word cloud requires:
+  1. Create TDM
+  2. Convert to matrix
+  3. Rowsum the matrix to create frequency vector
+  4. Create a data frame:
+  ```
+  data.frame( term = names( term_frequency ),
+              num = term_frequency )
+  ```
+  5. `wordcloud( word_freq$term, word_freq$num, max.words = 100, colors = 'red' )`
+
+- If you expect words in the cloud, then delete them else they may mask relationships.
+- `colors()` has a over 600 precoded colors to pull from.
+- There are tons more colors in package RColorBrewer.
+- The package organizes the colors into:
+  1. Sequential: light to dark.
+  2. Qualitative: Pleasing together.
+  3. Diverging: 'two distinct colorspectra'
+
+- `purple_orange<- brewer.pal(10, "PuOr")` will select 10 colors from Purple to Orange.
+
+
 - Package qdap functions:
 	1. `bracketX()` removes brackets from text.
 	2. `replace_number()` convert numbers to words.
@@ -46,12 +82,6 @@
 - Create TDM by using `TermDocumentMatrix( [corpus] )`
 - Create DTM by using `DocumentTermMatrix( [corpus] )`
 - qdap Package depends on a Word Frequency Matrix (WFM)
-
-
-
-
-
-
 
 
 - Commonality Cloud is the intersection of terms in two corpus
@@ -106,7 +136,6 @@ word_associate( vector_of_text,                                 // Obv.
                 network.plot = TRUE,                            // if false, then no plot
                 cloud.colors = c('blue', 'red')                 // Obv.
                )
-
 ```
 
 ## Simple Word Clustering
@@ -138,9 +167,6 @@ custom_reader<- readTabular( mapping = list(
 
 - Then, you can add `readerControl = list( reader = custom_reader))` to use the declared variables.
 - The created corpus acts as a list with nested elements now.
-
-
-
 
 ## Research
 - Package qdap
