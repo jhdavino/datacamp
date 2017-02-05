@@ -51,9 +51,102 @@
 
 
 
+
+
+
+- Commonality Cloud is the intersection of terms in two corpus
+- Collapse all text into a single block for each set of terms.
+- Place the collapsed terms into a two length vector
+- Convert to Corpus, then convert to a matrix and pass to `commonality.cloud()`.
+
+```
+combined_text<- VectorSource( length_two_vector )
+combined_corpus<- VCorpus( combined_text )
+combined_clean<- clean_corpus( combined_corpus )  // function built inside class; not in packages.
+combined_tdm <- TermDocumentMatrix( commbined_clea )
+combined_m<- as.matrix( combined_tdm )
+
+commonality.cloud( combined_m, colors = "steelblue1", max.words = 100)
+```
+
+- Comparison Cloud does the same thing, but it gives you the difference instead.
+- Ensure to to name the columns of teh Term Document Matrix!
+- `comparision.cloud( combined_m, colors = c('purple', 'orange'), max.words = 50 )`
+
+
+- Pyramind plots are ugly, but might be useful:
+```
+// These names are terrible.
+commond_words <- subset( combined_tdm,
+                         combined_tdm[, 1] > 0 & combined_tdm[, 2] > 0 )
+
+difference<- abs( commond_words[, 1] - common_words[, 2] )
+common_words<- cbind( commond_words, difference)
+common_words<- common_words[order( common_words[, 3], decreasing = TRUE)]
+top25_df<- data.frame( x = common_words[1:25, 1],
+                       y = common_words[1:25, 2],
+                       labels = rownames( common_words[1:25, ]))
+
+
+// The ugly monster itself:
+pyramind.plot( top25_df$x                 // left side.
+               top25_df$y,                // right side.
+               labels = top25_df$labels,  // Obv.
+               main = "Words in Common",  // Obv.
+               gap = 8,                   // Area between both sides.
+               laxly = NULL,              // Not sure.
+               top.labels = c('Chardonnay', 'Words', 'Coffee')
+            )
+```
+
+```
+word_associate( vector_of_text,                                 // Obv.
+                match.string = c('barista'),                    // ?
+                stopwords = c(Top200Words, 'coffee', 'amp'),    // Words to ignore.
+                network.plot = TRUE,                            // if false, then no plot
+                cloud.colors = c('blue', 'red')                 // Obv.
+               )
+
+```
+
+## Simple Word Clustering
+- `dist()` creates a pairwise distances between each location.
+- `hclust()` 
+- `plot( hclut_object )` creates a simple dendogram.
+- Package dendextend to improve dendograms
+- dendextend allows one to modify the dendogram as a class.
+- `branches_attr_by_labels( [object], [labe_names], [colors])`
+- `rect.dendogram()` comes from the Grid package // see GGGPLOT folders.
+- `removeSparseTerms(char_vecctor, sparse = [threshold] )` 
+- as sparse -> 0, more terms left in.
+- findAssocs( [TDM], [term], [corlimit] )    // from tm; what is corlimit?
+
+- Increasing the tokenization make the size larger.
+- Use `NGramTokeenizer( [vector], Weka_control( min = #, max = #))` from RWeka package to create tokens.
+- You can control how tokens are made in 'TDM()' using `control = list( tokenize = tokenizer)` passed as an arg.
+- You can weight terms in a TDM  via Term frequency-inverse.
+- Do this by passing `control = list( weighting = weightTfIdf )`
+- `readTabular()` can associate variables in the corpus with attributes from the data.
+```
+custom_reader<- readTabular( mapping = list(
+                   content = "text", 
+                   id ="num",
+                   author = "screenName",
+                   date = "created")
+               ))
+```
+
+- Then, you can add `readerControl = list( reader = custom_reader))` to use the declared variables.
+- The created corpus acts as a list with nested elements now.
+
+
+
+
 ## Research
 - Package qdap
 - What is a volitile corpus?
 - Word Frequency Matrix
+- How does dist create the difference matrix?
+- What are all functions of readTabular() ?
 
 ## Further Reading.
