@@ -6,4 +6,5 @@
 ### Data Visualization with ggplot2, Part 3 [/DataVisGgplot2P3]      {2017/01/27}
 ### Writing Functions in R                  [/WritingFunctionsInR]   {2017/02/01}
 ### Reporting with R Markdown               [/ReportingWithRMarkdown]{2017/02/02}
-### Text Mining: Bag of Words               [/TextBagOfWords]        {}
+### Text Mining: Bag of Words               [/TextBagOfWords]        {2017/02/08}
+### Working With RStudio                    [/WorkingWithRStudio]    {}

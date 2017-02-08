@@ -44,15 +44,27 @@ dataTab[ mpg > 20,                           // only rows where mpg > 20
 - Data.table treats symbols passed as literals.
 - Therefore, to pass a vector of targets to delete you must wrap the symbol in parenthesis.
 
+
+## SQL Like Behavior
+
 - `set( data.table, row, column, value)` to update by reference.
 - `setnames()` can be used to update column names by reference.
 - `setcolorder()` will reorder the order of columns by reference.
 
-- 
+- You can do boolean comparisons inside the i clause.
+- Data.table will auto-update the table with an internal index so that when you're submitting again it will be faster.
+- Data.table also allows you to manually select the column used for the index to speed up functions and searching.
+- Do this using `setkey( DT, column_name)` 
+- This also allows the default column to search as the index you specify.
+- You can also pass `multi = "first"` or `multi = "last"`
+- Lastly, you can also pass multiple search terms when an index is declared.
+- If a term is not found, it will return NA; override this behavior using `, nomatch = 0`
 
-
-
-
+- Multiple keys can be selected as indexes.
+- Using `roll = TRUE` will cause Data.table to use the value before where the gap in values is.
+- Using `roll = 'nearest` will cause Data.table to use the value closest to the gap between two values.
+- If you want Data.table to always roll a single direction, then use `roll = +Inf` or `roll = -Inf`.
+- You can use `key( DT )` to find what the current key is set to.
 
 
 ## Research
