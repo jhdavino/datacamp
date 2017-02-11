@@ -26,7 +26,28 @@
 - Type `CTRL + SHFT + S` to run whole source file.
 - Don't forget command `source()` exists.
 - Switch focus between panes use `CTRL + [1/2/3/4]`
-- 
+
+
+
+- Use `View( data.frame )` to open a spreadsheet of the data.frame where the source pane was.
+- `View()` has all sorts of minor ways to explore data.
+- Environment tab allows you to check what's been loaded by each package.
+- You can also click the arrrow next to a list to inspect the elements of it.
+- There is also a save icon to save Environment to .RData file.
+- RStudio has a data import feature.
+- You can use the Files Pane to navigate around your own compluter instead of at the command line.
+- You can cycle and export plots from the Plots Pane in the bottom right.
+- You can load and unload packages via the Packages Pane.
+- `detach()` will remove a package from the Environmeent.
+
+- I DON'T NEED NO HELP PANE!
+- You can open a help pane doc by highling a function and pressing `F1`
+- The Viewer Pane handles HTML objects.
+- I should probably use RPubs more.
+- Note that Rpubs just uses a frame that you can then load the frame instead of the page to download the content.
+
+
+## Programming
 
 
 
@@ -34,5 +55,6 @@
 
 
 ## Research
+- `rsconnect()` ?
 
 ## Further Reading.
