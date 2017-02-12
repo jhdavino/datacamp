@@ -76,18 +76,22 @@
 - You can mark a function to always be debugged using `debug( function_name )`.
 - You can undo the debug application using `undebug( function_name )`.
 
-
 ## Projects
 - Projects will save environment, code, variables, and more.
 - To Create, go to Project > New Project .
 - `CTRL + SHFT + F` can find text among any open files.
 - Highlight a funtion and then press `F2` to access the code of the function.
 
-
+## Packrat
+- What is packrat?
+- This is similar to what I was trying to work on.
+- When creating a new project, click the checkbox to enable it.
 
 
 ## Research
 - `rsconnect()`
 - `rapply()`
+- Packrat
+
 
 ## Further Reading.
