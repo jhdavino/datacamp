@@ -77,7 +77,6 @@
 - You can undo the debug application using `undebug( function_name )`.
 
 
-
 ## Projects
 - Projects will save environment, code, variables, and more.
 - To Create, go to Project > New Project .
