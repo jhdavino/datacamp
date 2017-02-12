@@ -47,7 +47,13 @@
 - Note that Rpubs just uses a frame that you can then load the frame instead of the page to download the content.
 
 
-## Programming
+- Clicking left of a line number will add a breakpoint to the code.
+- You then just need to `debugSource()` the file and the breapoints will stop execution.
+- RStudio will call the debugger when it sees `browser()`.
+- `debugonce( function_name)` to run through the debugger once.
+- You can mark a function to always be debugged using `debug( function_name )`.
+- You can undo the debug application using `undebug( function_name )`.
+
 
 
 
