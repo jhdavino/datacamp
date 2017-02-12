@@ -56,6 +56,12 @@
 
 
 
+## Projects
+- Projects will save environment, code, variables, and more.
+- To Create, go to Project > New Project .
+- `CTRL + SHFT + F` can find text among any open files.
+- Highlight a funtion and then press `F2` to access the code of the function.
+
 
 
 
