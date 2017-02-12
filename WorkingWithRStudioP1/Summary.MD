@@ -47,7 +47,29 @@
 - Note that Rpubs just uses a frame that you can then load the frame instead of the page to download the content.
 
 
-## Programming
+## Keyboard Shortcuts
+- `CTRL + SHFT + M` will insert a pipe operator ( %>% ) into RStudio.
+- `ALT + -` will insert an assignment arrow in RStudio.
+- `CTRL + SHIFT + C` will cause RStudio to insert/remove comments ahead of the highlighted area.
+- Help > Keyboard shortcuts.
+- `ALT + SHIFT + K` to open the keyboard shortcuts menu.
+- RStudio supports snippets.
+- Type the name of the snippet and then tab-complete it.
+- Add snippets using Tools > Global Options > Code Pane > Edit Snippets
+- EXTRACT FUNCTION IS LEGIT AWESOME; it's refactoring.
+- `CTRL + ALT + X` to extract code into a function definition.
+- `CTRL + ALT` will create multiple cursors
+- RSTUDIO HAS VIM OPTIONS!
+- To Enable, go to Tools > Global Options > Code > Enable VIM
+- `SHFT + ALT + G` and enter a line number to jump there.
+- `CTRL + F` will allow you to find, including with regex, values in the source pane.
+- `ALT + o` will collapse all folds - which are the little arrows next to code blocks.
+- `ALT + SHFT + o` will re-expand all of them.
+- "Run, modify, and fail often."
+- `CTRL + SHFT + F10` to restart the R session
+
+## Error Checking
+- 
 
 
 
@@ -55,6 +77,7 @@
 
 
 ## Research
-- `rsconnect()` ?
+- `rsconnect()`
+- `rapply()`
 
 ## Further Reading.
