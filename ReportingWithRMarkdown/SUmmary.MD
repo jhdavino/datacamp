@@ -64,7 +64,7 @@ R code can be inserted using `r code here`
 - You can override this by passing the document type has a second arg to `render()`.
 - Can also pass vector of types to create multiple.
 - Make sure to use ggplot2 for pdfs since ggvis is an HTML object.
-
+- This functionality depends on the `rmarkdown` Package being installed.
 ```
 ---
 title: "Demo"
