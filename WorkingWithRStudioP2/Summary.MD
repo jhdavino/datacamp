@@ -52,6 +52,7 @@
 - Or, use `CTRL + SHFT + C`
 - The check is optional, but CRAN will block package upload without it.
 
+## Bulding Your Package
 - R Packages are saved in a tarball.
 - To build package select `Build Tab > Build and Reload`.
 - Keyboard shortcut: `CTRL + SHFT + B`.
@@ -60,6 +61,23 @@
 - Dev mode puts packages in a separate folder structure to keep new changes isolated.
 - Source package is just a compressed version of your package.
 - Binary Package is optomized for your environment.
+
+- [CheetSheets](www.rstudio.com/resources/cheatsheets)
+
+## Version Control
+- I already know about git.
+- Git is a linked list.
+- Commits contain elements:
+	1. commit unique id.
+	2. commit user details.
+	3. commit changes.
+	4. commit message.
+	4. commit parent id.
+
+- Initialize a directory to use git: `Tools > Global Options > Git/SVN`.
+- Lecture interface is a bit outdated; git appears to be setup by default.
+- Pretty much everything past this point is outdated; only exists inside of projects.
+- I know how .gitignore works.
 
 
 
