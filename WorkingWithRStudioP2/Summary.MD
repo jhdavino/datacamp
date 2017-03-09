@@ -79,7 +79,21 @@
 - Pretty much everything past this point is outdated; only exists inside of projects.
 - I know how .gitignore works.
 
+## Reporting
+- Shiny, RMarkdown, Shiny
+- "Literate Programming"
+- There is a whole class on RMarkdown...
+- rticles package?
+- `CTRL + ALT + I` to insert rmarkdown code block
+- Compile notebook convnerts current script into a report.
+- You can use Latex directly; use extension .tex .
+
+
+
 
 
 
 ## Research
+- Gelphi?
+- rticle package
+
