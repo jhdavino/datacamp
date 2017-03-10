@@ -55,7 +55,7 @@
 ## Bulding Your Package
 - R Packages are saved in a tarball.
 - To build package select `Build Tab > Build and Reload`.
-- Keyboard shortcut: `CTRL + SHFT + B`.
+- Keyboard shortcut: `CTRL + SHFT + B`.!@
 
 - You can call Dev Mode using `devtools::dev_mode()`.
 - Dev mode puts packages in a separate folder structure to keep new changes isolated.
@@ -87,6 +87,9 @@
 - `CTRL + ALT + I` to insert rmarkdown code block
 - Compile notebook convnerts current script into a report.
 - You can use Latex directly; use extension .tex .
+
+
+
 
 
 
