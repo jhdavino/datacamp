@@ -45,7 +45,7 @@
 - Keyboard shortcut: `CTRL + SHFT + T`.
 
 - As long as your upload the exact file structure to github, then `install_github()` will work.
-- R coems with a built-in command to check for common errors.
+- R comes with a built-in command to check for common errors.
 - Command is `R CMD check` at a terminal window.
 - This command will work inside RStudio.
 - Or, use `Build Tab > Check`.
@@ -89,11 +89,17 @@
 - You can use Latex directly; use extension .tex .
 
 
-
-
-
-
-
+## Shiny
+- Wont focus on how to build Shiny Apps 'cause it's complicated.
+- There is an option to create a new Shiny App, including setup files.
+- Launch app with `CTRL + SHFT + ENTER`.
+- Upload Shiny apps to [here](www.shinyapps.io).
+- You will need:
+```
+install.packages("devtools")
+devtools::install_github("rstudio/shinyapps")
+```
+- Only lets you host 5 apps at a time for free.
 
 
 ## Research
