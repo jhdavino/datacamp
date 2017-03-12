@@ -1,11 +1,11 @@
 # Data Visualization with GGPlot2, Part 2 at a Glance
 
-- Coordinates layer controlled by coord_cartesian()
-- `scale_x_continuous( limits= c(4.5, 5.5))` will hard limit x values between 4.5 and 5.5
+- Coordinates layer controlled by coord_cartesian().
+- `scale_x_continuous( limits= c(4.5, 5.5))` will hard limit x values between 4.5 and 5.5.
 - `xlim( c(4.5, 5.5) )` will impact how models and lines are displayed; lead to erroneous result.
 - `coord_cartesian( xlim = c(4.5, 5.5))` will just zoom in on the graph; does not subset the dataset like xlim.
 - Aspect Ratio adjusts the height-to-width ratio.
-- `coord_fixed( .055 )` will change the ratio.`
+- `coord_fixed( .055 )` will change the ratio.
 
 
 ```
@@ -19,7 +19,7 @@ thin.bar <- ggplot(mtcars, aes(x = 1, fill = cyl)) + geom_bar()
 thin.bar + coord_polar( theta = "y")
 ```
 - Change to Circles/Pie.
-- facet_grid( [rows] ~ [columns] )
+- `facet_grid( [rows] ~ [columns] )`
 
 
 ## GGplot2 Themes
@@ -29,26 +29,27 @@ thin.bar + coord_polar( theta = "y")
   2. Line
   3. Rectangle
 
-- Using this will take the form: element_[type](); where type is from [Text, Line, Rectangle]
+- Using this will take the form: element_{type}(); where type is from [Text, Line, Rectangle].
 
 - Full list of possible elements:
 ```
 theme(
-line = element_line()
-text = element_text()
-title = 
-plot.title =
-legend.text = 
-legend.title =
-axis.title = 
-axis.title.x =
-axis.title.y = 
-axis.text = 
-axis.text.x = 
-axis.text.y = 
-strip.text = 
-strip.text.x = 
-strip.text.y = )
+  line = element_line()
+  text = element_text()
+  title = 
+  plot.title =
+  legend.text = 
+  legend.title =
+  axis.title = 
+  axis.title.x =
+  axis.title.y = 
+  axis.text = 
+  axis.text.x = 
+  axis.text.y = 
+  strip.text = 
+  strip.text.x = 
+  strip.text.y = 
+)
 ```
 
 - All text elements inherit from text
@@ -56,22 +57,24 @@ strip.text.y = )
 
 ```
 # Remove all the elements.
-uniform_panels <- theme(panel.background = element_blank(), 
-                        legend.key = element_blank(), 
-                        legend.background=element_blank(), 
-                        strip.background = element_blank())
+uniform_panels <- theme(
+  panel.background = element_blank(), 
+  legend.key = element_blank(), 
+  legend.background=element_blank(), 
+  strip.background = element_blank()
+)
 ```
 
 
 - Move the legend position using legend.position = c( [x], [y] ).
-- Move the legend rotation using legend.direction = "horizontal"
-- Move the legend position using legend.position = "bottom"
-- Remove the legend fully  using legend.position = "none"
+- Move the legend rotation using legend.direction = "horizontal".
+- Move the legend position using legend.position = "bottom".
+- Remove the legend fully  using legend.position = "none".
 
 - Instead of panel.margin, use panel.spacing .
 - Instead of panel.margin.x, use panel.spacing.x .
 
-- Create space between graphs using panel.margin.x = units( 2, "cm")
+- Create space between graphs using panel.margin.x = units( 2, "cm").
 - You can save the base plot and then adjust as needed.
 - This can be used to reset the plot.
 
@@ -120,9 +123,9 @@ ggplot( barley, aes( x = year, y = variety, fill = yield)) +
 - scale_fill_gradient is for two different colors.
 
 
-- California Health Interview Survey (CHIS)
-- Package vcd; "Visualizing Categorical Data"
-- `mosiac( M, shade = TRUE, color = TRUE)`
+- California Health Interview Survey (CHIS).
+- Package vcd; "Visualizing Categorical Data".
+- `mosiac( M, shade = TRUE, color = TRUE)`.
 
 
 

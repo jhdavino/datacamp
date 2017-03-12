@@ -30,9 +30,8 @@ output: html_document    // Obv.
 - LaTex is suable inside of the formula notation.
 - RMarkdown uses Knitr package by Yihui Xie.
 
-```
-R code can be inserted using `r code here`
-```
+
+- R code can be inserted using ``` {`r code here`} ```
 
 - Insert r code blocks using three backticks, then `{r}`, then close with three more backticks.
 - You can use `engine = [language]` to select other programming languages.
@@ -65,6 +64,9 @@ R code can be inserted using `r code here`
 - Can also pass vector of types to create multiple.
 - Make sure to use ggplot2 for pdfs since ggvis is an HTML object.
 - This functionality depends on the `rmarkdown` Package being installed.
+- *Dated:* This is know done using `knitr()`.
+
+
 ```
 ---
 title: "Demo"
@@ -85,13 +87,11 @@ output:
 ```
 
 - Can also use custom CSS using `css: name.css`
-
-## Etc
 - Adding `runtime: shiny` to the header allows one to add shiny apps to the R code.
 - Install LaTeX for pdf creation.
 - Install Pandoc
 
 ## Research
 
-## Further Reading.
+## Further Reading:
 [Cheat Sheet for RMarkdown](http://www.rstudio.com/wp-content/uploads/2015/03/rmarkdown-reference.pdf)

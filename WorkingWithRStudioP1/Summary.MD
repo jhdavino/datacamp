@@ -12,7 +12,7 @@
 	3. Environmet Pane.
 	4. Etc Pane
 
-- Clear conole window using `CTRL+L`.
+- Clear console window using `CTRL+L`.
 - History complete using `CTRL + [^]`
 - Tab Completion exists too.
 - Autocomplete shows up after typing three characters
@@ -94,4 +94,4 @@
 - Packrat
 
 
-## Further Reading.
+## Further Reading:

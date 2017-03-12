@@ -4,7 +4,8 @@
 stat_summary(fun.data = "mean_cl_normal", // mean "Confidence Levels" Normal
   geom = "crossbar",                      // crossbar 
   width = .2,                             // width of the bars.
-  col = 'red')                            // Obv.
+  col = 'red'                             // Obv.
+)
 ```
 
 
@@ -21,17 +22,17 @@ scale_x_log10(
 - 5 point summary displays distribution as 25% pieces.
 - Also, shows outliers as distinct features.
 
-- defined as: outlier = 1.5 * IQR [ Interquartile Range ]
+- defined as: outlier = 1.5 * IQR [ Interquartile Range ].
 - whiskers cannot be drawn outside the fence.
 
 - `cut_interval(x, n)` will cut with equal range.
 - `cut_number( x, n)` will cut with equal number of observations.
 - `cut_width( x, n)` cut with n sized groups; takes into account of range!
 
-- Density plot is good for univariate data
-- Kernal Density Estimate( KDE) 
+- Density plot is good for univariate data.
+- Kernal Density Estimate( KDE).
 - Many overlapping lines -> Higher Value -> Higher Density.
-- How do you pick the bandwith in KDE? 
+- How do you pick the bandwith in KDE?
 - Bandwith smooths out graph.
 
 - Density plots are just graphs of the underlying distribution.
@@ -40,7 +41,7 @@ scale_x_log10(
 
 ```
 fun_args <- list(mean = mean(test_data$norm), // mean of data
-                 sd   = sd(test_data$norm))   // st. dev. of data
+                   sd = sd(test_data$norm))   // st. dev. of data
 ...
 // this is basically do.call
 stat_function( fun  = dnorm,    // function to call
@@ -53,8 +54,8 @@ stat_function( fun  = dnorm,    // function to call
   3. Don't really need to care about the rest.
 
 
-- `geom_boxplot( varwidth = TRUE)` can be used to adjust width on observation count.
-- geom_density( aes( weight = n))` using n()/nrow( [item]) as n, will change volume of curve.
+- `geom_boxplot( varwidth = TRUE )` can be used to adjust width on observation count.
+- `geom_density( aes( weight = n ))` using n()/nrow( [item]) as n, will change volume of curve.
 - geom_violin will do this for you.
 - You can also weight this as well.
 
@@ -67,7 +68,7 @@ stat_density_2d(            // Known.
   contour = FALSE)          // contour lines; = T will break former assignments.
 ```
 
-- can replace `geom = ` with others: like "point"
+- can replace `geom = ` with others: like "point".
 
 
 ```
@@ -87,27 +88,27 @@ stat_density_2d(            // Known.
   3. Combination
 
 - Solutions:
-  1. Change your geom : ex `geom_bin2d( bins = 100 )` or `geom_hex( bin = 100 )`
-  2. Reducing over-plotting
+  1. Change your geom : ex `geom_bin2d( bins = 100 )` or `geom_hex( bin = 100 )`.
+  2. Reducing over-plotting.
   3. Reducing amount of information plotted.
-  4. Data reduction | PCA [ Principle Component Analysis ]
+  4. Data reduction | PCA [ Principle Component Analysis ].
   5. Facets // limited when tons of 
-  6. Scatter PLOt Matrix - SPLOM
-  7. ggpairs() from GGally Package
+  6. Scatter PLOt Matrix - SPLOM.
+  7. ggpairs() from GGally Package.
   8. ggparcoord() // This is ugly; don't use it.
-  8. Animations
+  8. Animations.
 
 
 - You can get a pxp correlation using:
-  1. chart.Correlation from Package PerformanceAnalytics
-  2. ggpairs from Package GGally
+  1. chart.Correlation from Package PerformanceAnalytics.
+  2. ggpairs from Package GGally.
 
 
-- Ternary Plot - Triangle Plot
-- Good Compsitional trivariate data
+- Ternary Plot - Triangle Plot.
+- Good Compsitional trivariate data.
 - Who says "Zed" for "z"?
-- Use ggtern from Package ggtern
-- `geom_density_tern()` simple version of ternary plot
+- Use ggtern from Package ggtern.
+- `geom_density_tern()` simple version of ternary plot.
 ```
 ...
 stat_density_tern(
@@ -120,7 +121,7 @@ guides(                          // Remove guide legend
 
 
 ## Network Plots
-- geomnet Package
+- geomnet Package.
 - The arrangement of nodes affects interpretation.
 - `aes(from_id = Name1, to_id = Name2))` will be used for Network Mapping.
 ```
@@ -137,15 +138,15 @@ geom_net(
 
 ## Diagnostic Plots
 - Calling plot with linear model gets you:
-  1. Residuals vs Fitted
-  2. Q-Q Plot?
-  3. Scale-Location Plot
-  4. Residuals vs Leverage
+  1. Residuals vs Fitted.
+  2. Q-Q Plot?.
+  3. Scale-Location Plot.
+  4. Residuals vs Leverage.
 
 - qqPlot from car Package.
 - influencePlot from car Package.
-- `autoplot( [model], ncol = 2 )` from package ggfortify
-- autoplot, since it's based on ggplot, can be extended via ggplot
+- `autoplot( [model], ncol = 2 )` from package ggfortify.
+- autoplot, since it's based on ggplot, can be extended via ggplot.
 ```
 autoplot(
   cmdscale( eurodist, eig = TRUE ), // Classical Multidimensional Scaling of data.
@@ -154,16 +155,16 @@ autoplot(
   size = 0 )                        // Obv.
 ```
 
-- kmeans( [ data ], [ k-centers] )
+- kmeans( [ data ], [ k-centers] ).
 
 ## Maps and animations:
-  1. Choropleths
-  2. Geographic Infomration System [ GIS ]
+  1. Choropleths.
+  2. Geographic Infomration System [ GIS ].
 
 
 
 - Choropleth's Draw bunch of polygons representative of geography.
-- This is built into ggplot2
+- This is built into ggplot2.
 - `[region] <- map_data( [region] )`
 ```
 ggplot( usa,
@@ -195,7 +196,7 @@ ggplot( usa,
 - `get_map( location = [ City, Country], zoom = [X])` can be used to query Google Maps.
 - `ggmap( def_03, extent = "device" )` // extent asks how much of the map should be plotted
 - Increasing `zoom` will get you closer.
-- There are different kinds of map types
+- There are different kinds of map types:
   1. "watercolor"   // Do you need source = "stamen"?
   2. "toner"        // Do you need source = "stamen"?
   3. "hybrid"       // Do you need source = "stamen"?
@@ -205,7 +206,7 @@ ggplot( usa,
 - Use `geocode( [vector of Names])` to get latitudes and longitudes of cities.
 - Since ggmap is a ggplot object, you can add points just like other ggplot types
 - Map is not redrawn based on the points, so you can lose data.
-- Create a 'boundary box' using `make_bbox( lon = [longitudes], lat = [ latitudes], f = [fuzzing])
+- Create a 'boundary box' using `make_bbox( lon = [longitudes], lat = [ latitudes], f = [fuzzing])`.
 - You can request locations using the bbox setting `location = bbox_name` in get_map
 ```
 ggmap( london_ton_13) +
@@ -229,8 +230,8 @@ geom_polygon( data = bundes,
 
 
 ## Animations
-- Good for dense temproal data
-- Can be used for exploration
+- Good for dense temproal data.
+- Can be used for exploration.
 - Packages:
   1. animation
   2. gganimate
@@ -269,10 +270,10 @@ saveGIF({
 - Grid is module; base is static.
 - Paul Murell designed Grid.
 - Grid is low level builder for plots; does not make them.
-- ggplot2 built on Grid Graphics
+- ggplot2 built on Grid Graphics.
 - Two components to Grid:
-  1. Create Layouts
-  2. Layer and Position with viewports
+  1. Create Layouts.
+  2. Layer and Position with viewports.
 - Grid low level functions:
   - grid.rect()
   - grid.lines()
@@ -289,19 +290,19 @@ saveGIF({
 	 name = "myCircle",         // internal name to reference
    gp = gpar( fill = 'pink')) // gpar means 'Graphical Part'
 ```
-- grid.edit("myCircle", gp = gpar( fill = "pink" )) // allows one to change elements of named objects
+- `grid.edit("myCircle", gp = gpar( fill = "pink" ))` // allows one to change elements of named objects
 
 - Viewports are a window which we draw graphic output.
-- Default viewport is called the "Null Viewport"
+- Default viewport is called the "Null Viewport".
 
 - `vp <- viewport( ... )` to create viewport // same args as gpar, etc.
 - Not active by default.
 - To show viewport use `pushViewport( vp )`.
 - You can also name viewports.
 - Using plotViewport allows one to define margins.
-- Define margins via  `margins = [vector_of_4_ints]`
+- Define margins via  `margins = [vector_of_4_ints]`.
 
-- DataViewport pushes data onto the viewport
+- DataViewport pushes data onto the viewport.
 - You can manage the axis of the plot using:
   1. grid.xaxis()
   2. grid.yaxis()
@@ -311,15 +312,15 @@ saveGIF({
   2. `grid.text( label = [y_label_name], x = unit(-3, "lines" ), rot = 90)`
 
 
-- Add points via `grid.points( x = mtcars$wt, y = mtcars$mpg, pch = 16)`
+- Add points via `grid.points( x = mtcars$wt, y = mtcars$mpg, pch = 16)`.
 
 
 ## Internals of ggplot2
-- Graphical Objects -> Grobs
-- Grids map to grobs as such: grid.rect() -> rectGrob()
+- Graphical Objects -> Grobs.
+- Grids map to grobs as such: grid.rect() -> rectGrob().
 - All ggplot objects are a collection of grobs.
-- Access to grobs using Grid package
-- Convert to grob Table using `ggplotGrob( [object] )`
+- Access to grobs using Grid package.
+- Convert to grob Table using `ggplotGrob( [object] )`.
 - Access elements of table using `g$grob[[ # ]]`
   1. Why not use the name column with %in%, which or grep?
 - Draw elements onto Null viewport using `grid.draw( g[[ # ]] )`
@@ -332,7 +333,7 @@ my_text <- textGrob( label = "My Added Text",   // The text to add.
                                 col = "blue")) // "
 ```
 
-- Use`var<- gtable_add_grob(object$grobs[[ # ]], my_text, [row], [column])` to create new grob element
+- Use`var<- gtable_add_grob(object$grobs[[ # ]], my_text, [row], [column])` to create new grob element.
 - You can replace the old grob object in the grob table by assigning new value to old object.
 
 
@@ -350,13 +351,13 @@ my_text <- textGrob( label = "My Added Text",   // The text to add.
   8.  plot_env
   9. labels
 
-- Plot is rendered using `ggplot_build( [object] )`
+- Plot is rendered using `ggplot_build( [object] )`.
 - The returned object contains:
   1. data  // all layers of data
   2. panel // axis info
   3. plot  // the actual image returned
 - Convert ggplot -> gtable using `ggplot_gtable( [object] )`
-- Change the clipping of axis using `gtableObject$layout$clip <- "off"`
+- Change the clipping of axis using `gtableObject$layout$clip <- "off"`.
 
 
 
@@ -381,7 +382,7 @@ my_text <- textGrob( label = "My Added Text",   // The text to add.
 ## Your Own Extensions
 
 - John Tukey wrote created the concept of the Bag Plot.
-- Create bagplot using `bagplot([ data ])` using package aplpack
+- Create bagplot using `bagplot([ data ])` using package aplpack.
 - Bagplot has four peieces:
   1. The Hull - center of the plot
   2. The Bag - which is similiar to the IQR.

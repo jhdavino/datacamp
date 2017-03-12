@@ -1,9 +1,10 @@
 # Object Oriented R At a Glance
 
 - Objects can come in the form of Lists or Environments.
-- Functions should be used for Analysis; Object Oriented Programming for Tools
+- Functions should be used for Analysis; Object Oriented Programming for Tools.
 
 - There are 9 different Object Packages; not all covered:
+```
 	1. R5              [ experimental; cut ]
 	2. mutatr          [ experimental; cut ]
 	3. OOP             [ Depreciated ]
@@ -13,6 +14,7 @@
 	7. S4              [ Mature, but idiosyncratic  ]
 	8. RefernceClasses [ Convert from other languages ]
 	9. R6              [ Most common ]
+```
 
 - Calling `class()` on object will tell you it's classes.
 - Check what data type exists in an object using `typeof()`.
@@ -54,9 +56,12 @@
 - Class generator are templates for objects.
 - Class definition and declaration:
 ```
-R6Class( "Name_Of_Class",
-		  private = list( a_field = 'a value', another_field = 'derp') // data
-		)
+R6Class(
+	"Name_Of_Class",
+	private = list(
+		a_field = 'a value',
+		another_field = 'derp') // data
+)
 ```
 - `thing_factory$new()` will create a new object.
 - Public is for callable functions.
@@ -80,7 +85,7 @@ R6Class( "Name_Of_Class",
 - Private, Public, and Active must contain all unique variable names.
 - To address this nomenclature states that you precede private elements with '..'.
 - Getters are just like in C, Java, etc in principle.
-- 
+
 
 ## Advanved R6 stuff.
 - R6 supports inheritance.

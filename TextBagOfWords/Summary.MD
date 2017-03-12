@@ -1,5 +1,5 @@
 # Text Mining: Bag of Words
--" The process of distilling actionable insights from text"
+- "The process of distilling actionable insights from text"
 - Unorganized -> Organized -> Insight.
 - Six Steps:
 	1. Problem definition
@@ -13,12 +13,12 @@
 	1. Semantic Parsing
 	2. Bag of Words
 
-- `freq_terms()` is obvious
-- "Corpus" is a collection of docuements.
-- Using package tm  // Text Mining
-- `VectorSource()` to convert a vector of text into a corpus
-- Pass output to `Vcorpus()` to create a 'volitile corpus'
-- You can also convert a data frame to a corpus using `DataframeSource()`
+- `freq_terms()` is obvious.
+- "Corpus" is a collection of documents.
+- Using package tm.  // Text Mining
+- `VectorSource()` to convert a vector of text into a corpus.
+- Pass output to `Vcorpus()` to create a 'volitile corpus'.
+- You can also convert a data frame to a corpus using `DataframeSource()`.
 - Some preprocess functions:
 	1. `tolower()`
 	2. `removePunction()`
@@ -26,15 +26,15 @@
 	4. `stripWhiteSpace()`
 	5. `removeWords()`
 
-- Changes made to a corpus are applied using `tm_map()`
+- Changes made to a corpus are applied using `tm_map()`.
 - This is passed in a functional manor.
-- If the function is not from tm package, then wrap in `content_transformer()`
+- If the function is not from tm package, then wrap in `content_transformer()`.
 - `stemDocument()` takes a vector and returns the word stem of all words.
-- Returned stems will sometimes need to be completed using `stemCompletion( [stems], [dictionary] )`
+- Returned stems will sometimes need to be completed using `stemCompletion( [stems], [dictionary] )`.
 
 
 ## Text Mining Visuals
-- Good visuals lead to quick conclusions
+- Good visuals lead to quick conclusions.
 - Due to brain's ability to efficiently process visual information.
 
 ```
@@ -45,15 +45,19 @@ frequency<-
     at.least = 3,               // Obv.
     stopwords = "Top200Words"   // Predefned set of words to remove
   )
+  ```
 
 - Creating a word cloud requires:
   1. Create TDM
   2. Convert to matrix
   3. Rowsum the matrix to create frequency vector
   4. Create a data frame:
+  
   ```
-  data.frame( term = names( term_frequency ),
-              num = term_frequency )
+  data.frame(
+    term = names( term_frequency ),
+    num = term_frequency
+  )
   ```
   5. `wordcloud( word_freq$term, word_freq$num, max.words = 100, colors = 'red' )`
 
@@ -64,7 +68,6 @@ frequency<-
   1. Sequential: light to dark.
   2. Qualitative: Pleasing together.
   3. Diverging: 'two distinct colorspectra'
-
 - `purple_orange<- brewer.pal(10, "PuOr")` will select 10 colors from Purple to Orange.
 
 
@@ -78,23 +81,23 @@ frequency<-
 - `stopwords("en")` are a vector of words commonly removed.
 - `removeWords( [text_vector], stopwords('en') )` will delete those words from the corpus.
 - You can add words to the stop words list.
-- Term Document Matrix (TDM) vs Document Term Matrix (DTM)
-- Create TDM by using `TermDocumentMatrix( [corpus] )`
-- Create DTM by using `DocumentTermMatrix( [corpus] )`
-- qdap Package depends on a Word Frequency Matrix (WFM)
+- Term Document Matrix (TDM) vs Document Term Matrix (DTM).
+- Create TDM by using `TermDocumentMatrix( [corpus] )`.
+- Create DTM by using `DocumentTermMatrix( [corpus] )`.
+- qdap Package depends on a Word Frequency Matrix (WFM).
 
 
-- Commonality Cloud is the intersection of terms in two corpus
+- Commonality Cloud is the intersection of terms in two corpus.
 - Collapse all text into a single block for each set of terms.
-- Place the collapsed terms into a two length vector
+- Place the collapsed terms into a two length vector.
 - Convert to Corpus, then convert to a matrix and pass to `commonality.cloud()`.
 
 ```
-combined_text<- VectorSource( length_two_vector )
+combined_text  <- VectorSource( length_two_vector )
 combined_corpus<- VCorpus( combined_text )
-combined_clean<- clean_corpus( combined_corpus )  // function built inside class; not in packages.
-combined_tdm <- TermDocumentMatrix( commbined_clea )
-combined_m<- as.matrix( combined_tdm )
+combined_clean <- clean_corpus( combined_corpus )  // function built inside class; not in packages.
+combined_tdm   <- TermDocumentMatrix( commbined_clea )
+combined_m     <- as.matrix( combined_tdm )
 
 commonality.cloud( combined_m, colors = "steelblue1", max.words = 100)
 ```
@@ -142,19 +145,19 @@ word_associate( vector_of_text,                                 // Obv.
 - `dist()` creates a pairwise distances between each location.
 - `hclust()` 
 - `plot( hclut_object )` creates a simple dendogram.
-- Package dendextend to improve dendograms
+- Package dendextend to improve dendograms.
 - dendextend allows one to modify the dendogram as a class.
-- `branches_attr_by_labels( [object], [labe_names], [colors])`
+- `branches_attr_by_labels( [object], [labe_names], [colors])`.
 - `rect.dendogram()` comes from the Grid package // see GGGPLOT folders.
-- `removeSparseTerms(char_vecctor, sparse = [threshold] )` 
+- `removeSparseTerms(char_vecctor, sparse = [threshold] )`.
 - as sparse -> 0, more terms left in.
-- findAssocs( [TDM], [term], [corlimit] )    // from tm; what is corlimit?
+- `findAssocs( [TDM], [term], [corlimit] )`.   // from tm; what is corlimit?
 
 - Increasing the tokenization make the size larger.
 - Use `NGramTokeenizer( [vector], Weka_control( min = #, max = #))` from RWeka package to create tokens.
 - You can control how tokens are made in 'TDM()' using `control = list( tokenize = tokenizer)` passed as an arg.
 - You can weight terms in a TDM  via Term frequency-inverse.
-- Do this by passing `control = list( weighting = weightTfIdf )`
+- Do this by passing `control = list( weighting = weightTfIdf )`.
 - `readTabular()` can associate variables in the corpus with attributes from the data.
 ```
 custom_reader<- readTabular( mapping = list(
@@ -175,4 +178,4 @@ custom_reader<- readTabular( mapping = list(
 - How does dist create the difference matrix?
 - What are all functions of readTabular() ?
 
-## Further Reading.
+## Further Reading:

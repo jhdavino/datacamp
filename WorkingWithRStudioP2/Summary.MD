@@ -106,3 +106,5 @@ devtools::install_github("rstudio/shinyapps")
 - Gelphi?
 - rticle package
 
+## Further Reading:
+["R Packages" by Hadley Wickham](http://r-pkgs.had.co.nz/)
