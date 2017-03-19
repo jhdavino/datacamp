@@ -79,6 +79,11 @@
 - Pretty much everything past this point is outdated; only exists inside of projects.
 - I know how .gitignore works.
 
+- Head just means the most current commit.
+- Undo in git is `checkout`
+- Open a shell in Rstudio using `Tools > Shell`.
+- `Shell` opens up xterm and not xterminal nor bash
+
 ## Reporting
 - Shiny, RMarkdown, Shiny
 - "Literate Programming"
