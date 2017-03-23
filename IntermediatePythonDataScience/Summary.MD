@@ -16,7 +16,7 @@ plt.show()
 - `plt.hist()` for histograms.
 - `plt.clf()` to clear the visual buffer.
 
-### Plot Building
+## Plot Building
 - Repeat: `plt.{x,y}label( label_name )`
 - Labels are not added by default.
 - `plt.title( title_name )` to add a label.
@@ -26,3 +26,19 @@ plt.show()
 - `col = dict_of_values` can be added to `plt.scatter()` to add color.
 - `alpha = [0,1]` can be added to `plt.scatter()` to add opacity.
 - `plt.grid(True)` to add gridlines to a plot.
+
+
+
+## Pandas
+- Data is usually in tabular format.
+- High level data manipulation tool.
+- Has dataframes.
+- Can be created from a Dictionary.
+```
+
+```
+- Create one using `pd.DataFrame( dictionary_object)`.
+- 0 Indexing; not 1.
+- Read a csv using `pd.read_csv( path_to_file )`.
+- To tell panda headers exist, use `index_col = 0`.
+- Change the row labels using `cars.index = list_of_values`.
