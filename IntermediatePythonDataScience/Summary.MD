@@ -56,6 +56,13 @@ plt.show()
 - These use normal python notation: `panda.loc['label']`.
 - Use `[[]]` to get a DataFrame again.
 
+## Comparison Operators
+- How two Python vales,objects relate.
+- Always try and compare two of the same type.
+- and, or, not will not work with numpy arrrays
+- For those, use: logical_and(), logical_or(), logical_not()
+
+
 ## Research
 
 ## Further Reading
