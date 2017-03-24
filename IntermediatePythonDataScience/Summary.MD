@@ -1,4 +1,5 @@
 # Intermediate to Python for Data Science
+## 
 
 ```
 import matplotlib.pyplot as plt
@@ -42,3 +43,19 @@ plt.show()
 - Read a csv using `pd.read_csv( path_to_file )`.
 - To tell panda headers exist, use `index_col = 0`.
 - Change the row labels using `cars.index = list_of_values`.
+
+
+- Get a column using `panda['column_name']`.
+- Returns a panda Series.
+- If you combine Series, then you get a DataFrame again.
+- Using `panda[['column_name']]` will return a DataFrame.
+- You can also request multiple values.
+- Slices are done using numeric indexes; `panda[1:4]`.
+- *loc* is used to select data based on labels.
+- *iloc* is used to select data based on indexes.
+- These use normal python notation: `panda.loc['label']`.
+- Use `[[]]` to get a DataFrame again.
+
+## Research
+
+## Further Reading
