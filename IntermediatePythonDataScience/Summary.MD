@@ -68,6 +68,22 @@ plt.show()
 
 - We'll want a Panda Series when doing column selections via Boolean values.
 - You can pass the boolean array directly into the panda to get the values.
+- while exists; while if you don't know n.
+- Be careful of infinite loops.
+
+- for exists.
+- for will use the generated iterator.
+- `enumerate()` will return the index as well as the value in the list.
+- python pandas has an `apply()` function.
+
+
+## Looping over Data Structures
+- To access the key,value pairs in a dictionary use `dictionary.items()`.
+- To do that for pandas, you use `np.nditer( panda )`.
+- "In Python 3, you need the items() method to loop over a dictionary"
+- To iterate over rows, you use `panda.iterrows()`.
+- This function will create a label,row combinaton by default.
+- The value is of type Series.
 - 
 
 ## Research
