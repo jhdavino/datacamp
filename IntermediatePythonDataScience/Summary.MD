@@ -62,6 +62,13 @@ plt.show()
 - and, or, not will not work with numpy arrrays
 - For those, use: logical_and(), logical_or(), logical_not()
 
+## Conditional Statements
+- if, elif, else
+- I already know these.
+
+- We'll want a Panda Series when doing column selections via Boolean values.
+- You can pass the boolean array directly into the panda to get the values.
+- 
 
 ## Research
 
