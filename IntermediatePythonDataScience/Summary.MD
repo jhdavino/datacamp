@@ -28,6 +28,16 @@ plt.show()
 - `alpha = [0,1]` can be added to `plt.scatter()` to add opacity.
 - `plt.grid(True)` to add gridlines to a plot.
 
+## Dictionaries
+- Structure is `{"key":value, }`.
+- To retreive the data, you use `structName[ key ]`.
+- Get the keys from a dictionary using `dictionary.keys()`.
+- Keys must be immutable {strings, booleans, floats }
+- Assign new values to a dictionary using `dictionary[ key ] = value`.
+- Check for the existence of a key using "key" in dictionary; returns boolean.
+- This can also be used to update a key,value pair.
+- You can delete an item using `del( dictionary[ key ])`.
+- Dictionaries can be nested inside dictionaries.
 
 
 ## Pandas
