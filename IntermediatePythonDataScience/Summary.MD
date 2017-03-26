@@ -1,5 +1,5 @@
 # Intermediate to Python for Data Science
-## 
+## Filip Schouwenaars
 
 ```
 import matplotlib.pyplot as plt
@@ -94,7 +94,26 @@ plt.show()
 - To iterate over rows, you use `panda.iterrows()`.
 - This function will create a label,row combinaton by default.
 - The value is of type Series.
-- 
+
+## Random Numbers
+- Sounds like a fun game; this is a form of random walk.
+- Need a random generator: `import numpy as np; np.random.rand()`
+- The actual name for the function creating random numbers is called a Linear Congruential Generator.
+- Set the random seed using `np.random.seed( value )`.
+
+- Simulate a coin  toss:
+	1. Set seed.
+	2. Call `np.random.randint( 0 , 2 )`
+	3. Print result.
+
+- RANDOM WALK! SADKJFASLDKFJASDKLFJLKJFKLJ!
+
+## Distribution
+- Once you monte carlo the random walks, then you'll have a distribution.
+- Law of Large Numbers:
+`As the number of iterations approaches an infinite number of times, then the actual distribution approaches the theoretical probability.`
+- Numpy can transpose a list of lists using `np.transpose()`.
+                       
 
 ## Research
 
