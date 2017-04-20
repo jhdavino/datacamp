@@ -24,7 +24,7 @@
 - The posterier becomes your prior when 'cranking' the Bayesian 'crank'.
 
 
-
+- 
 
 
 
