@@ -30,6 +30,7 @@
 - `TeachBayes::beta_area(value1, value2, c(beta_a, beta_b))` to calculate area under curve.
 - Can accept a single value as well for one sided.
 
+<<<<<<< HEAD
 - A *Quantile* is a value of p s.t. area to its left is a given number.
 - Values **a** and **b** are difficult to guess.
 - *P50* stands for the quantile for **p** s.t. p is equally likely.
@@ -66,6 +67,7 @@ TeachBayes::beta.select( p50, p90)
 - `TeachBayes::normal_update()` will do that for you.
 - To test hypothesis in Bayes, simply check the p value generated via `pnorm`.
 - *Predictive Density is the distribution of times-to-serve in the future.
+>>>>>>> 6e5fa1100cb43d3e7acf0bb2c2a6268f85e56860
 
 
 
