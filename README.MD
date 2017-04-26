@@ -13,4 +13,5 @@
 | Working With RStudio, Part 2            | [/WorkingWithRStudioP2]          | {2017/03/11}   |
 | Intro to Python for Data Science        | [/IntroPythonDataScience]        | {2017/03/18}   |
 | Intermediate to Python for Data Science | [/IntermediatePythonDataScience] | {2017/03/26}   |
-| Beginning Bayes in R                    | [/BeginningBayesR]               |                |
+| Beginning Bayes in R                    | [/BeginningBayesR]               | {2017/04/20}   |
+| Foundations of Inference                | [/FoundationsInference]          | {}             |
