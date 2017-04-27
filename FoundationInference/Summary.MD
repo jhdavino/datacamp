@@ -17,9 +17,22 @@ The test of significance inly tells him what to ignore, namely all experiment in
 - What is a p-value?
 - .. is the probability of observing data as or more extreme than what we actually got given that the null hypothesis is true.
 
+- A *Parameter* is a numerical value from the population.
+- Another name is called Feature,
+- A *Confidence Interval* is where we are reasonably certain the studied effect will appear.
+
+- *Bootstrapping* is where you repeatedly resample from your sample taken.
+- Labeled p-hat-star.
+- Bootstrapping can help approximate Standard Error.
+
+- "Emperical Rule" ~ Chebyshev's Theorum.
+- Emperical is for Bell shaped curves; Chebyshev is for all numerical distrubutions.
+
+
 ## Investigate:
 - NHANES Package?
 - oilabs Package?
 
+- 
 
 ## Further Reading:
