@@ -15,4 +15,5 @@
 | Intermediate to Python for Data Science | [/IntermediatePythonDataScience] | {2017/03/26}   |
 | Beginning Bayes in R                    | [/BeginningBayesR]               | {2017/04/20}   |
 | Foundations of Inference                | [/FoundationsInference]          | {2017/04/27}   |
-| Intermediate R - Practice               | [/IntermediateRPractice]         | {}             |
+| Intermediate R - Practice               | [/IntermediateRPractice]         | {2017/05/21}   |
+| Importing and Cleaning: Case Study      | [/ImportCleaningCaseStudy]       | {}             |
