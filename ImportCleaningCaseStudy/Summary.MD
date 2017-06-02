@@ -2,12 +2,12 @@
 ## Nick Carchedi
 
 ### Section 1
-- `read.csv()`: obv.
-- `dim()`: obv.
-- `head()`: obv.
-- `names()`: obv.
-- `str()`: obv.
-- `summary`: obv.
+- `read.csv()`:     obv.
+- `dim()`:          obv.
+- `head()`:         obv.
+- `names()`:        obv.
+- `str()`:          obv.
+- `summary`:        obv.
 - `dplyr::glimpse`: Smart version of str.
 
 ```r
@@ -24,3 +24,15 @@ sales6<- unite(sales5,            // source this
                venue_state,       // ... unquoted, column name to remove to
                sep = ', ')        // separator to combine with
 ```
+
+### Section 2
+```r
+mbta4<- gather(mbta3,        // source
+               month,        // key: collapse column names to
+               thou_riders,  // value: data itself
+               -mode)        // don't modify
+```
+- `spread()` : spread values in a column into actual parameters/features/column names.
+
+### Section 3
+
