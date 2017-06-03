@@ -35,4 +35,11 @@ mbta4<- gather(mbta3,        // source
 - `spread()` : spread values in a column into actual parameters/features/column names.
 
 ### Section 3
+- No notes.
 
+## Section 4
+```r
+example <- mutate_each(att5,              // source
+                       funs(as.numeric),  // apply function
+                       -state)            // ignore.
+```
