@@ -17,3 +17,4 @@
 | Foundations of Inference                | [/FoundationsInference]          | {2017/04/27}   |
 | Intermediate R - Practice               | [/IntermediateRPractice]         | {2017/05/21}   |
 | Importing and Cleaning: Case Study      | [/ImportCleaningCaseStudy]       | {2017/06/03}   |
+| Importing Data in R, Part 1             | [/ImportDataRP1]                 |                |
