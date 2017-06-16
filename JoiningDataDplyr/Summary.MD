@@ -32,3 +32,38 @@
 	3. setdiff  : unique which exists in the first, but not the second.
 	4. setequal : boolean whether both sets are the same, ignoring order.
 - Don't try this with indentical since it checks order.
+
+## Section 3
+- dplyr has it's own bind functions:
+	1. `bind_rows()`
+	2. `bind_cols()`
+- `bind_rows()` is similair to `rbind()`
+- You can think of `bind_cols` as a lazy join.
+- `bing_cols` assumes joining rows are already in order.
+- You can mark which datatable the the data came from using `bind_rows( datatable1 = <dt_1>, datatable2 = <dt_2>, .id = originalTable )`
+- Dplyr also has its own `data.table()` and `as.data.table()` in `data_table()` and `as_data_table()`.
+- It avoids the following undesirable behavior:
+	1. Wont change string types.
+	2. Wont add row names
+	3. Wont change column names
+	4. Wont recycle vectors greater than 1.
+- it also returns a tibble.
+
+## Section 4
+- There are four potential problems:
+	1. Missing key values.
+	2. Duplicate key values.
+	3. Missing key columns.
+	4. Duplicate key columns
+
+- To remove but retain row names from a dataset use `rownames_to_column( <table>, var = "<col_name>")`
+- If column names are different for both datasets then use what is called a **named vector**.
+- .. is done via the notation `c("name1" = "name2")`.
+- The purrr package contains a function called `reduce()` that allows for recursion.
+- dplyr can send commands to an SQL database when passed a connection.
+
+## Section 5
+- `$`(dataframe) is a thing; I didn't realize this.
+- `distinct(..)` removes all the duplicate rows.
+- `count(..)` does the same thing as `tally(..)` but can explicitly group by.
+- You can also pass what columns you want to check for uniqueness via `distinct(..)`.
