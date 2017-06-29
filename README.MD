@@ -19,4 +19,5 @@
 | Importing and Cleaning: Case Study      | [/ImportCleaningCaseStudy]       | {2017/06/03}   |
 | Importing Data in R, Part 1             | [/ImportDataRP1]                 | {2017/06/08}   |
 | Importing Data in R, Part 2             | [/ImportDataRP2]                 | {2017/06/09}   |
+| Joining Data in R with Dplyr            | [/JoiningDataDplyr]              | {2017/06/15}   |
 | Introduction to Spark in R              | [/IntroToSparkR]                 |                |
