@@ -27,8 +27,24 @@
 - To request more information use: `?translate_sql()`.
 
 # S2: Tools of the Trade
+- Dplyr has helper functions; see the other classes I've done.
+- Use `contains()` for simple character string matching in columns.
+- Use `matches()` inside of a `select` call for simple application of regex.
+- You can't use `table()` since it does not return a tibble: use `count()` instead.
+- There is a `head()` function as well: `top_n()`.
+- To get data out of Spark and into R use `collect()`
+- To store a intermediate calculated table in Spark, use `compute( <name> )`
+- You can also build custom SQL queries and submit them since Spark functions like a database.
+- You can do this using `dbGetQuery( <spark_conn_obj>, <query_string>)`
 
-# S3: Going Native:
+
+# S3: Going Native
+- Now for the good stuff.
+- ft_ stands for "feature transform"; since parameters are sometimes called features.
+- ml_ stands for "machine learning".
+- sdf_ stands for "Spark DataFrame".
+- **sparkly** takes care of conversions to DoubleType; you must worry about logical,int -> numeric.
+- 
 
 # S4: Case Study
 
