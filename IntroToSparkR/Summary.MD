@@ -44,11 +44,32 @@
 - ml_ stands for "machine learning".
 - sdf_ stands for "Spark DataFrame".
 - **sparkly** takes care of conversions to DoubleType; you must worry about logical,int -> numeric.
-- 
+- Converting to binary input can be done using `binarizer( <spark_tibble>, <input_string>, <output_sting>)`
+- Spark will return the result as **DoubleType** so you will need to explicitely convert it to logical.
+- Use `mutate( <var_name> = as.logical( <var_name> ))`.
+- To convert a continuous variable to factors use `ft_bucketizer()`.
+- To create a quantile in sparklyr then use ft_quantile_discretizer()`.
+- `ft_tokenizer()` will convert text input to lower case and tokenize by default.
+- You can use the AFINN scores by calling `get_sentiments('afinn')`.
+- You can also do more advanced tokenizers using `ft_regex_tokenizer()`.
+- Calling `sdf_schema(<spark_conn>)` to get a list of col_name, data_type pairs.
+- You can sample the dataset using `sdf_sample()`.
+- You can partition the data using sdf_partition( training = <.n>, testing = <.(1-n)>)`.
+- You could also pass a set of name, decimal pairs to label the partitions.
+- Those names allow you to subscript access them.
+
 
 # S4: Case Study
+- Parquet files are used since they're much faster to access than csv files.
+- Spark can read them using the command `spark_read_parquet(<spark_conn>, <dataset_name>, <path> )` from R.
+- You can make predictions using predict() function as per normal.
+- You will need to collect the results locally though.
+- You can request a graidient boosted tree using `ml_gradient_boosted_trees()`
+- You can request a random forest using `ml_random_forest()`
 
 
 # Research:
 
+
 # Investigate:
+- package microbenchmark
