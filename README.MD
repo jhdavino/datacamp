@@ -3,7 +3,7 @@
 | Class Name                              | Directory                        | Date Completed |
 | ----------------------------------------| -------------------------------- | ---------------|
 | Object Oriented R                       | [/ObjectOrientedR]               | {2016/12/23}   |
-| Data Visualization with ggplot2, Part 1 | [/DataVisGgplot2P1]              | {2016/09/01}   |
+| Data Visualization with ggplot2, Part 1 | [/DataVisGgplot2P1]              | {2016/09/01}   | *
 | Data Visualization with ggplot2, Part 2 | [/DataVisGgplot2P2]              | {2017/01/16}   |
 | Data Visualization with ggplot2, Part 3 | [/DataVisGgplot2P3]              | {2017/01/27}   |
 | Writing Functions in R                  | [/WritingFunctionsInR]           | {2017/02/01}   |
@@ -20,4 +20,6 @@
 | Importing Data in R, Part 1             | [/ImportDataRP1]                 | {2017/06/08}   |
 | Importing Data in R, Part 2             | [/ImportDataRP2]                 | {2017/06/09}   |
 | Joining Data in R with Dplyr            | [/JoiningDataDplyr]              | {2017/06/15}   |
-| Introduction to Spark in R              | [/IntroToSparkR]                 |                |
+| Introduction to Spark in R              | [/IntroToSparkR]                 | {2017/06/30}   |
+| Data Visualization in R                 | [/DataVisInR]                    |                |
+| Introduction to Data                    | [/IntroToData]                   |                |
