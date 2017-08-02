@@ -24,9 +24,16 @@
 - If you wrap a code block in parenthesis then R with both save and print
 - Class will use ggplot2 since it doesn't suck.
 
-
-
 # Study Types and Cautionary Tales
+- *Observational Studies* vs *Experimental Studies.*
+- *Observational Studies* collect data in a way that does not interefere with how the data arise.
+- Therefore, only correlation can be inferred.
+- *Experimental Studies* allow for control of the variables.
+- Therefore, a claim of causality is possible.
+- *Random Sampling* is a selection of subjects from the population.
+- *Simpson's Paradox* is when a cofounding variable reverses the relationship between the studied variables.
+
+
 
 # Sampling Strategies and Experimental Design
 
