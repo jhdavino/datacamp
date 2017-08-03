@@ -33,11 +33,26 @@
 - *Random Sampling* is a selection of subjects from the population.
 - *Simpson's Paradox* is when a cofounding variable reverses the relationship between the studied variables.
 
-
-
 # Sampling Strategies and Experimental Design
+- Why do a sample instead of a Census?
+	1. Census are resource intensive.
+	2. Certain individuals are near impossible to reach.
+	3. Populations are constantly changing.
+- Different kinds of sampling:
+	1. Simple Random Sample
+	2. Stratified Sampling.
+	3. Cluster Sampling.
+	4. Multistage Sampling.
+- There is a function in `dplyr` explicitely for sampling - called `sample_n()`.
+- You can control the size of the sample using the parameter `size` in `sample_n()`.
+- Principles of Experimental Design
+	1. *Control*: compare treament of interest to a control group.
+	2. *Randomize*: randomly assign the subjects to treatments
+	3. *Replicate*: collect a sufficiently large sample within a study, or replicate the entire study.
+	4. *Block*: account for the potential effect of confounding variables.
 
 # Case Study
+- NULL.
 
 # Research
 
