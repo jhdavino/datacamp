@@ -90,11 +90,17 @@ text( x,       # the x position.
 - `axis` uses `labels` to select the text for the ticks.
 - `axis` uses `las` to rotate the tick marks drawn.
 - If the best fit is polynomial instead of linear, then use `supsmu()`
--  
-
-
 
 # How Much is Too Much
+- Too many plots can become too small to make meaningful conclusions.
+- You can use `matplot()` to plot multiple sets of points on the same axis for base plot.
+- You can generate wordclouds using the `wordcloud::wordcloud()` function.
+- pairs is used under the hood when requesting plot do a multivariable comparison plot.
+- The `par` parameter `pty` can be called with *s* to make a dimensionally square plot.
+- You can use `layout()` and a matrix of numbers to select where to play graphs.
+- So, *(1, 0, 2)* would place plot 1 on the left, then a blank space, then the second plot.
+- To see a basic blueprint, use `layout.show( n = **<n>**)`.
+
 # Advanced Plot Customization
 
 # Research
