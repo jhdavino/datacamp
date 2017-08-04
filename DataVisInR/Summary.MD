@@ -102,9 +102,32 @@ text( x,       # the x position.
 - To see a basic blueprint, use `layout.show( n = **<n>**)`.
 
 # Advanced Plot Customization
+- Most plots do not return values
+- There are functions that return values invisibly.
+- Create png files using `png( **<filename>**)
+- There are limitations to color:
+	1. Color-blindness.
+	2. Black and White reproductions lose those details.
+	3. Can be overused.
+		i. Ideally ~6
+		ii. Hopefully ~12
+		iii. Never >20
+	4. Best colors are:
+		* Red.
+		* Green.
+		* Yellow.
+		* Blue.
+		* Black.
+		* White.
+		* etc, but ignore.
+- Learning grid is a great idea since GGPlot uses this underneath.
+- There is a middle function that acts as a middle ground between Grid and Plot using `tabplot::tableplot()`.
+- Ignore `lattice::xyplot()`
+- Take ggplot course
 
 # Research
 - What is a sunflowerplot?
 - What is a QQ plot?
 
 # Reference
+["Beautiful Visualization: Looking at Data through the Eyes of Experts (Theory in Practice)"](https://www.amazon.com/Beautiful-Visualization-Looking-through-Practice/dp/1449379869)
