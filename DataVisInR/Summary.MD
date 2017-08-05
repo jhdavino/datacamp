@@ -58,7 +58,7 @@
 - You can also change the character using `pch` [Point Character]
 - You can create a straight line on the graph using `abline`.
 - It takes the variables of a line: a for y-intercept, b for slope.
-- You can also pass the model intself to the `abline` function as a parameter.
+- You can also pass the model itself to the `abline` function as a parameter.
 - R will attempt to fill in text for you, but all this can be overridden.
 - There is a generic text function for adding this text anywhere on the plot.
 - Use:
@@ -70,7 +70,7 @@ text( x,       # the x position.
 ```
 - The text will be centered at (x,y) by default.
 - `adj` is a deciaml number [0,1] such that .5 is centered - and the default.
-- You can make the `adj` value ([,0] and [1, .)]) as well.
+- You can make the `adj` value ([-INF,0] and [1, INF)]) as well.
 - Other variables are:
 	1. `srt` which rotates the text
 	2. `font` for the style.

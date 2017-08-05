@@ -21,7 +21,7 @@
 - `%>%` is pipe operator.
 - `==` is operator for 'is equal to'.
 - You can drop unused levels using `droplevels()`.
-- If you wrap a code block in parenthesis then R with both save and print
+- If you wrap a code block in parenthesis then R will both save and print.
 - Class will use ggplot2 since it doesn't suck.
 
 # Study Types and Cautionary Tales
@@ -31,7 +31,7 @@
 - *Experimental Studies* allow for control of the variables.
 - Therefore, a claim of causality is possible.
 - *Random Sampling* is a selection of subjects from the population.
-- *Simpson's Paradox* is when a cofounding variable reverses the relationship between the studied variables.
+- *Simpson's Paradox* is when a confounding variable reverses the relationship between the studied variables.
 
 # Sampling Strategies and Experimental Design
 - Why do a sample instead of a Census?

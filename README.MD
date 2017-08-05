@@ -21,5 +21,10 @@
 | Importing Data in R, Part 2             | [/ImportDataRP2]                 | {2017/06/09}   |
 | Joining Data in R with Dplyr            | [/JoiningDataDplyr]              | {2017/06/15}   |
 | Introduction to Spark in R              | [/IntroToSparkR]                 | {2017/06/30}   |
-| Data Visualization in R                 | [/DataVisInR]                    |                |
-| Introduction to Data                    | [/IntroToData]                   |                |
+| Data Visualization in R                 | [/DataVisInR]                    | {2017/08/04}   |
+| Introduction to Data                    | [/IntroToData]                   | {2017/08/04}   |
+| Exploratory Data Analysis               | [/ExploratoryDA]                 |                |
+| Correlation and Regression              | [/CorrAndRegress]                |                |
+
+
+* Review/Redo.
