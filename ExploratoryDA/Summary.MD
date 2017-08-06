@@ -12,7 +12,23 @@
 
 
 # Exploring Numerical Data
+- You can see the structure using `str()`.
+- This displays the type and examples on a row per feature.
+- Dotplots are useful because there is no information lost via "on-plotting".
+- Histograms can be used to make the distribution apparent.
+- Density plot is used to represent the histogram but as a single smoothed line.
+- You can rotate the graph using `coord_flip()` with a plot.
+- You perception of the distribution will change based on the bin width.
+- You can override ggplots internal binwidth using `binwidth = *<n>*`.
+- You can do the same with the bandwith of a density plot: `bw = *<n>*`.
+- Boxplot is based on the 1st, 2nd, and 3rd quartiles.
+- `facet_grid()` can help us understand 3 variables.
+- There can be an issue with labels when you use `facet_grid()`.
+- To solve this, use `labeller = label_both`.
+
 # Numerical Summaries
+
+
 # Case Study
 
 

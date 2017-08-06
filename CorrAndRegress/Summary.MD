@@ -26,10 +26,23 @@
 
 
 # Correlation
+- .. is a coefficient between -1 and 1 that indicates the strength of the relationship.
+- Attributes:
+	1. Sign means direction.
+	2. Magnitude means strength.
+- Non-linear relationships will not be represented correctly.
+- "Pearson product-moment Correlation"
+- Equation: r(x,y) = (Cov(x, y) / SQRT( SXX * SYY))
+-  .. or           = (SUM( [xi-xm]*[yi-ym]) / SUM( [xi-xm]^2) *SUM( [yi-ym]^2))
+- To override the default behavior of `cor()` when dealing with NAs use `use = "pairwise.complete.obs"`.
+- Spurious Correlations are funny.
+
 # Simple Linear Regression
+
 # Interpreting Regression Models
 # Model Fit
 
 # Research
+- Francis Anscombe (1973)
 
 # Reference
