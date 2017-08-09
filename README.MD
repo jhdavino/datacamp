@@ -8,9 +8,9 @@
 | Data Visualization with ggplot2, Part 3 | [/DataVisGgplot2P3]              | {2017/01/27}   |
 | Writing Functions in R                  | [/WritingFunctionsInR]           | {2017/02/01}   |
 | Reporting with R Markdown               | [/ReportingWithRMarkdown]        | {2017/02/02}   |
-| Text Mining: Bag of Words               | [/TextBagOfWords]                | {2017/02/08}   |
-| Working With RStudio, Part 1            | [/WorkingWithRStudioP1]          | {2017/02/12}   |
-| Working With RStudio, Part 2            | [/WorkingWithRStudioP2]          | {2017/03/11}   |
+| Text Mining: Bag of Words               | [/TextBagOfWords]                | {2017/02/08}   | *
+| Working With RStudio, Part 1            | [/WorkingWithRStudioP1]          | {2017/02/12}   | *
+| Working With RStudio, Part 2            | [/WorkingWithRStudioP2]          | {2017/03/11}   | *
 | Intro to Python for Data Science        | [/IntroPythonDataScience]        | {2017/03/18}   |
 | Intermediate to Python for Data Science | [/IntermediatePythonDataScience] | {2017/03/26}   |
 | Beginning Bayes in R                    | [/BeginningBayesR]               | {2017/04/20}   |
@@ -23,8 +23,10 @@
 | Introduction to Spark in R              | [/IntroToSparkR]                 | {2017/06/30}   |
 | Data Visualization in R                 | [/DataVisInR]                    | {2017/08/04}   |
 | Introduction to Data                    | [/IntroToData]                   | {2017/08/04}   |
-| Exploratory Data Analysis               | [/ExploratoryDA]                 |                |
-| Correlation and Regression              | [/CorrAndRegress]                |                |
+| Exploratory Data Analysis               | [/ExploratoryDA]                 | {2017/08/07}   |
+| Correlation and Regression              | [/CorrAndRegress]                | {2017/08/09}   |
+| Machine Learning Toolbox                | [/MLToolbox]                     |                |
+| Unsupervised Learning in R              | [/UnsupervisedInR]               |                |
 
 
 * Review/Redo.
