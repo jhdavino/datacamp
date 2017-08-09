@@ -23,8 +23,10 @@
 | Introduction to Spark in R              | [/IntroToSparkR]                 | {2017/06/30}   |
 | Data Visualization in R                 | [/DataVisInR]                    | {2017/08/04}   |
 | Introduction to Data                    | [/IntroToData]                   | {2017/08/04}   |
-| Exploratory Data Analysis               | [/ExploratoryDA]                 |                |
-| Correlation and Regression              | [/CorrAndRegress]                |                |
+| Exploratory Data Analysis               | [/ExploratoryDA]                 | {2017/08/07}   |
+| Correlation and Regression              | [/CorrAndRegress]                | {2017/08/09}   |
+| Machine Learning Toolbox                | [/MLToolbox]                     |                |
+| Unsupervised Learning in R              | [/UnsupervisedInR]               |                |
 
 
 * Review/Redo.
