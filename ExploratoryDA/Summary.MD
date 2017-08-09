@@ -27,10 +27,26 @@
 - To solve this, use `labeller = label_both`.
 
 # Numerical Summaries
-
+- Measures of Center:
+	1. Mean.
+	2. Median.
+	3. Mode.
+- The mean is sensitive to outliers.
+- The median is resistant to outliers.
+- The mode is the hightest set of counted values.
+- Meausure of Variablility:
+	1. Variance.
+	2. Standard Deviation.
+	3. Interquartile Range.
+- The shape of a distribution can be described by the modality and the skew.
+- Transformations can help hightlight underlying patterns missed due to the large values.
+- The last feature is outliers.
 
 # Case Study
-
+- "Zero Inflation" is a common feature in data analysis.
+- Strategies:
+	1. Analysis the groups separately.
+	2. Treating zero vs non-zero as categorical.
 
 # Research
 

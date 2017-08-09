@@ -38,11 +38,18 @@
 - Spurious Correlations are funny.
 
 # Simple Linear Regression
+- ggplot has it's own version of the `abline()` function called `geom_abline()`.
+- You can add the "best fit" line using `geom_smooth( method = 'lm')`.
+- You can remove the **Standard Error** area using `se=FALSE`.
+- In a Linear model, we assume that the data fits a linear model.
+- The Residials, or error terms, *MUST* be normally distributed.
+
 
 # Interpreting Regression Models
 # Model Fit
 
 # Research
 - Francis Anscombe (1973)
+- Sir Francis Galton (1930s)
 
 # Reference
