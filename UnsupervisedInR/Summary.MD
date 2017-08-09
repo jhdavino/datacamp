@@ -27,7 +27,26 @@
 - You can cap out the number of iterations in `kmeans()` by passing `iter.max = <n>`.
 
 # Heirarchical Clustering
-
+- You can use the `dist()` function to calculate the Euclidean distance between all points in a matrix.
+- You can create a *Heriarchical Cluster Model* using the `hclust()` function.
+- The normal plot for a heirarchical clustering is not very useful; instead, use a Dendogram.
+- The `plot()` function will do this on its own without modification.
+- You can tag each point into distinct clusters using `cutree()`.
+- This function can accept:
+	* `h = <n>` for height limit of tree.
+	* `k = <n>` for number of clusters.
+- There are four ways to link point into clusters
+	1. Pairwise: all observations, largest similarities.
+	2. Single: all observations, smallest of similarities.
+	3. Average: all observations, average similarities.
+	4. Centroid: calculate centriods, and the compare.
+- Complete and average are the most commonly used.
+- Single tends to produce unbalanced trees.
+- Fast initial joins, but flattens out.
+- To select method, pass parameter `method = "<type>"` to hclust.
+- One should scale all points to prevent outlier like issues.
+- R has a function to scale inputs called `scale()`.
+- `colMeans()` will take a matrix and calculate the mean value per column.
 
 # Dimensionality Reduction: PCA
 
