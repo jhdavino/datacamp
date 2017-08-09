@@ -41,6 +41,36 @@ train(                        # function call
 - 
 
 # Classification Models
+- For predicting categorical variables.
+- As a dataset gets smaller, then you should increase the size of the training split.
+- You can build a logistic regression model using `glm()`.
+- You're need to pass the parameter `family = "binomial"` when it is called.
+- To make predictions, you must pass parameter `type = "response"`.
+- A *Confusion matrix* is a matrix of the predicted outcomes vs. the actual outcomes.
+- This can be done for you using `caret::ConfusionMatrix()`.
+- This function takes the model created as well as the vector from the test dataset which is the response.
+- Selecting a threshold is about balancing specificity vs sensitivity.
+- Doing this the manual way is not particularily scientific and is actually hueristic based.
+- *Receiver Operator Characteristic Curve* (ROC) is a brute force way of calculating all possible thresholds.
+- Create an ROC curve using `caTools::colAUC()`.
+- This function accepts parameters:
+  1. The vector of predicted classes.
+  2. The test dataset actual values.
+  3. `plotROC = TRUE` to plot the results.
+- A way to think about the ROC curve is actually as *Area Under the Curve*.
+- A perfect classifier is just the whole graph.
+- A random classifier splits the box in half.
+- This metric is [0,1]
+  * .5 is random.
+  * 1 is perfect accuracy.
+  * 0 is all wrong.
+- Caret can calculate the AUC for us (yay!).
+- This is done through the `trainControl()` function passed in `caret`.
+- The parameters to pass are:
+```r
+  summaryFunction = twoClassSummary,
+  classProbs = TRUE
+```
 
 
 # Tuning Model Parameters
