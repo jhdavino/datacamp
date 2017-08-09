@@ -7,7 +7,38 @@
 - Two types of predictive models:
 	1. Classification
 	2. Regression.
-
+- Once a model exists, you can evaluate it using metrics.
+- We'll focus on *Residual Mean Square Error (RMSE)*.
+- Calculating the RMSE on the same model data is built with overestimates accuracy.
+- Features of a great model:
+	1. Don't overfit and generalize well.
+	2. Perform well on new data.
+- *Don't overfit!*
+- You can use `sample()` if you don't have access to `caret` at the time.
+- It is good practice to create a train/test split in the dataset before predictions.
+- Superior to this, is called *Cross Validation* where there are lots of test sets.
+- Rows are randomly assigned to each subset to try and avoid bias.
+- You then fit the data against the full dataset.
+- `Caret` accepts a function called `trainControl` to adjust parameters to training.
+- Some of the parameters passed are:
+	1. `method = 'cv'`.
+	2. `number = <n>`.
+	3. `verboseIter = TRUE`  // Shows output for each step in the testing.
+- Example Call:
+```r
+train(                        # function call
+  price ~ .,                  # formula of model
+  diamonds,                   # dataset
+  method = "lm",              # type of model
+  trControl = trainControl(   # pass train settings.
+    method = "cv",            # train method
+    number = 10,              # obv.
+    repeats = 5,              # obv.
+    verboseIter = TRUE        # display progression output.
+  )
+)
+```
+- 
 
 # Classification Models
 
