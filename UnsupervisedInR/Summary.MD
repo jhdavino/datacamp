@@ -49,7 +49,27 @@
 - `colMeans()` will take a matrix and calculate the mean value per column.
 
 # Dimensionality Reduction: PCA
-
+- The point of Dimensionality Reduction is..
+	* To find structure in features.
+	* To Aid in visualization
+- We're going to be using *Principle Component Analysis* (PCA).
+- Three goals:
+	1. Find the linear combination of original features.
+	2. Will maintain as much variance as possible.
+	3. New features are orthoganal to each other.
+- To do this in R, use the `prcomp()` function.
+- Some parameters you can pass are:
+	* `scale` the data by the standard deviation.
+	* `center` the data by normalizing around the mean.
+- There are two kinds of plots to be built from PCA:
+	1. `biplot()` which shows the direction of the PCAs.
+	2. Scree plot which requires:
+		* square the <model>$sdev and save as variance.
+		* normalize by <var>/sum( <var> )
+- There are three issues to watch out for:
+	1. Scaling of data?
+	2. What to do with missing values?
+	3. How to handle features that are not numerical?
 
 # Putting it All Together: Case Study
 
