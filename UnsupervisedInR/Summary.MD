@@ -72,9 +72,9 @@
 	3. How to handle features that are not numerical?
 
 # Putting it All Together: Case Study
+- NULL
 
 # Research
 - kmeans mathematical formula.
-
 
 # Reference
