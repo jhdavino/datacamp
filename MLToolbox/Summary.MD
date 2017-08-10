@@ -72,9 +72,36 @@ train(                        # function call
   classProbs = TRUE
 ```
 
-
 # Tuning Model Parameters
-
+- Random Forests usually yield very accurate non-linear models.
+- They're resistant to overfiting.
+- However, they do have *Hyperparameters*.
+- *Hyperparameters cannot be estimated from the data, but must be selected manually.
+- Random forests start with a simple decision tree, but then do this multiple times.
+- Each model is done with a different subset of the dataset.
+- This is called *Bootstrap Aggregation* - or *Bagging*.
+- To use this in `caret` pass the `method = "ranger"` parameter.
+- Random Forests require tuning.
+- The most important of which is mtry: which is the number of randomly selected variables at each split.
+- Lower mtry = more random; higher mtry = less random.
+- `caret` can automate this.
+- This is called *grid search* and is passed via parameter `tuneLength = <n>`.
+- Ranger is faster than the `random forest` package.
+- You can customize the grids passed using parameter `tuneGrid` as a dataframe.
+- There is a package that adds some extra features called `glmnet`.
+- The advantages are:
+  1. Helps with *collinearity*.
+  2. And deals with small sample sizes well.
+- Threre are two kinds of forms:
+  1. Lasso regression: which penalizes non-zero coefficients.
+  2. Ridge Regression: which penalizes the absolute magnitude of coefficients.
+- A glm model attempts to find a **parsimonious** model.
+- The model mixing term is called **alpha** and falls in interval [0,1]; s.t.
+  * 0 = lasso
+  * 1 = ridge regression.
+- The model penalty term is called **lambda** and ranges from [0, INF).
+- The ROC statistics are stored in `model[["results"]]` inside the object.
+- To pass values to tuneGrid, use `expand.grid()` containing the parameters to change.
 
 # Preprocessing your Data
 
