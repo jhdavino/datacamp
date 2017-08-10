@@ -104,6 +104,16 @@ train(                        # function call
 - To pass values to tuneGrid, use `expand.grid()` containing the parameters to change.
 
 # Preprocessing your Data
+- Most models don't know how to deal with missing data.
+- The common approach of throwing out data can generate biases.
+- You can use something called **median imputation**.
+- This replaces the missing values with the median; as if it was never missing at all.
+- To do this in `caret` pass the parameter `preProcess = "medianImpute"`.
+- Median Imputation will fail if the data is not missing randomly.
+- A better way to deal with those missing values is *K Nearest Neighbors* (KNN).
+- You can ask `caret` to use KNN instead by passing parameter `preProcess = "knnImpute"`.
+- 
+
 
 # Selecting Models: Case Study
 
