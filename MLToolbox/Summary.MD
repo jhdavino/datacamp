@@ -112,11 +112,31 @@ train(                        # function call
 - Median Imputation will fail if the data is not missing randomly.
 - A better way to deal with those missing values is *K Nearest Neighbors* (KNN).
 - You can ask `caret` to use KNN instead by passing parameter `preProcess = "knnImpute"`.
-- 
+- Preprocess can do quite a bit more than just knn and median impute.
+- You can also pass `scale`, `center`, `spatialSign` and `pca` to the `preProcess` parameter.
+- The order you pass them into `preProcess` is the order that is applied.
+- Prefered order is..
+  1. Median/Knn Impute.
+  2. If lm, thn scale and center.
+  3. Try PCA or SpatialSign.
+  4. Last trees don't really need
+- Constant or low variance variables can damage models.
+- You can pass `zv` to remove constant columns with `caret`.
+- You can pass `nzv` to remove constant columns with `caret`.
+- These get added to the `preProcess` parameter; and, at the beginning of the vector.
+- `caret` has a function called `nearZeroVar()` which does the removal.
+- It accepts parameters:
+  * `freqCut` is the ratio of the most common value to the second most common value.
+  * `uniqCut` is the percentage of distinct values out of all total samples.
+- *Principle Component Analysis* (PCA) converts low variance and correlated variables into high variance and perpendicular predictors.
+- PCA prevents collinearity without risk of damaging the data.
 
 
 # Selecting Models: Case Study
 
+
+
 # Research
+- spatialSign algorithm
 
 # Reference
