@@ -25,8 +25,9 @@
 | Introduction to Data                    | [/IntroToData]                   | {2017/08/04}   |
 | Exploratory Data Analysis               | [/ExploratoryDA]                 | {2017/08/07}   |
 | Correlation and Regression              | [/CorrAndRegress]                | {2017/08/09}   |
-| Machine Learning Toolbox                | [/MLToolbox]                     |                |
-| Unsupervised Learning in R              | [/UnsupervisedInR]               |                |
+| Machine Learning Toolbox                | [/MLToolbox]                     | {2017/08/10}   |
+| Unsupervised Learning in R              | [/UnsupervisedInR]               | {2017/08/10}   |
+| Data Visualization in R with ggvis      | [/DataVisGGVis]                  |                |
 
 
 * Review/Redo.
