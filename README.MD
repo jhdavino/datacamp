@@ -27,7 +27,7 @@
 | Correlation and Regression              | [/CorrAndRegress]                | {2017/08/09}   |
 | Machine Learning Toolbox                | [/MLToolbox]                     | {2017/08/11}   |
 | Unsupervised Learning in R              | [/UnsupervisedInR]               | {2017/08/09}   |
-| Data Visualization in R with ggvis      | [/DataVisGGVis]                  |                |
+| Data Visualization in R with ggvis      | [/DataVisGGVis]                  | {2017/08/23}   |
 
 
 
