@@ -26,8 +26,27 @@
 - The R boxplot is set to only extend out to 1.5 times the median and mark other values as outliers.
 - You can change this behavior by using `boxplot.stats( coef = 0)` and have it extend to all values; why you would do that is beyond me.
 
-
 # Conditioning and the Formula Interface
+- Graphs need to make comparisons else you gain nothing from the data.
+- Small Multiples, or Faceting, is when you compare different subgroups of data.
+- You can use the `|` to facet by a variable in the formula.
+- You can use the `+` to plot two sets of data.
+- You can use `layout = c(<ncol>, <nrows>, <npages>)` to manipulate the panel output format.
+- Sumamrizing data is useful for reporting.
+- The parameter `groups` treats the feature as a factor and differentiated within the same panel.
+- Lattice does not generate a legend by default, but one can be added using `auto.key = TRUE`.
+- You can also exert finer control over `auto.key`:
+	1. It accepts a list of parameters.
+	2. `space` controls where the legend is drawn: [left, bottom, right, top].
+	3. `columns` controls how many levels to divide them.
+	4. `title` controls the name of the legend.
+	5. `text` controls the names of the levels.
+- You can generate a separator between panels using the `between` parameter.
+- This takes a list with an index of where the divider will be.
+- Ex: `between = list( y = c(0, 0, 0, 1, 0, 0))`.
+- 
+
+
 # Controlling Scales and Graphical Parameters
 # Customizing Plots Using Panel Functions
 # Extentions and the Lattice Ecosystem
