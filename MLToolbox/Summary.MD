@@ -9,7 +9,7 @@
 	2. Regression.
 - Once a model exists, you can evaluate it using metrics.
 - We'll focus on *Residual Mean Square Error (RMSE)*.
-- Calculating the RMSE on the same model data is built with overestimates accuracy.
+- Calculating the RMSE on the same model data is built with will overestimate accuracy.
 - Features of a great model:
 	1. Don't overfit and generalize well.
 	2. Perform well on new data.
@@ -80,10 +80,11 @@ train(                        # function call
 - Random forests start with a simple decision tree, but then do this multiple times.
 - Each model is done with a different subset of the dataset.
 - This is called *Bootstrap Aggregation* - or *Bagging*.
-- To use this in `caret` pass the `method = "ranger"` parameter.
+- To use this in `caret` pass the `method = "ranger"` parameter; faster than `rf`.
 - Random Forests require tuning.
 - The most important of which is mtry: which is the number of randomly selected variables at each split.
 - Lower mtry = more random; higher mtry = less random.
+  * Better comparision: lower mtry = more biased; higher mtry = less biased.
 - `caret` can automate this.
 - This is called *grid search* and is passed via parameter `tuneLength = <n>`.
 - Ranger is faster than the `random forest` package.
@@ -92,7 +93,7 @@ train(                        # function call
 - The advantages are:
   1. Helps with *collinearity*.
   2. And deals with small sample sizes well.
-- Threre are two kinds of forms:
+- There are two kinds of forms:
   1. Lasso regression: which penalizes non-zero coefficients.
   2. Ridge Regression: which penalizes the absolute magnitude of coefficients.
 - A glm model attempts to find a **parsimonious** model.
@@ -117,7 +118,7 @@ train(                        # function call
 - The order you pass them into `preProcess` is the order that is applied.
 - Prefered order is..
   1. Median/Knn Impute.
-  2. If lm, thn scale and center.
+  2. If lm, then scale and center.
   3. Try PCA or SpatialSign.
   4. Last trees don't really need
 - Constant or low variance variables can damage models.
@@ -133,10 +134,24 @@ train(                        # function call
 
 
 # Selecting Models: Case Study
-
-
+- To compare models, you will want to use the precisely same data for train/test.
+- `caret` has the ability to do this using `trainControl()`.
+- The function to do this is `createFolds()`
+- This is based to the parameter `index` inside `trainControl()`.
+- Package `glmnet` is a great baseline model to start with.
+- For a model, you want one that has the highest AUC but lowest AUC Standard Deviation.
+- `caret::resamples()` can do this.
+- Steps:
+  1. Make list of the models `model_list <- list( glmnet = model_glmnet, rf = model_rf)`
+    * Format should be **<model_external_reference_name> = <caret_model>**.
+  2. Call `resamples( model_list)` and save the results.
+- `caret` can build an ensamble stack using `caret::caretStack()`.
+- And, takes the parameters:
+  * `model_list`
+  * `method`
 
 # Research
 - spatialSign algorithm
+- caretEnsamble package?
 
 # Reference

@@ -17,10 +17,10 @@
 - There is more unlabeled data than labeled data.
 - The first clustering algorithm we'll study is K-Means Clustering.
 - To use call `kmeans( **<dataframe>**, centers = **<n>**, nstart = **<n>**)
-- `kmeans()` assumes tidy data.
+- `kmeans()` assumes tidy data format.
 - *Kmeans* could also not solve the problem since it's random.
 - **`nstart`** will tell the function how many times to run.
-- You can get access to which cluster items belong using **`<model_name>$cluster`**.
+- You can get access to which cluster items belong to using **`<model_name>$cluster`**.
 - *Kmeans* uses the total within a cluster's sum of squares.
 - To garuntee reproducability, make sure to use the `set.seed()` function.
 - A *Scree plot* is a set of plots that shows changes to variables being tested.
@@ -39,7 +39,7 @@
 	1. Pairwise: all observations, largest similarities.
 	2. Single: all observations, smallest of similarities.
 	3. Average: all observations, average similarities.
-	4. Centroid: calculate centriods, and the compare.
+	4. Centroid: calculate centriods, and then compare.
 - Complete and average are the most commonly used.
 - Single tends to produce unbalanced trees.
 - Fast initial joins, but flattens out.
