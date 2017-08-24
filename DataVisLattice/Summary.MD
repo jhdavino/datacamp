@@ -44,10 +44,38 @@
 - You can generate a separator between panels using the `between` parameter.
 - This takes a list with an index of where the divider will be.
 - Ex: `between = list( y = c(0, 0, 0, 1, 0, 0))`.
+- Each panel is labeled with what is called a **strip**.
+- You can edit those by passing `strip = strip.custom( factor.levels = c('Label1', 'Label2'))`
+- Lattice builds an object of values instead of immediately being drawn after each call.
+- You can update a 'trellis' object using the `update()` function.
+
+# Controlling Scales and Graphical Parameters
+- You can control whether panel axis are scaled separately or not using the **scales** argument.
+- Ex: `scales = list(x = list(relation = "free"))`.
+- There are three common values: 
+	1. "free" for independant axis limits.
+	2. "same" for uniform axis limits.
+	3. "sliced" for holding the ranges as constant.
+- *scales* can also allow you to control the number of ticks on the graph.
+- `alternating` allows you to tell Lattice which sides get the tick marks:
+	1. 1 for left/bottom.
+	2. 2 for right/top
+	3. 3 for both sides.
+- `rot` to rotate the axis.
+- You can use a log transform to assist with visability.
+- Lattice has themes like ggplot2.
+- You can get them from package `LatticeExtra`.
+- You can mimic the ggplot theme using `ggplot2like()`.
+- You can save the theme from Lattice using `trellis.par.get()`
+- You can set the the theme using `trellis.par.set()`.
+- This can also be done inside a Lattice function by passing the parameter `par.settings`.
+- You can set borders to be invisible via "transparent".
+- You can also control group character points by passing a vector via the parameter `pch`.
+- You can make sure all panels appear the same by passing values to `par.settings = simpleTheme(...)`.
+- `RColorBrewer` is a package to create more colors in a graph.
 - 
 
 
-# Controlling Scales and Graphical Parameters
 # Customizing Plots Using Panel Functions
 # Extentions and the Lattice Ecosystem
 
