@@ -93,11 +93,25 @@
 	5. 'a' for average y values.
 
 # Extentions and the Lattice Ecosystem
--
+- The first argument to Lattice need not be a formula.
+- Lattice can accept matrices and dataframes directly in the first argument.
+- You can suppress the strips on the top using `strip = FALSE`.
+- You can enable strips in another location using `strip.left = TRUE`.
+- You can override the panels using `superpose = TRUE`.
+- `latticeExtra` supports `mapplot()` as long as you use the `maps` package.
+```r
+county.map <- map("county", plot = FALSE, fill = TRUE, 
+                  # Specify projection
+                  projection = "sinusoidal")
+```
+- `latticeExtra::seqplots()` will allow you to plot confidence intervals.
+- Hexbin plots are cool.
 
 
 # Research
 - `density()`
+- `directlabels()`
+
 
 # Reference
 - twemoji
