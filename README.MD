@@ -28,6 +28,7 @@
 | Machine Learning Toolbox                | [/MLToolbox]                     | {2017/08/11}   |
 | Unsupervised Learning in R              | [/UnsupervisedInR]               | {2017/08/09}   |
 | Data Visualization in R with ggvis      | [/DataVisGGVis]                  | {2017/08/23}   |
+| Data Visualization in R with Lattice    | [/DataVisLattice]                | {2017/08/25}   |
 
 
 
