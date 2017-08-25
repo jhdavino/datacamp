@@ -73,11 +73,31 @@
 - You can also control group character points by passing a vector via the parameter `pch`.
 - You can make sure all panels appear the same by passing values to `par.settings = simpleTheme(...)`.
 - `RColorBrewer` is a package to create more colors in a graph.
-- 
 
 
 # Customizing Plots Using Panel Functions
+- You can make your own graphs in Lattice two.
+- There are two ways to approach this:
+	1. Declarative
+	2. Procedural
+- You use a `panel.*` function to create the base model to use for graphing.
+- All common base graphic functions have Lattice analogs.
+- When there are a lot of points, Lattice includes the `panel.smoothScatter()` function.
+- You can adjust the y value limits by passing parameter `ylim` inside of a `panel.*` function.
+- When a high level function receives parameters not associated with the plot, it passes them to the panel.
+- The `type` parameters has a few useful arguments:
+	1. 'p' for points
+	2. 'l' for lines.
+	3. 'r' for linear regression.
+	4. 'smooth' for LOESS smooth.
+	5. 'a' for average y values.
+
 # Extentions and the Lattice Ecosystem
+-
+
 
 # Research
+- `density()`
+
 # Reference
+- twemoji
