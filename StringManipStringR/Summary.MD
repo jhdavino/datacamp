@@ -56,6 +56,39 @@
 
 
 # Pattern Matching with Regular Expressions
+- Regular Expressions is a language for describing patterns.
+- Since `\` has a special meaning in R, then you have to actually use two of them.
+- We're going to be using the `rebus` package to build expressions.
+- `%R%` is a sort of 'piping' for rebus.
+- You should think of it as "then".
+- You can include the expression inside of any function that accepts patterns already.
+- `str_view()` will open and HTML viewer of the matching strings.
+- You can specify beginning or ending using expressions `START` or `END` in rebus.
+- Make sure that `END` is actually the last item in the queue.
+- `START` maps to `^` in regex; `END` maps to `$` in regex.
+- You can match any character using `ANY_CHAT` which maps to `.` in regex.
+- `str_extract` returns ONLY the part that matches.
+- rebus also has variables for:
+	- '.' : `DOT`
+	- '^' : `CARET`
+	- '$' : `DOLLAR`
+- In rebus, you use `or( terms, terms, terms)` for logical or matches.
+- Character classes match a set of passed characters.
+- You do this using `char_class("asdlkfjasdfklasdjflkj")`.
+- You can tell rebus to not match using `negated_char_class("asdlkfjasflkdjlakf")`.
+- When dealing with repitition:
+	- '?'      : `optional()`
+	- '*'      : `zero_or_more()`
+	- '+'      : `one_or_more()`
+	- '{n}{m}' : `repeated()`
+- Adding `match = TRUE` to `str_view()` will display only matches.
+- Regex has built in character classes for common classs calls.
+- You can specify a range using a '-' inside of a character class.
+- Ex: `char_class("ab-op")`.
+- The builtin for the digit class in rebus is `DGT`.
+- The builtin for word-character is `WRD`.
+- The builtin for space is `SPC`.
+
 
 # More Advanced Matching and Manipulation
 
