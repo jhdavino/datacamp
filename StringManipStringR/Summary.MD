@@ -89,8 +89,25 @@
 - The builtin for word-character is `WRD`.
 - The builtin for space is `SPC`.
 
-
 # More Advanced Matching and Manipulation
+- **Capturing** is the process of grouping certain parts of a group together.
+- In rebus, you wrap the part you wish to capture in `capture()`.
+- Capturing does not change what will be matched, but simply tells regex you're going to do something with it.
+- `str_match()` is designed to work with caputures.
+- This will return a matrix with both the resulting matches as well as a separate column for the captured part.
+- `capture()` can go around whole parts of the regex built by rebus.
+- **Backreferences** are references to captured pieces of regular expressions.
+- regex uses a simple count from left to right to refer to the capture blocks.
+- rebus uses the expression `REF1` to refer to the first reference.
+- In regex, `REF1` translates to *\1*.
+- The max count of reference is `REF9`.
+- Unicode associates an individual character with a hexidecimal codepoint.
+- R supports unicode using the format "\u<unicode_number>" or "\U<unicode_longcode>".
+- Emojis require 8 digit \U form.
+- Windows sucks again; cannot do emojis correctly.
+- You can use unicode just like you would any other character in regex.
+- A **grapheme** is where two code points represent a single character.
+- You can match these using `GRAPHEME` in rubus.
 
 # Case Studies
 
