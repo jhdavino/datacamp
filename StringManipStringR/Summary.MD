@@ -110,10 +110,19 @@
 - You can match these using `GRAPHEME` in rubus.
 
 # Case Studies
-
+- `readLines()` will read in a file without assuming anything about its structure.
+- There is an experimental version `stringi::stri_read_lines()`.
+- You can check for empty strings using `stringi::stri_isempty()`.
+- `ascii_upper()` is the character class for only upper case letters.
+- `or1()` allows you to pass a a character vector full of possible matches.
+- *MUH CATCIDENTS!*
+- You can request that case be ignored by wrapping your pattern in `regex( "<pattern", ignore_case = TRUE)`.
+- rebus has a function also for this using `whole_word()`.
+- **stringr** has functions to convert characters to upper or lower using `str_to_upper()` and `str_to_lower()`.
+- **stringr** also can capitalize each word for titles using `str_to_title()`.
 
 # Research
-- Rebus Package?
-
+- Rebus Package
+- `regex()`
 
 # Reference
