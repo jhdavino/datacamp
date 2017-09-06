@@ -2,7 +2,7 @@
 
 | Class Name                              | Directory                        | Date Completed |
 | ----------------------------------------| -------------------------------- | ---------------|
-| Object Oriented R                       | [/ObjectOrientedR]               | {2016/12/23}   |
+| Object Oriented R at a Glance           | [/ObjectOrientedR]               | {2016/12/23}   |
 | Data Visualization with ggplot2, Part 1 | [/DataVisGgplot2P1]              | {2016/09/01}   | *
 | Data Visualization with ggplot2, Part 2 | [/DataVisGgplot2P2]              | {2017/01/16}   |
 | Data Visualization with ggplot2, Part 3 | [/DataVisGgplot2P3]              | {2017/01/27}   |
@@ -29,7 +29,7 @@
 | Unsupervised Learning in R              | [/UnsupervisedInR]               | {2017/08/09}   |
 | Data Visualization in R with ggvis      | [/DataVisGGVis]                  | {2017/08/23}   |
 | Data Visualization in R with Lattice    | [/DataVisLattice]                | {2017/08/25}   |
-| String Manipulation in R With Stringr   | [/StringManipStringR]            |                |
+| String Manipulation in R With Stringr   | [/StringManipStringR]            | {2017/09/01}   |
 
 
 
