@@ -42,10 +42,84 @@
 - We'll be using **Flask-WTF** for forms.
 - To handle requests, you will need to import `request` from `flask`.
 - This will allow you to set behaviors conditionally based on `request.method`.
+- You can get data from forms using `request.form[form_name]`.
+- flask also has a variant of the python logger system builtin which can be called using `app.logger.{debug, warn, info}()`.
+- Responses will defaul to get requests.
+- If you forget to include the `methods = ['GET', 'POST']`.
+- To provide visual confirmation, one should always redirect to a page confirming the transaction.
+- flask has a module called `redirect` to do just that.
+- To use it, `return redirect( url_for( 'page.html'))`.
+- Request is globally available but contextualized per user.
+- It only works inside of Views.
+- It contains objects such as:
+	* form:    data of a submitted form.
+	* args:    contents of GET submits.
+	* cookies: contents of cookies.
+	* headers: incoming headers as dict.
+	* files:   files uploaded via PUT, POST
+	* method:  current method type.
+- flask also has a Session object to remember data between requests.
+- It is also global, but contextual.
+- flask uses `Flask.secret_key` to set the cookie.
+- You can store data in the session by treating it like a dictionary.
+- We're going to use it to store a `flash()` message after user submit it successful.
+- You can include configuration settings in a config file.
+- You access that file's values using `app.config['value']`.
+- To access them via the templates, use:
+```python
+{% with messages = get_flashed_messages() %}
+	{% if messages %}
+	...
+	{% for message in messages %}
+		{{ message }}
+	{% endfor}
+	{% endif %}
+{% endwith %}
+```
+- Don't forget to end all your conditionals.
+- Jinja also supports `{% elif %}`.
+- We could validate the forms itself, but Flask-WTF does much of this for us.
+- This uses WTForms, which is its own technology.
+- You need to install this in your project using `pip install flask-wtf`.
+- It is good practice to include a forms.py to separate all your forms into.
+- Remember that all forms *MUST* inherit from the class **Form**.
+- The format is:
+```python
+from flask_wtf import Form
+from wtforms.fields import StringField
+from flask.ext.wtf.html5 import URLField
+from wtforms.validators import DataRequired, url
 
 
+class BookmarkForm( Form ):
+	url = URLField( 'label_of_field', validators=[DataRequired(), url()])
+	description = StringField('name_of_field')
+```
+- `DataRequired()` tells flask that the field cannot be empty.
+- `url()` tells flask that this should be a valid url.
+- In the views file, you can request that validation be run using `form.validate_on_submit()`.
+- This will return a boolean value; which you can check against.
+- When a form has already been generated, don't forget to pass it along with `render_template()`.
+- In the template, you use `form.<variable_name>(size = <width>)`.
+- You can access the data in a form using `form.url.data`.
+- **ALWAYS INCLUDE THIS NEXT PART TO PREVENT CSRF ATTACKS**: `form.hidden_tag()`.
+- If there are any errors, then `form.url.errors` will have a value.
+- wtforms is lacking some of the forms via html5.
+- You can also define your own validators.
+- A macro field acts similar to a python function.
+- Ex:
+```python
+{% macro render_field( field ) %}
+	...
+{% endmacro %}
+```
+- A jinja filter applys a rule to the output.
+- One of these is called `safe` which treats the string given as literal.
+- You can import these defined macros using `{% from "form.html" import macro_name %}`.
 
-# 
+# Persistence
+-
+
 # 
 # 
 # 
@@ -54,4 +128,5 @@
 - [Initializr](http://www.initializr.com)
 - [Jinja2]( http://jinja.pocoo.org)
 - [Merging Flask and Bootstrap](https://pypi.pythong.org/pypi/Flask-Bootstrap)
+- [Jinja Control Structures]( http://jinja.pocoo.org/docs/dev/templates/#list-of-control-structures)
 - 
