@@ -118,9 +118,78 @@ class BookmarkForm( Form ):
 - You can import these defined macros using `{% from "form.html" import macro_name %}`.
 
 # Persistence
--
+- Time to start working with a database!
+- We'll be using a library called Sqlalchemy for models.
+- This is called an **Object Relational Manager**.
+- Make sure to install using `pip install flask-sqlalchemy`.
+- Models should be contained in `models.py`.
+- Make sure to have your models inherit from whatever you call your databse reference; usually db.Model.
+- Instances are created using `db.Column( <db.type> , ...)`.
+- You only need to import `db` from you project name ; this case `thermos`
+- `__repr__` is for **regular printing**.
+- You can declare the database in project.app using:
+```python
+import os
+from flask_sqlalchemy import SQLAlchemy
 
-# 
+basedir = os.path.asbpath( os.path.dirname(__file__))
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'thermos.db')
+db = SQLAlchemy(app)
+```
+- SQLalchemy also supports lots of other databases.
+- Every instance represents a column in the table.
+- When creating an instance, you can pass options:
+	* primary_key=True ; obv.
+	* nullable = False ; don't allow field to be empty.
+- To create the database, call `db.create_all()` after importing all the necessary pieces.
+- To table an object in preparation to submit, use `db.session.add( <object> )`.
+- To submit an object tabled, use `db.session.commit()`.
+- Each model also comes along with matching reference for building queries.
+- To request data, use `<object>.query.get(<rownumber>)`.
+- To filter data, use `<object>.query.filter_by(username = 'duders')`
+- To actually get the data though, you need to append a `.all()` to the filter call.
+- Make sure to import the models from the models.py file.
+- `@staticmethod` means that you don't need the model to run it.
+- You can order the results based on a field using `order_by( desc(Bookmark.date) ).limit( n )`.
+
+- There are shortcut commands which you install with `pip install flask-script`.
+- You import it using `from flask.ext.script import Manager, prompt_bool`.
+- The functions for this look like:
+```python
+# Create the database on first run.
+# manage.py
+@manager.command
+def initdb():
+	db.create_all()
+	print 'Initialized the database'
+
+@manager.command
+def dropdb():
+	if prompt_bool("Are you sure you want to lose all your data"):
+		db.drop_all()
+		print "Dropped the database"
+
+if __name__ == '__name__':
+	manager.run()
+```
+- This allows you to type `python manage.py <command>` to run the command.
+- You create a foreign key to connect models using `db.ForeignKey('user.id')`
+- To connect the source table back, use `db.relationship('Bookmark', backref='user', lazy='dynamic')`.
+- Looking at the lazy variable more:
+	1. `lazy = 'static'` means only load when looked at.
+	2. `lazy = 'joined'` means no lazy loading at all.
+	3. `lazy = 'subquery'` means no lazy loading but takes place as a subquery.
+	4. `lazy = 'dynamic'` means only load part of the data at a time.
+- Proper nomenclature means that configuration data should be in __init__.py.
+- When you use `<var_name>` in a route, then it allows it to be passed as a parameter.
+- Ex: `@app.route('/user/<username>')`.
+- You should also pass along, when requesting a query, `.first_or_404()` to manage if no data is found.
+
+
+# Users And Authentication
+- 
+
 # 
 # 
 
