@@ -188,9 +188,86 @@ if __name__ == '__name__':
 
 
 # Users And Authentication
-- 
+- To allows users to login, we're going to need to use `pip install flask-login`.
+- In the **__init__.py** file, you're going to want to include the following:
+```python
+from flask_login import LoginManager
 
-# 
+#...
+
+login_manager = LoginMaanger()
+login_manager.session_protection = strong
+login_manager.init_app( app )
+```
+- To restrict pages to users that are only logged in, use `@login_required`.
+- You will need to `from flask_login import login_required`.
+- Don't forget to create a page for the 401 error.
+- You don't have to write a lot of your own code thanks to `UserMixin`.
+- This module adds:
+	1. `is_active()`
+	2. `is_authenticated()`.
+	3. `is_anonymous()`.
+	4. `get_id()`
+- To allow for logins you will need:
+```python
+# in forms.py
+from wtforms.fields import StringField, PasswordField, BooleanField, SubmitField
+
+# in views.py
+from flask_login import login_required, login_user
+from forms import BookmarkForm, LoginForm
+```
+
+- This is starting to get very code heavy
+```python
+# inside views.py
+@login_manager.user_loader
+def load_user(userid):
+	return User.query.get( int(userid))
+```
+- If you want users to be forwarded to the login page, then include `login_manager.login_view = "login"`
+- This will tell loginmanager what the default page is.
+- The request object also contains the page the user was trying to visit in `request.args.get('next')`.
+- While a user is logged in, login manager maintains a variable called `current_user`.
+- To assist with security around users, flask uses *Werkzeug*.
+- We'll need `from werkzueg.security import check_password_hash, generate_password_hash`
+- Then, we can add the has to the User model via `password_hash = db.Column(db.String)`.
+```python
+# include with User Model:
+@property
+def password(self):
+	raise AttributeError('password: write-only field') 
+
+@password.setter
+def password(self, password):
+	self.password_hash = generate_password_hash( password )
+
+def check_password( self, password):
+	return check_password_hash(self.password_hash, password)
+
+@staticmethod
+def get_by_username( username ):
+	return User.query.filter_by( username = username).first()
+
+def __repr__(self):
+	return "<User '{}'>".format(self.username)
+```
+
+- You can validate the length of a field using `Length(min, max)`.
+- You can also add your own regular expression using `Regexp(..., message = "Whatever was the reason for failure")`.
+- To ensure that two fields are identical, simply pass validator `EqualTo( <fieldname>, message= "")`,
+- Don't forget to check if a username or a email already exists:
+```
+def validate_email( self, email_field):
+	if User.query.filter_by( email = email_field.data).first():
+		raise ValidationError('There is already a user with this email address.')
+
+def validate_username( self, username_field):
+	if User.query.filter_by( username = username_field.data).first():
+		raise ValidationError('There is already a user with this username')
+
+# Managing Bookmarks
+
 # 
 
 # Resources:
