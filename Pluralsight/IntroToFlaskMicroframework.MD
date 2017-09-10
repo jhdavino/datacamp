@@ -267,12 +267,84 @@ def validate_username( self, username_field):
 		raise ValidationError('There is already a user with this username')
 
 # Managing Bookmarks
+- Another jinja filter: truncate(char_limit, killwords=True)`
+- **killwords** means that it will not complete the word before truncating.
+- `moment()` is a javascript call that formats dates in a clean way.
+- To use this, you will need to install `pip install flask-moment` which pulls in the library.
+- You will also need the lines `from flask.ext.moment import Moment` and `moment = Moment(app)` in **__init__.py**.
+- Moment also includes a clean way to import jquery and itself:
+```python
+{{ moment.include_jquery() }}
+{{ moment.include_moment() }}
+```
+- You can include the new file using `{% include "file.html" %}`.
+- You can make a route type conditioned using `<int:value_name>`.
+- You can call an error using `abort(403)`.
+- Flask-WTF has the method `form.populate_obj( var_name )` to autofill values from form.
+- Filters are special functions in Jinja that can be chained using `|`.
+- You can even add your own filters.
+- To manage database migrations, you use `pip install flask-migrate`.
+- Then, you add the blocks:
+```python
+from flask.ext.migrate import Migrate, MigrateCommand
 
-# 
+migrate = Migrate(app, db)
+manager.add_command( 'db', MigrateCommand) # higher order function?
+```
+- After this is done, you *must* run `python manage.py db init`.
+- Then, you can run `python manage.py db migrate` to generate the script to do the work.
+- This gives you acess to two new commands: `upgrade()` and `downgrade()`.
+- You can create a lower level table using `var_name = db.Table( .. )`.
+```python
+# code to create a many-to-many relationship
+_tags = db.relationship('Tag',      # Class to use as model
+	secondary = tags,               # table to connect to.
+	backref=db.backref('bookmarks', # second table to connect to.
+		lazy='dynamic'))            # obv.
+```
+- `text.strip()` will delete all white space.
+- `table_name.get_or_create( value )` will insert a new value if it already doesn't exist.
+- The code for this function is:
+```python
+@staticmethod
+def get_or_create(name):
+	try:
+		return Tag.query.filter_by(name = name).one()
+	except:
+		return Tag(name = name)
+```
+- Worth mentioning the format for list comprehensions: `[ text.strip() for text in string.split(',')]`
+- We're going to use a js library called *Select2* to assist; link below.
+- Calling `super()` in a child page will insert the parent's content block instead.
+- You can also pass `id="tags"` to `render_field()` to add identifying information.
+- Jinja has a `map(attribute='name')` to create a generator function.
+```js
+// This expression takes a json object.
+// And will convert this into a comma separated list
+// Inserted into the element #tags.
+$(#tags).select2({tags: _tags, tokenSeparators: [",", " "]});
+```
+- You can set a function to be global across all templates using:
+```python
+@app.context_processor
+def inject_tags():
+	return dict(all_tags=Tag.all)
+```
+- You delete something using `db.session.delete( item )`.
+- Don't forget to commit.
+
+
+# When Your App Grows
+- 
 
 # Resources:
 - [Initializr](http://www.initializr.com)
 - [Jinja2]( http://jinja.pocoo.org)
 - [Merging Flask and Bootstrap](https://pypi.pythong.org/pypi/Flask-Bootstrap)
 - [Jinja Control Structures]( http://jinja.pocoo.org/docs/dev/templates/#list-of-control-structures)
+- [Select2 js](https://ivaynberg.github.io/select2/)
 - 
+
+# Research
+- Alembic
+- `db.relationship()`
