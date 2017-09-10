@@ -335,7 +335,38 @@ def inject_tags():
 
 
 # When Your App Grows
-- 
+- We're going to be using a tool to debug `pip install flask
+- In __init__.py, `from flask_debugtoolbar import DebugToolbarExtention`
+- ..              `toolbar = DebugToolbarExtension( app )`.
+- This gives you a toolbar that gives you lots of information about the webpage.
+- **Blueprints** are used for breaking up projects.
+- To use, create a new folder of the blueprint name.
+- Then, create an init file containing:
+```python
+from flask import Blueprint
+
+dir_name = Blueprint('dir_name', __name__)
+
+from . import views
+```
+- This package only imports what you need.
+- This means app is not imported.
+- In the project __init__.py, you include:
+```python
+from .dir_name import dir_name as dir_name_blueprint
+app.register_blueprint( dir_name_blueprint, url_prefix='/dir_name')
+```
+- Any calls to **auth** subdirectory will be redirected to the blueprint.
+- When refering to a blueprint's views, you need to include `url_for('dir_name.signup')` for example.
+- Don't forget to change the login_manager reference since it will break otherwise.
+- Blueprints are app-like but is not an app.
+- These should be used as often as possible so that different teams can work on different parts.
+- It it proper practice to create blueprints like their own packages.
+- Make sure to Unit Test your app.
+- You'll need a folder test for this.
+- To use them, `from flask.ext.testing import TestCase`.
+- This is dependent on `pip install flask-testing`.
+
 
 # Resources:
 - [Initializr](http://www.initializr.com)
@@ -343,7 +374,6 @@ def inject_tags():
 - [Merging Flask and Bootstrap](https://pypi.pythong.org/pypi/Flask-Bootstrap)
 - [Jinja Control Structures]( http://jinja.pocoo.org/docs/dev/templates/#list-of-control-structures)
 - [Select2 js](https://ivaynberg.github.io/select2/)
-- 
 
 # Research
 - Alembic
