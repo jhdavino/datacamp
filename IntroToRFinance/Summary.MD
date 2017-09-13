@@ -1,0 +1,12 @@
+- A **Vector** is a collection of data that is all the same type.
+- `c()` stands for combine, not concatinate.
+- `is.vector()` will return a logical about whether the object is a vector.
+- You can add names to a vector using `names()`.
+- The heirarchy of vector types is logical < integer < numeric < character.
+- I know how the plot function works.
+- The names you assign can be used to also look up the index.
+- A matrix is a 2D vector.
+- `matrix( values, nrow = <n_of_rows>, ncol = <n_of_cols>)`.
+- You can alter the fill behavior by passing `byrow = TRUE`; this fills by row first.
+- Matrices also only support one type of data.
+- I know about `cor()`
