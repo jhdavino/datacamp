@@ -13,7 +13,7 @@
 - Use Python 3 for eventual replacement.
 - Check version using `python3 --version`; which is BSD notation.
 - I'm not going to use PyCharm though; I'll be working with Atom instead.
-- And, I might start working in Sublimetext as well.
+- And, I might start working in Sublime text as well.
 
 
 # Types, Statements, and Other Goodies
@@ -34,7 +34,7 @@
 - One way to deal with this is with lots of unit testing.
 - **Integers** are numbers; **floats** are decimal numbers.
 - Python 3 also includes complex numbers.
-- To explicitely declare the type use `type( variable )`.
+- To explicitly declare the type use `type( variable )`.
 - Strings are text representations.
 - Python3 uses Unicode string by default.
 - They can be declared using `'a' == "a" == """a"""`.
@@ -46,7 +46,7 @@
 - You can substitute values into a string using `"this is a {0}, this is a {1}".format( name, shame)`.
 - `format()` can be *VERY* advanced.
 - Boolean indicates a true or a false value: True or False.
-- `None` is synoymous with `NULL` for other languages.
+- `None` is synonymous with `NULL` for other languages.
 - If Statements:
 ```python
 number = 5
@@ -118,12 +118,10 @@ student = {
 - You need to close the file to save the changes using `f.close()`.
 - You use the **yield** keyword to build a generator - which are kind of like a list.
 - **Lambda functions** are just anonymous functions.
-- Python does actaully allow for hgher order functions - which I didn't know.
+- Python does actually allow for higher order functions - which I didn't know.
 - The lambda format is `double = lambda x: x * 2`.
 
 # Object Oriented Programming - Classes and Why Do We Need Them
-
-
 - `pass` just tells Python to do nothing.
 - To create a new instance of a class just use `variable_name = InitCall()`
 - This reference points to an object in memory.
@@ -139,15 +137,13 @@ student = {
 
 
 # Putting it All Together - Let's Make it a Web App.
-- 
 - Django is the top pick; we're going to use Flask.
 - Flask is very minimalistic.
 - There is a lot of overlap between your local application and the Web App version.
-- 
 
 # Python Tips and Tricks.
 - A **Virtual Environment** allows you to set up different versions of Python to work in.
-- Install using `pip install vertualenv`.
+- Install using `pip install virtualenv`.
 - To start a new environment just use `virtualenv <name_of_envir>`.
 - You can set which version of python to use using `--python=<path_to_python>`.
 - To activate the environment use `source <path_to_envir/bin/activate`.
@@ -157,8 +153,7 @@ student = {
 - It is cross platform too.
 - After installing, type `pyinstaller <file.py>`.
 - If you want everything contained in a single executable, then use `--onefile` flag.
-
-- To create the familiar intallation process for your application, use **Inno Setup**.
+- To create the familiar installation process for your application, use **Inno Setup**.
 - You will need to download it from the internet.
 
 # Research:

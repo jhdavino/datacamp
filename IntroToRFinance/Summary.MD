@@ -29,7 +29,7 @@
 - I know about `cor()`
 
 # Data Frames
-- A **Data frmae** is nothing more than a grid of rows and columns containing values.
+- A **Data frame** is nothing more than a grid of rows and columns containing values.
 - The difference between a data frame and a Matrix is that the data frame allows for different types.
 - I know how to create a data from.
 - You can change the names of the columns using `colnames()`.
@@ -44,6 +44,6 @@
 
 # Research:
 - How does subset filter so efficiently?
-- 
+-
 
 # Reference:
