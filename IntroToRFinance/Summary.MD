@@ -39,6 +39,16 @@
 - $100 now is worth more than $100 tomorrow.
 
 # Factors
+- **Factors** are classifications of data within a column.
+- You can confirm that something is of type factor using `class()`.
+- `levels()` will list all the levels from a factor type.
+- `cut()` will split a vector up into parts based on `breaks = values`.
+- You can order a factor for more control.
+- By default, R will order the levels by the alphabet.
+- We can allow R to assume that the order present is the correct order and create a factor using `ordered()`.
+- To assign the order yourself, pass `ordered = TRUE, levels = c(.., .., ..)` to `factor()`.
+- The levels are kept even if you subset the data.
+- To ignore them, pass `drop = TRUE` to data frames.
 
 # Lists
 
