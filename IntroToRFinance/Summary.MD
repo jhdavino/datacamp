@@ -51,9 +51,24 @@
 - To ignore them, pass `drop = TRUE` to data frames.
 
 # Lists
+- Create a list using `list()`.
+- 
+
 
 # Research:
 - How does subset filter so efficiently?
--
+- You can get the first element of a list using `list_name[1]`.
+- This returns a list object.
+- You can use `[[ ]]` to unlist an object and get its internal representation.
+- You can adjust values using `list_name$internal_name <- values`.
+- You can remove values using `list_name$internal_name <- NULL`.
+- `split()` returns a list object.
+- You can keep nesting references in a list by the use of multiple `$` symbols.
+- split is useful to deal with a class of problems called **split-apply-combine**.
+- You can recombine the list using `unsplit()`.
+- You can look at the attributes of an object using `attributes()`.
+- You can look at a specific attribute of an object using `attr( object, attr_name)`.
 
 # Reference:
+
+# Research:
