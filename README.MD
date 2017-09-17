@@ -30,6 +30,7 @@
 | Data Visualization in R with ggvis      | [/DataVisGGVis]                  | {2017/08/23}   |
 | Data Visualization in R with Lattice    | [/DataVisLattice]                | {2017/08/25}   |
 | String Manipulation in R With Stringr   | [/StringManipStringR]            | {2017/09/01}   |
+| Introduction to R and Finance           | [/introToRFinance]               | {2017/09/16}   |
 
 
 
