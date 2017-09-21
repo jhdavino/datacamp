@@ -21,6 +21,16 @@
 - `weekdays()` to figure out what weekday a date belongs to.
 
 # If Statements and Operators
+- Relational operators are what allow to make decisions.
+- I know about relational operators.
+- You can also compare against vectors.
+- Sometimes you will need Logical Operators - which are `&, |, !`.
+- `subset()` can be used to subset data based on conditions.
+- I know about if statements.
+- `runif()` can be used to generate random numbers.
+- I know about if-else statements
+- `ifelse()` is awesome - and I use it a lot.
+
 # Loops
 # Functions
 # Apply
