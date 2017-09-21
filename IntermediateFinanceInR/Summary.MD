@@ -32,6 +32,8 @@
 - `ifelse()` is awesome - and I use it a lot.
 
 # Loops
+
+
 # Functions
 # Apply
 
