@@ -32,9 +32,15 @@
 - `ifelse()` is awesome - and I use it a lot.
 
 # Loops
-
+- `repeat{}` is a thing I didn't rememmber.
+- `break` stops loops.
+- `while()` is a thing.
+- Make sure you condition is eventually exits the loop.
+- I know about the for loop.
+- `next` just behaves like `continue` in other languages.
 
 # Functions
+-
 # Apply
 
 # Research
