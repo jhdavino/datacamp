@@ -40,8 +40,22 @@
 - `next` just behaves like `continue` in other languages.
 
 # Functions
--
+- .. are lines of code designed to a limited, but repeatable, set of actions.
+- The compontents are:
+	1. **Arguments**.
+	2. **Body**
+	3. **Return**
+- You can see the documentation usign `?func_name`.
+- There are two kinds of arguments: required and optional.
+- Function structure; `func_name <- function( args ){ body }`.
+- By defualt, then last line gets returned.
+- *Arithmatic Returns*: St - St-1 / St-1
+- CRAN has lots of packages.
+- You install packages using `install.packages( package_name )`.
+- You load the package using `library( package_name )`.
+
 # Apply
 
 # Research
 # Reference
+- tiddyquant
