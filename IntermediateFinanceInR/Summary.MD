@@ -55,7 +55,20 @@
 - You load the package using `library( package_name )`.
 
 # Apply
+- The idea of apply functions is to go over each data type and use a function on the data.
+- Two main reasons to use:
+	1. Readability.
+	2. Tends to be much faster.
+- `lappy()` takes a list, uses the function on it, then returns a list.
+- You can also pass more arguements by simply adding them to a call named.
+- `sapply()` is short for simplify apply.
+- Don't use `sapply()` for robust code usage since it's context dependent.
+- `vapply()` can be used to force data to an output format.
+- The parameter is `FUN.VALUE`.
+- Sometimes passing an anonymous function into an apply function is the best way to go.
 
 # Research
+- Sharpe Ratio
+
 # Reference
 - tiddyquant

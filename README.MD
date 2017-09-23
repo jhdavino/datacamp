@@ -31,6 +31,6 @@
 | Data Visualization in R with Lattice    | [/DataVisLattice]                | {2017/08/25}   |
 | String Manipulation in R With Stringr   | [/StringManipStringR]            | {2017/09/01}   |
 | Introduction to R and Finance           | [/introToRFinance]               | {2017/09/16}   |
-| Intermediate R for Finance              | [/IntermediateFinanceInR]        |                |
+| Intermediate R for Finance              | [/IntermediateFinanceInR]        | {2017/09/23}   |
 
 * Review/Redo.
