@@ -58,6 +58,47 @@ xts( x = NULL,                   # data
 
 
 # Mergining and Modifying Time series
+- The most common way to append data is using `cbind()` or `merge()`.
+- They just use the time instead of values
+- `merge()` takes n sets of data, `fill` controls how to manage missing data, `join` specifies the type of join.
+- `merge()` uses the normal recycling rules.
+- To add more rows, you use `rbind()`.
+- Two conditions need to be met:
+	1. all rows must have a time.
+	2. the number of columns must match.
+- One way to deal with missing time data is last observation carried forward; l.o.c.f.
+- This is done using `na.locf()`.
+```r
+na.locf( zoo_obj,
+		 na.rm = TRUE,     # control values for messages that don't get filled.
+		 fromLast = FALSE, # reverses the pull: i.e. taking from value after current.
+		 maxgap = Inf      # how many spaces will check behind
+)
+```
+- Other functions include:
+	1. `na.full()` to replace NAs
+	2. `na.trim()` to remove only if top or bottom of data.
+	3. `na.omit()` to remove rows with NA.
+	4. `na.approx()` to use linear interpolation to guess the missing value.
+- **Seasonality** means the pattern is cyclical.
+- **Stationarity** means the pattern stays within some bound.
+- `lag()` allows you to shift observations forwards or backwards in time.
+```r
+lag( xts_obj,
+	 k = 1,         # number of lags
+	 na.pad = TRUE  # controls NA introduction behavior
+)
+```
+- `diff()` is used to control differences in observations.
+```r
+diff( xts_obj,
+	  lag = 1,           # obv.
+	  differences = 1,   # Number of calls to diff
+	  arithmetic = TRUE  # how to 
+	  log = FALSE        # ?
+	  na.pad             # known.
+)
+```
 
 # Apply and Aggregate Time
 
