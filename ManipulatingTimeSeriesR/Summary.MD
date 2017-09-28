@@ -101,6 +101,55 @@ diff( xts_obj,
 ```
 
 # Apply and Aggregate Time
+- There are two approaches to using apply to periods or intervals:
+	1. `period.apply()`.
+	2. `split()`
+- This functions like the Base R apply functions.
+- `endpoints()` uses the `on` parameter to define the interval.
+- These can be days, years, etc.
+- There are also a set of apply.* functions for:
+	1. `.monthly()`
+	2. `.yearly()`.
+	3. etc.
+- `split.xts()` splits data in chunks by time.
+- `k` is a parameter for repeating.
+- `split()` uses the `f` parameter to act the same as `on`.
+- `endpoints()` allows you to cyclically sample from data.
+- Open, High, Low and Close; **OHLC**
+- This is a summary of the period; calculate:
+	1. Start.
+	2. Maximum.
+	3. Minimum.
+	4. Ending.
+- `to.peroid()` is used to do this.
+```r
+to.period(x,
+		  period = "months", # like on arg.
+		  k = 1,             # repetition value
+		  indexAt,           # allows for index alignment
+		  name = NULL,       # change the summary stat names
+		  OHCL = TRUE        # should this stat be calculated?
+)
+
+```
+- There are quite a few cumulative functions:
+	* `cumsum()`
+	* `cumprod()`
+	* `cummin()`
+	* `cummax()`
+- `rollapply()` is to be used on conintuous rolling windows; sort of like incrementing spans.
+```r
+rollapply(data,                      # xts object
+		  width,                     # window size
+		  FUN,                       # obv.
+		  by = 1,                    # 
+		  by.column = TRUE,
+		  fill = if(na.pad) NA,
+		  na.pad = TRUE,
+		  partial = TRUE,
+		  align = c("right", "center", "left")
+)
+```
 
 # Extra features of xts
 
