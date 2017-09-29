@@ -152,9 +152,38 @@ rollapply(data,                      # xts object
 ```
 
 # Extra features of xts
+- The index actually contains:
+	1. tclass or indexClass for attribute extraction.
+	2. tzone or indexTZ for attribute for time zones.
+	3. indexFormat for optional display preferences.
+- Timezone offset is UTC or GMT; samething.
+- Make sure to set a timezone using `Sys.setenv(TZ = 'UTC')` otherwise your OS will be defualt.
+- You can change the fformat using `indexFormat( xts_object) <- "format"`.
+- Get the timezone using `indexTZ()`.
+- `periodicity()` tries to understand the regularity of the data underneath.
+- There are also many .index* functions:
+	* `.indexmday( obj )` for day in month.
+	* `.indexyday( obj )` for day in year.
+	* `.indexyear( obj ) + 1990` for the year.
+- Round all times internally using `align.time( x, n = 60) # n is in seconds`.
+- You can make indexes unique using `make.index.unique()`.
+```r
+make.index.unique(x,
+				  eps = 1e-06,     # epsilon, small change; control allowed difference
+				  drop = FALSE,    # 
+				  fromLast = FALSE # 
+)
+```
+- You can count sections of time using n functions:
+	1. `nmonths()`
+	2. `nquarters()`
+	3. `nyears()`
+	4. ...
+- You can access the interal time using `.index()`.
 
 # Research:
 - look ahead bias.
 - look behind bias.
+- `help( OlsonNames )`.
 
 # Reference:
