@@ -33,5 +33,6 @@
 | Introduction to R and Finance           | [/introToRFinance]               | {2017/09/16}   |
 | Intermediate R for Finance              | [/IntermediateFinanceInR]        | {2017/09/23}   |
 | Manipulating Time Series Data in R      | [/ManipulatingTimeSeriesR]       | {2017/09/29}   |
+| Importing and Managing Financial Data   | [/ImportManageFinanceR]          |                |
 
 * Review/Redo.
