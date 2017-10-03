@@ -24,6 +24,28 @@ data<- getSymbols( Symbols = 'AARP', src='yahoo')
 
 
 # Extracting and Transforming Data
+- *Open, High, Low, Close*: OHLC
+	* Open and Close the first and last datum in the data.
+	* High and Low are the min and max of the datum.
+	* Volume is the sum of all contracts traded.
+- You can extract the data from a column using:
+	* `Op()`.
+	* `Hi()`.
+	* `Lo()`.
+	* `Cl()`.
+	* `Vo()`.
+	* `Ad()`.
+	* `OHLC()`.
+- `getprice()` takes three arguements:
+	1. `x` which is the data.
+	2. `symbol` which is to filter is >1 symbol in data.
+	3. `prefer` which is option prefered price.
+- In `Quandl()`, the `collapse` parameter allows you to aggregate on a time level.
+- .., the `transform` parameter does statistical analysis.
+- Always remember that aggregating occurs before transforms.
+- Stat `rdiff_from`, which is a type of transform, compares all data to the latest datum.
+- I've learned about `do.call()` the hard way.
+- `eapply()` is a function for looping over xts objects.
 
 # Managing Data From Multiple Sources
 
