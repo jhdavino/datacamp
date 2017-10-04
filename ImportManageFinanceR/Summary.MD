@@ -48,10 +48,25 @@ data<- getSymbols( Symbols = 'AARP', src='yahoo')
 - `eapply()` is a function for looping over xts objects.
 
 # Managing Data From Multiple Sources
+- `getSymbols()` doesn't contain code to import data.
+- Code for this exists in a a source method.
+- For example, when you call `getSymbols()` for **FRED** then it calls `getSymbols.FRED()`.
+- You can use `setDefaults( getSymbols, src="FRED")` to change the default call to use **FRED**.
+- Options are saved per session in `options()`; which is global.
+- You can control a mapping from symbol > source using `setSymbolLookup()`.
+- To remove the mapping, you can simply assign the symbol to `NULL`.
+- You can save the lookup table using `saveSymbolLookup( file = "file_name.rda")`.
+- You can load a previous lookup table using `loadSymbolLookup()`.
+- Names must be syntactially valid.
+- Some names in the Stock Market are not valid; like starting with a circumflex.
+- To access names with non-valid names, use backticks.
+- You can use `make.names()` to assist in fixing invalid names.
+- Ex:`setSymbolLookup(ATT = list(name = "T"))`
 
 # Aligning Data with Different Periodicities
 
 # Importing Test Data, and Adjusting for Corportate Actions
+
 
 # Research:
 - Federal Reserve Economic Data
