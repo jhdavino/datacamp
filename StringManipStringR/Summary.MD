@@ -93,7 +93,7 @@
 - **Capturing** is the process of grouping certain parts of a group together.
 - In rebus, you wrap the part you wish to capture in `capture()`.
 - Capturing does not change what will be matched, but simply tells regex you're going to do something with it.
-- `str_match()` is designed to work with caputures.
+- `str_match()` is designed to work with captures.
 - This will return a matrix with both the resulting matches as well as a separate column for the captured part.
 - `capture()` can go around whole parts of the regex built by rebus.
 - **Backreferences** are references to captured pieces of regular expressions.
