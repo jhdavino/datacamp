@@ -64,6 +64,16 @@ data<- getSymbols( Symbols = 'AARP', src='yahoo')
 - Ex:`setSymbolLookup(ATT = list(name = "T"))`
 
 # Aligning Data with Different Periodicities
+- It is preferable to have regular date-time sequences to work with.
+- xts also comes with functions `start()` and `last()` to retreive each respectively.
+- **Zero-width** xts objects are xts object with no data but an index.
+```r
+regular_index<- seq( from = start_date, to = end_date, by = "day")
+```
+- Most economic data is usually only released monthly or quarterly.
+- Use `na.locf()` to fill in missing values.
+- It accepts parameter `fromLast = TRUE` to use indexed data from previous observations.
+- Be careful about differing time zones since `merge()` will not consider them.
 
 # Importing Test Data, and Adjusting for Corportate Actions
 
