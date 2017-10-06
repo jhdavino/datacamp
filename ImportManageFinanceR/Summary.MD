@@ -76,11 +76,46 @@ regular_index<- seq( from = start_date, to = end_date, by = "day")
 - Be careful about differing time zones since `merge()` will not consider them.
 
 # Importing Test Data, and Adjusting for Corportate Actions
+- You can use `getSymbols()` to import data if it's suitably formatted.
+- Each csv must contain  one instrument per file.
+- Columns:
+	1. date
+	2. open
+	3. high
+	4. low
+	5. close
+	6. volume
+	7. adjusted
+- Filenames must be of the format `[symbol].csv`.
+- You can pass `dir` to specify the directory to load thee file from.
+- To tell `getSymbols()` to use a file, pass `src="csv"`.
+- `read.zoo()` can convert a text file directly into a xts object.
+- You can use `na.spline()` to create non-linear interpolation.
+- A Stock split is when a company increases the number of shares and decreases the stock price.
+- You can `symbol.name = "symbol_name"` to create a distinction between the name of the variable and the symbol name.
+- You can download split adjusted or dividend adjusted data using `getSplits()` and `getDividends()`.
+- You can adjust existing data using `adjRatios()`.
+- .. comes with three arguments:
+	1. splits
+	2. dividends
+	3. close
+- It returns an object with Split and Dividends columns.
+```r
+# Calculate split and dividend adjustment ratios
+ratios <- adjRatios(splits = splits, dividends = raw_dividends, close = Cl(AAPL))
 
+# Calculate adjusted close for AAPL
+aapl_adjusted <- Cl(AAPL) * ratios[, "Split"] * ratios[, "Div"]
+
+# Look at first few rows of Yahoo adjusted close
+head(Ad(AAPL))
+
+# Look at first few rows of aapl_adjusted
+head( aapl_adjusted )
+```
 
 # Research:
 - Federal Reserve Economic Data
-- 
 
 # Reference:
 - [Quandl](www.quandl.com)
