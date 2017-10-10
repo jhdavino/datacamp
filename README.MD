@@ -34,7 +34,8 @@
 | Intermediate R for Finance              | [/IntermediateFinanceInR]        | {2017/09/23}   |
 | Manipulating Time Series Data in R      | [/ManipulatingTimeSeriesR]       | {2017/09/29}   |
 | Importing and Managing Financial Data   | [/ImportManageFinanceR]          | {2017/10/06}   |
-| Working with Web Data in R              | [\WebDataInR]                    |                |
+| Working with Web Data in R              | [/WebDataInR]                    |                |
+| Manipulating Time Series Data in Python | [/ManipulatingTimeSeriesPython]  |                |
 
 
 * Review/Redo.
