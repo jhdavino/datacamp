@@ -52,6 +52,38 @@
 - You can do this using the `Sys.Sleep()` function.
 
 # Handling JSON and XML
+- A javascipt Object Notation file is just plain text with a special format.
+- All JSON files are either objects or arrays.
+- Values in an object can be:
+	1. a "string"
+	2. a number
+	3. true
+	4. false
+	5. null
+	6. another object
+- You can use `http_type(<object>)` to check the response type.
+- You can tell content to output the object's content as text by passing `as = "text"` as a variable.
+- You can also have the object converted to a list by passing `as = "parsed"` to `content()`.
+- You can also use `jsonlite::fromJSON()`.
+- You can force `fromJSON()` to not alter the structure by passing `simplifyVector = FALSE`.
+- You can force `fromJSON()` to convert it to a dataframe using `simplifyDataFrame = TRUE`.
+- `rlist::list.select()` will extract sub-elements by name from a list.
+- `rlist::list.stack()` will convert the list to a dataframe.
+
+- Extensible Markup Language, *XML*, is comprised of markup and content.
+- The markup comes in pairs of tags of the format `<tag_name> content </tag_name>`
+- You can also use Attributes instead of more tags.
+- You can request the data be in XML format by passing `format = "xml"`.
+- You can convert to an XML object `xml2::read_xml()`.
+- You can see the structure of the object using `xml_structure()`.
+- xpath extends the tree metaphor of xml by allowing you to reference nodes using a folder-like reference.
+- `xml_find_all()` will return something called a nodeset.
+- You can extract the data from the nodes using `xml_text()`.
+- `//` describes nodes at any level of the document.
+- `@` allows you to extract attributes with that name.
+- `xml_attrs()` will extract all attributes.
+- `xml_attr()` will extract the requested attribute.
+
 
 # Web scraping with XPATHs
 
