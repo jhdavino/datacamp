@@ -83,9 +83,24 @@
 - `@` allows you to extract attributes with that name.
 - `xml_attrs()` will extract all attributes.
 - `xml_attr()` will extract the requested attribute.
-
+- Nodes are pointers to objects.
+- HTML is defined by the content within tags.
+- Tags can also contain attributes.
+- `rvest` has a few functions:
+	* `html_text()` to extract text.
+	* `html_attr()` to extract attributes
+	* `html_name()` to get tags by name.
+- Tables are a structure in both R and html.
+- They can be turned into a data.frame using `html_table()`.
+- 
 
 # Web scraping with XPATHs
+- We'll be using something called Selectors; which can be added to a browser.
+- We'lll be using the `rvest` package.
+- You pass a url to `read_html()`.
+- `read_html()` retuns a xml document.
+- To select what you're after, use `html_node(<document>, xpath = <selector>)`
+
 
 # CSS Web Scraping and Final Case Study
 
