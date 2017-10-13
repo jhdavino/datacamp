@@ -103,6 +103,13 @@
 
 
 # CSS Web Scraping and Final Case Study
+- Cascading Style Sheets are a way to add design to a webpage.
+- CSS is applied to classes or ids.
+- I know about CSS.
+- For scraping with CSS, you'd check for those classes or ids.
+- You select classes by preceding the value with `.`.
+- You select ids by preceding the value with `#`.
+- You can get the name of an object after it is captured using `html_name()`.
 
 # Research:
 
