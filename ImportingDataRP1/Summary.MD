@@ -7,14 +7,13 @@
 	3. Databases
 	4. Web
 	5. Statistical Software.
-- Use `file.path(...)` to generate Os independant paths.
+- Use `file.path(...)` to generate OS independant paths.
 - Normally, you should turn of `stringsAsFactors` unless you want them to be factors.
-- If you need further customizability, then use `read.table()`
-- `read.csv()` and `read.delim()` are just wrapper calls around `read.table()`
-- `read.delim2` is for dealing with international formats of files using ; and ,
-
+- If you need further customizability, then use `read.table()`,
+- `read.csv()` and `read.delim()` are just wrapper calls around `read.table()`,
+- `read.delim2()` is for dealing with international formats of files using `;` and `,`.
 - Hadley wrote a package called readr.
-- Nomenclature is similar to utils package: `read.csv` vs `read_csv`.
+- Nomenclature is similar to utils package: `read.csv()` vs `read_csv()`.
 - You can pass a character string to denote what type read_delim should parse a column as: `col_types`.
 	1. c: character
 	2. d: double
@@ -29,8 +28,8 @@
 
 - Hadley also wrote the package readxl to read excel sheets.
 - Two primary functions:
-	1. `excel_sheets()` to list all sheets
-	2. `read_excel()` to collec the data.
+	1. `excel_sheets()` to list all sheets.
+	2. `read_excel()` to collect the data.
 - You can specify which sheet to read using either `sheet = n` | `sheet = "title"`
 - `read_excel()` can also accept skip, col_types and col_names variables.
 - Types are:
@@ -38,8 +37,8 @@
 	2. numeric
 	3. date
 	4. blank
-- gdata is a general purpose package for managing data.
-- " uses Perl; which is cool.
+- `gdata` is a general purpose package for managing data.
+- .. uses Perl; which is cool.
 
 - XLConnect package allows one to do the work in R and communicate with Excel.
 - There can be issues installing the package due to the dependancy on Java
@@ -51,8 +50,8 @@
 	3. `startCol = <n>`
 	4. `endCol = <n>`
 	5. `header = <bool>`
-- You can list all sheets in the excel sheet using `getSheets(..)`
+- You can list all sheets in the excel sheet using `getSheets(..)`.
 - You can append a new sheet to an excel spreadsheet using `createSheet( <book_obj>, name = "sheet_name")`
-- You can write data to that sheet using `writeWorksheet( <book_obj>, <data>, sheet = "<name>")
+- You can write data to that sheet using `writeWorksheet( <book_obj>, <data>, sheet = "<name>")`.
 - Changes are kept in memory until written via `saveWorkbook( <book_obj>, file = "<name>")`
-- You can rename worksheets in a excel spreadsheet using renameWorksheet( <book_obj>, "<old_name>", "<new_name>")
+- You can rename worksheets in a excel spreadsheet using `renameWorksheet( <book_obj>, "<old_name>", "<new_name>")`.

@@ -3,7 +3,7 @@
 ## Sumedh Panchadhar
 ## Tom Jeon
 
-# S1: Light My Fire.
+# Light My Fire.
 - Daily workflow:
 	1. `spark_connect()`
 	2. Do Work.
@@ -26,7 +26,7 @@
 - There are a limits of using `filter()` against **sparklyr** right now.
 - To request more information use: `?translate_sql()`.
 
-# S2: Tools of the Trade
+# Tools of the Trade
 - Dplyr has helper functions; see the other classes I've done.
 - Use `contains()` for simple character string matching in columns.
 - Use `matches()` inside of a `select` call for simple application of regex.
@@ -48,13 +48,13 @@
 - Spark will return the result as **DoubleType** so you will need to explicitely convert it to logical.
 - Use `mutate( <var_name> = as.logical( <var_name> ))`.
 - To convert a continuous variable to factors use `ft_bucketizer()`.
-- To create a quantile in sparklyr then use ft_quantile_discretizer()`.
+- To create a quantile in sparklyr then use `ft_quantile_discretizer()`.
 - `ft_tokenizer()` will convert text input to lower case and tokenize by default.
 - You can use the AFINN scores by calling `get_sentiments('afinn')`.
 - You can also do more advanced tokenizers using `ft_regex_tokenizer()`.
 - Calling `sdf_schema(<spark_conn>)` to get a list of col_name, data_type pairs.
 - You can sample the dataset using `sdf_sample()`.
-- You can partition the data using sdf_partition( training = <.n>, testing = <.(1-n)>)`.
+- You can partition the data using `sdf_partition( training = <.n>, testing = <.(1-n)>)`.
 - You could also pass a set of name, decimal pairs to label the partitions.
 - Those names allow you to subscript access them.
 
@@ -69,7 +69,7 @@
 
 
 # Research:
-
+- AFINN scores
 
 # Investigate:
 - package microbenchmark

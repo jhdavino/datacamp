@@ -19,10 +19,10 @@
 - ggplot includes a function to scale using:
 	1. `coord_trans(x = "log10", y = "log10")`
 	2. `scale_{x,y}_log10()`
-- There is no hard and fast rule for what constitues and outlier.
+- There is no hard and fast rule for what constitues an outlier.
 - To combat **point stacking** one should use:
 	1. Transparency.
-	2. `position = 'jitter'
+	2. `position = 'jitter'`
 
 
 # Correlation
@@ -53,7 +53,7 @@
 	2. SQRT( SSE / n - 2 )
 - You can get the degress of freedom from a model using `df.residual()`.
 - You can use what is called the *Null Model* as a benchmark; which is using the mean values.
-- You can fit a *Null Model* by passing the response feature against 1: `lm( var ~ 1, data = **<data>**)
+- You can fit a *Null Model* by passing the response feature against 1: `lm( var ~ 1, data = **<data>**)`
 - The *Null Model* is also sometimes called the *Sum of Squares Total*.
 - Which leads us to the *R^2* value calculated using 1 - SSE/SST = 1 - Var(e)/Var(y).
 - For simple linear regression, R^2 value = Correlation Coefficient squared.
@@ -67,13 +67,11 @@
 - You could remove them but there is a cost:
 	1. What is the justification?
 	2. How does the scope of inference change?
-	
-
-
 
 # Research
 - Francis Anscombe (1973)
 - Sir Francis Galton (1930s)
 - George Box
+- Cooks Statistic
 
 # Reference

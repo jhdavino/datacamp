@@ -1,4 +1,4 @@
-# Importing Data in R, Part 1
+# Importing Data in R, Part 2
 ## Filip Schouwenaars
 
 - There are different packages for different DBMS:
@@ -60,5 +60,4 @@ con<- dbConnect(RMySQL::MySQL,   // driver
 	+ Read SPSS files using `read_spss(..)`.
 - foreign has many more types of files it can import, but nomenclature is not consistent.
 
-## Research
-- httr package.
+# Research

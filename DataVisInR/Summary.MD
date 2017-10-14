@@ -28,10 +28,10 @@
 - Boxplots are great for explaining categorical vs numerical distributions
 - Mosaicplots can be viewed as a scatterplot between categorical values.
 - I don't like Mosaic plots, really.
-- `r boxplot(y ~ x, data = data, varwidth = TRUE, log = "y", las = 1)`
+- `boxplot(y ~ x, data = data, varwidth = TRUE, log = "y", las = 1)`
 - Bagplots are really interesting.
 - `aplpack::bagplot()` to use it.
-- `corrplot::corrplot() shows the correlation matrix.
+- `corrplot::corrplot()` shows the correlation matrix.
 - `corrplot(mtCor, method = "ellipse")`
 - `corrplot()` takes a correlation matrix as well as a method of display.
 - `rpart::rpart()` to generate decision trees.
@@ -95,16 +95,16 @@ text( x,       # the x position.
 - Too many plots can become too small to make meaningful conclusions.
 - You can use `matplot()` to plot multiple sets of points on the same axis for base plot.
 - You can generate wordclouds using the `wordcloud::wordcloud()` function.
-- pairs is used under the hood when requesting plot do a multivariable comparison plot.
+- `pairs()` is used under the hood when requesting plot do a multivariable comparison plot.
 - The `par` parameter `pty` can be called with *s* to make a dimensionally square plot.
-- You can use `layout()` and a matrix of numbers to select where to play graphs.
+- You can use `layout()` and a matrix of numbers to select where to place graphs.
 - So, *(1, 0, 2)* would place plot 1 on the left, then a blank space, then the second plot.
 - To see a basic blueprint, use `layout.show( n = **<n>**)`.
 
 # Advanced Plot Customization
 - Most plots do not return values
 - There are functions that return values invisibly.
-- Create png files using `png( **<filename>**)
+- Create png files using `png( **<filename>**)`
 - There are limitations to color:
 	1. Color-blindness.
 	2. Black and White reproductions lose those details.

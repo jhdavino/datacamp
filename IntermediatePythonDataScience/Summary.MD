@@ -1,7 +1,6 @@
 # Intermediate to Python for Data Science
 ## Filip Schouwenaars
 
-
 # Matplotlib
 ```python
 import matplotlib.pyplot as plt

@@ -14,13 +14,13 @@
 - **Lattice** includes lots of optional arguments.
 - Optional Arguments:
 	1. `main = "salkdfjk"` will label the title of the graph.
-	2. `xlab = "sldkfjaklj" will label the x-axis of the graph.
-	3. `ylab = "jdsalkfj" will label the y-axis of the graph.
+	2. `xlab = "sldkfjaklj"` will label the x-axis of the graph.
+	3. `ylab = "jdsalkfj"` will label the y-axis of the graph.
 	4. `nint = <n>` will control the bins in a Histogram plot.
 	5. `grid = TRUE` will include a background grid.
 	6. `abline = c(<intercept>, <slope>)` will draw a straight line on the graph.
 	7. `type = <percent, count, density>` for controlling y-axis display.
-- You can create a denstiy plot using `densityplot( ~<feature>, data=<data>, plot.points = <style>)`
+- You can create a density plot using `densityplot( ~<feature>, data=<data>, plot.points = <style>)`
 - To create a box and whisker plot, use `bwplot( <feature_1> ~ <feature_2>, data = <data> )`.
 - `reorder( <feature_1>, <feature_2>, median, na.rm = TRUE )` will reorder the data on a computational function.
 - The R boxplot is set to only extend out to 1.5 times the median and mark other values as outliers.

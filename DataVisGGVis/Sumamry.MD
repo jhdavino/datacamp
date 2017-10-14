@@ -23,7 +23,7 @@
 	4. fillOpacity
 	5. shape
 	6. strokeDash
-- There are also, for lines:
+- There are also for lines:
 	1. paths
 	2. ribbons.
 	3. smooths.

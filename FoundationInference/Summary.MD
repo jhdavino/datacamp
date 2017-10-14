@@ -1,7 +1,7 @@
 # Foundations of Inference
 ## Jo Hardin
 
-## Introduction
+# Introduction
 - **Statistical Inference**: The proces of making claims about a population based on information from a sample.
 - **Null Hypothesis**: The claim that is not interesting.
 - *Alternative Hypothesis**: The claim that we're trying to prove.
@@ -11,7 +11,7 @@
 ```
 "It is a common practice to judge a result significant, if it is of such a magnitude that it would have been produced by chance not more frequently than once in twenty trials...
 
-The test of significance inly tells him what to ignore, namely all experiment in which significant results are not obtained. He should only claim that a phenomenom is experimentally demonstratable when he knows how to design an experiment." -R.A. Fisher (1929)
+The test of significance only tells him what to ignore, namely all experiments in which significant results are not obtained. He should only claim that a phenomenom is experimentally demonstratable when he knows how to design an experiment." -R.A. Fisher (1929)
 ```
 
 - What is a p-value?
@@ -29,10 +29,8 @@ The test of significance inly tells him what to ignore, namely all experiment in
 - Emperical is for Bell shaped curves; Chebyshev is for all numerical distrubutions.
 
 
-## Investigate:
+# Research:
 - NHANES Package?
 - oilabs Package?
 
-- 
-
-## Further Reading:
+# Reading:
