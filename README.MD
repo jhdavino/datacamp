@@ -37,6 +37,7 @@
 | Working with Web Data in R              | [/WebDataInR]                    | {2017/10/13}   |
 | Manipulating Time Series Data in Python | [/ManipulatingTimeSeriesPython]  | ------------   |
 | Data Analysis in R, the data.table Way  | [/DataTableWay]                  | -------------  | R/O
+| Introduction to Time Series Analysis    | [\TimeSeriesAnalysisR]           |                |
 
 
 
