@@ -88,6 +88,12 @@
 - You can change the window of prediction by passing `n.ahead` to `predict()`.
 
 # A Simple Moving Average
+- A **Simple Moving Average** has the form ` Today = Mean + Noise + Slope*(Yesterdays_Noise)`.
+- You can simulate one using `arima.sim()` by passing `list(ma = theta)`.
+- You can generate a Moving Average model using `arima()` and passing it `order = c(0, 0, 1)`.
+- You can get an Akaike Information Criterion using `AIC()`.
+- You can get an Bayesian Information Criterion using `BIC()`.
+
 
 # Research:
 
