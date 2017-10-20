@@ -75,6 +75,17 @@
 
 
 # Autoregression
+- We're going to start with a simple case: Autoregression recursion onto yesterday.
+- Model: `Today = constant + slope*yesterday + noise`.
+- Mean Centered Version: `(Today - Mean) = Slope*(yesterday - Mean) + noise`.
+- Large values of Phi - or the slope - lead to greater autocorrelation.
+- Negative values of Phi lead to oscillating time series.
+- You can use `arima.sim( model = list(ar = <n>)` to model an Autoregression.
+- The **Random Walk** is a special case of Autoregression.
+- You can import data straight from a package using `data( Mishkin, package = 'Ecdat')`.
+- `arima()` is for generating a model; `arima.sim()` is for simulating data.
+- You can use `predict( <model> )` to make predictions.
+- You can change the window of prediction by passing `n.ahead` to `predict()`.
 
 # A Simple Moving Average
 

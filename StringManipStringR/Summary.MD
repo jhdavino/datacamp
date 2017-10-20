@@ -52,7 +52,7 @@
 - .. takes a string, a pattern to select and a replacement.
 - Ex: `str_replace( "Tom & Jerry", pattern = "&", replacement = "and")`.
 - .. only replaces the first matched pattern.
-- There is an *_all version of `str_replace()` however.
+- There is an `*_all` version of `str_replace()` however.
 
 
 # Pattern Matching with Regular Expressions
@@ -82,7 +82,7 @@
 	- '+'      : `one_or_more()`
 	- '{n}{m}' : `repeated()`
 - Adding `match = TRUE` to `str_view()` will display only matches.
-- Regex has built in character classes for common classs calls.
+- Regex has built in character classes for common classes calls.
 - You can specify a range using a '-' inside of a character class.
 - Ex: `char_class("ab-op")`.
 - The builtin for the digit class in rebus is `DGT`.
