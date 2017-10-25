@@ -14,11 +14,32 @@
 - **Wold Decomposition**: any stationary time series can be rewritten as a linear combination of white noise.
 
 # Fitting Arima Models
+- You can't tell whether a dataset is Moving Average or Autoregression.
+- You will need to use `acf()` or `pacf()`
+-Table of possible results:
+|      | Auto Regression | Moving Average |   ARMA    |
+|------|-----------------|----------------|-----------|
+| acf  |    Tails off    |  Cuts off lag  | Tails off | 
+| pacf |   Cuts off lag  |   Tails off    | Tails off |
+
+- Estimation for tiems series is similar to using Least Squares.
+- `astsa::sarima()`?
+- `sarima(x, p = 1, d = 0, q = 0)` comes with all sorts of output - including graphs.
+- `acf2()` gives the sample **P/ACF's** of the object in question.
+- Now we're going to put AR and MA together for ARMA models.
+- Remember that, as you include more parameters the error gets smaller.
+- Therefore, AIC and BIC usually include a penalty.
+- We want to make sure that residuals are white noise.
+
 
 # Arima Models
 
 # Seasonal Arima
 
 # Research:
+- `sarima()`.
+- `QQplot()`?
+
+
 
 # Reference:
