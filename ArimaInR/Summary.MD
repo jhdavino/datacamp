@@ -33,6 +33,10 @@
 
 
 # Arima Models
+- A time series exhibits ARMIMA behavior if the differenced data has ARMA behavior.
+- The `d` parameter we were ignoring is for *difference*.
+- You can use `sarima.for()` for forecasting.
+
 
 # Seasonal Arima
 
