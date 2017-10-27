@@ -37,13 +37,18 @@
 - The `d` parameter we were ignoring is for *difference*.
 - You can use `sarima.for()` for forecasting.
 
-
 # Seasonal Arima
+- **Seasonal ARMA** models are the same as normal ARMA models when you account for their seasonality.
+- To have `acf2()` correct for seasonality, pass the parameter `max.lag = <n>`.
+- A seasonal model can be fit with `sarima()` by passing the additional parameters `P = <n>, D = <n>, Q = <n>, S = <n>`.
+- Note that the *S* parameter stands in for the period; divisions in the data.
+- Purely seasonal models are very rare.
+- We'll need to build what are called **Mixed Seasonal Models**.
+- Notation: `SARIMA(p,d,q)x(P,D,Q)` where lower letters is normal input and upper letters are seasonal.
+- Seasonal Persistence is when a trend stays year per year and can be removed using seasonal difference.
 
 # Research:
 - `sarima()`.
 - `QQplot()`?
-
-
 
 # Reference:
