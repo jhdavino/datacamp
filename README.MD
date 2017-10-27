@@ -38,7 +38,7 @@
 | Manipulating Time Series Data in Python | [/ManipulatingTimeSeriesPython]  | ------------   |
 | Data Analysis in R, the data.table Way  | [/DataTableWay]                  | -------------  | R/O
 | Introduction to Time Series Analysis    | [\TimeSeriesAnalysisR]           | {2017/10/20}   |
-| ARIMA Modeling with R                   | [\ArimaInR]                      |                |
+| ARIMA Modeling with R                   | [\ArimaInR]                      | {2017/10/27}   |
 
 
 
