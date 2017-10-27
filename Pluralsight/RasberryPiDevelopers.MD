@@ -83,14 +83,50 @@ GPIO.cleanup()
 - You can use them in tandem to increase the power.
 
 # Rasberry Pi as a Webserver
--
+- Why use it as a web server?
+- Sharing data, hardware sharing, etc.
+- Exposing a web server is the easiest way to access data.
+- nginx is the current favorite small web server.
+- It supports ARM architecture.
+- It doesn't allow you to customize or code with, but it does allow you to run the service on another port.
+- You need to run nginx as root.
+- Dynamic content can be forwarded to via nginx.
+- You can spin up a local server with python using `python -m CGIHTTPServer 8000`.
+- *cgi-bin* is the default folder for cgi files.
+- Make sure to tell bash what the interpreter is by having `#!/usr/bin/python` as the first line.
+- Make sure the file has execute permissions.
+```python
+#httpserver.py
+import http.server
+import sys
+
+Handler = http.server.CGIHTTPRequestHandler
+PORT = 8002
+
+httpd = http.server.HTTPServer( ("", PORT), Handler)
+httpd.serve_forever()
+print( 'server is up and running...')
+```
+- You might need to build it yourself.
+- Start with `sudo apt-get git-core build-essential`
+- Run this when you don't need your computer for anything:
+```bash
+git clone https://github.com/joyent/node.git
+cd node
+git checkout v<insert_yours_here>
+./configure
+make
+sudo make install
+```
 
 # Rasberry Pi as a DVR
+
 
 # Research:
 - What is tightvncserver?
 - KVM switch?
-
+- CGI
+-
 
 
 # Reference:
