@@ -56,10 +56,34 @@ for tweet in tweets:
 - You can also just use bash, the default shell for Linux.
 
 
-
 # Rasberry Pi and Hardware
+- GP pins can send and receive data using using [high|low] voltage states.
+- Just look up the pins diagram.
+- A Breadboard is used for playing with circuits and prototyping.
+- The most popular open source library to control hardware is called **wiringpi**
+- You can install it with:
+`git clone git://git.drogon.net/wiringpi && cd wiringpi && ./build`
+- You can then use gpio on the console.
+```bash
+gpio mode 0 output
+gpio write 0 1
+gpio write 0 0
+```
+- To access with with Python, you can import RPi.GPIO package.
+- The format is pretty simple:
+```python
+channel = 7 # set channel for communication over.
+GPIO.setmode( GPIO.BOARD)
+GPIO.setup( channel, GPIO.OUT )
+GPIO.output( channel, GPIO.HIGH )
+GPIO.output( channel, GPIO.LOW)
+GPIO.cleanup()
+```
+- Arduino is another older hardware platform for control and coding.
+- You can use them in tandem to increase the power.
 
 # Rasberry Pi as a Webserver
+-
 
 # Rasberry Pi as a DVR
 
