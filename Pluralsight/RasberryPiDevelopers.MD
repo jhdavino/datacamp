@@ -29,7 +29,34 @@
 
 
 # Programming the Rasberry Pi
-- 
+- There are a lots of choices for coding:
+  1. Scratch
+  2. Python.
+- Skipping lectures about Python; I have tons of knowledge about this already.
+```python
+# Note that I didn't copy this correctly and wont run properly.
+
+import http.client
+import json
+
+c = http.client.HTTPConnection( <url> )
+c.request( 'GET', '/search.json?q=Pluralsight')
+r = c.getresponse()
+data = r.read()
+dataString  = str(data, 'utf8')
+o = json.loads(dataString)
+tweets = o['results']
+
+for tweet in tweets:
+  print(tweet['text'])
+```
+- To work the GPIO you might need to install RPi.GPIO package.
+- We're going to be using TKinter since it's the default, but should really use Qt since it's better.
+- You can write C code and and then write wrappers around it for Python to use.
+- You can also just use bash, the default shell for Linux.
+
+
+
 # Rasberry Pi and Hardware
 
 # Rasberry Pi as a Webserver
