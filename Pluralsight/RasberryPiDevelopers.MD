@@ -120,6 +120,9 @@ sudo make install
 ```
 
 # Rasberry Pi as a DVR
+- XBMC is the defacto standard; now it's really plex.
+- You can get it via purchase it, download it, or compile from source.
+- Besides that it's open source, but you can extend it via add-ons in python.
 
 
 # Research:
@@ -127,6 +130,5 @@ sudo make install
 - KVM switch?
 - CGI
 -
-
 
 # Reference:
