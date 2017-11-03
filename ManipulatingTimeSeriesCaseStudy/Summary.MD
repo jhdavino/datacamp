@@ -25,6 +25,13 @@
 - Make sure the objects are xts before merging.
 
 # Economic Data
+- One of the most common problems with time data is **missingness**.
+- Most common method to solve is **Last Observation Carried Forward (LOCF)**.
+- To replace them use `na.locf( <data> )`.
+- Another example is **Next Observation Carried Backwards (NOCB)**.
+- To use NOCB, use `na.locf( <data>, fromLast = TRUE )`.
+- You can also use linear interpolation using `na.approx( <data> )`.
+- `lag()` offsets the observations in time for you datase.
 
 # Sports Data
 
