@@ -34,6 +34,20 @@
 - `lag()` offsets the observations in time for you datase.
 
 # Sports Data
+- You can use `endpoints()` to specify the endpoints per interval.
+```r
+endpoints( .x,
+            on)
+```
+- You can use `peiod.apply()` as if it's an apply function but per period specified.
+```r
+period.apply( .x,
+              INDEX,
+              FUN)
+```
+- A useful trick is to use the `.index(.x)` command to extract the time values in posix time format.
+- You can also check which days off the week an observation falls on using `.indexwday()`.
+- This is 0 indexed to Sunday.
 
 # Research:
 
