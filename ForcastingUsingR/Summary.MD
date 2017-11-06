@@ -17,8 +17,16 @@
 - You can create one using `ggseasonplot()`.
 - You can split up a time series using `windows( <data>, start = <>, end = <>)`.
 - You can use `ggsubseriesplot()` to divide and draw the average of each subset.
-- 
-
+- A **Trend** is when there is a long term increase or decrease in the data.
+- A **Seasonal** is a pattern that exists due to the calendear.
+- A **Cycle** is a periodic pattern over time.
+- We need to distinguish between seasonal and cyclical since they use different models.
+- You can plot a lagging graph using `gglagplot()`.
+- You can plot the autocorrelation function plot using `ggAcf()`.
+- Identical and independently distributed means the same thing as *white noise*.
+- **Ljung-Box Test** is considers the first h autocorrelations and values together.
+- You can use this test using `Box.text( <.x>, lag = <n>, fitdf = <n>, type = "Lj")`.
+- `Box.test(diff(goog), lag = 10, type = "Ljung")`
 
 # Benchmark Methods and Forecast Accuracy
 
