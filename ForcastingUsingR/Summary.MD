@@ -50,13 +50,26 @@
 - The function `tsCV()` uses the MSE and does the cross validation for you.
 
 # Exponential Smoothing
+- Simple Exponential Smoothing weights observations as the (time/data) move further from initial point.
+- You can use this using `ses()`.
+- `accuracy(fcses, marathon)`
+- **Holt's Method** is used to dampen the effect of a trend.
+- You can use this using `holt()`.
+- Charles Holt also came up with a way to deal with seasonality and trending: the **Holt-Winter's Method**.
+- You can use this using `hw( <data>, seasonal = "[additive|multiplicative]")`.
+- All exponential smoothing models can be written as **Innovation State Space Models**.
+- **ETS Models** stands for Error, Trend, Seasonal models.
+- To invoke this model, use `ets()`.
+- This model minimizes the errors based on the Akaike Information Critereon.
+- `ets()` does not produce a forecast, but instead a model.
+- To get a forecast, use `<data> %>% ets() %>% forecast() %>% autoplot()`.
 
 # Forecasting With ARIMA Models
 
 # Advanced Methods
 
 # Reserach:
-
+- Charles Holt?
 
 # Refernce:
 - [Online Textbook]( http://otexts.org/fpp2/)
