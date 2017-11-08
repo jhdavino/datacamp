@@ -29,6 +29,25 @@
 - `Box.test(diff(goog), lag = 10, type = "Ljung")`
 
 # Benchmark Methods and Forecast Accuracy
+- `naive()` will take create a forcast based on the last observation.
+- `snaive()` will do the same but for seasonal forecasts.
+- Both functions can accept an `h = <n>` parameter for how many observations you'd like to predict.
+- A **residual** is the difference between an observation and its fitted value.
+- Assumptions about residuals:
+  1. (Need): are uncorrelated.
+  2. (Need): Mean Zero.
+  3. (Want): Constant variance.
+  4. (Want): Normally Distributed.
+- You can use the `checkresiduals()` function to our assumptions.
+- P-values in the Ljung-Box test are reverse to normal; ie. large values are better.
+- You can cut off the latest set of points to try and predict them.
+- Training/Test set again.
+- The `accuracy()` function calculates pretty much all of the error formulas for us.
+- You can use the `ts.subset()` function to divide up the time series.
+- `ts.subset()` accepts parameters `start = <n>` and `end = <n>` by counting the total observations.
+- You can calculate the mean forecast of a time series using `meanf()`.
+- **Time Series Cross Validation** is a solution to bias of the old models.
+- The function `tsCV()` uses the MSE and does the cross validation for you.
 
 # Exponential Smoothing
 
