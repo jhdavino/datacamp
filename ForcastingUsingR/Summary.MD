@@ -65,11 +65,30 @@
 - To get a forecast, use `<data> %>% ets() %>% forecast() %>% autoplot()`.
 
 # Forecasting With ARIMA Models
+- An alternative to manage the instability of the variance is to transform the data.
+- Sqaure roots, Cube roots, logarithms, inverses...
+- The **Box-Cox Transformation** scales the transform based on the lambda.
+- You can also use the `BoxCox.lambda()` function to estimate an appropriate lambda.
+- Once lambda is selected, you can pass `lambda = <n>` in `est()` to adjust it.
+- You can use the `diff()` function to remove any systemic patterns.
+- **Seasonal Differencing** is when you compare related points in time to one another.
+- ARIMA can only work with stationary data so it must be stabilized first.
+- `auto.arima()` will choose the "best model" for you.
+- The intercept is called **drift** in an ARIMA model.
+- Hyndman-Khandakar Alogrithm:
+  * Select the number of differences d via unit root tests.
+  * Select p and q by minimizing AICc
+  * Estimate parameters using *maximum likelihood estimation*.
+  * Use Stepwise search to traverse model space, to save time.
+- Don't compare AIC's from two different classes of models.
+- ARIMA models can handle seasonal data as well, but with more parameters.
+- You can pass the parameter `stepwise = FALSE` to force `arima()` to find the best model.
 
 # Advanced Methods
 
 # Reserach:
 - Charles Holt?
+- Unit Root test?
 
 # Refernce:
 - [Online Textbook]( http://otexts.org/fpp2/)
