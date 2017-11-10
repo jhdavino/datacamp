@@ -85,6 +85,24 @@
 - You can pass the parameter `stepwise = FALSE` to force `arima()` to find the best model.
 
 # Advanced Methods
+- **Dynamic Regression** is where you join external information into your analysis.
+- The model is just a linear model but the error term is actually an ARIMA process.
+- To add the external information, you'd pass `xargs = <matrix_of_values>` to `auto.arima()`.
+- To do a forecast, you need to pass future values for the linear portion.
+- `forecast(fit, xreg = cbind(20, 20^2, 0))`
+- **Dynamic Harmonic Regression** is a useful tool.
+- The Sine or Cosine functions can approximate *any* periodic function.
+- Fourier terms come in pairs or Sine and Cosine.
+- The frequency of these terms is called the *Harmonic Frequency*.
+- `K` is used to control how many terms get included.
+- The Alpha and Gamma terms are coefficients in the model.
+- You normally use a non-seasonal ARIMA model since the seasonality is being approximated by the Fourier function.
+- The Fourier function assumes that the period of the function does not change over time.
+- To tell ARIMA this, you need to pass `seasonal = FALSE` to `auto.arima()`.
+- You can use the `fourier()` function to generate all the Fourier terms in our model.
+- ARIMA can get slowed down by a lot of data, so we can fit a linear regression model with Fourier terms.
+- This can be done with `tslm( <data>, K = <n>, )`
+-
 
 # Reserach:
 - Charles Holt?
