@@ -102,11 +102,12 @@
 - You can use the `fourier()` function to generate all the Fourier terms in our model.
 - ARIMA can get slowed down by a lot of data, so we can fit a linear regression model with Fourier terms.
 - This can be done with `tslm( <data>, K = <n>, )`
--
+- **TBATS Model** contains the Trigonometic terms, Box-Cox transforms, ARMA errors, Trending, and Seasonal components.
 
 # Reserach:
 - Charles Holt?
 - Unit Root test?
+- TBATS?
 
 # Refernce:
 - [Online Textbook]( http://otexts.org/fpp2/)
