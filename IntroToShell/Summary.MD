@@ -2,6 +2,19 @@
 ## Greg Wilson
 
 # Manipulating Files and Directories
+- **Filesystem** manages the files and folders of a computer system.
+- Files and directories are identified by an absolute path.
+- `pwd` is to print the working directory.
+- `ls` is to list files in the current directory.
+- A **relative path** starts from where you are.
+- `cd` to change directory.
+- **..** means *traverse to the parent of this directory**.
+- **~** is to refer to your home.
+- `cp` is for copy.
+- `mv` is for move.
+- `mv` can also be used to rename files.
+- `rm` for remove.
+- `rmdir` to remove a directory.
 
 # Manipulating Data
 - You can print the contents of a file using `cat`.
