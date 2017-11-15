@@ -32,6 +32,11 @@
 - You can use the `!` character to repeat a similar command.
 
 # Combining Tools
+- You can use `>` to send output to that file.
+- You can also use `|` to *pipe* input from one command to another.
+- You can pipe more than once.
+- `wc` stands for word count.
+- Most shell commands will work on multiple files if you give them multiple filenames.
 
 # Batch Processing
 
