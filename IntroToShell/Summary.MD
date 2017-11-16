@@ -50,6 +50,11 @@ for suffix in gif jpg png; do echo $suffix; done
 - You can also use wildcards in the for loop.
 
 # Creating New Tools
+- NANO *REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE*
+- You can save scripts into *.sh* files since they're just text.
+- You can run the file using `bash <filename.sh>`.
+- `$@` means *run this against all parameters passed to this command*.
+- You can stop a running function using `CTRL+C`.
 
 # Research:
 

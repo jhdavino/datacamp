@@ -37,11 +37,11 @@
 | Working with Web Data in R              | [/WebDataInR]                      | {2017/10/13}   |
 | Manipulating Time Series Data in Python | [/ManipulatingTimeSeriesPython]    | ------------   |
 | Data Analysis in R, the data.table Way  | [/DataTableWay]                    | -------------  | R/O
-| Introduction to Time Series Analysis    | [\TimeSeriesAnalysisR]             | {2017/10/20}   |
-| ARIMA Modeling with R                   | [\ArimaInR]                        | {2017/10/27}   |
-| Manipulating Time Series: Case Study    | [\ManipulatingTimeSeriesCaseStudy] | {2017/11/03}   |
-| Forcasting Using R                      | [\ForcasingUsingR]                 | {2017/11/10}   |
-| Introduction to Shell                   | [\IntroToShell]                    |                |
+| Introduction to Time Series Analysis    | [/TimeSeriesAnalysisR]             | {2017/10/20}   |
+| ARIMA Modeling with R                   | [/ArimaInR]                        | {2017/10/27}   |
+| Manipulating Time Series: Case Study    | [/ManipulatingTimeSeriesCaseStudy] | {2017/11/03}   |
+| Forcasting Using R                      | [/ForcasingUsingR]                 | {2017/11/10}   |
+| Introduction to Shell                   | [/IntroToShell]                    | {2017/11/16}   |
 
 
 R Review/Redo.
