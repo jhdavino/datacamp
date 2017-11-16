@@ -39,6 +39,15 @@
 - Most shell commands will work on multiple files if you give them multiple filenames.
 
 # Batch Processing
+- The shell stores variables by default called environmental variables.
+- `echo` will display the variable or etc to standard out.
+- You can make assignments using `variable=>input>`; make sure there are no spaces.
+- You can then dereference the variable using `$`.
+- You can also do for loops:
+```
+for suffix in gif jpg png; do echo $suffix; done
+```
+- You can also use wildcards in the for loop.
 
 # Creating New Tools
 
