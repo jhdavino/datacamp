@@ -42,6 +42,8 @@
 | Manipulating Time Series: Case Study    | [/ManipulatingTimeSeriesCaseStudy] | {2017/11/03}   |
 | Forcasting Using R                      | [/ForcasingUsingR]                 | {2017/11/10}   |
 | Introduction to Shell                   | [/IntroToShell]                    | {2017/11/16}   |
+| Visualizing Time Series in R            | [/VisualizeTimeSeries]             |                |
+
 
 
 R Review/Redo.
