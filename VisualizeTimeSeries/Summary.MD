@@ -14,8 +14,23 @@
 - You can control the color using `period.color = "<color>"`.
 
 # Univariate Time Series
+- Univariate Time Series are focused on:
+  1. Location
+  2. Disperision
+  3. Distribution
+- In their standard form most time series do not exhibit the right statistical properties.
+- We want to convert price into a series of returns.
+- `TTR:ROC()` will be used to convert from price to rate of return.
+- *Discussion of Historgrams and Box and Whisker*
+- *Discussion of Autocorrelation*
+- *Discussion about Normality Assumption*
+- You can flip the x-y relationship using `horizontal = TRUE`.
+- You can draw an **Autocorrelation Plot** using `acf()`
+- You can alter the lags using `lag.max`.
 
 # Multivariate Time Series
+- 
+
 
 # Case Study
 
