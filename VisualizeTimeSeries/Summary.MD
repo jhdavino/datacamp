@@ -29,12 +29,34 @@
 - You can alter the lags using `lag.max`.
 
 # Multivariate Time Series
+
+
+- To make a **Stacked Chart** you use the `barchart()` function.
+- The goal of Multivariate Analysis is to understand the relationship between multiple variables.
+- A **Correlation Matrix** is used to draw simple conclusions from the relationship betweeen variables.
+- You can use `corrplot::corrplot()` to simplify the drawing of the the relationships in a graph.
+```r
+corrplot( my_stocks,
+  method = "number",
+  type="upper")
+```
+- You can do something similar with `pairs` and passing `lower.panel = NULL`
+- `corrplot()` also accept a great deal of parameters to control it's visualizations.
+  * Method can be:
+    1. "circle"
+    2. "square"
+    3. "ellipse"
+    4. "number"
+    5. "shade"
+    6. "color"
+    7.  "pie"
+- A **Heatmap** is a diagram of data where relationships are represented as colors.
+- You can use most of the same options; including `order = "hclust"`.
+
+# Case Study
 - 
 
 
-# Case Study
-
 # Research:
-
 
 # Reference:
