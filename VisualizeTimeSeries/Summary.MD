@@ -56,9 +56,12 @@ corrplot( my_stocks,
 - You can use most of the same options; including `order = "hclust"`.
 
 # Case Study
-- 
+- Rule Number one of investing is **Capital Protection**
+- *Low Correlation* usually means protection from severe losses.
+- You can use `PerformanceAnaalytics::charts.PerformanceSummary()` to get a summary of the value, returns, and drawdowns.
 
 
 # Research:
+- drawdowns?
 
 # Reference:
