@@ -29,7 +29,11 @@
 - You can alter the lags using `lag.max`.
 
 # Multivariate Time Series
-- 
+- The goal many times of using mutlivariate time series is to interpret how they interact.
+- The complexity of the analysis grows with the number of features.
+- You can use the `barplot()` function to plot a barplot of a time series.
+- You can also use `beside = TRUE` so that the bars are placed next to each other instead of stacked.
+-
 
 
 # Case Study
