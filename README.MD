@@ -43,7 +43,7 @@
 | Forcasting Using R                      | [/ForcasingUsingR]                 | {2017/11/10}   |
 | Introduction to Shell                   | [/IntroToShell]                    | {2017/11/16}   |
 | Visualizing Time Series in R            | [/VisualizeTimeSeries]             | {2017/11/23}   |
-
+| Introduction to Portfolio Analysis in R | [/IntroPortfolioAnalysisR]         |                |
 
 
 R Review/Redo.
