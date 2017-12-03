@@ -61,14 +61,59 @@
 - You can substitute characters or patterns using `re.sub()`.
 
 # Simple Topic Identification
-- 
+- **Bag-of-Words** is a basic method for finding topics in a text.
+- First tokenize, then count the tokens.
+- We'lll be using `from collections import Counter`.
+- The *Counter Object* has a similar structure to a dictionary.
+- The object also has a method called `.most_common(<n>)`; n for return that number of results.
+- **Text Preprocessing** is to help make better input data.
+- Other techniques are:
+  * Lemmatization
+  * Stemming
+  * Removing stop words.
+- To handle stop words `from nltk.corpus import stopwords`.
+- To use it, you'd use `if t not in stopwords.words('english')`.
+- You use `x.isalpha()` will tell you if all characters are from the alphabet.
+```python
+# Instantiate the WordNetLemmatizer
+wordnet_lemmatizer = WordNetLemmatizer()
 
-
+# Lemmatize all tokens into a new list: lemmatized
+lemmatized = [wordnet_lemmatizer.lemmatize(t) for t in no_stops]
+```
+- We will be using `gensim` to process next.
+- The library is open source and can be used by anyone.
+- It uses top academic models to perform complex tasks.
+- A **Word Vector** is a multidimensional representation of a word.
+- **LDA Visualization**; where LDA stands for **Latent Dirichlet Allocation**
+- To import and use it, you'd `from gensim.corpora.dictionary import Dictionary`.
+- Pass the tokens into the funtion call: `dictionary = Dictionary(tokenized_docs)`.
+- You can see a list of tokens and their ids using `dictionary.token2id`.
+- Then, you create a **corpus** using `corpus = [dictionary.doc2bow(doc) for doc in tokenized_docs]`.
+- And, this model can be easily saved, updated and reused.
+- Since it's treated as a dictionary, you can use `computer_id = dictionary.token2id.get("computer")`.
+- **Term-Frequency - Inverse Document Frequency** or *tf-idf* which assists us in understanding the most important words.
+- The assumpttion in the model is that the corpus might have more shared words than just the stopwords.
+- These common words are *down-weighted* due to how common they are.
+- You can build a model using the previous corpus.
+- First, you will need to import `from gensim.models.tfidfmodel import TfidfModel`.
+- Then, pass the corpus into the function: `tfidf = TfidfModel(corpus)`.
+- You can calculate the weights using `tfidf_weights = tfidf[ doc ]`.
+```python
+# Print the top 5 weighted words
+for term_id, weight in sorted_tfidf_weights[:5]:
+    print(dictionary.get(term_id), weight)
+```
 
 # Named-Entity Recognition
+- 
+
 
 # Building a "Fake News" Classifier
 
 # Research:
+- `defaultdict()`?
+- `itertools.chain.from_iterable()`
+- `sorted(total_word_count.items(), key=lambda w: w[1], reverse=True)``
 
 # Reference:
