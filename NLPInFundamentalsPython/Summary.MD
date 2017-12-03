@@ -34,10 +34,36 @@
 - The function `findall()` will match all patterns.
 - The function `search()` will return the index of the match.
 - You always pass the pattern first, and then the string.
+- Make sure your pattern starts with `r""` first.
+- **Tokenization** is when you turn a string document into *tokens*.
+- There are many different theories and rules around it.
+- A commonley used library for this is *nltk*.
+- Tokenizing text can:
+  * make it easier to map out parts of speech.
+  * Match common words.
+  * Remove unwanted tokens.
+- The function `sent_tokenize()` will tokenize a document into sentences.
+- The function `regexp_tokenize()` will tokenize a string or document based on a regex pattern.
+- The function `TweetTokenizer` will allow you to token tweets into separate hashtags, mentions, etc.
+- The difference between `match()` and `search()` is that match always starts at the beginning while search doesn't.
+- You can print the starting and ending indexes of searches/matches using `x.start()` and `x.end()`.
+- The or symbol `|` is very useful.
+- You can define a group using `()`.
+- The pattern `('(\d+|\w+))'` will match all words and digits but ignore punctuation.
+- Groups mean explicitly *only* match what is in between.
+- The backslash is called the *escape character*.
+- An example to remember is `all_tokens = [tknzr.tokenize(t) for t in tweets]`.
+- Unicode looks like : `'\U0001F300-\U0001F5FF'`.
+- The library `matplotlib` is used by most everyone for Python.
+- It is normal to write the import as `from matplotlib import pyplot as plt`.
+- You can pass a small array to the `plt.hist()` function to draw a histogram.
+- Then, you use `plt.show()` to have it plot the graph.
+- You can substitute characters or patterns using `re.sub()`.
+
+# Simple Topic Identification
 - 
 
 
-# Simple Topic Identification
 
 # Named-Entity Recognition
 
