@@ -45,6 +45,8 @@
 | Visualizing Time Series in R            | [/VisualizeTimeSeries]             | {2017/11/23}   |
 | Introduction to Portfolio Analysis in R | [/IntroPortfolioAnalysisR]         |                |
 | Sentiment Analysis in R                 | [/SentimentAnalysisR]              |                |
+| NLP Fundamentals in Python              | [/NLPInFundamentalsPython]         | {2017/12/03}   |
+
 
 R Review/Redo.
 O Organize.
