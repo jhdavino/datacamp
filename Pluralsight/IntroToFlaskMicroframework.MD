@@ -21,7 +21,7 @@
 # Basic Templates and Views
 - There are resources to start building templates.
 - I'm not going to download them right now since I'm interested in the code and concepts, not the project.
-- You will need `rnder_template` to combine templates and Views.
+- You will need `render_template` to combine templates and Views.
 - `render_template` will use the templates folder by default when looking up a template you've built.
 - To enable debug mode, you pass `debug=True` to `app.run()`.
 - Don't forget to remember to adjust the paths in files.
@@ -113,7 +113,7 @@ class BookmarkForm( Form ):
 	...
 {% endmacro %}
 ```
-- A jinja filter applys a rule to the output.
+- A jinja filter applies a rule to the output.
 - One of these is called `safe` which treats the string given as literal.
 - You can import these defined macros using `{% from "form.html" import macro_name %}`.
 
@@ -236,7 +236,7 @@ def load_user(userid):
 # include with User Model:
 @property
 def password(self):
-	raise AttributeError('password: write-only field') 
+	raise AttributeError('password: write-only field')
 
 @password.setter
 def password(self, password):

@@ -2,7 +2,7 @@
 ## Jo Hardin
 
 # Introduction
-- **Statistical Inference**: The proces of making claims about a population based on information from a sample.
+- **Statistical Inference**: The process of making claims about a population based on information from a sample.
 - **Null Hypothesis**: The claim that is not interesting.
 - *Alternative Hypothesis**: The claim that we're trying to prove.
 - Goal is to reject the Null Hypothesis using sample data.
@@ -11,7 +11,7 @@
 ```
 "It is a common practice to judge a result significant, if it is of such a magnitude that it would have been produced by chance not more frequently than once in twenty trials...
 
-The test of significance only tells him what to ignore, namely all experiments in which significant results are not obtained. He should only claim that a phenomenom is experimentally demonstratable when he knows how to design an experiment." -R.A. Fisher (1929)
+The test of significance only tells him what to ignore, namely all experiments in which significant results are not obtained. He should only claim that a phenomenon is experimentally demonstrable when he knows how to design an experiment." -R.A. Fisher (1929)
 ```
 
 - What is a p-value?

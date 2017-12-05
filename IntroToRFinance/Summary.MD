@@ -16,7 +16,7 @@
 
 # Vectors and Matrices
 - A **Vector** is a collection of data that is all the same type.
-- `c()` stands for combine, not concatinate.
+- `c()` stands for combine, not concatenate.
 - `is.vector()` will return a logical about whether the object is a vector.
 - You can add names to a vector using `names()`.
 - The heirarchy of vector types is logical < integer < numeric < character.
@@ -52,8 +52,6 @@
 
 # Lists
 - Create a list using `list()`.
-- 
-
 
 # Research:
 - How does subset filter so efficiently?

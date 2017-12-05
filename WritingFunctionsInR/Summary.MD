@@ -8,7 +8,7 @@
   2. arguments to function
   3. Body of the function
   4. name of function
-- You can delcare a default argument using `y = 1`
+- You can declare a default argument using `y = 1`
 - pass by name, pass by position.
 - three components of a function:
   1. the format arguments
@@ -34,7 +34,7 @@
 ```
 - c is used as function, name, and variable here.
 - Each time function is called, it gets new envir
-- `exists()` accepts a string and returns whether true.
+- `exists()` accepts a string and returns whether true; make sure to quote it.
 - There are two types of Data Structures:
   1. Atomic Vectors:
   	1. Logical.
@@ -87,13 +87,13 @@
 - purrr Package is awesome.
 - map functions take .x vector, .f for functions.
 - There is one map function for each atomic vector `map_*()`.
-- Passing dataframe to map will ierate over the columns of dataframe.
+- Passing dataframe to map will iterate over the columns of data frame.
 - Passing list to map will iterate over each element in the list.
 - Passing vector to map will iterate over each element in the vector.
 - You can pass arguments after .x and .f
 - .f Can be an anonymous function.
 - `~sum( is.na( . ))` is a formula where '.' is used to replace .x
-- Using `"a"` will subset out ONLY 'a' when passed to map_*()`.
+- Using `"a"` will subset out ONLY 'a' when passed to `map_*()`.
 - `split(.x, .fa)` takes a class of factors and splits the data into lists conditional on .fa.
 - You can use formulas in place of functions.
 ```r
@@ -121,7 +121,7 @@ map( cyl, ~ lm(.$mpg ~ .$wt, data = .$df) )` keeping for reference.
   3. Global Options impact commands.
 - `stopifnot()` is what you want to clean exits of improper inputs.
 - `stop( 'information to pass', call. = FALSE)` will do something similar.
-- `.call` specifies if the function call should be returned as well. 
+- `.call` specifies if the function call should be returned as well.
 - A function that has no side effects is called pure.
 - The apply functions are not type-secure.
 - Non-Standard Evaluation are functions that don't use the normal lookup rules.
