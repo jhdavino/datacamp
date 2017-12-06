@@ -11,7 +11,7 @@
 - For the wrapped version, issue `workon` instead of `source` to activate.
 - To disengage, use `deactivate`.
 - Flask creates a map for the app.
-- You can see this by starting an interpretor and calling `app.url_map`.
+- You can see this by starting an interpreter and calling `app.url_map`.
 - Flask has a static route that is set up by default.
 - Most Flask apps will follow the Model, Template, View approach.
 - Models are for encapsulating data.

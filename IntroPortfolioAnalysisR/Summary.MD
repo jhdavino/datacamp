@@ -68,7 +68,27 @@
 - There is also a chart version too.
 
 # Performance Drivers
-- 
+- Portfolio Return is now a synonym of *Expected Value*.
+- The function `chart.Scatter()` can be used to plot a scatter plot.
+- The function `chart.RollingCorrelation()` will plot the correlations between the variables.
+- You can also pass the parameter `width` to control the number of months to consider.
+- Using Matrix notation:
+  * Matrix, but really a vector, of portfolio weights.
+  * Matrix, but really a vector, of asset returns.
+  * Matrix, but really a vector, of expected returns.
+- In the **Covariance Matrix**, the diagonal is the variance while the outside numbers are the **Covariance**.
+- You can avoid large numbers of terms using **Matrix Notation**.
+- You do matrix multiplication using `%*%`.
+- You take the transpose using `t()`.
+- To get a **Portfolio Violatility Budget**, you'll need to:
+  1. Portfolio Volatility needs to be rewritten as the sum of RC_i, where:
+    * RC_i = w_i(COVw)i / sqrt( w'COVw )
+    * RC is called the **Risk Contribution**.
+  2. Calculate the %RC, or **Percent Risk Contribution** using RC_i / Portfolio Volatility.
+- The function `StdDev()` create a list which includes:
+  1. the assets standard deviation.
+  2. the assets risk contribution.
+  3. the assets percent risk contribution.
 
 # Optimizing Performance
 -
