@@ -51,6 +51,8 @@ polarity( text.var = text$words,
 ```
 
 # Sentiment Analysis the Tidytext Way
+- 
+
 
 # Visualizing Sentiment
 
