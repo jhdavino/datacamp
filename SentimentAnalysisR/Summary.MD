@@ -51,10 +51,22 @@ polarity( text.var = text$words,
 ```
 
 # Sentiment Analysis the Tidytext Way
-- 
-
+- In reality, sentiment is more complex than just + or -.
+- One popular model is **Plutchik's Wheel of Emotion**.
+- To convert a *Document Term Matrix* to tidy format use the function `broom::tidy()`.
+- The package *tidytext* contains the subjectivity lexicons from three different libraries contained in `sentiments`.
+- You can collect the different sentiment libraries `get_sentiments()` with the options:
+  * "afinn"
+  * "nrc"
+  * "bing"
+- To use *bing* requires you to do an **Inner Join**.
+- To use the join functions requires the `by` parameter.
+- *Moby Dick* is a mostly negative book.
+- You can use `%in%` as a substitute for `setdiff()`.
 
 # Visualizing Sentiment
+- 
+
 
 # Case study: Airbnb reviews
 
