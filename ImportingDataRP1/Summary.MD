@@ -19,7 +19,7 @@
 	2. d: double
 	3. i: integer
 	4. l: logical
-	5. _: skip
+	5. `_`: skip
 - You can also skip rows using `skip = n`.
 - You can also specify a max number of rows to read using `n_max`.
 

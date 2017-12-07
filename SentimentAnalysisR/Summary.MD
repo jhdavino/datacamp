@@ -65,7 +65,27 @@ polarity( text.var = text$words,
 - You can use `%in%` as a substitute for `setdiff()`.
 
 # Visualizing Sentiment
-- 
+- When doing *Sentiment Analysis*, there is two pieces of advice:
+  1. Avoid wordclouds.
+  2. Avoid sentiment analysis that leads to no conclusion.
+- You can insert the row number as an index using the function `row_number()`.
+- A **Kernel Density Plot** can be thought of as a smoothed histogram.
+- Comparing multiple distributions can be easier with box plots.
+- A **Radar Chart**, sometimes called a **Spider Chart**, can emulate the Plutchik's Wheel.
+- For a **Tree Map**, there are multiple arguments.
+- You can use `tally()` to count up fields.
+- You can use `radarchart::chartJSRadar()`
+- Example of *Tree Map*:
+```r
+# Make the visual
+treemap(book_tree,
+        index = c("author", "book"),
+        vSize = "n",
+        vColor = "mean_score",
+        type = "value",
+        title = "Book Sentiment Scores",
+        palette = c("red", "white", "green"))
+```
 
 
 # Case study: Airbnb reviews
