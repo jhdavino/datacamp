@@ -28,7 +28,7 @@
 
 # Analyzing Performance
 - The **Arithmetic Mean Return** is the sum of the returns over the number of portfolios.
-- The **De-Meaned Return** is the difference between the *Arithmentic Mean Return* and the return of that individual portfolio.
+- The **De-Meaned Return** is the difference between the *Arithmetic Mean Return* and the return of that individual portfolio.
 - You can get the variance using the sum of squares over the total portfolios minus one.
 - The **Portfolio Volatility** is the standard deviation of the portfolio variance as defined above.
 - Since there is a difference between the average return and the effective return, a different measure is preferred.
@@ -91,9 +91,25 @@
   3. the assets percent risk contribution.
 
 # Optimizing Performance
--
+- **Harry Markowitz** recommends finding optimal portfolio performance by minimizing variance.
+- There is a function `tseries::portfolio.optim()` that will do the calculation for it.
+- It also accepts other parameters:
+  * `pm` is the target return.
+  * `shorts` boolean for whether negative weights are forbidden.
+  * `reshigh` is the upper contraints on the portfolio weights.
+- You can find the Standard Deviation of these models at `object$ps`.
+- The **Efficient Fronter** is the curve of the optimal values between the risk and the reward.
+- Points above the curve cannot exist and points below the curve are dominated by the curve itself.
+- The **Tangency Portfolio** is when the *Sharpe Ratio* is tangent to the *Efficient Frontier*.
+```r
+grid <- seq(from = .01, to = max(stockmu), length.out = 50)
+```
+- There is a limit to data-driven portfolio allocation.
+- Use **Split-Sample Analysis** to do a realistic evaluation of portfolio performance.
+- You split the sample into the In-Sample/Out-Sample like a Test/Train set.
+- These two must not have overlap else there will something called **Look-Ahead Bias**.
 
 # Research:
-
+- Harry Markowitz?
 
 # Reference:
