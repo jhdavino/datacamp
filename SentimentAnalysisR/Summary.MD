@@ -89,6 +89,28 @@ treemap(book_tree,
 
 
 # Case study: Airbnb reviews
+- Steps:
+  1. Define the problem.
+  2. Identify the text.
+  3. Organize the text.
+  4. Extract features.
+  5. Analyize the data.
+  6. Summarize Conclusion.
+- The function `unnest_tokens()` will make the text lower case and tokenize text.
+- Tidytext path:
+  1. `inner_join()` to
+  2. `count()` to
+  3. `spread()`.
+```
+# Calculate polarity for each review
+pos_neg <- tidy_reviews %>%
+  inner_join( bing ) %>%
+  count(sentiment) %>%
+  spread(sentiment, n, fill = 0) %>%
+  mutate(polarity = positive - negative)
+```
+- "The stronger your feelings, the more you write."
+
 
 # Research:
 - `%$%`?

@@ -44,7 +44,7 @@
 - This will allow you to set behaviors conditionally based on `request.method`.
 - You can get data from forms using `request.form[form_name]`.
 - flask also has a variant of the python logger system builtin which can be called using `app.logger.{debug, warn, info}()`.
-- Responses will defaul to get requests.
+- Responses will default to get requests.
 - If you forget to include the `methods = ['GET', 'POST']`.
 - To provide visual confirmation, one should always redirect to a page confirming the transaction.
 - flask has a module called `redirect` to do just that.
@@ -293,7 +293,7 @@ manager.add_command( 'db', MigrateCommand) # higher order function?
 ```
 - After this is done, you *must* run `python manage.py db init`.
 - Then, you can run `python manage.py db migrate` to generate the script to do the work.
-- This gives you acess to two new commands: `upgrade()` and `downgrade()`.
+- This gives you access to two new commands: `upgrade()` and `downgrade()`.
 - You can create a lower level table using `var_name = db.Table( .. )`.
 ```python
 # code to create a many-to-many relationship

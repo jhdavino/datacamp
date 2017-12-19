@@ -43,10 +43,10 @@
 | Forcasting Using R                      | [/ForcasingUsingR]                 | {2017/11/10}   |
 | Introduction to Shell                   | [/IntroToShell]                    | {2017/11/16}   |
 | Visualizing Time Series in R            | [/VisualizeTimeSeries]             | {2017/11/23}   |
-| Introduction to Portfolio Analysis in R | [/IntroPortfolioAnalysisR]         |                |
-| Sentiment Analysis in R                 | [/SentimentAnalysisR]              |                |
+| Introduction to Portfolio Analysis in R | [/IntroPortfolioAnalysisR]         | {2017/12/14}   |
+| Sentiment Analysis in R                 | [/SentimentAnalysisR]              | {2017/12/15}   |
 | NLP Fundamentals in Python              | [/NLPInFundamentalsPython]         | {2017/12/03}   |
-
+| Foundations of Probability in R         | [/FoundationsProbabilityR]         |                |
 
 R Review/Redo.
 O Organize.
