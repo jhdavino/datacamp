@@ -33,6 +33,12 @@ mean( rbinom(10000, 10, .3) >= 5)
 - The *Binomial Variance* follows the rule size times probability of the event times 1 - p.
 
 # Laws of Probability
+- The probability of a coin flip is just an event.
+- This event can be anything and is not limited to coin flips.
+- The Probability of two coin flips is written: Pr(A and B) = Pr( A ) * Pr( B ).
+- R has the `&` operator for logical And.
+- The Probability of two coin flips is written: Pr(A or B) = Pr( A ) + Pr( B ) - Pr( A and B ).
+- R has the `|` operator for logical Or.
 
 # Bayesian Statistics
 
