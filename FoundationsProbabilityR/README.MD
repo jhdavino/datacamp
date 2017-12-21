@@ -41,6 +41,16 @@ mean( rbinom(10000, 10, .3) >= 5)
 - R has the `|` operator for logical Or.
 
 # Bayesian Statistics
+- We use the sample data to help us predict what the real probability is.
+- Pr( Biased | 14 Heads) = (# biased w 14 heads)/(# total with 14 heads).
+- The **Prior Probability** is what you believe before you start accepting data.
+- The **Posterior Probability** is what you believe after accepting data.
+- You will use the function `dbinom()` to predict the density of the Binomial data.
+  * Passing parameters `number of positive events, number of observations, expected probability`.
+  * This will be multiplied by your Prior Probability.
+- **Conditional Probability**: Pr( Biased | 14 heads) = Pr( 14 heads and biased) / ( Pr( 14 heads and biased) + Pr( 14 heads and fair)).
+- 
+
 
 # Related Distributions
 
