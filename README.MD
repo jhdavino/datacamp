@@ -46,7 +46,7 @@
 | Introduction to Portfolio Analysis in R | [/IntroPortfolioAnalysisR]         | {2017/12/14}   |
 | Sentiment Analysis in R                 | [/SentimentAnalysisR]              | {2017/12/15}   |
 | NLP Fundamentals in Python              | [/NLPInFundamentalsPython]         | {2017/12/03}   |
-| Foundations of Probability in R         | [/FoundationsProbabilityR]         |                |
+| Foundations of Probability in R         | [/FoundationsProbabilityR]         | {2017/12/23}   |
 
 R Review/Redo.
 O Organize.

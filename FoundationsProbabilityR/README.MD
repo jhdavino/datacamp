@@ -49,11 +49,43 @@ mean( rbinom(10000, 10, .3) >= 5)
   * Passing parameters `number of positive events, number of observations, expected probability`.
   * This will be multiplied by your Prior Probability.
 - **Conditional Probability**: Pr( Biased | 14 heads) = Pr( 14 heads and biased) / ( Pr( 14 heads and biased) + Pr( 14 heads and fair)).
-- 
-
 
 # Related Distributions
+- Now we're going to explore three other distributions:
+  1. The Normal ( Guassian ) Distribution
+  2. The Poisson Distribution.
+  3. The Geometric Distribution.
+- The Normal Distribution is famous because many observable phenomenon take this shape.
+- It is defined via the Mean and the Standard Deviation.
+- They are signified using the greek letters mew and sigma respectively.
+- The **Standard Deviatoin** is the square root of the variance.
+- You simulate the **Normal Distribution** using the function `rnorm()`.
+  * Parameters are `n draws, mean, standard deviarion`.
+- The function `pnorm()` will calculate the **Cumulative Probability** of the *Normal Distribution*.
+  * n heads you're flipping.
+  * mew mean of the distribution.
+  * std the standard deviation of the distribution.
+- The **Poisson Distribution** is meant to determine how often a rare event should be expected.
+- This doesn't look like a Bell curve nor does it look symmetrical at all.
+- The *Poisson Distribution* is described by only a single parameter: the mean.
+  * Called Lambda.
+- The function `rpois()` to simulate a *Poisson Distribution*.
+  * n observations.
+  * m/1000 for the event probability.
+- The variance is equal to the mean.
+- The mean can be any number as long as it's positive.
+- The function `dpois()` will give you the probability of the Poisson value showing up.
+  * v the value you expect.
+  * lambda the mean of the distribution.
+- You can ask R to repeat code using the function `replicate()`.
+  * n times to run.
+  * f code to run.
+- You can use the function `rgeom()` to simulate draws from a **Geometric Distribution**.
+  * n draws.
+  * p probability of event.
 
 # Research:
+- Poisson Distribution?
+- Geometric Distribution
 
 # Reference:
