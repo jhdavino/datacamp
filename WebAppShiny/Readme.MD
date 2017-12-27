@@ -37,12 +37,46 @@
 - The last call to actually setup the app is `shinyApp( ui = ui, server = server )`.
 
 # Inputs, Outputs, and Rendering Functions
+- **Reactivity** automatically occurs when an input vlaue is used to render an output object.
+- You can adjust the dimensions of a plot by passing `height = <n>` to `plotOutput()`.
+- You can create a checkbox using `checkboxInput()`.
+- You can create a Data table using `DT::dataTableOutput()`.
+- You render the table using `DT::renderDataTable({})`.
+- The function `req()` will stop execution is the value is not *truthy*.
+- Passing the parameter `multiple = TRUE` will allows you to filter on multiple values.
+- You can use `dateInput()` to select a date.
+- You can use `dateRangeInput()` to select two dates to condition on.
+- You will need to pass parameters `start` and `end` instead of `value` for the dates.
+- You can pass parameter `startview = 'year'` to control what level the user can control the calendar at.
+- You can use `checkBoxGroupInput()` to declare a group of interaction check boxes.
+- You can also control the appearance with extended parameters passed to `renderTable()`.
+- A few:
+  * `striped = TRUE` will alternatively color the rows.
+  * `digits = 4` will do automatic rounding.
+  * `width = "90%"` to control how much of the width of the page is taken up.
+  * `caption = "Self evident"` to control the caption text.
+- You can add text using `renderText()`.
+- You can allow a user to subset values on the graph by passing `brush = "plot_brush"`.
+- This will then make calculations only on those values.
+- You call function `BrushPoints( <data>, input$plot_brush)` to collect those points on the server.
+- You can also use only the points being hovered over by passing `hover = "plot_hover"` in `plotOutput()`.
+- You will need to change the graphing function to `nearPoints()` instead of `BrushPoints()`
+- You display text on the UI with `textOutput()`.
+- You can display the outpu as if it came from the console using `verbatimTextOutput()`.
+- The function `pull()` will extract a column as a local copy; sort of like `[[`.
+- You can render generic `HTML()` objects using `renderUI()`.
+- You use the function `htmlOutput()` to draw generic object in the UI.
+- You use the function `downloadHandler()` to tell the server that something is downloadable.
+- You use functions `downloadButton()` or `downloadLink()` to draw the download on the UI.
 
 # Reactive Programming
 
 # Customizing Appearance
 
 # Research:
+- `aes_string()`?
+- selective.js?
+
 
 # Reference:
 - [Shiny Homepage ](www.shiny.rstudion.com)
