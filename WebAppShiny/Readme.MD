@@ -70,6 +70,30 @@
 - You use functions `downloadButton()` or `downloadLink()` to draw the download on the UI.
 
 # Reactive Programming
+- There are three kinds of *Reactive Objects*:
+  1. Reactive Sources.
+  2. Reactive Conductive.
+  3. Reactive Endpoint.
+- **Reactive Source** is user input that comes through a browser interface.
+- **Reactive Endpoint** is something that appears in the user's browser window.
+- One *Reactive Source* can be connected to multiple endpoints.
+- **Reactive Conductor** is a reactive component between a source and an endpoint.
+- A *Conductor* does not need to be alone in a chain; it can connect to other *Conductors*.
+- To create a reactive expression, simply wrap code in `reactive({})`.
+- The return of this is actually a function and will require that you call it like a function without inputs.
+- *Reactives* help you to reduce code duplication and simplify calculations.
+- **Reactive Expressions** only get evaluated when the input changes.
+- The **Reactlog** is a graphical representation of what is going on under the hood of your apps.
+- You can invoke this with `options(shiny.reactlog = TRUE)`, run the app and then press *CTRL+F3*.
+- An **Observer** is used to monitor the changing variable under the hood.
+- They can access reactive sources and reactive values but they don't return a value.
+- You use them for the side effects; usually sending data to the web browser.
+- *Reactive Expressions* must not have side effects while *observers* are used for precisely that.
+- You can impede changes by using `isolate({})` around an input that you don't want to have updated constantly.
+- The function `observeEvent()` will trigger changes only when the selected input is caught.
+- You can create a button using `actionButton()`.
+- The function `eventReactive( <event>, <expression>, ignoreNull = TRUE)` will tell shiny to ignore a blank value at initialization.
+- 
 
 # Customizing Appearance
 
