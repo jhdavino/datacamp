@@ -47,7 +47,7 @@
 | Sentiment Analysis in R                 | [/SentimentAnalysisR]              | {2017/12/15}   |
 | NLP Fundamentals in Python              | [/NLPInFundamentalsPython]         | {2017/12/03}   |
 | Foundations of Probability in R         | [/FoundationsProbabilityR]         | {2017/12/23}   |
-| Building Web Applications With Shiny    | [/WebAppsShiny]                    | {}             |
+| Building Web Applications With Shiny    | [/WebAppsShiny]                    | {2017/12/29}   |
 
 R Review/Redo.
 O Organize.
