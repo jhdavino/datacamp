@@ -92,15 +92,52 @@
 - You can impede changes by using `isolate({})` around an input that you don't want to have updated constantly.
 - The function `observeEvent()` will trigger changes only when the selected input is caught.
 - You can create a button using `actionButton()`.
+  * `inputId` for the reference name.
+  * `label` for text.
 - The function `eventReactive( <event>, <expression>, ignoreNull = TRUE)` will tell shiny to ignore a blank value at initialization.
-- 
 
 # Customizing Appearance
+- Shiny is converted to Html underneath.
+- Shiny comes with functions that convert to tags; see these with names( tags ).
+- You can access them for example using `tags$a()`.
+- There are external functions for most of the common tags.
+- The function `HTML()` will treat what you put in it as literal strings.
+- You can add images using `img()`.
+- Attributes, which are used to modify tags, can be passed as arguments.
+- It will pass anything; i.e. `hr("Turtles", turtles = 'hue')` will pass the `turtles = 'hue'` as an attribute even though it's not a real attribute.
+- An alternative layout is `fluidPage()`.
+- This will place each as a fluid row using `fluidRow()` which will contain the contents of that row.
+- You can also control how many columns there are using `column()`; requires parameter `width` and should add up to 12.
+- The function `wellPanel()` will create a visual box around the elements in it to allow for a visual inferable grouping.
+- The function `titlePanel()` is used to add a title to an app.
+- You can name the window title by passing `windowTitle = "title"` in a `titlePanel()`.
+- You can control whether a panel is displayed using `conditionalPanel()`.
+- You can add tabs to split up data into what are effectively different pages.
+- The function `tabsetPanel( type = 'tabs', ...)` is how you add tabs to a page.
+- You add a tab using `tabPanel( "Label", <output_type>)`.
+- The function `navlistPanel()` will do somethin similar but will list them vertically down the left hand side instead.
+- There are many prebuilt themes that you can using by installing and loading *shinythemes*.
+- The function `themeselector()` will dynamically change how elements are displayed for development.
+- You can pass options to `datatable()` using parameter `options = list(...)`.
+- You can conditionally show a tab using `showTab( <condition>, )`.
+```r
+# Display data table tab only if show_data is checked
+  observeEvent(input$show_data, {
+               if(input$show_data){
+                 showTab(inputId = "tabspanel", target = "Data", select = TRUE)
+               } else {
+                 hideTab(inputId = "tabspanel", target = "Data")
+               }
+  })
+```
+- You pass a theme by adding the parameter `theme = shinytheme("<themename>")` to `fluidPage()`.
+- You can run your own shiny server.
 
 # Research:
 - `aes_string()`?
 - selective.js?
 
-
 # Reference:
 - [Shiny Homepage ](www.shiny.rstudion.com)
+- [Shinyapps.io](www.shinyapps.io)
+-
