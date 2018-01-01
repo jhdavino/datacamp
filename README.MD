@@ -48,6 +48,7 @@
 | NLP Fundamentals in Python              | [/NLPInFundamentalsPython]         | {2017/12/03}   |
 | Foundations of Probability in R         | [/FoundationsProbabilityR]         | {2017/12/23}   |
 | Building Web Applications With Shiny    | [/WebAppsShiny]                    | {2017/12/29}   |
+| Network Analysis in R                   | [/NetworkAnalysisR]                |                |
 
 R Review/Redo.
 O Organize.
