@@ -98,10 +98,27 @@ make_ego_graph(g, diameter(g), nodes = '184', mode = c("all"))[[1]]`
 ```
 
 # Characterizing Network Structures
--
-
+- **Eigenvector Centrality** is a measure of how well connected a vertex is.
+- You can those values using the function `eigen_centraility()`.
+- **Density** is the proportion of how many edges do exist in a network over how many could exist.
+- You can get that value using `edge_density( g )`.
+- You calculate the **Average Path Length** using `mean_distance( g, directed = FALSE)`.
+- A **Random Graph** is a simulated network that has similar properties to the one under study.
+```r
+erdos.renyi.game( n = gorder(g), p.or.m = edge_density( g ), type = 'gnp')
+```
+- You can test the connectivity between three nodes using the function `triangles( g )`.
+- You can test the **Global Transitivity** of a network using `transitivity( g )`.
+- You can count the number of triangles a node is involved in using `count_triangles( g, vids('N1'))`.
+- You can also calculate the **Local Transitivity** using `transitivity( g, vids = 'N1', type = 'local')`.
+- In a **Clique**, every vertex is connected to every other vertex.
+- You can find the largest of its kind using `largest_cliques( g )`.
+- You can identify all such *cliques* using `max_cliques( g  )` which will return a list of them all.
+- You can create a subgraph using `subgraph()` to control which nodes to include in the graph.
 
 # Identifying Special Relationships
+- 
+
 
 # Reference:
 
