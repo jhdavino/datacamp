@@ -64,10 +64,42 @@ layout_as_tree()   # tree.
 - You can delete edges from a graph using `delete_edges()`.
 
 # Identifying Important Vertices in a Network
--
-
+- A **Directed Graph** is one where direction is added to the edge relationship.
+- You can check if a graph is directed using the function `is.directed()`.
+- You can check if a graph is weighted using the function `is.weighted()`.
+- One purpose of directed graphs is to determine which nodes are the most important.
+- The **Out-Degree** is how many outgoing edges exist.
+- The **In-Degree** is how many incoming edges exist.
+- You can check if an edge exists between two nodes using `g['N1', 'N2']`; will return a 1 if present.
+- You can display all edges from a node using `incident(g, 'N1', mode=c('all'))`.
+- You can display in edges from a node using `incident(g, 'N1', mode=c('in'))`.
+- You can display out edges from a node using `incident(g, 'N1', mode=c('out'))`.
+- You can find all starting nodes using `head_of(g, E(g))`.
+- You can get the neighbors of a node using `neighbors(g, 'N1', mode=c('all'))`.
+- You can use the intersection of the neighbors of nodes to find paths.
+- You can get the furthest path in the network using `farthest_vertices(g)`.
+- The **Diameter** is the longest path in the graph.
+- You can get it using `get_diameter()`.
+- You can return the list of nodes that are a certain limited number of edges away.
+- This is done using `ego(g, <n>, 'N1', mode=c('all'))`.
+- There are many ways to measure *importance*:
+  * degree.
+  * betweeness.
+  * Eigenvector Centrality.
+  * Closeness Centrality.
+  * Pagerank Centrality
+- You can calculate the degree using `degree(g, mode=c('all'))`.
+- **Betweeness** measures how often a node exists on the *shortest path*.
+- You can calculate that using `betweenness(g, directed = TRUE)`.
+- You can also return normalized numbers using parameter `normalized = TRUE`.
+- You can create an ego graph using `make_ego_graph()`.
+```r
+make_ego_graph(g, diameter(g), nodes = '184', mode = c("all"))[[1]]`
+```
 
 # Characterizing Network Structures
+-
+
 
 # Identifying Special Relationships
 
