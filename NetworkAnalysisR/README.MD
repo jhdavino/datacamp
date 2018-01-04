@@ -117,10 +117,28 @@ erdos.renyi.game( n = gorder(g), p.or.m = edge_density( g ), type = 'gnp')
 - You can create a subgraph using `subgraph()` to control which nodes to include in the graph.
 
 # Identifying Special Relationships
-- 
-
+- **Assorativity** is the preferential attachment of vertices to other vertices that are similar in numerical or categorical attributes.
+- You can calculate that using the function `assorativity( g, values)`; where values is a vector of attributes.
+- The values need to be numbers though so make sure to convert categories to factors.
+- The function `assortativity.degree( g, directed = FALSE)` will compute how willing highly connected vertexes are connected to each other.
+- You can calculate the **Reprocity** of a network using `reprocity( g )`.
+- If, within a network, it is possible to subset the nodes into unique sets then there is said to be a **Community**.
+- Full community detection is computationally expensive so many are not included.
+- You can use the function `fastgreedy.community( g )` to run a quick version of it.
+- The Function `edge.betweenness.community( g )` can be used to find what is believed to be edges between communities.
+- You can extract information from the saved fast algo using:
+  * `length( gr )`: how many communities are assumed to be true.
+  * `sizes( gr )`: how large each proposed community is.
+  * `membership( gr )`: who belongs in each community.
+- You can then plot the graph of communities using `plot( gr, g)`.
+- `leading.eigenvector.community( g )` is another community detection algorithm.
+- There are tons of other packages to assist in managing network data; we're going to be using threejs.
+- It's as easy as calling `graphjs( g )`.
+- For the attributes to be crossed over, you just need to update the vertex attributes using `set_vertex_attr()`.
 
 # Reference:
 
 # Research:
 - Fruthterman-Reingold?
+- Erdos-Renyi?
+- `edge.betweenness.community( g )`
