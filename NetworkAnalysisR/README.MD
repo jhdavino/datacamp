@@ -12,7 +12,7 @@
   * Edgelist.
 - While many packages exist, we will be using the *igraph* package.
 - To get a graph, pass an edgelist via:
-``r
+```r
 g <- graph.edgelist(as.matrix( df ), directed = FALSE)
 ```
 - The function `V()` will return all vertices in a network.
