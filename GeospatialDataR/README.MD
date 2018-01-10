@@ -33,8 +33,42 @@ ggmap( nyc_map )
 - You can generate a heatmap using `geom_tile()`.
 
 # Point and Polygon Data
-- 
-
+- Data frames are not ideal for spatial data.
+- This is due to the inability to retain coordinate reference system information.
+- This forces hierarchical structure into a forced flat format.
+- The *sp package* contains classes that are used to store different types of spatial data.
+- They also contain better methods for manipulating spatial objects.
+- This is the standard for storing spatial data in R.
+- You can limit the depth of a `str()` call using the parameter `max.level = <n>`.
+- The **Spatial Polygon Object** is the same as a **Spatial Polygon Data Frame Object** just the latter has an attached data frame.
+- **S4** is:
+  * One of the object oriented systems in R.
+  * They contain classes; which are defined objects.
+  * Also, methods; which are how to interact with an object.
+  * They have places called **Slots** to place things.
+- You can access the slots using methods:
+  * ex. `proj4string( countires_sp)`.
+- You can also follow them with an `@` to access the named slot.
+- Further, you can use the function `slot( <obj>, <label>)` to access a specific field.
+- These are lists and you will need to use `[[ ]]` to extract single elements.
+- Polygon Object -> Polygons Object -> SpatialPolygon Object.
+- You can pass `sp_object[1,]` to select only the first polygon object's data and it will limit the return data to that smaller subset from other slots.
+- The package *tmap* expects spatial data format.
+- The function `qtm()` stands for **Quick Thematic Map**.
+- Ex: `qtm( shp = <target_sp>, fill = 'attr')`.
+- It has a similar philosophy and sytnax to ggplot2.
+- The function `tm_shape()` does what the `ggplot()` call does and simply prepares the data.
+- You can add the borders using `tm_borders()`.
+- You can add the fill layer using `tm_fill( col = "attr")`.
+- There are tons more options.
+- It is worth highlighting that there are no scale functions in *tmap*.
+- You can add grid lines using `tm_grid()`.
+- You can select the kind of projection using by passing the parameter `projection = `.
+- You can choose also projections `hd` for Hobo-Dyer projection and `robin` for Robinson projection.
+- You can save the plot using `save_tmap()`.
+- The passed file extension controls the format of the output.
+- You can also use the package *leaflet* and save it as an html object for a interactive version.
+- Make sure to pass the `filename=` parameter.
 
 # Raster Data and Color
 
@@ -42,6 +76,10 @@ ggmap( nyc_map )
 
 # Research:
 - Stamen Maps?
+- tmap?
+- equirectangular projection?
+- Hobo-Dyer?
+-
 
 
 # Reference:
