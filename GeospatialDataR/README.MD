@@ -71,14 +71,47 @@ ggmap( nyc_map )
 - Make sure to pass the `filename=` parameter.
 
 # Raster Data and Color
+- Data frames are not optimal for raster data either.
+- A better structure would be matrix + grid information + Coordinate System.
+- The package *sp* has some classes for raster, but we'll be using the *raster* package.
+- Benefits:
+  * Easier to import.
+  * Large ones are not loaded into memory.
+  * provides functions for raster type operations.
+- The *raster* package will also include `print()` functions for *sp* objects.
+- Calling `plot()` will produce a heatmap-like plot.
+- You can extract the values from a raster Object using `values()`.
+- There are multi-dimensional Rasters: `RasterStack` and `RasterBrick`.
+- Subsetting is done via list notation.
+- `tmap` also works with raster objects.
+- When dealing with a `RasterStack` or `Rasterbrick` object you will need to specify the layer in the `tm_raster(col = '<target>')`.
+- We perceive color as three dimensional:
+  * Hue.
+  * Chroma.
+  * Luminance.
+- To create order, one will need to vary chroma or luminance.
+- Different Types of Scale:
+  * Sequential - Ordered.
+  * Diverging - Ordered; two directions.
+  * Qualitative - unordered.
+- We'll be using package *RColorBrewer* to manage colors.
+- You can see all defined colors using `display.brewer.all()`.
+- You can generate a palette using `brewer.pal(n = <n>, "Blues")`.
+- You can add the color palette using `scale_fill_gradientn( colors = <palette>)` or `scale_color_gradientn(colors = <palette>)`.
+- To pass the palette in `tm_raster()` you'll use the parameter `palette`.
+- You can add a legend to the plot using `tm_legend( position = c("[left|right]", "[top|bottom]"))`.
+- You can used `classInt::classIntervals(values, n = 5, style = "equal")` to split up a range into discrete bits.
 
 # Data Import and Projections
+-
+
 
 # Research:
 - Stamen Maps?
 - tmap?
 - equirectangular projection?
 - Hobo-Dyer?
+- classInt package?
 -
 
 
