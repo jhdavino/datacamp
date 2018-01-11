@@ -103,8 +103,37 @@ ggmap( nyc_map )
 - You can used `classInt::classIntervals(values, n = 5, style = "equal")` to split up a range into discrete bits.
 
 # Data Import and Projections
--
-
+- Census tracts are areas with roughly the smae number of people.
+- Procudure:
+  1. Read in shape files.
+  2. Match up two different coordinate systems.
+  3. Merge data from a data frame into a SpatialPolygonDataFrame.
+  4. Polish a map to be publication ready.
+- **Vector Data** is data described by points, lines, polygons.
+- The function `rgdal::readOGR()` will read in vector formats.
+- To use it, you use `readOGR('<dir_name>', '<filename_no_ext>')`.
+- You can read in raster data using function `rgdal::readGDAL()`.
+- Or, you can use `raster::raster()`.
+- You can use `tigris::tracts()` to download US Census geographies.
+- There are subset functions:
+  * `states()`.
+  * `counties()`.
+  * `places()`.
+- Ex: `tracts( state = 'NY', county = 'New York'. cb = TRUE)`.
+- There is more than just one definition of Longitude and Latitude.
+- You can assign a coordinate system by assigning a string via `proj4string(<x>) <- "..."`.
+- You must convert the different CRS's using `rgdal::spTransform( <object>, <string_CRS>)`.
+- You can get the coordinates using `coordinates( <object> )`.
+- The package *ACS* downloads data from the American Community Survey.
+- The SP objects maintain an internal unique ID that allows it to tie data to polygons.
+- To ask the function to do this, you'll need to pass parameter `match.ID = TRUE` to `SpatialPolygonsDataFrame()`.
+- This matching is important because no other checks exist to ensure consistency.
+- The function `sp::merge()` was designed for just this issue.
+- Polishing a Map:
+  * Remove Distractions, let data shine.
+  * Useful spatial context.
+  * Make sure you add ancillary data.
+  * Add annotations.
 
 # Research:
 - Stamen Maps?
@@ -112,6 +141,7 @@ ggmap( nyc_map )
 - equirectangular projection?
 - Hobo-Dyer?
 - classInt package?
+- tract boundaries?
 -
 
 
