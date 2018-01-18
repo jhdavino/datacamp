@@ -45,8 +45,19 @@ twins %>%                                     # data
 ```
 
 # t-Based Inference for the Slope Parameter
-- 
-
+- You can calculate a statistical function using `stat_function( fun = <dt>, color = 'red', args = list(df = nrow(starbucks) - 2))`
+- You can test if a p-value is significant using the function `pt(<p.value>, df = <nrow - 2>)`.
+- The t-statistic is calculated using the formula `estimate - 1 / standard_error`
+- If you want `tidy()` to pass along the confindence intervals as well, then add the parameters `conf.int = TRUE, conf.level=1-<alpha>`.
+- You can also use bootstrapping to create a sample of the *Confidence interval*.
+- The function `augment()` is sort of like the `predict()` function in that it returns what our model would predict.
+```r
+lm(Foster ~ Biological, data = twins) %>%
+  augment(newdata = <newdata>) %>%
+  mutate(lowMean = .fitted - crit_val*.se.fit,
+         upMean = .fitted + crit_val*.se.fit)
+```
+- You can use `broom::glance()` on a model to generate and add many of the reliability statistics.
 
 
 # Technical Conditions in Linear Regression
