@@ -72,8 +72,10 @@ lm(Foster ~ Biological, data = twins) %>%
 - Using the log transform on the response is an excellent idea when the variance is unequal.
 
 # Building on Inference in Simple Linear Regression
-- 
-
+- If we transform a non-linear into a linear then the change in X is with respect to the non-linear original function.
+- If both are being transformed via natural log, then we say that "percent change in Y for each 1% change in X".
+- **Multicollinearity** is when some variables are correlated with one another.
+- When features are related it will be much harder to interpret data.
 
 # Research:
 
