@@ -59,10 +59,21 @@ lm(Foster ~ Biological, data = twins) %>%
 ```
 - You can use `broom::glance()` on a model to generate and add many of the reliability statistics.
 
-
 # Technical Conditions in Linear Regression
+- We can only use a linear assumption when:
+  1. It's actually a linear model.
+  2. The observations are independent.
+  3. Points are normally distributed around the line.
+  4. Equal variability around teh line for all values of X.
+- The function `broom::augment()` calculates the residual for every point in the dataset.
+- If the assumption is justifiable, then a plot of `.fitted vs .resid` should not display any apparent patterns.
+- A few outliers have an out of step impact on conclusions.
+- You can transform the values of x without changing the residuals.
+- Using the log transform on the response is an excellent idea when the variance is unequal.
 
 # Building on Inference in Simple Linear Regression
+- 
+
 
 # Research:
 
