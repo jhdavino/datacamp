@@ -49,7 +49,8 @@
 | Foundations of Probability in R         | [/FoundationsProbabilityR]         | {2017/12/23}   |
 | Building Web Applications With Shiny    | [/WebAppsShiny]                    | {2017/12/29}   |
 | Network Analysis in R                   | [/NetworkAnalysisR]                | {2018/1/04}    |
-| Geospatial Data in R                    | [GeospatialDataR]                  | {}             |
+| Geospatial Data in R                    | [/GeospatialDataR]                 | {2018/01/11}   |
+| Scalable Data Processing in R           | [/ScalableDataProcessingR]         | {}             |
 
 R Review/Redo.
 O Organize.

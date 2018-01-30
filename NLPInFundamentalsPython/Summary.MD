@@ -22,7 +22,7 @@
 - Python will be using the library *re*.
 - We can match a substring using the `re.match()` function; matches pattern with a string.
 - This does **not** return a result, but instead returns a *match object*.
-- There are also special patttens that are accepted.
+- There are also special patterns that are accepted.
 - `\w+` will match a word.
 - `\d` will match numbers.
 - `\s` will match a space.
@@ -37,7 +37,7 @@
 - Make sure your pattern starts with `r""` first.
 - **Tokenization** is when you turn a string document into *tokens*.
 - There are many different theories and rules around it.
-- A commonley used library for this is *nltk*.
+- A commonly used library for this is *nltk*.
 - Tokenizing text can:
   * make it easier to map out parts of speech.
   * Match common words.
@@ -93,7 +93,7 @@ lemmatized = [wordnet_lemmatizer.lemmatize(t) for t in no_stops]
 - And, this model can be easily saved, updated and reused.
 - Since it's treated as a dictionary, you can use `computer_id = dictionary.token2id.get("computer")`.
 - **Term-Frequency - Inverse Document Frequency** or *tf-idf* which assists us in understanding the most important words.
-- The assumpttion in the model is that the corpus might have more shared words than just the stopwords.
+- The assumption in the model is that the corpus might have more shared words than just the stopwords.
 - These common words are *down-weighted* due to how common they are.
 - You can build a model using the previous corpus.
 - First, you will need to import `from gensim.models.tfidfmodel import TfidfModel`.
@@ -142,7 +142,7 @@ for ent in doc.ents:
 - You import it using `from polyglot.text import Text`.
 - To access the entities, you use `ptext.entities`.
 - To print the list of all entities, use `txt.entities`
-- You can can access the tag using `txt.tag`.
+- You can access the tag using `txt.tag`.
 -
 
 # Building a "Fake News" Classifier

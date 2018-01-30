@@ -4,7 +4,7 @@
 ## Sumedh Panchadhar
 
 # Fast & dirty: Polarity Scoring
-- **Sentiment Analysis** is the process of extracting the the emotional intent of the author.
+- **Sentiment Analysis** is the process of extracting the emotional intent of the author.
 - The function `qdap::polarity()` will tell you how positive or negative the text is.
 - You can check the polarity of a dataframe by passing the name of the column to `polarity()`.
 - It also accepts a second argument to condition on.
