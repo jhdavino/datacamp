@@ -37,11 +37,33 @@ read.big.matrix( "<filename>",
 - Big.matrix use shallow copies and if you want a deep copy then you need to use `deepcopy()`.
 
 # Processing and Analyzing Data with bigmemory
+- Lots of packages incoming:
+  * *biganalytics* for summaries.
+  * *bigtabulate* for tabulating.
+  * *bigalgebra* for linear algebra.
+  * *bigpca* for principle components.
+  * *bigfastLM* for linear models.
+  * *biglasso* for lasso and loss functions.
+  * *bigrf* for random forest.
+- You can create a table using `bigtable(<data>, <column>)`.
+- You can also pass more than one name to to columns.
+- Abstract model: *Split-Apply-Combine* or in his words *Split-Compute-Combine*.
+- You use `split()` to randomly divide or divide on a categorical column.
+- We'll be iterating using `Map()`.
+```r
+missing_by_year <- Map(
+    function(x) col_missing_count( df[x, ]),
+    year_splits )
+```
+- We then combine them using `Reduce( f, <df>)`.
+- The package *ff* is better suited to data like a dataframe whereas *bigmemory* is better for matrices.
+- If you're going to extend, create rows or columns then you can't really use *big.matrix* without some external considerations.
 
 # Working with iotools
 
 # Case Study: A Preliminary Analysis of the Housing Data
 
 # Research:
+* Intels Math Kernel Library
 
 # Reference:
