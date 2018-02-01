@@ -1,6 +1,6 @@
 # Scalable Data Processing in R
 ## Michael Kane
-##
+## Simon Urbanek
 
 # Working with Increasingly Large Datasets.
 - Expectations:
@@ -60,6 +60,39 @@ missing_by_year <- Map(
 - If you're going to extend, create rows or columns then you can't really use *big.matrix* without some external considerations.
 
 # Working with iotools
+- If you want to use something more akin to a dataframe or split it across machines, then use *iotools*.
+- It does this by processing data chunk by chunk.
+- There are two ways to process chunks:
+  1. Sequential.
+  2. Independently.
+- Some things simply don't fall into this model of **Split-Compute-Combine**.
+- Chunk-Wise Processing:
+  1. Load the data.
+  2. Convert to native objects.
+  3. Perform Computation.
+  4. Store Results.
+- It often takes more time to load data than it does to process it.
+- There are two methods to read data in *iotools*:
+  1. `readAsRaw()` will import into vector.
+  2. `read.chunk()` will need an `<n>` to chunk on.
+- The function `msstrplit()` converts raw data into a matrix.
+- The function `dstrsplit()` converts raw data into a data frame.
+- The function `file("<filename>", "rb")` will open a connection to the file in question on disk.
+- The function `readLines(<conn>, n = <lines>)` will read the `n` number of lines from the file.
+- The function `close(<conn>)` will close a connection object.
+- The package *iotools* is the basis of the package *hmr* which allows processing on Hadoop.
+- The function `chunk.apply()` is meant to iterate over a file and make computations via chunks.
+- An example format:
+```r
+chunk.apply(
+  '<file>',
+  function( chunk ){}, # must be chunk!
+  CH.MAX.SIZE = 1e5, # maximum size of the chunks in bytes
+  parallel = 2 # optional: how many processors will do work?
+)
+```
+- Increasing the number of processing does not grant linear gains in performance.
+- The parameter `parallel` doesn't work on Windows.
 
 # Case Study: A Preliminary Analysis of the Housing Data
 
