@@ -95,8 +95,28 @@ chunk.apply(
 - The parameter `parallel` doesn't work on Windows.
 
 # Case Study: A Preliminary Analysis of the Housing Data
+- Example of iotools:
+```r
+race_table_chunks <- chunks.apply(
+  "<filename>",
+  function( chunk ){
+    x <- msstrplit(chunk, sep = ',', type = 'interger')
+    colnames( x ) <- mort_names
+    table(x[, 'borrower_race'])
+  },
+  CH.MAX.SIZE = 1e5
+)
+```
+- Missing Data falls into three categories, in general:
+  1. Missing Completely at Random.
+  2. Missing at Random.
+  3. Missing Not at Random.
+- To check for Missing at Random:
+  1. Recode a column if data is missing or not: 1 vs 0.
+  2. Regress other varaibles onto it using logistic regression.
+  3. If p-value significant, then indicates MAR.
 
 # Research:
-* Intels Math Kernel Library
+* Intel's Math Kernel Library?
 
 # Reference:
