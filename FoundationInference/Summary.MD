@@ -17,6 +17,12 @@ The test of significance inly tells him what to ignore, namely all experiment in
 - What is a p-value?
 - .. is the probability of observing data as or more extreme than what we actually got given that the null hypothesis is true.
 
+- Errors in Hypothesis Testing:
+	1. Inconsistent with the Null Hypothesis: Type I Error.
+	2. Consistent with the Null Hypothesis  : Type II Error.
+
+- 
+
 ## Investigate:
 - NHANES Package?
 - oilabs Package?
