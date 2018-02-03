@@ -12,7 +12,6 @@
 - "Turn the bayesian crank."
 - `bayesian_crank( bayes_data_frame )`; turn crank
 - The posterier becomes your prior when 'cranking' the Bayesian 'crank'.
-
 - Likelihood: (20 , 12) * p^12(1-p)^8
 - Or, (n ,r) * 
 - bayes_df$likelihood <- dbinom(12, size = 20, prob = bayes_df$P)
@@ -39,8 +38,8 @@ TeachBayes::beta.select( p50, p90)
 - The product of this is still a beta curve.
 
 - *Bayesian Inference* is based upon summarizing posterior beta curve.
-- Summary will depend opn the type of inference.
-- `TeachBayes::beta_interval( p, shape_paras )` computes the interval between the tails.
+- Summary will depend on the type of inference.
+- `TeachBayes::beta_interval( p, shape_params )` computes the interval between the tails.
 - *Confidence Intervals* are different in Bayesian.
 - *Non-informative Prior*: `g(M, S) = 1 / S`; s.t. M= Mean, S = Standard Deviation.
 
@@ -62,7 +61,7 @@ Steps:
 
 - Assume uniform prior spread across reasonable estimates
 - `normal.select()` will return the mean,std to map bayes to normal.
-` .. takes two lists with x=value, p = probability.
+- .. takes two lists with x=value, p = probability.
 - Postier Normal is normal, too.
 - *Precision*: 1 / Std^2
 - Posterior precision: sum of Prior & Data
@@ -70,7 +69,7 @@ Steps:
 - Posterior mean: weighted mean = `weighted.mean( x = c(Prior_mean, Data_mean), w = c(Prior_precision, Data_precision))`
 - `TeachBayes::normal_update()` will do that for you.
 - To test hypothesis in Bayes, simply check the p value generated via `pnorm`.
-- *Predictive Density is the distribution of times-to-serve in the future.
+- *Predictive Density* is the distribution of times-to-serve in the future.
 
 
 ## Research:
@@ -79,5 +78,5 @@ Steps:
 - arm::sim()
 
 
-## Further Reading:
+## Reading:
 * "Essays Towards Solving a Problem in the Doctrine of Chances" - Thomas Bayes (1763)

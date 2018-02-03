@@ -12,7 +12,7 @@ author: "Anonymous"      // Obv.
 date: "January 1, 2015"  // Obv.
 output: html_document    // Obv.
 ---
-
+```
 - R Markdown contents:
 	1. R
 	2. Markdown.
@@ -33,7 +33,7 @@ output: html_document    // Obv.
 
 - R code can be inserted using ``` {`r code here`} ```
 
-- Insert r code blocks using three backticks, then `{r}`, then close with three more backticks.
+- Insert r code blocks using three back ticks, then `{r}`, then close with three more backticks.
 - You can use `engine = [language]` to select other programming languages.
 - You can tell R to ignore warnings, errors by passing `warnings = FALSE, errors = FALSE` inside the curly braces.
 - `echo = FALSE` will not display the code during runtime.

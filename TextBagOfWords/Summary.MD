@@ -1,4 +1,7 @@
 # Text Mining: Bag of Words
+## Ted Kwartler
+
+# Jumping Into Text Mining With Bag of Words
 - "The process of distilling actionable insights from text"
 - Unorganized -> Organized -> Insight.
 - Six Steps:
@@ -17,7 +20,7 @@
 - "Corpus" is a collection of documents.
 - Using package tm.  // Text Mining
 - `VectorSource()` to convert a vector of text into a corpus.
-- Pass output to `Vcorpus()` to create a 'volitile corpus'.
+- Pass output to `Vcorpus()` to create a 'volatile corpus'.
 - You can also convert a data frame to a corpus using `DataframeSource()`.
 - Some preprocess functions:
 	1. `tolower()`
@@ -36,7 +39,6 @@
 ## Text Mining Visuals
 - Good visuals lead to quick conclusions.
 - Due to brain's ability to efficiently process visual information.
-
 ```
 frequency<-
   freq_terms(
@@ -46,13 +48,11 @@ frequency<-
     stopwords = "Top200Words"   // Predefned set of words to remove
   )
   ```
-
 - Creating a word cloud requires:
   1. Create TDM
   2. Convert to matrix
   3. Rowsum the matrix to create frequency vector
   4. Create a data frame:
-  
   ```
   data.frame(
     term = names( term_frequency ),
@@ -143,7 +143,7 @@ word_associate( vector_of_text,                                 // Obv.
 
 ## Simple Word Clustering
 - `dist()` creates a pairwise distances between each location.
-- `hclust()` 
+- `hclust()`
 - `plot( hclut_object )` creates a simple dendogram.
 - Package dendextend to improve dendograms.
 - dendextend allows one to modify the dendogram as a class.
@@ -161,7 +161,7 @@ word_associate( vector_of_text,                                 // Obv.
 - `readTabular()` can associate variables in the corpus with attributes from the data.
 ```
 custom_reader<- readTabular( mapping = list(
-                   content = "text", 
+                   content = "text",
                    id ="num",
                    author = "screenName",
                    date = "created")

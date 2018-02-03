@@ -2,15 +2,13 @@
 - Matt Howlle created the package in 2008.
 - It's focus is reduce programming time first, then reduce compute time second.
 - Can do order joins - i.e. SQL like merging of tables.
-
 - Three parts to a data.table command:
 	1. The Row
 	2. The Column
 	3. The Group.
-
 - You can filter directly inside of a data.table command.
 ```
-dataTab[ mpg > 20,                           // only rows where mpg > 20
+dataTable[ mpg > 20,                              // only rows where mpg > 20
             .(AvgHP = mean(hp),                 // return computed column named AvgHp
             	"MinWt(Kg)" = min( wt*453.6)    // return computed column named MinWt(Kg)
             ),
@@ -18,15 +16,14 @@ dataTab[ mpg > 20,                           // only rows where mpg > 20
     ]
 ```
 
-- "Take DT, subset the rows by i, calculate j and group by by"
+- "Take DT, subset the rows by i, calculate j and group by by".
 - Data.table will automatically recycle if there are not enough values.
 - R will cache unique string values in the global cache.
-- Subsetting works are per normal
+- Subsetting works as per normal.
 - If you don't include a comma when requesting rows, then it will assume you want rows.
 - Data.table has classes `data.table` and `data.frame`.
 -`.N` will give you the number of rows in that column.
 - Returning duplicate rows no longer works.
-
 - You can **chain** data.table calls by including `[ extra_requests ]`
 
 - Data.table has a stand-in for columns called .SD ( Subset of Data ).
@@ -46,7 +43,6 @@ dataTab[ mpg > 20,                           // only rows where mpg > 20
 
 
 ## SQL Like Behavior
-
 - `set( data.table, row, column, value)` to update by reference.
 - `setnames()` can be used to update column names by reference.
 - `setcolorder()` will reorder the order of columns by reference.
