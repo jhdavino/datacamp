@@ -23,7 +23,7 @@
 ## Section 2
 - *Filtering Joins* exist to do the same thing as the filter function from Dplyr.
 - They return a copy that has been filtered instead of augmented.
-- `semi_join(..)` only collects the the results that have confirmed matches in the second dataframe.
+- `semi_join(..)` only collects the results that have confirmed matches in the second dataframe.
 - It can be easier and faster to create a semi_join that a chaining set of filter statements.
 - *Anti-joins* do the opposite of semi_joins.
 - Dplyr supports set operations as well:
@@ -40,7 +40,7 @@
 - `bind_rows()` is similair to `rbind()`
 - You can think of `bind_cols` as a lazy join.
 - `bing_cols` assumes joining rows are already in order.
-- You can mark which datatable the the data came from using `bind_rows( datatable1 = <dt_1>, datatable2 = <dt_2>, .id = originalTable )`
+- You can mark which datatable the data came from using `bind_rows( datatable1 = <dt_1>, datatable2 = <dt_2>, .id = originalTable )`
 - Dplyr also has its own `data.table()` and `as.data.table()` in `data_table()` and `as_data_table()`.
 - It avoids the following undesirable behavior:
 	1. Wont change string types.

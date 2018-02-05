@@ -6,7 +6,7 @@
 # Fast & dirty: Polarity Scoring
 - **Sentiment Analysis** is the process of extracting the emotional intent of the author.
 - The function `qdap::polarity()` will tell you how positive or negative the text is.
-- You can check the polarity of a dataframe by passing the name of the column to `polarity()`.
+- You can check the polarity of a data frame by passing the name of the column to `polarity()`.
 - It also accepts a second argument to condition on.
 - Ex: `(datacamp_conversation <- text_df %$% polarity(text, person))`
 - Wrapping an assignment call in parenthesis will both assign and print the results to stdout.
@@ -110,7 +110,6 @@ pos_neg <- tidy_reviews %>%
   mutate(polarity = positive - negative)
 ```
 - "The stronger your feelings, the more you write."
-
 
 # Research:
 - `%$%`?

@@ -41,7 +41,7 @@
 - .. uses Perl; which is cool.
 
 - XLConnect package allows one to do the work in R and communicate with Excel.
-- There can be issues installing the package due to the dependancy on Java
+- There can be issues installing the package due to the dependency on Java
 - Open the connection using `loadWorkbook(..)`.
 - To retreive the data, use `readWorksheet(<book_obj>, sheet = "<sheet_name>" | <n>)`.
 - You can also limit the data imported using args:
