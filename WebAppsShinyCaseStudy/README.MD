@@ -42,6 +42,12 @@ print( x() )
 
 
 # Make The Perfect Plot Using Shiny
+- We'll be using the data from the package *gapminder*.
+- The package *colourpicker* can be used to select colors.
+- This extends Shiny by giving you the `colourInput()` function.
+- The package *plotly* has a function - `ggplotly()` to convert any ggplot into an interactive one.
+- Since this is a different object, and `renderPlot()` expects a normal plot, then you need to use function `renderPlotly()`
+
 
 # Explore a Dataset Interactively With Shiny
 
