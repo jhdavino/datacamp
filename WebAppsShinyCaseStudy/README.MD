@@ -38,7 +38,6 @@ output$myTable <- renderTable({
 x <- reactive({ input$num + 1 })
 print( x() )
 ```
--
 
 
 # Make The Perfect Plot Using Shiny
@@ -50,6 +49,20 @@ print( x() )
 
 
 # Explore a Dataset Interactively With Shiny
+- The most common use case for Shiny is data exploration for non-coders.
+- You can create a table output on the UI using `tableOutput()`.
+- The server side is `renderTable()`.
+- Inputs can be used to filter the data on column.
+- Plotting data is a common first step when exploring data.
+- The *Download Button* is created as an output.
+- You create one using `downloadButton()`.
+- Reactive Variables cache their values.
+- Reactive Values are also lazy and are not calculated until they are needed.
+- The package *DT* offers a replacement for normal tables in Shiny to better handle larger datasets.
+- Splitting the UI into multiple tabs can assist with navigating it.
+- A `tabPanel()` needs to be wrapped in a `tabsetPanel()` to be displayed.
+- You cam alter the CSS by adding `tag$style("")`.
+
 
 # Create Your Own Word Cloud in Shiny
 
