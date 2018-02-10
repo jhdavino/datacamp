@@ -63,8 +63,19 @@ print( x() )
 - A `tabPanel()` needs to be wrapped in a `tabsetPanel()` to be displayed.
 - You cam alter the CSS by adding `tag$style("")`.
 
-
 # Create Your Own Word Cloud in Shiny
+- Wordcloud are kind of meh and really should not be used.
+- It is a visual representation of the text corpus.
+- You can upload files using `fileInput()`.
+- The `input$<inpudId>` actually contains a dataframe with columns name, size, type, datapath per file uploaded.
+- You would read the data using `readLines( input$<inputId>$datapath )`.
+- You can pass programmer friendly names via `radioButtons()` using `text = friendlyVariable`.
+- **Conditional Panels** can be used when you want to show/hide different elements.
+- The function is `conditionalPanel( <condition>, ... )`.
+- You can use `isolate()` to remove the reactivity from a code block.
+- An `actionButton()` can only do one thing: click on it.
+- Every time a button is clicked, its integer value is incremented by one.
+
 
 # Research:
 
