@@ -51,7 +51,8 @@
 | Network Analysis in R                   | [/NetworkAnalysisR]                | {2018/1/04}    |
 | Geospatial Data in R                    | [/GeospatialDataR]                 | {2018/01/11}   |
 | Scalable Data Processing in R           | [/ScalableDataProcessingR]         | {2018/02/02}   |
-| Web Applications with Shiny: Case Study | [/WebAppsShinyCaseStudy]           | {}             |
+| Web Applications with Shiny: Case Study | [/WebAppsShinyCaseStudy]           | {2018/02/09}   |
+| Introduction to the Tidyverse           | [/IntroToTidyverse]                | {}             |
 
 R Review/Redo.
 O Organize.
