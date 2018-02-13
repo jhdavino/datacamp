@@ -11,10 +11,21 @@
 - The function `mutate()` will use other variables in the dataset to create a new column or update an existing one.
 
 # Data visualization
-- 
+- There are three parts to a ggplot2 graph:
+  1. Data.
+  2. Mapping of Aesthetics to Variables.
+  3. Type of graph.
+- When the scaling of your points is not linear, sometimes it's a better idea to use a logarithmic scale.
+- To adjust the scales, you just include the function `scale_x_log10()` to you graph.
+- Categorical features are well represented with colors.
+- To do this, you simply pass `color = <feature>` inside the `aes()` call.
+- You can also use the size of points to make this information clear too.
+- Faceting is where you generate separate graphs conditioned on a feature.
+- You can use the function `facet_wrap()`.
 
 
 # Grouping and Summarizing
+- 
 
 # Types of visualizations
 
