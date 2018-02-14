@@ -25,7 +25,11 @@
 
 
 # Grouping and Summarizing
-- 
+- The function `summarize()` can be used to return information about columns.
+- This is usually the question you are after and should return a minimal set of rows or columns.
+- You don't have to return only a single column but can include more.
+- You can use the function `group_by()` to condition the calculation on a feature.
+- You can use the function `expand_limits()` you can adjust the starting points of the x,y axis.
 
 # Types of visualizations
 
