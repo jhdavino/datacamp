@@ -31,7 +31,13 @@
 - You can use the function `group_by()` to condition the calculation on a feature.
 - You can use the function `expand_limits()` you can adjust the starting points of the x,y axis.
 
+
 # Types of visualizations
+- **Line Plots** are useful for data over time.
+- **Bar Plots** are useful for comparing statistics between categories.
+- **Hostograms** are useful for describing a one dimensional numeric variable.
+- **Box Plot** are useful for comparing the distribution of a numeric variable between categories.
+
 
 # Research:
 
