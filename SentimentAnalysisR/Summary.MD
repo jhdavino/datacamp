@@ -64,6 +64,17 @@ polarity( text.var = text$words,
 - *Moby Dick* is a mostly negative book.
 - You can use `%in%` as a substitute for `setdiff()`.
 
+```r
+<result> <- <data> %>%
+  # Only consider Plutchik sentiments
+  filter(!sentiment %in% c("positive", "negative")) %>%
+  # Group by sentiment
+  group_by(sentiment) %>% 
+  # Get total count by sentiment
+  summarize(total_count = sum(count))`
+```
+
+
 # Visualizing Sentiment
 - When doing *Sentiment Analysis*, there is two pieces of advice:
   1. Avoid wordclouds.

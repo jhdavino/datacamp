@@ -52,7 +52,8 @@
 | Geospatial Data in R                    | [/GeospatialDataR]                 | {2018/01/11}   |
 | Scalable Data Processing in R           | [/ScalableDataProcessingR]         | {2018/02/02}   |
 | Web Applications with Shiny: Case Study | [/WebAppsShinyCaseStudy]           | {2018/02/09}   |
-| Introduction to the Tidyverse           | [/IntroToTidyverse]                | {}             |
+| Introduction to the Tidyverse           | [/IntroToTidyverse]                | {2018/02/15}   |
+| Introduction to Databases in Python     | [/IntroPythonDatabase]             |                |
 
 R Review/Redo.
 O Organize.
