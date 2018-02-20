@@ -43,10 +43,50 @@ SELECT column_name FROM table_name
 - We can access the columns using `results.keys()`.
 - Build queries using *SQLAlchemy* is mostly similar but differs when building the query.
 - You instead use functions such as `select([census])`.
-- 
 
 
 # Applying Filtering, Ordering and Grouping to Queries
+- You can submit a where statement using:
+```python
+stmt = select([census])
+stmt = stmt.where( census.columns.state == 'California')
+```
+- **Where Clauses** return a query based on a boolean condition.
+- You can use most comparison operators that you would normally use in Math.
+- There are a few additional expressions:
+  * `in_()` to check in something exists inside.
+  * `like()` to check for something similar in text.
+  * `between()` to check whether the column value is between the two supplied values.
+- You can actually substitute the execute statement as the expression in a for loop.
+- There are also conjunction functions:
+  * `and_()`
+  * `not_()`
+  * `or_()`
+```python
+stmt = stmt.where(
+  or_(census.columns.state == 'California',
+      census.columns.state == 'New York')
+  )
+)
+```
+```python
+# reference
+engine = create_engine('postgresql+psycopg2://<username>:<password>@<address>:<port>/<table>')
+```
+- You can order the results using `order_by()`; defaults to lowest to highest.
+- You can reverse this using `desc()` to reverse the order from highest to lowest.
+- You can find the normal accumulator functions in `func` from *sqlalchemy*.
+- The returned name from the calculation is `<aggregate_<n>>` and you can use the function `label()` when querying to rename it.
+- Function `func.count()`.
+- Function `.distinct()`.
+- The function `.scalar()` can be used to return a result that is only a single row,column combination.
+- You can pass the results from a query directly into pandas.
+```python
+import pandas as pd
+df = pd.DataFrame( results )
+df.columns = results[0].keys()
+```
+
 
 # Advanced SQLAlchemy Queries
 
