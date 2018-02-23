@@ -123,13 +123,69 @@ stmt = stmt.select_from( census.join( state_fact ))
 - You use the function `alias()`.
 - When you're fetching lots of results, you risk running out of memory or disk space.
 - *SQLAlchemy* has the function `fetchmany()` to control returning massive amounts of results.
-- 
 
 
 # Creating and Manipulating your Own Databases
+- Creating tables is different depending on the database.
+- If the database is supposed to SQLite and it does not exist, then it will be created.
+```python
+employees = Table('employees', metadata,
+  Column('id', Integer()),
+  Column('name', String(255)),
+  Column('salary', Decimal()),
+  Column('active', Boolean())
+)
+
+metadata.create_all(engine)
+```
+- You can then create them using the function `metadata.create_all( engine )`.
+- You can tell the database to enforce unique values by passing `unique=True` to the `Column()` argument.
+- You can tell the database to allow for *Nullable* values by passing `nullable=True`.
+- You can tell the database what the default value will be py passing `default=<value>`.
+- You add a table using the function `insert()`; you will need to import it.
+- You pass the values as a set of key, value pairs.
+```python
+stmt = insert(<table>).values( <keys=values>)
+```
+- You can insert multiple values by starting with an empty `insert(<table>)` and then building multiple sets of key,value dictionaries.
+```python
+# generate dictionary
+insert_values = [
+    {},
+    {},
+    {}
+]
+
+# start insert statement
+stmt = insert( tablename )
+
+#
+results = connection.execute(stmt, values_list)
+```
+- The update statement works like `insert()` but has a where clause to control what rows to update.
+- You will need to import it.
+- You use the function `delete()` to remove data from the database.
+- You will need to import it.
+- You can use the function `drop()` on a table to remove it from the database.
+```python
+# not a list!
+stmt = delete(census)
+```
+```python
+# drop table
+table.drop( engine )
+
+# does the table exist anymore?
+print(table.exists( engine ))
+
+# Drop all tables
+metadata.drop_all( engine )
+```
 
 # Putting it All Together
 
 # Research:
+- Alembic?
+
 
 # Reference:
