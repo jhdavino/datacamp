@@ -44,7 +44,7 @@
 - R Primatives map to C Types underneath.
 - You can see a complete list of 'primitive generics' using `.S3PrimitiveGenerics`.
 - When assigning class vectors, assign most specific to least specific as standard.
-- You can check if a class declaration exists for an object using `inherits(x, "class_test_name")
+- You can check if a class declaration exists for an object using `inherits(x, "class_test_name")`
 - `NextMethod()` will invoke a call to the next classes S3 Generic for an object.
 
 # Using R6

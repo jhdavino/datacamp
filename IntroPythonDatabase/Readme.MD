@@ -87,8 +87,44 @@ df = pd.DataFrame( results )
 df.columns = results[0].keys()
 ```
 
-
 # Advanced SQLAlchemy Queries
+- You can use arithmetic operators on non-numeric types but they wont be the same.
+- You will use the operators inside of the built statements.
+- A **Case Statement** is a statement that is used to treat data differently based on a condition.
+- The function is called `case()` and is imported as per normal.
+```python
+stmy = select([
+  func.sum(
+    case([
+      (census.columns.state == 'New York',
+       census.columns.pop2008)
+    ], else_=0))
+])
+```
+- You can use the **Cast Statement** to alter the data type of the columns.
+- Don't forget `'{}:{}.'.format( result1, result2 )` to substitute in values.
+- **Relationships** are used to avoid duplicating data.
+- They allow us to change data in only one place.
+- You can simple pass multiple tables to get joined data:
+```python
+stmt = select([census.columns.pop2008,
+               state_fact.columns.abbrebiation])
+```
+- If the relation is predefined in the tables, then no join declaration is necessary.
+- It should come after the `select()` but before any other manupulations.
+- When you do, you'll use the `select_from()` to join with the previous table.
+```python
+stmt = selct([ func.sum( census.columns.pop2000)])
+stmt = stmt.select_from( census.join( state_fact ))
+````
+- To join without an existing relation, you'd pass a boolean clause.
+- **Heirarchical Tables** are tables that contain relationships with themselves.
+- To do this, tables are referred to with aliases.
+- You use the function `alias()`.
+- When you're fetching lots of results, you risk running out of memory or disk space.
+- *SQLAlchemy* has the function `fetchmany()` to control returning massive amounts of results.
+- 
+
 
 # Creating and Manipulating your Own Databases
 
