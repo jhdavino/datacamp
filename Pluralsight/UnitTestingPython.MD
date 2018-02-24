@@ -93,10 +93,25 @@ request.addfinalizer( cleanup_resource )
 
 
 # Testable Documentation with Doctest
-- 
+- The point of doctest is to make documentation comments more truthful.
+- It's good practice to include **Docstrings** to document how to use your functions.
+- Those, however, end up out of date much of the time - which is where *doctest* comes in.
+- The tests are included in the docstring and will be pulled from there.
+- You run it using `python -m doctest <file>`; output is only displayed on errors.
+- If you want to see all the tests and the outputs then pass `-v`.
+- If you want *pytest* to find *doctest* then you need to pass `--doctest-modules` to *pytest*.
+- *Doctest* is a stickler about exact results and variable outputs will sometimes throw false positives.
+- You can intentionally sort the results so it's not dependent on the machine.
+- *Doctest* is careful to strip out the line information when testing for Type Errors.
+- It also uses `...` to stand for text you don't care about.
+- You can tell *doctest* to ignore output using `#doctest: +ELLIPSIS`.
+- Using wildcards can be dangerous.
+- You can request that *doctest* run a text file full of the tests using `python -m doctest <filename>`.
+- Make sure to import the python dependencies at the top of the file.
 
 
 # Test Doubles: Mocks, Fakes and Stubs
+- 
 
 # Test Coverage and Parameterized Tests
 
