@@ -42,7 +42,21 @@ def test_missing_entry_raises_KeyError(self):
 
 
 # Why and When Should You Write Unit Tests
-- 
+- There are a few reason why to labor through the *Testing Suite* building:
+  * Understand what you want to build.
+  * They document the code you've written.
+  * They help you design the units.
+  * They protect against regression in the project.
+- To understand what you need to build, you will certainly need to collabrate.
+- You can think of the tests as *Executable Specification*.
+- The tests will force you to decompose your problem into units that are independently testable.
+- A **Regression** is when something used to work by no longer does.
+- There are three places for tests:
+  1. Test First.
+  2. Test Last.
+  3. Test Driven.
+-
+
 
 
 # Using Pytest for Unit Testing in Python
@@ -54,5 +68,8 @@ def test_missing_entry_raises_KeyError(self):
 # Test Coverage and Parameterized Tests
 
 # Research:
+- Continuous Integration Server?
+
 
 # Reference:
+- [Martin Fowler Continuous Integration](www.martinfowler.com/articles/continuousIntegration.html)
