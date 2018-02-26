@@ -53,7 +53,8 @@
 | Scalable Data Processing in R           | [/ScalableDataProcessingR]         | {2018/02/02}   |
 | Web Applications with Shiny: Case Study | [/WebAppsShinyCaseStudy]           | {2018/02/09}   |
 | Introduction to the Tidyverse           | [/IntroToTidyverse]                | {2018/02/15}   |
-| Introduction to Databases in Python     | [/IntroPythonDatabase]             |                |
+| Introduction to Databases in Python     | [/IntroPythonDatabase]             | {2018/02/23}   |
+| Intro To Stats: Corr. & Linear Reg.     | [/IntroCorrLinearRegression]       | {}             |
 
 R Review/Redo.
 O Organize.
