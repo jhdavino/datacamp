@@ -111,13 +111,52 @@ request.addfinalizer( cleanup_resource )
 
 
 # Test Doubles: Mocks, Fakes and Stubs
-- 
+- **Test Dboule** is whnen a class under test doesn't know it's not talking to a real object.
+- This allows you to control what happens to the class while being tested.
+- A **Stub** is something that stands in for a class of function that is difficult to use in a test case.
+- *unittest* comes with something called **Mock** for building stubs.
+- You import it with `from unittest.mock import Mock`.
+- You instantiate and object usiing `Mock( <object> )`.
+- You can then assign values using ` obj.value_to_test.return_value = <n>`.
+- A *Mock* and a *Stub* are technically not the same thing, but it's not uncommon for people to mistake this.
+- The **Fake Object** is like a *stub* but it has usable functions and methods.
+- Remember, it is better to not write files and tests should remain memeory bound as much as possible.
+- It is common to use *Fakes* for files, databases and web server responses.
+- **Mocks** makes assertions about what actualy happened in the test case.
+- There are three kinds of *assertions*:
+  1. Check return value.
+  2. Check the state.
+  3. Check a method call.
+- A **Spy** is something that gets passed along and collects what happens.
+- It can be a decorator that runs along with it.
+- **Dummy Objects** is used when you have a required argument that is not necessary for the test.
+- **Monkeypatching** is when you dynamically change code at runtime.
+- Also called **Metaprogramming**.
+- You do this with `with patch('alarm.Sensor') as test_sensor_class`.
+- You will need to build a Mock to compare against:
+```python
+with patch('alarm.Sensor') as test_sensor_class:
+  test_sensor_instance = Mock()
+  test_sensor_instance.sample_pressure.return_value = 22
+  test_sensor_class.return_value = test_sensor_instance
+  alarm = Alarm()
+  alarm.check()
+  self.assertTrue( alarm.is_alarm_on )
+```
+- You can also use a declaration syntax by adding `@path('alarm.Sensor')` above the call and cut out the with statement.
 
 # Test Coverage and Parameterized Tests
+- **Parameterized Test Cases** is when you define combinations of what you expect, and then generalize function such that it tests all expect combinations.
+- You will need an object, array, or dictionary to store the data along with a function that can return a function.
+- 
+
+
 
 # Research:
 - Continuous Integration Server?
-
+- X Unit Patterns book?
+- html_pages package?
+- io package?
 
 # Reference:
 - [Martin Fowler Continuous Integration](www.martinfowler.com/articles/continuousIntegration.html)
