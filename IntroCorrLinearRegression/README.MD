@@ -12,10 +12,17 @@
 - The function `describe` will tell you the summary statistics for the data frame.
 - You can use the function `cor()` to generate the pairwise Correlation Matrix.
 - The function `cor.test()` can be used to test if the relationship between two variables is significant or not.
--
+- **CORRELATION DOES IMPLY CAUSATION**.
+- The magnitude of the correlation depends on a lot of factors.
+  * Sampling.
+  * Measurement of the variables.
+- **Tenuation of Correlation Due to Restriction of Range**.
+- The restriction of variance disallows one to find a meaningful covariance.
 
 
 # An introduction to Linear Regression
+-
+
 
 # Linear Regression Models Continued
 
