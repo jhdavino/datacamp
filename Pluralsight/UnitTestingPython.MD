@@ -145,11 +145,18 @@ with patch('alarm.Sensor') as test_sensor_class:
 ```
 - You can also use a declaration syntax by adding `@path('alarm.Sensor')` above the call and cut out the with statement.
 
+
 # Test Coverage and Parameterized Tests
 - **Parameterized Test Cases** is when you define combinations of what you expect, and then generalize function such that it tests all expect combinations.
 - You will need an object, array, or dictionary to store the data along with a function that can return a function.
-- 
-
+- We're going to go over now how to manage coverage documentation.
+- You're going to need to install `pip-3.3 install coverage pytest-cov`.
+- To have *Pytest* manage this you'll need to run `python3 -m pytest --cov-report term-missing --cov tennis`.
+- If you want an html report instead, then you'd pass `html` instead of `term-missing`.
+- If you want a function to be skipped, then just add the comment `# pragma: no cover`.
+- You can also generate a report using unittest using `python3 -m converage run -m unittest`.
+- Then, you build the report using `python3 -m coverage report`.
+- If you want an html version, then you pass `html` instead of `report`.
 
 
 # Research:
