@@ -55,6 +55,7 @@
 | Introduction to the Tidyverse           | [/IntroToTidyverse]                | {2018/02/15}   |
 | Introduction to Databases in Python     | [/IntroPythonDatabase]             | {2018/02/23}   |
 | Intro To Stats: Corr. & Linear Reg.     | [/IntroCorrLinearRegression]       | {2018/03/02}   |
+| Building Chatbots in Python             | [/ChatbotsInPython]                | {}             |
 
 R Review/Redo.
 O Organize.
