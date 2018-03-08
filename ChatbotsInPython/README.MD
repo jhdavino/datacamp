@@ -138,15 +138,27 @@ interpreter = trainer.train( training_data )
 - A **Rasa Pipeline** is what will be used to process text.
 - When passing commands to config, you can use a predefined one or pass a list of components that you want initialized.
 - Typos can really mess up the interpreter.
-- 
-
-
-```
 
 
 # Building a Virtual Assistant
+- Please no more on SQL.
+- We'll be using package SQLite3 for our SQL needs.
+```python
+import sqlite3
+conn = sqlite3.connect( '<filename>.db')  # create connection to database.
+c = conn.cursor()                         # generate cursor.
+c.execute( " <sql statement>")            # SQL Query
+c.fetchall()                              # List of results
+```
+- Be wary of allowing any code to be insterted into queries; this is how SQL injection works.
+- The correct format is `c.execute( "SELECT * FROM <table> WHERE var1 = ? AND var2 = ?", t)`; t is a tuple of values.
+- The process of collecting previous user choices is called **Slot Filling**.
+- As a basic version, you can save them in a dictionary.
+
 
 # Dialogue
+- 
+
 
 # Research:
 - Dependency Parsing?
