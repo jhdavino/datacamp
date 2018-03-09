@@ -157,11 +157,28 @@ c.fetchall()                              # List of results
 
 
 # Dialogue
-- 
+- State allows us to manage what the user has told us they're not interested in.
+- You can use a set of tuples with State,Response pairs in a dictionary.
+- Asking for user confirmation is common but this increases the complexity of the program.
+- To manage this, you can use **Pending Actions**.
+- This is when you return the selected next action as well as the pending action to act on after confirmation from the user.
+- The next step, which is not common in the field, are **Seq2Seq** models.
+- This type is completely data-driven and doesn't require us to write responses.
+- There are a few cons though:
+  1. It requires a massive amount of data.
+  2. There is no promise of coherence on the other side.
+  3. It doesn't integrate with databases well.
+- machine Learning Conversation Models usually consist of four components:
+  1. NLU.
+  2. State Manager.
+  3. API logic.
+  4. NL Response Generator.
+- In this model type, decisions are hard coded but what decision is made using data.
+- *Wizard of Oz* technique is where a human pretends to be a bot.
 
 
 # Research:
 - Dependency Parsing?
-
+- "Neuroal Conversational Model"
 
 # Reference:
