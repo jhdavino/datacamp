@@ -28,7 +28,7 @@
 - You imbed values in the HTML template using `{{ name_of_variable }}`.
 - You can then pass `name_of_variable = "Turtles"` to the `render_template` to insert it.
 - You can also use dot notation since it's considered Python inside those blocks.
-- Using `url_for( 'page')` for create the url structure for thee page that you're looking up.
+- Using `url_for( 'page')` will create the url structure for thee page that you're looking up.
 - You can tell Flask to load other pages by using `{% block page %} {% endblock %}`.
 - This allows one to modularize pages and update each piece individually.
 - To extend a page's variable space, one will need to include `{% extends "page.html" %}`.
