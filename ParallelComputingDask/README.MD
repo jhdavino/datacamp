@@ -42,8 +42,44 @@ for chunk in pd.read_csv('data.csv', chunksize = 1000):
 
 
 # Working with Dask Arrays
+- You can import **Dask** as `from dask.array import da`.
+- The function `da.from_array()` will convert a *numpy* array into a **Dask Array**.
+- You can control the chunk size using `chunks=len( a // 4)`.
+- The `array.chunks` tells you information about the chunks as a tuple.
+- Like before, a call to an action `.sum()` will return a non-evaluated dask object.
+- Calling `.compute()` on the object will cause the computation to run.
+- Most every summation function used by numpy is available with Dask.
+- The function `object.mean()` will get you the mean.
+- The function `object.std()` will get you the standard deviation.
+- The function `np.loadtxt( '<file>.csv', dtype = int64)` to read a csv file.
+- The function `np.reshape( (3,7) )` will convert the data to a 3-row by 7-column dataset.
+- The parameter `order= 'F'` will have the filling of values by column instead of by row.
+- The parameter `axis` controls whether to compute on rows - `0` - or columns - `1` when passed to `mean()`.
+- **HdF5** is a hierarchical file store format for storing and managing data.
+- To read them, use the **h5py** package.
+- You can include it using `import h5py`.
+- The function `5py.File( '<filename>')` will read the data from the file.
+- The function `nanmin()` will handle missing values for you.
+```python
+# Import h5py and dask.array
+import h5py
+import dask.array as da
+
+# List comprehension to read each file: dsets
+dsets = [h5py.File(f)['/tmax'] for f in filenames]
+
+# List comprehension to make dask arrays: monthly
+monthly = [da.from_array(d, chunks=(1,444,922)) for d in dsets]
+
+# Stack with the list of dask arrays: by_year
+by_year = da.stack( monthly, axis = 0)
+```
+- When you call `.reshape()` it modifies the object so you don't need to assign it to anything.
+
 
 # Working with Dask DataFrames
+- 
+
 
 # Working with Dask Bags for Unstructured Data
 
