@@ -78,10 +78,28 @@ by_year = da.stack( monthly, axis = 0)
 
 
 # Working with Dask DataFrames
-- 
+- The **Dask Dataframe** is a *delayed* version of the Numpy Panda array.
+- It is nomenclature to use `import dask.dataframe as dd`.
+- There is significant overlap in functionality of *dask* and *numpy*.
+- Remember that the real difference is that dask functions are all lazy.
+- Therefore, it can reference more data than what fits in memeory.
+- Dask read functions accept **Glob Patterns**.
+- You can create *generator* that can be used for comparisons.
+```python
+is_wendy = (transaction['names'] == 'Wendy')
+wendy_amounts = transactions.loc[is_wendy, 'amount']
+```
+- Some features of panda are not available yet: compressed and excel files via version 0.15.
+- You can groupby with python using `obj.groupby('<value>')`.
+- Two important questions about *Big Data*:
+  1. Does your data fit into RAM?
+  2. Does your data fit on disk?
+- *IPython* has the magic term `%time` to track the runtime of a command.
 
 
 # Working with Dask Bags for Unstructured Data
+- 
+
 
 # Case Study: Analyzing Flight Delays
 
