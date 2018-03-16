@@ -56,7 +56,7 @@
 | Introduction to Databases in Python     | [/IntroPythonDatabase]             | {2018/02/23}   |
 | Intro To Stats: Corr. & Linear Reg.     | [/IntroCorrLinearRegression]       | {2018/03/02}   |
 | Building Chatbots in Python             | [/ChatbotsInPython]                | {2018/03/09}   |
-| Parallel Computing with Dask            | [/ParallelComputingDask]           | {}             |
+| Parallel Computing with Dask            | [/ParallelComputingDask]           | {2018/03/16}   |
 
 R Review/Redo.
 O Organize.

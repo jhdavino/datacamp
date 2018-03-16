@@ -140,10 +140,34 @@ print( first_item.keys())
 ```
 
 # Case Study: Analyzing Flight Delays
-- 
+-
 
+```python
+# Make cleaned Boolean Series from weather['Events']: is_snowy
+is_snowy = weather['Events'].str.contains('Snow').fillna(False)
+
+# Create filtered DataFrame with weather.loc & is_snowy: got_snow
+got_snow = weather.loc[is_snowy]
+
+# Groupby 'Airport' column; select 'PrecipitationIn'; aggregate sum(): result
+result = got_snow.groupby('Airport')['PrecipitationIn'].sum()
+
+# Compute & print the value of result
+print( result.compute() )
+```
+- Both *Pandas* and *Dask* have a merge method for dataframes.
+- To merge two dataframes, call:
+```python
+left_df.merge( right_df,
+  left_on = ['column_name'],
+  right_on = ['column_name'],
+  how='inner')
+```
+- You can tell it to keep the dataframe in memory using `df.persist()`.
+- With it kept in memory, you get a significant performance boost.
 
 
 # Research:
 
 # Reference:
+- [Dask Homepage](www.dask.pydata.org)
