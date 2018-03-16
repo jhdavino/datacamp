@@ -98,10 +98,51 @@ wendy_amounts = transactions.loc[is_wendy, 'amount']
 
 
 # Working with Dask Bags for Unstructured Data
+- You will import **Dask Bags** using `import dask.bag as db`.
+- The function `db.from_sequence( <list> )`. to create a bag.
+- It's designed to work with mostly unstructured data.
+- The function `db.read_text()` reads a file or more than one file into a *Dask Bag*.
+- You can use the function `.take()` to inspect the contents of the bag.
+- I'm used to working with *globs*; it's sort of like pythons way of matching regex to files.
+- In Python, Functions are **First Class** data; meaning that functions can accept functions.
+- This allows us to use functions like:
+  * Map.
+  * Filter.
+  * Reduce/Aggregation.
+- `map` uses lazy evaluation so you will need to encapsulate it with `list(<output>)`.
+- You can use `.map()` on *Bags*.
+```python
+# Convert speeches to lower case: lower
+lower = speeches.str.lower()
+
+# Filter lower for the presence of 'health care': health
+termResults = lower.filter(lambda s:'term' in s)
+
+# Count the number of entries : n_health
+termCount = termResults.count()
+
+# Compute and print the value of n_health
+print( termCount.compute() )
+```
+- You can work with json in python using the `import json` package.
+- You can read the json object using `json.load( <target> )`.
+- Sometimes json files will contain an object per line and you will need to treat each line instead of the full file.
+- *Bags* has a function called `.pluck('<key>')` which will search and pull out a select item.
+```python
+read_globs = db.read_text('folder/files*.json')
+
+loads_json_files = read_globs.map(json.loads)
+
+first_item = loads_json_files.take(1)[0]
+
+# Print the keys of first_bill
+print( first_item.keys())
+```
+
+# Case Study: Analyzing Flight Delays
 - 
 
 
-# Case Study: Analyzing Flight Delays
 
 # Research:
 
