@@ -2,7 +2,7 @@
 ## Joshua Ulrich
 
 # Introduction and Downloading Data
-- You can use `getSymbols()` to retreive data from the package `quantmod`.
+- You can use `getSymbols()` to retrieve data from the package `quantmod`.
 - Returns an xts object.
 - Can import data in two ways:
 	1. Return data like an ordinary function.

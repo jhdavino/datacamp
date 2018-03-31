@@ -27,17 +27,17 @@
 	1. paths
 	2. ribbons.
 	3. smooths.
-	4. model_predictions 
+	4. model_predictions
 
 #  Transformations
 - GGvis actually uses and internal computed dataset instead of the actual dataset with predictions.
-- Layers can also accept parameters, such as width. 
+- Layers can also accept parameters, such as width.
 
 # Interactivity and Layers
-- In fact, GGVis uses a `compute_*()` function passed to an interal `layer_*()` function.
+- In fact, GGVis uses a `compute_*()` function passed to an internal `layer_*()` function.
 - GGvis allows for interactive designs.
 - You can pipe the output into a new layer call to create more than one type of visual information.
-- 
+-
 
 # Customizing Axes, Legends
 - You also have fine level control of other details of the plot.
@@ -49,7 +49,7 @@
 - The `scale_*()` functions are representative of the Statistical values: numeric, nominal, ordinal, categorical.
 - This can also be done on other parameters; such as opacity.
 - You adjust them by passing a `range = ` or `domain = ` depending on which you wish to condition on.
-- 
+-
 
 # Research
 - How was the `:=` operator built?
