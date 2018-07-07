@@ -24,7 +24,7 @@
    * `selected` is the default choice.
 - Lastly, the `mainPanel()` will contain `outputId = 'scatterplot'` since that's what we want to draw.
 - You can also use a vector of Name, variable pairs in the `choices` parameter.
-- The *server* is delclared using `function( input, output ){}`.
+- The *server* is declared using `function( input, output ){}`.
 - You save objects you wish to display using `output$name_here <- ...`.
 - You can render a plot to output using `renderPlot({ ... })`.
 - You can pass variables from input to output using `input$var_name`.
@@ -42,7 +42,7 @@
 - You can create a checkbox using `checkboxInput()`.
 - You can create a Data table using `DT::dataTableOutput()`.
 - You render the table using `DT::renderDataTable({})`.
-- The function `req()` will stop execution is the value is not *truthy*.
+- The function `req()` will stop execution if the value is not *truthy*.
 - Passing the parameter `multiple = TRUE` will allows you to filter on multiple values.
 - You can use `dateInput()` to select a date.
 - You can use `dateRangeInput()` to select two dates to condition on.
@@ -138,6 +138,6 @@
 - selective.js?
 
 # Reference:
-- [Shiny Homepage ](www.shiny.rstudion.com)
+- [Shiny Homepage ](www.shiny.rstudio.com)
 - [Shinyapps.io](www.shinyapps.io)
 -

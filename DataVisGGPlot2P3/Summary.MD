@@ -2,7 +2,7 @@
 
 ```
 stat_summary(fun.data = "mean_cl_normal", // mean "Confidence Levels" Normal
-  geom = "crossbar",                      // crossbar 
+  geom = "crossbar",                      // crossbar
   width = .2,                             // width of the bars.
   col = 'red'                             // Obv.
 )
@@ -18,7 +18,7 @@ scale_x_log10(
   )
 ```
 
-- Box plots and Density plots are useful for scientific audiances.
+- Box plots and Density plots are useful for scientific audiences.
 - 5 point summary displays distribution as 25% pieces.
 - Also, shows outliers as distinct features.
 
@@ -63,7 +63,7 @@ stat_function( fun  = dnorm,    // function to call
 - `p + geom_density_2d()` is the contour map of ggplot2
 ```
 stat_density_2d(            // Known.
-  geom = "tile",            // 
+  geom = "tile",            //
   aes( fill = ..density..), // use internal
   contour = FALSE)          // contour lines; = T will break former assignments.
 ```
@@ -92,7 +92,7 @@ stat_density_2d(            // Known.
   2. Reducing over-plotting.
   3. Reducing amount of information plotted.
   4. Data reduction | PCA [ Principle Component Analysis ].
-  5. Facets // limited when tons of 
+  5. Facets // limited when tons of
   6. Scatter PLOt Matrix - SPLOM.
   7. ggpairs() from GGally Package.
   8. ggparcoord() // This is ugly; don't use it.
