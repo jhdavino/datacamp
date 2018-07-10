@@ -56,13 +56,47 @@ setMaxBounds( lng1 = <x1>, lng2 = <x2>,
 
 
 # Plotting Points
-- 
+- If we want to keep the map without clearing it, we can use the function `clearBounds()`.
+- If we actually do want to remove the markers, then we can use the function `clearMarkers()`.
+- The function `drop_na()` will remove all the observations that have a missing value.
+- Sometimes, there will be overlap with Markers and you will want to use circles instead.
+- You can add those using `addCircleMarkers()`.
+- You can control the radius of those circles using the argument `radius = <n>`.
+- You can also change the color using the argument `color = <color>`.
+- You can also add the names using the argument `popup = ~<name>`.
+- You can also use the formula notation - `~columnName` - to refer to a column in the data.
+- The distinction between popups vs labels is that labels are *on hover* and popups are *on click*.
+- You can add labels by passing the argument `label = ~name` in an add function.
+- You can insert HTML into popups.
+```r
+map %>%
+    addCircleMarkers(data = <tbl>, radius = <n>,
+                     popup = ~paste0(name, "<br/>", sector_label))
 
+```
+- You can use the function `colorFactor()` to treat colors as factors to be passed to Leaflet.
+```r
+pal <- colorFactor( palette = c( 'red', 'blue', '9b4a11'),
+                    levels = c('Public', 'Private', 'For-Profit'))
+```
+- You can also create a color palette using the function `colorNumeric()` to match a range.
+```r
+pal <- colorNumeric( palette = "Reds", domain = c(1:50), reverse = TRUE)
+```
+- You can add a legend to our map using the function `addLegend()`.
+```r
+# ...
+addLegend( title = "Admit Rate", pal = pal, values = c(1:50), position = "bottomright")
+```
+- You can also set the attributes *opacity* and *position* via `addLegend()`.
 
 # Groups, Layers, and Extras
 
 # Plotting Polygons
 
 # Reference:
+- **Integrated Postsecondary Education Data System**.
 
 # Research:
+- **Administered by National Center for Education Statistics**
+-
