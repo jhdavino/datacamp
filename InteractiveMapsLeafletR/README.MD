@@ -91,8 +91,46 @@ addLegend( title = "Admit Rate", pal = pal, values = c(1:50), position = "bottom
 - You can also set the attributes *opacity* and *position* via `addLegend()`.
 
 # Groups, Layers, and Extras
+- The package **leaflet.extras** extends what leaflet can do.
+- There are three functions we'll be touching:
+  * `addSearchOSM()` to add a search function.
+  * `addReverseSearchOSM()` to geocode a mouse click.
+  * `addResetMapButton()` to reset the map to the default view.
+- The **OSM** stands for *Open Street Maps*.
+- A Solution to overcrowding is gropus; which plot as separate layers.
+- To do this, you'd pass `data = <tbl>, group = "Name-Of-Group"` to `addCircleMarkers()`.
+- Then, you'd add the function `addLayersControl( overlayGroups = c("Names", "Off", "Groups"))`.
+- You will need the package **htmltools**.
+- There are also **Base Groups** of which there can only be one at a time.
+- You can actaully group the tiles as well by passing `group = "Carto"` in the function `addProviderTiles()`.
+```r
+addLayersControl( baseGroups = c("OSM", "Carto", "Esri"), position = "topleft")
+```
+```r
+m4 <- leaflet() %>%
+        addTiles(group = "OSM") %>%
+        addProviderTiles("CartoDB", group = "Carto") %>%
+        addProviderTiles("Esri", group = "Esri") %>%
+        addCircleMarkers(data = public, radius = 2, label = ~htmlEscape(name),
+                         color = ~pal(sector_label),  group = "Public") %>%
+        addCircleMarkers(data = private, radius = 2, label = ~htmlEscape(name),
+                           color = ~pal(sector_label), group = "Private")  %>%
+        addCircleMarkers(data = profit, radius = 2, label = ~htmlEscape(name),
+                         color = ~pal(sector_label), group = "For-Profit")  %>%
+        addLayersControl(baseGroups = c("OSM", "Carto", "Esri"),
+                         overlayGroups = c("Public", "Private", "For-Profit")) %>%
+        setView(lat = 39.8282, lng = -98.5795, zoom = 4)
+
+m4
+```
+- You can customize the search by adding terms using `addSearchFeatures( targetGroups = "Publc")`.
+- Another choice to manage lots of points is to cluster them.
+- You do this by passing the argument `clusterOptions = markerClusterOptions()` to function `addCircleMarkers()`.
+
 
 # Plotting Polygons
+
+
 
 # Reference:
 - **Integrated Postsecondary Education Data System**.
