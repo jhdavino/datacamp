@@ -57,7 +57,7 @@
 | Intro To Stats: Corr. & Linear Reg.     | [/IntroCorrLinearRegression]       | {2018/03/02}   |
 | Building Chatbots in Python             | [/ChatbotsInPython]                | {2018/03/09}   |
 | Parallel Computing with Dask            | [/ParallelComputingDask]           | {2018/03/16}   |
-| Interactive Maps with leaflet in R      | [/InteractiveMapsLeafletR]         | { }            |
+| Interactive Maps with leaflet in R      | [/InteractiveMapsLeafletR]         | {2018/07/13}   |
 
 R Review/Redo.
 O Organize.
