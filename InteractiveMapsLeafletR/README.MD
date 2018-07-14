@@ -129,7 +129,43 @@ m4
 
 
 # Plotting Polygons
+- To plot polygons, we will be using the Spatial Objects.
+- You can access the data in the data slot using the `@` symbol.
+- For example `shp@data`.
+- To add polygons to leaflet, you'd use `addPolygons()` now instead.
+- You can print the names of the slots in the sp object using the function `slotNames()`.
+```r
+# Left join nc_income onto shp@data and store in shp_nc_income
+shp_nc_income <- shp@data %>%
+                left_join(nc_income, by = c("GEOID10" = "zipcode"))
+```
+- There are four arguemnts that we'll focus on to refine our polygon plots:
+  * Weight.
+  * Color.
+  * Label.
+  * Height.
+- There are three ways to color categorical data to numeric:
+  * The function `colorNumeric( palette = "<color>", domain = <shape@data$numbers>)`.
+  * The function `colorBin( palette = "<color>", bins = <n>, domain = <shape@data$numbers>)`.
+  * The function `colorQuantile( palette = "<color>", n = <n>, domain = <shape@data$numbers>)`.
+- After making the object for colors, you can sample the colors using `previewColors( pal = <pal-name>, values = c( seq( <start-vals>, <end-values>, by = <skip>)))`.
+```r
+# create color palette with colorNumeric()
+nc_pal <- colorNumeric("YlGn", domain = high_inc@data$mean_income)
 
+high_inc %>%
+  leaflet() %>%
+  addTiles() %>%
+  # set boundary thickness to 1 and color polygons blue
+  addPolygons(weight = 1, color = ~nc_pal(mean_income),
+              # add labels that display mean income
+              label = ~paste0("Mean Income: ", dollar(mean_income)),
+              # highlight polygons on hover
+              highlight = highlightOptions(weight = 5, color = "white",
+              bringToFront = TRUE))
+```
+- Once you have created a map, you can save it.
+- To save it, you use `htmlwidgets::saveWidget( <map>, "myMap.html")`.
 
 
 # Reference:
