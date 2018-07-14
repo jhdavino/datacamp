@@ -11,27 +11,39 @@
 	4. Feature extraction
 	5. Perform Analysis
 	6. Conclusion
-
 - Two approaches:
 	1. Semantic Parsing
 	2. Bag of Words
+- **Corpus** is a collection of documents.
+- Steps:
+	1. Collect string data.
+	2. Extract into a Vector of text.
+	3. Convert to a **Source**; in this case `tm::VectorSource()`.
+	4. Convert into a **Volatile Corpus** using `tm::VCorpus()`.
+	5. Preprocess using function `tm::tm_map()` along with the cleaning function:
+		* `tolower()`
+		* `removePunction()`
+		* `removeNumbers()`
+		* `stripWhiteSpace()`
+		* `removeWords()`
 
-- `freq_terms()` is obvious.
-- "Corpus" is a collection of documents.
-- Using package tm.  // Text Mining
-- `VectorSource()` to convert a vector of text into a corpus.
-- Pass output to `Vcorpus()` to create a 'volatile corpus'.
-- You can also convert a data frame to a corpus using `DataframeSource()`.
-- Some preprocess functions:
-	1. `tolower()`
-	2. `removePunction()`
-	3. `removeNumbers()`
-	4. `stripWhiteSpace()`
-	5. `removeWords()`
 
-- Changes made to a corpus are applied using `tm_map()`.
-- This is passed in a functional manor.
-- If the function is not from tm package, then wrap in `content_transformer()`.
+```r
+# Make a vector source: coffee_source
+coffee_source <- VectorSource(coffee_tweets)
+
+# Make a volatile corpus: coffee_corpus
+coffee_corpus <- VCorpus(coffee_source)
+
+# Apply various preprocessing functions
+tm_map(coffee_corpus, removeNumbers)
+tm_map(coffee_corpus, removePunctuation)
+tm_map(coffee_corpus, content_transformer(replace_abbreviation))
+```
+
+- You can also convert a data frame to a corpus using `tm::DataframeSource()`.
+
+
 - `stemDocument()` takes a vector and returns the word stem of all words.
 - Returned stems will sometimes need to be completed using `stemCompletion( [stems], [dictionary] )`.
 
