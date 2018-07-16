@@ -58,6 +58,7 @@
 | Building Chatbots in Python             | [/ChatbotsInPython]                | {2018/03/09}   |
 | Parallel Computing with Dask            | [/ParallelComputingDask]           | {2018/03/16}   |
 | Interactive Maps with leaflet in R      | [/InteractiveMapsLeafletR]         | {2018/07/13}   |
+| Network Science in R - A Tidy Approach  | [/NetworkScienceInR]               | {}             |
 
 R Review/Redo.
 O Organize.
