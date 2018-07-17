@@ -52,6 +52,44 @@ ggraph( g , layout = "with_kk") +
 
 
 # In Its Weakness Lies its Strength
+- **Tie Betweeness** is defined as the number of the shortest path going through a tie.
+- When weights are involved, it is the smallest sum of weights on the path itself.
+- You can use the formula `dist_weight = 1 / E(g)$weight` to calculate the weights for ties.
+- You can use the function `edge_betweenness( g, weights = dist_weight)` to compute the weights between ties.
+```r
+# save the inverse of tie weights as dist_weight
+dist_weight <- 1 / E(g)$weight
+
+# compute weighted tie betweenness
+btw <- edge_betweenness(g, weights = dist_weight)
+
+# mutate the data frame ties adding a variable betweenness using btw
+ties <- mutate( ties, betweenness = btw)
+
+# add the tie attribute betweenness to the network
+E(g)$betweenness <- btw
+```
+```r
+# join ties with nodes
+ties_joined <- ties %>%
+  left_join(nodes, c("from" = "id")) %>%
+  left_join(nodes, c("to" = "id"))
+
+# select only relevant variables and save to ties
+ties_selected <- ties_joined %>%
+  select(from, to, name_from = name.x, name_to = name.y, betweenness)
+
+# arrange named ties in decreasing order of betweenness
+arrange(ties_selected, -betweenness)
+```
+```r
+proportional to degree
+ggraph(g, layout = "with_kk") +
+  geom_edge_link(aes( alpha = weight)) +
+  geom_node_point(aes( size = degree))
+```
+- You can filter by passing the parameter `filter = ( <column> <operation> <value>)` inside `geom_edge_link()`.
+
 
 # Connection Patterns
 
