@@ -92,8 +92,50 @@ ggraph(g, layout = "with_kk") +
 
 
 # Connection Patterns
+- We will explore **Adjacency Matrices**.
+- The function to create one is `as_adjacency_matrix()`.
+- You can also get the **Weighted** version by passing the parameter `attr=weight`.
+- You can calculate the **Diagonal** of a matrix using the function `diag()`.
+- The **Pearson Similarity** is the correlation between the node vectors.
+```r
+# mutate ties data frame by swapping variables from and to
+ties_mutated <- mutate(ties, temp = to, to = from, from = temp) %>% select(-temp)
+
+# append ties_mutated data frame to ties data frame
+ties <- rbind(ties, ties_mutated)
+
+# use a scatter plot to visualize node connection patterns in ties setting color aesthetic to weight
+ggplot(ties, aes(x = from, y = to, color = factor(weight))) +
+  geom_point() +
+  labs(color = "weight")
+```
+- You can create a **Vector of Node Strengths** or degrees by using rowSums() on the specified matrix.
+- With **Pearson Correlation**, more than 0 is a positive correlation; less than one is a negative correlation.
+- You can convert the network to data frame using the function `as_data_frame( <graph>, what = "both")`.
+- You can convert a matrix to a graph using the function `graph_from_adjacency_matrix( A )`.
+- You can convert a data frame to a graph using the function `graph_from_data_frame( df$ties, vertices = df$nodes )`.
+```r
+# filter the similarity data frame to similarities larger than or equal to 0.60
+sim3 <- filter(sim2, similarity >= .6)
+
+# build a similarity network called h2 from the filtered similarity data frame
+h2 <- graph_from_data_frame(sim3, directed = FALSE)
+
+# visualize the similarity network h2
+ggraph(h2, layout = "with_kk") +
+  geom_edge_link(aes(alpha = similarity)) +
+  geom_node_point()
+```
+
 
 # Similarity Clusters
+- The **Distance Matrix** is defined as the complement of the **Similarity Matrix**.
+```ref
+D <- 1-S
+d <- as.dist( D )
+cc <- hclust(d, method = "average") # or "single" or "complete"
+```
+
 
 # Research:
 
