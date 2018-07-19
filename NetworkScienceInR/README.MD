@@ -37,7 +37,7 @@ ggraph( g , layout = "with_kk") +
   geom_node_point() +
   geom_node_text(aes(label = id), repel=TRUE)
 ```
-- The layout *with_kk* actually stands for **Kamada-Kawai layout**.
+- The layout *with_kk* actually stands for **Kamada-Kawai Layout**.
 - This layout places tied nodes at equal distances, so that all ties had roughly the same length.
 - There is also the circle or grid layouts as well.
 - You can get the circle layout by passing parameter `layout = "circle"` or `layout = "in_circle"`.
@@ -135,8 +135,35 @@ D <- 1-S
 d <- as.dist( D )
 cc <- hclust(d, method = "average") # or "single" or "complete"
 ```
+```r
+# add cluster information to the network
+V(g)$cluster <- nodes$cluster
 
+# visualize the original network with colored clusters
+ggraph(g, layout = "with_kk") +
+  geom_edge_link(aes(alpha = weight), show.legend=FALSE) +
+  geom_node_point(aes(color = factor(cluster))) +
+  labs(color = "cluster")
+
+# facet the network with respect to cluster attribute
+ggraph(g, layout = "with_kk") +
+  geom_edge_link(aes(alpha = weight), show.legend=FALSE) +
+  geom_node_point(aes(color = factor(cluster))) +
+  facet_nodes(~cluster, scales="free")  +
+  labs(color = "cluster")
+```
+- We're going to explore Interactive Visualizations using the package `visnetwork`
+- You can convert from an igraph to a visNetwork using the function `toVisNetworkData()`.
+- To create it, you will call the function `visNetwork(nodes = data$nodes, edges = data$edges, width = 300, height = 300)`
+- You can alter the visualization layout using the function `visIgraphLayout( layout = "<layout-name>"")`; param is `layout_with_kk`.
+- You can also add extra options using the function `visOptions()`
+- Some parameters are:
+  * `highlightNearest`
+  * `nodesIdSelection`
+  * `selectedBy`
+-
 
 # Research:
 
 # Reference:
+- http://users.dimi.uniud.it/~massimo.franceschet/ns/syllabus/syllabus.html
