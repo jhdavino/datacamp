@@ -39,11 +39,61 @@
 
 
 # Basic Experiments
+- If we have more than one group to compare, then we use an **Analysis of Variance** test - *ANOVA*.
+- We wont know which group's mean is different without extra testing.
+- There are two ways to do this in R:
+  1. Build One:
+    * Build a model with `lm()` or `gml()`.
+    * Pass that model into `anova()`.
+  2. Build Two:
+    * Call `aov()` directly.
+- A **Single Factor Experiment** is where there is two variables; the dependent and independent variables.
+- Should also have a random sample design.
+- A **Multiple Factor Experiment** is where there is a single outcome variable and more than one dependent variable.
+- You can use the function `recode()` to update, condense, or expand categorical variables in a dataset.
+```R
+purpose_recode_model <- lm(funded_amnt ~ purpose_recode, data = lendingclub )
+
+# Look at results of purpose_recode_model
+summary( purpose_recode_model )
+
+# Get anova results and save as purpose_recode_anova
+ purpose_recode_anova<- anova( purpose_recode_model )
+
+# Look at the class of purpose_recode_anova
+class( purpose_recode_anova )
+```
+- You can use the function `TukeyHSD( <model> )` to compare the model's features variable-by-variable.
+```R
+# Use aov() to build purpose_recode_aov
+purpose_recode_aov <- aov(funded_amnt ~ purpose_recode, data = lendingclub )
+
+# Conduct Tukey's HSD test to create tukey_output
+tukey_output<- TukeyHSD( purpose_recode_aov )
+
+# Tidy tukey_output to make sense of the results
+tukey_output %>% tidy()
+```
+- Before modeling, you should do some Exploratory Data Analysis.
+- Then, you can do the modeling.
+- Finally, you should do post model verification too.
+- Make sure to try non-parametric alternatives to ANOVA.
+- You can test the **Homogeneity of Variance** using the function `bartlett.test( <int_rate ~ grade>, data = <lendingclub> )`.
+```R
+# Conduct the Kruskal-Wallis rank sum test
+kruskal.test(int_rate ~ grade ,
+             data = lendingclub )
+```
+- An **A/B Test** is a controlled experiment with only two variants of something.
+- *Power* and *Sample Size* in *A/B Testing* are crucial.
+
 
 # Randomized Complete (& Balanced Incomplete) Block Designs
 
 # Latin Squares, Graeco-Latin Squares, & Factorial Experiments
 
 # Research:
+- Mann-Whitney U?
+- Kruskal-Wallis rank sum test
 
 # Reference:
