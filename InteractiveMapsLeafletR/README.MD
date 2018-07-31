@@ -18,7 +18,7 @@ leaflet() %>% addTiles()
 - There are a few which will require you to subscribe to access them.
 - You can see the providers using `names(providers)`.
 - You can also use `addProviderTiles()` instead to use those providers.
-- You can use the function `ggmap::geocode()` function to find the latitude and logitude of an address.
+- You can use the function `ggmap::geocode()` function to find the latitude and longitude of an address.
 ```r
 library( ggmap )
 geocode('350 5th Ave, New York, NY 10118' )
