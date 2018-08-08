@@ -93,6 +93,65 @@ anova(epi.fit, epi.fit1)
 
 
 # Troubleshooting Model Errors and Diagrams
+- **Heywood Cases** are when the correlations between variables is over the absolute value of One.
+- They also occur when negative variances occur for a model.
+- Always check for warning and errors after using the function `cfa()`
+- The reasons for a negative variance could be:
+  * Model might be misspeficied or under identified.
+  * Model might have a smaller sample size or sample fluctuations.
+  * Manifest variables might have scales that are too different.
+  * Skewed or non-normal data.
+- The error *model has NOT converged* is for negative variance.
+- The parameter `rsquare = TRUE` passed to `summary()` will show you how much variance is accounted for in each manifest variable.
+- When correcting problems, always try and stick to one change at a time.
+```r
+# Summarize the model to view the negative variances
+summary(adopt.fit, standardized = TRUE, fit.measures = TRUE, rsquare = TRUE)
+
+# View the variance of the problem manifest variable
+var(adoptsurvey$wagstail)
+
+# Update the model using 5 decimal places
+adopt.model2 <- 'goodstory =~ pictures + background + loveskids
+inperson =~ energy + wagstail + playful
+wagstail ~~ 23.07446 * wagstail'
+
+# Analyze and summarize the updated model
+adopt.fit2 <- cfa(model = adopt.model2, data = adoptsurvey)
+
+# Summarize the model to view the negative variances
+summary(adopt.fit2, standardized = TRUE, fit.measures = TRUE, rsquare = TRUE)
+```
+- We will use a different package to diagram the models that we've been building: **semPlot**.
+- You will pass the model fit from function `cfa()` to the function `semPaths( Object = <model.fit>)`.
+- The double ended arrows indicate variances.
+- The double header arrows between the latent's are covariances.
+- The dashed/straight arrows pointing indicate marker variables for the coefficient estimates.
+- The parameter `whatLabels` indicates what text labels will end up on the graph.
+- The parameter `edge.label.cex = 1` tells it how large the font should be for the labels.
+- You can also include the parameter `layout` which can be set to:
+  1. circle.
+  2. tree : default.
+  3. spring
+  4. tree2.
+  5. circle2
+- You can also pass the parameter `rotation = 2` to pivot the graph in case you have a lot of variables.
+- The parameter `what = 'std'` will color the arrows based on the strength of the estimates.
+- The parameter `edge.colo = "purple"` colors those arrows.
+```r
+# Load the library
+library(semPlot)
+
+# Update the default picture
+semPaths(object = adopt.fit,
+         layout = "tree",
+         rotation = 2,
+         whatLabels = "std",
+         edge.label.cex = 1,
+         what = "std",
+         edge.color = "blue")
+```
+
 
 # Full Example and an Extension
 
@@ -101,6 +160,8 @@ anova(epi.fit, epi.fit1)
 - Tucker Lewis Index?
 - Root Mean Square Error of Approximation?
 - Standardized Root Mean Square Residual?
+- H.B. Heywood?
+-
 
 # Reference:
 - [Measure Model Fit](http://davidakenny.net/cm/fit.htm).
