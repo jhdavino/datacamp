@@ -60,8 +60,36 @@ summary(text.fit, standardized = TRUE, fit.measures = TRUE)
 twofactor.model <- 'text =~ x4 + x5 + x6
   speed =~ x7 + x8 + x9'
 ```
--
+- You might think the two models are independent of one another, but both the latent values are correlated with one another.
+- We do not want the correlation to get too close to 1 else the model will not run.
+- Symbols:
+  * `=~`: creates latent variables.
+  * `~~`: covariance between variables.
+  *  `~`: creates a direct prediction between variables.
+```r
+# Specify a three-factor model with one correlation set to zero
+epi.model <- 'extraversion =~ V1 + V3 + V5 + V8
+neuroticism =~ V2 + V4 + V7 + V9
+lying =~ V6 + V12 + V18 + V24
+extraversion ~~ 0*neuroticism'
+```
+- To imporve the model, we'll want to check for low latent relations as well as improbable error values.
+- When a model goes wrong, the estimated Variance will be very large in comparison to the rest of the data.
+- **Modification Indexes** indicate improvements on a model if the suggested estimate is added to the model.
+- You can view this information by using the function `modificationindices( <model>, sort = TRUE)`.
+- The function `fitmeasures()` will show you lots of other measurements of fit.
+- `ecvi` indicates how well you can expect it to replicate.
+- If you don't want all of them, then you can pass a vector of the features you want to `fitmeasures()`.
+```r
+# Analyze the original model
+epi.fit <- cfa(model = epi.model, data = epi)
 
+# Analyze the updated model
+epi.fit1 <- cfa(model = epi.model1, data = epi)
+
+# Compare those models
+anova(epi.fit, epi.fit1)
+```
 
 
 # Troubleshooting Model Errors and Diagrams
