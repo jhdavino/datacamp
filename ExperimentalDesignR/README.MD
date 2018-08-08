@@ -43,7 +43,7 @@
 - We wont know which group's mean is different without extra testing.
 - There are two ways to do this in R:
   1. Build One:
-    * Build a model with `lm()` or `glm()`.
+    * Build a model with `lm()` or `gml()`.
     * Pass that model into `anova()`.
   2. Build Two:
     * Call `aov()` directly.
@@ -89,11 +89,90 @@ kruskal.test(int_rate ~ grade ,
 
 
 # Randomized Complete (& Balanced Incomplete) Block Designs
+- We're going to explore the *National Health and Nutrition Examination Survey* - NHANES.
+- In this course, we're going to address **Probability Sampling**; where probability is used to select sample size.
+- Types of samples:
+  1. Simple Random Sample: `sample()`.
+  2. Stratified Sampling: `dts %>% group_by() %>% sample_n()`.
+  3. Cluster Sampling: `sampling::cluster( dts, cluster_var_name, number_to_select, method = "options")`.
+  4. Systemic Sampling.
+  5. Multi-stage Sampling.
+- You can use the function `simputation::impute_median()` to correct missing values in a dataset.
+```R
+# Load sampling package and create nhanes_cluster with cluster()
+library( sampling )
+nhanes_cluster <- cluster(nhanes_final, c('indhhin2'), 6, method = "srswor")
+```
+- **Randomized Complete Block Designs** - RCBD.
+- "Block what you can; randomize what you can't."
+- The package `agricolae` package allows you to draw some of the Experimental Designs.
+- You can build this using the function `design.rcbd( <treatment-group>, r = <repetitions>, seed = <n>, serie = <n>)`
+- The parameter `serie` is for tagging groups in larger experiments.
+- You can check the breakdown using `design.rcbd.object$sketch`.
+```R
+# Build trt and rep
+trt <- LETTERS[1:5]
+rep <- 4
+
+# Use trt and rep to build my_design_rcbd and view the sketch part of the object
+my_design_rcbd <- design.rcbd(trt, r=rep, seed = 42, serie=0)
+my_design_rcbd$sketch
+```
+```R
+with(nhanes_final, interaction.plot(riagendr, mcq365d, bmxwt))
+```
+- When you can't fit each treatment in a block, then you use a **Balanced Incomplete Block Design**.
+- When **Lambda**, which is <rep>* ( <k> - 1 / <t> - 1), is not a whole number then a BIBD is not possible.
+```R
+my_design_bibd_1 <- design.bib(LETTERS[1:3], k = 4, r = 16, serie = 0, seed = 42)
+```
+
 
 # Latin Squares, Graeco-Latin Squares, & Factorial Experiments
+- **Latin Squares** have the following attributes:
+  * Two blocking factors.
+  * All factors must have the same number of levels.
+  * Key assumption is the treatment and two blocking factors do *not* interact.
+  * Analyze like a RCBD.
+- Both the rows and columns of a *Latin Square* are blocking factors.
+- Check for missing values using `mice::md.pattern( )`
+```r
+# Load agricolae
+library( agricolae )
+
+# Design a LS with 5 treatments A:E then look at the sketch
+my_design_lsd <- design.lsd( LETTERS[1:5], serie = 0, seed = 42)
+my_design_lsd$sketch
+```
+- **Graeco-Latin Squares** are similar to *Latin Squares* except they have three blocking factors.
+- The Greek letters are added next to the other letters to indicate the treatment.
+```r
+# Create trt1 and trt2
+trt1 <- LETTERS[1:5]
+trt2 <- 1:5
+
+# Create my_graeco_design
+my_graeco_design <- design.graeco(trt1, trt2, serie = 0, seed = 42)
+
+# Examine the parameters and sketch
+my_graeco_design$parameters
+my_graeco_design$sketch
+```
+- **Factorial Experiments** is an experiment where two or more variables are combined and crossed.
+- All possible interactions between levels of factors are considered as effects.
+- You use the `*` for interactions in the `lm()` function or the `aov()` function.
+- You can test for normality using the function `shapiro.test()`.
+
 
 # Research:
 - Mann-Whitney U?
-- Kruskal-Wallis rank sum test
+- Kruskal-Wallis rank sum test?
+- Voluntary Response Sampling?
+- Convenience Sampling?
+- Shapiro.test?
+- Fractional Factorial Design?
+- Nested Design?
+- Split Plot Design?
+- Lattice Design?
 
 # Reference:
