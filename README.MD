@@ -61,6 +61,7 @@
 | Network Science in R - A Tidy Approach  | [/NetworkScienceInR]               | {2018/07/19}   |
 | Experimental Design in R                | [/ExperimentalDesignR]             | {2018/08/01}   |
 | Structural Equation Modeling with Lavaan| [/StructuralModelingWithLavaan]    | {}             |
+| Network Analysis in R: Case Studies   d | [/NetowrkInRCaseStudy]             | {}             |
 
 R Review/Redo.
 O Organize.
