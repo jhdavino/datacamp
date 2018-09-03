@@ -154,6 +154,23 @@ semPaths(object = adopt.fit,
 
 
 # Full Example and an Extension
+- Walkthrough.
+- When you had a second level of Latent Variables, there will be no changes in fit.
+```r
+# Load the library
+library(semPlot)
+
+# Update the default picture
+semPaths(object = wais.fit3,
+         layout = "tree",
+         rotation = 1,
+         whatLabels = "std",
+         edge.label.cex = 1,
+         what = "std",
+         edge.color = "navy")
+```
+
+
 
 # Research:
 - Comparative Fit Index?

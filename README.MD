@@ -60,7 +60,7 @@
 | Interactive Maps with leaflet in R      | [/InteractiveMapsLeafletR]         | {2018/07/13}   |
 | Network Science in R - A Tidy Approach  | [/NetworkScienceInR]               | {2018/07/19}   |
 | Experimental Design in R                | [/ExperimentalDesignR]             | {2018/08/01}   |
-| Structural Equation Modeling with Lavaan| [/StructuralModelingWithLavaan]    | {}             |
+| Structural Equation Modeling with Lavaan| [/StructuralModelingWithLavaan]    | {2018/08/10}   |
 
 R Review/Redo.
 O Organize.
