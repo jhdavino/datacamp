@@ -65,11 +65,37 @@ rt_clust <- cluster_louvain(as.undirected(rt_g))
 
 
 # Bike Sharing in Chicago
+- You can use the function `farthest_vertices( <graph>)` to get the which to vertices are the furthest away.
+- You can use the function `get_diameter( <graph> )` to get the actual path itself.
+- We will be using the *geosphere* package to manage the mapping from graph to geography.
+- We will use the function `distm( <dataframe-from>, <dataframe-to>, fun = distHaversine)`
+```
+plot(g275, vertex.label.color = "blue", vertex.label.cex = .6,
+     edge.color = 'black', vertex.size = 15, edge.arrow.size = .1,
+     edge.width = E(g275)$weight,
+     main = "Default Layout")
+```
+```
+# Eigen centrality unweighted
+ec_unweight <- eigen_centrality(trip_g_simp, directed = T, weights = NA)
+
+# Closeness weighted
+close_weight <- closeness(trip_g_simp, weights = NULL)
+```
+- **Connectivity** is a measure of how densely connected the vertices of a graph are.
+- You can check this against the edges as well as the vertices using the functions:
+  * `vertex_connectivity(<graph>)`
+  * `edge_connectivity( <graph> )`
+- We can also the function `min_cut()` to find out much more.
+-
+
 
 # Other Ways to Visualize Graph Data
 
 # Research:
 - Class dgCMatrix?
 - http://igraph.org/c/doc/igraph-Community.html
+- `make_ego_graph()`
+-
 
 # Reference:
