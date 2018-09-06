@@ -87,7 +87,12 @@ close_weight <- closeness(trip_g_simp, weights = NULL)
   * `vertex_connectivity(<graph>)`
   * `edge_connectivity( <graph> )`
 - We can also the function `min_cut()` to find out much more.
--
+- To see more information, pass the argument `value.only = F` to `min_cut()`.
+- You can use the function `stMinCuts( <graph>, <node-1>, <node-2>)` to find the minimum number of cuts between two points.
+```
+stMincuts(trip_g_simp, far_stations[1], far_stations[2])$value
+```
+- 
 
 
 # Other Ways to Visualize Graph Data
