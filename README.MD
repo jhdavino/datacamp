@@ -60,12 +60,9 @@
 | Interactive Maps with leaflet in R      | [/InteractiveMapsLeafletR]         | {2018/07/13}   |
 | Network Science in R - A Tidy Approach  | [/NetworkScienceInR]               | {2018/07/19}   |
 | Experimental Design in R                | [/ExperimentalDesignR]             | {2018/08/01}   |
-<<<<<<< HEAD
 | Structural Equation Modeling with Lavaan| [/StructuralModelingWithLavaan]    | {2018/08/10}   |
-=======
-| Structural Equation Modeling with Lavaan| [/StructuralModelingWithLavaan]    | {}             |
-| Network Analysis in R: Case Studies   d | [/NetowrkInRCaseStudy]             | {}             |
->>>>>>> a889004cca253adea4f8c0ff1507a2a13798b713
+| Network Analysis in R: Case Studies   d | [/NetowrkInRCaseStudy]             | {2018/09/06}   |
+| Fundamentals of Bayesian Data Analysis  | [/BayesianDataAnalysisInR]         | {}             |
 
 R Review/Redo.
 O Organize.
