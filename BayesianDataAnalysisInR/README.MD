@@ -32,9 +32,7 @@
 - A **Bayesian Model** is the when you have a *Generative Model* and *Priors*.
 - The data frame with both `proportion_clicks` as well as `n_visitors` is called the prior.
 - The essensce of *Baysian Inference* is conditioning on data, in order to learn about parameter values.
--
-
-
+- The fourth piece will be the **Computatinoal Method** so you can scale the analysis.
 
 
 # Why use Bayesian Inference
