@@ -34,8 +34,18 @@
 - The essensce of *Baysian Inference* is conditioning on data, in order to learn about parameter values.
 - The fourth piece will be the **Computatinoal Method** so you can scale the analysis.
 
-
 # Why use Bayesian Inference
+- It is a very flexible way to analyze data and models.
+- You can include information sources in addition to the data.
+- You can make any comparisons between groups or data sets.
+- You can use the result of a Bayesian analysis to do Decision Analysis.
+- You can change the underlying statistical model.
+- The Beta Distribution is a useful distribution for our purposes.
+- You can generate one using the function `rbeta( <n>, <shape1>, <shape2>)`.
+-
+
+
+
 
 # Bayesian Inference Using Bayes Theorem
 
