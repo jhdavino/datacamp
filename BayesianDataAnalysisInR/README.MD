@@ -42,21 +42,48 @@
 - You can change the underlying statistical model.
 - The Beta Distribution is a useful distribution for our purposes.
 - You can generate one using the function `rbeta( <n>, <shape1>, <shape2>)`.
--
-
-
-
-
-
-
 - A **Credible Intervel** is an interval that contains the parameter which a certain probability.
 - A **Decisian Analysis** is using the Probability to decide on what you really care about.
 - If you have a single event and you would like to calculate the expected probability then you use the Poisson Distribution.
 - You can use the function `rpois( <n>, <lambda/observed-events>)` to generate it.
 -  Always remember that you're model is still a model.
 - Another advantage is that there is a separation between model and computation.
+```
+# Change this model so that it uses a Poisson distribution instead
+n_draws <- 100000
+mean_clicks <- runif(n_draws, min = 0.0, max = 80.0)
+n_visitors <- rpois(n_draws, mean_clicks)
+
+prior <- data.frame(mean_clicks, n_visitors)
+posterior <- prior[prior$n_visitors == 19, ]
+hist( prior$mean_clicks )
+hist( posterior$mean_clicks)
+```
 
 # Bayesian Inference Using Bayes Theorem
+- The bad news is that this computation method does not scale.
+- The good news is that lots of people are trying to solve this problem.
+- The results will be the same but it'll be faster.
+- Probability must be between 0 and 1.
+- Notation: `P( n_visitors = 13)` means the probability of visitors being 13.
+- If you leave off the number, then it stands for the distribution.
+- Notation: `P( n_visitors = 13 | prop_clicks = 10%)` means the probability of visitors being 13, given 10% click.
+- **Sum Rule**: If two events are mutually exclusive then we can simply add them together to find their probability of outcome.
+- **Multiplication Rule**: If two probabilities are unrelated unrelated or independent then we can multiply them together.
+- One of the ways that Bayes is sped up is using directly calculated distributions vs simulated ones.
+- To do this, you would use the `dbinom()` or `dpois()` functions.
+- The **Probability Density** can be thought of as a relative probability.
+- The *d* in `dunif()` stands for *density*.
+```
+# Rewrite this code so that it uses dbinom instead of rbinom
+n_ads_shown <- 100
+proportion_clicks <- 0.1
+prob_13_visitors <- dbinom(13,
+    size = n_ads_shown, prob = proportion_clicks)
+prob_13_visitors
+```
+-
+
 
 # More Data, More Parameters, and More Bayes
 
