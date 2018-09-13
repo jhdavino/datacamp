@@ -47,6 +47,15 @@
 
 
 
+
+
+- A **Credible Intervel** is an interval that contains the parameter which a certain probability.
+- A **Decisian Analysis** is using the Probability to decide on what you really care about.
+- If you have a single event and you would like to calculate the expected probability then you use the Poisson Distribution.
+- You can use the function `rpois( <n>, <lambda/observed-events>)` to generate it.
+-  Always remember that you're model is still a model.
+- Another advantage is that there is a separation between model and computation.
+
 # Bayesian Inference Using Bayes Theorem
 
 # More Data, More Parameters, and More Bayes
