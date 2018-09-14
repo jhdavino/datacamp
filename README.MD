@@ -62,7 +62,7 @@
 | Experimental Design in R                | [/ExperimentalDesignR]             | {2018/08/01}   |
 | Structural Equation Modeling with Lavaan| [/StructuralModelingWithLavaan]    | {2018/08/10}   |
 | Network Analysis in R: Case Studies   d | [/NetowrkInRCaseStudy]             | {2018/09/06}   |
-| Fundamentals of Bayesian Data Analysis  | [/BayesianDataAnalysisInR]         | {}             |
+| Fundamentals of Bayesian Data Analysis  | [/BayesianDataAnalysisInR]         | {2018/09/14}   |
 
 R Review/Redo.
 O Organize.

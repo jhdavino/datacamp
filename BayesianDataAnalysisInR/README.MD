@@ -114,8 +114,12 @@ plot(pars$proportion_clicks, pars$probability, type = "h")
 
 
 # More Data, More Parameters, and More Bayes
-- 
-
+- There is a function that takes the product of all numbers called `prod()`.
+- Now that we know how it works, we'll be using the package *BEST* by John Kruschke.
+- It assumes that the data is from a T-Distribution.
+- It is similar but includes the third parameter called the *Degrees of Freedom*.
+- It also uses a **Markov Chain Monte Carlo** method for predictions.
+- You take your vector of inputs and pases it to the function `BESTmcmc( <data> )`.
 
 
 # Research:
