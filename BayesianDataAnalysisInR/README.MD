@@ -97,9 +97,26 @@ pars$likelihood <- dbinom(pars$n_visitors,
 pars$probability <- pars$prior * pars$likelihood
 pars$probability <- pars$probability / sum( pars$probability )
 ```
+```
+# Simplify the code below by directly conditioning on the data
+n_ads_shown <- 100
+proportion_clicks <- seq(0, 1, by = 0.01)
+n_visitors <- 6
+pars <- expand.grid(proportion_clicks = proportion_clicks)
+pars$prior <- dunif(pars$proportion_clicks, min = 0, max = 0.2)
+pars$likelihood <- dbinom(n_visitors,
+    size = n_ads_shown, prob = pars$proportion_clicks)
+pars$probability <- pars$likelihood * pars$prior
+pars$probability <- pars$probability / sum(pars$probability)
+plot(pars$proportion_clicks, pars$probability, type = "h")
+```
+- **Bayes Theorem** is [Prob( Params | Data)] = ( [Prob( Data | Params)] * [Prob( Params )] ) / [Sum of Prob( Data | Params) * Prob( params )]
 
 
 # More Data, More Parameters, and More Bayes
+- 
+
+
 
 # Research:
 
