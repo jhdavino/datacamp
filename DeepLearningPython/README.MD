@@ -65,6 +65,19 @@ print(output)
 
 
 # Optimizing a Neural Network with Backward Propogation
+- When the values returned from a Node is the same as the input, then it's called the **Identity** function.
+- Making accurate predictions gets harder with more points.
+- We use the **Loss Function** to aggregate the errors in predictions from many data points into a single number.
+- A common loss function is the Mean Squared Error.
+- Our goal is to find the weights that give the lowest value for the loss function.
+- This is detected via **Gradient Descent**.
+- If the slope is positive, then you move towards lower numbers.
+- If the slope is negative, then you move towards higher numbers.
+- To assist with controlling the movement of the Gradient Descent, we multiple the slope times the *Learning Rate*.
+- To calculate this, you take `2 * [(Output-Gotten - Target-Value) * Learning-Rate]`.
+- 
+
+
 
 # Building a Deep Learning Model With Keras
 
