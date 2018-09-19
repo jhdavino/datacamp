@@ -75,11 +75,22 @@ print(output)
 - If the slope is negative, then you move towards higher numbers.
 - To assist with controlling the movement of the Gradient Descent, we multiple the slope times the *Learning Rate*.
 - To calculate this, you take `2 * [(Output-Gotten - Target-Value) * Learning-Rate]`.
-- 
-
+- **Back Propogation** takes the error from the output layer and sends it back towards the input layers.
+- It allows the weight updates to get sent through all the weights.
+- It comes from the *Chain Rule* in calculus.
+- In perspective, we're trying to get the slope of the loss function with respect to each weight.
+- To create the gradients for the weight we need:
+  1. Node value feeding into the weight.
+  2. Slope of the loss function w.r.t ( with respect to) the node that feeds into it.
+  3. Slope of the activation function at the node it feeds into.
+- The value is calculated using `[value_of_in_node] * [value_of_loss_function] * [slope_of_activation_function]`.
+- **Stochastic Gradient Descent** is when you use batches to update the weights instead of the whole dataset.
 
 
 # Building a Deep Learning Model With Keras
+- 
+
+
 
 # Fine-Tuning Keras Models
 
