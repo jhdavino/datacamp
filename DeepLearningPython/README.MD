@@ -88,8 +88,51 @@ print(output)
 
 
 # Building a Deep Learning Model With Keras
-- 
+- Building a Keras model has four parts:
+  1. Specify the Architecture.
+  2. Compile the model.
+  3. Fit the model.
+  4. Predict
+- The normal model we'll build starts with the function `model = Sequential()`.
+- You then add layers using the `model.add( Dense(100, activation='relu', input_shape = (n_cols,)))`
+- *Dense* means that all the nodes in the previous layer are connected to all the nodes in this layer.
+- In the first layer, you need to specify the number of input nodes along with the activation function.
+```python3
+```
+- For the compile part, you need:
+  1. Specify the optimizer ( Learning Rate ).
+    - Adam is usually best.
+  2. Loss function:
+    - Usually Mean Squared Error.
+- Scaling data before fitting can ease optimization.
+```
+# Compile the model
+model.compile( optimizer = 'adam', loss = 'mean_squared_error')
 
+# Verify that model contains information from compiling
+print("Loss function: " + model.loss)
+```
+- You then fit the model using `model.fit( <predictors>, <target>)`.
+- For doing *Classification*, it's sort of the same process.
+- The first difference is changing the loss function to *cateforical_crossentropy*.
+- This is similar to *Log Loss*.
+- You can also pass `metrics = ['accuracy']` to the function `compile()` to have it print it out.
+- You also need to make sure to change the output to 1 per each possible class.
+  - This is also the *softmax activation*.
+- You're want the outcomes to be in their own respective columns.
+- We can do that with the function `keras.utils.to_categorical( <data.column_name> )`.
+- You can save a model using `model.save('<filename.h5>')`.
+- You can load a model for use later using `keras.models.load_model('<filename.h5>')`.
+```python3
+# Calculate predictions: predictions
+predictions = model.predict( pred_data )
+
+# Calculate predicted probability of survival: predicted_prob_true
+predicted_prob_true = predictions[:,1]
+
+# print predicted_prob_true
+print(predicted_prob_true)
+```
 
 
 # Fine-Tuning Keras Models
