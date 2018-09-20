@@ -136,8 +136,35 @@ print(predicted_prob_true)
 
 
 # Fine-Tuning Keras Models
+- Optimization is a hard problem.
+- The easiest optimizer is called **Stocastic Gradient Descent** - also called *SDG*.
+- The **Dying Neuron Problem** is when a neuron takes negative values for all input weights.
+- Therefore, once a neuron starts taking in 0's, then it may continue getting only negative inputs.
+```python3
+# Import the SGD optimizer
+from keras.optimizers import SGD
+
+# ...
+# Create SGD optimizer with specified learning rate: my_optimizer
+    my_optimizer = SGD(lr=lr)
+
+    # Compile the model
+    model.compile( optimizer = my_optimizer, loss = 'categorical_crossentropy')
+```
+- Few people run K-fold cross validation on Deep Learning data.
+- Keras makes it easy to split up data into a test and train.
+- You use pass the parameter `validation_split = <.N>` to the function `model.fit()`.
+- You can also stop the model from building completely if training stalls out.
+- You do that using `keras.callbacks.EarlyStopping` and call with `EarlyStopping(patience=<n>)`.
+- You then pass those to `model.fit()` with parameter `callbacks = [<cb1>, <cb2>]`.
+- By default, Keras trains for 10 epochs.
+- Workflow:
+  1. Start with a small network.
+  2. Get the validation score.
+  3. Keep increasing capacity until the validation is no longer improving.
 
 
 # Research:
 
 # Reference:
+- [keras.io](www.keras.io)
