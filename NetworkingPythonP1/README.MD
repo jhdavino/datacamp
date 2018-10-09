@@ -95,6 +95,102 @@ a2 = ArcPlot( T, node_order = "category", node_color = "category")
 
 
 # Important Nodes
+- How do we tell what nodes are *important*?
+  1. Degree Centrality.
+  2. Betweenness Centrality.
+- **Centrality**: The number of neighbors I have / Number of Neighbours I could have.
+- You can get the neighbors of a graph using the function `.neighbors(n)`.
+- You can get the **Degree Centrality** of a graph using function `nx.degree_centrality( G )`.
+- Remember that self-loops are not considered by default.
+```python
+# Define nodes_with_m_nbrs()
+def nodes_with_m_nbrs( G, m ):
+    """
+    Returns all nodes in graph G that have m neighbors.
+    """
+    nodes = set()
+
+    # Iterate over all nodes in G
+    for n in G.nodes():
+
+        # Check if the number of neighbors of n matches m
+        if len( G.neighbors(n)) == m:
+
+            # Add the node n to the set
+            nodes.add( n )
+
+    # Return the nodes with m neighbors
+    return nodes
+
+# Compute and print all nodes in T that have 6 neighbors
+six_nbrs = nodes_with_m_nbrs( T, 6 )
+print(six_nbrs)
+```
+```python
+# Compute the degree of every node: degrees
+degrees = [ len( T.neighbors( n )) for n in T.nodes() ]
+
+# Print the degrees
+print( degrees )
+```
+```python
+# Import matplotlib.pyplot
+import matplotlib.pyplot as plt
+
+# Compute the degree centrality of the Twitter network: deg_cent
+deg_cent = nx.degree_centrality(T)
+
+# Plot a histogram of the degree centrality distribution of the graph
+plt.figure()
+plt.hist(list(deg_cent.values()))
+plt.show()
+
+# Plot a histogram of the degree distribution of the graph
+plt.figure()
+plt.hist(degrees)
+plt.show()
+
+# Plot a scatter plot of the centrality distribution and the degree distribution
+plt.figure()
+plt.scatter(degrees, list(deg_cent.values()))
+plt.show()
+```
+- Now we're going to be moving to *Optimization Problems*.
+- **Pathfinding** is important for:
+  * Finding the shortest path.
+  * Modeling the spread of things.
+- One such algorithm is the **Breadth-First Search**.
+- Developed in the 1950s.
+- **All Shortest Paths**:
+  1. Set of paths.
+  2. Each path is shortest path between given pair of nodes.
+- Def: **Betweenness Centrality**: Num of shortest paths through node / all possible shortest paths.
+- You can create a *barbell graph* using the function `nx.barbell_graph(m1 = 5, m2 =1)`.
+- You can calculate the *Betweenness Centrality* using the function `nx.betweeness_centrality(G)`.
+```python
+# Define find_nodes_with_highest_deg_cent()
+def find_nodes_with_highest_deg_cent(G):
+
+    # Compute the degree centrality of G: deg_cent
+    deg_cent = nx.degree_centrality( G )
+
+    # Compute the maximum degree centrality: max_dc
+    max_dc = max( list(deg_cent.values()) )
+
+    nodes = set()
+
+    # Iterate over the degree centrality dictionary
+    for k, v in deg_cent.items():
+
+        # Check if the current value has the maximum degree centrality
+        if v == max_dc:
+
+            # Add the current node to the set of nodes
+            nodes.add( k )
+
+    return nodes
+```
+
 
 # Structures
 
