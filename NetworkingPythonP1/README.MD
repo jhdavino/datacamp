@@ -193,6 +193,45 @@ def find_nodes_with_highest_deg_cent(G):
 
 
 # Structures
+- A **Social Clique** is usually a tightly knit group.
+- We can use the code:
+```python
+from itertools import combinations
+for n1, n2 in combinations(G.nodes(), 2):
+  # insert computations here
+```
+- You can check if an edge exists from the function `G.has_edge( <n1>, <n2>)`
+- You can count the number of triangles that nodes are involved in using the function `nx.triangles(G)`.
+- A **Maximal Clique** is a clique that if extended by one node is no longer a clique.
+- This has usage in community finding.
+- You can find all the maximal cliques using the function `nx.find_cliques( <G> )`.
+- This returns a generator - which can be converted into results using the function `list()`.
+- You can get a subgraph of the graph using the function `G.subgraph(<nodes>)`
+- To draw the subgrpah, use the syntax `nx.draw( G_sub, with_labels = True)`.
+```python
+# Extract the nodes of interest: nodes
+nodes = [n for n, d in T.nodes(data=True) if d['occupation'] == 'celebrity']
+
+# Create the set of nodes: nodeset
+nodeset = set(nodes)
+
+# Iterate over nodes
+for n in nodes:
+
+    # Compute the neighbors of n: nbrs
+    nbrs = T.neighbors(n)
+
+    # Compute the union of nodeset and nbrs: nodeset
+    nodeset = nodeset.union(nbrs)
+
+# Compute the subgraph using nodeset: T_sub
+T_sub = T.subgraph(nodeset)
+
+# Draw T_sub to the screen
+nx.draw(T_sub)
+plt.show()
+```
+
 
 # Brining It Together
 
