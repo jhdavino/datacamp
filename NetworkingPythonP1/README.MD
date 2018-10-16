@@ -98,7 +98,7 @@ a2 = ArcPlot( T, node_order = "category", node_color = "category")
 - How do we tell what nodes are *important*?
   1. Degree Centrality.
   2. Betweenness Centrality.
-- **Centrality**: The number of neighbors I have / Number of Neighbours I could have.
+- **Centrality**: The number of neighbors I have / Number of Neighbors I could have.
 - You can get the neighbors of a graph using the function `.neighbors(n)`.
 - You can get the **Degree Centrality** of a graph using function `nx.degree_centrality( G )`.
 - Remember that self-loops are not considered by default.
@@ -234,10 +234,37 @@ plt.show()
 
 
 # Brining It Together
+- A **Connected Component Subgraph** is when there are distinct disconnected networks inside the large graph.
+- You can get those with the function `nx.connected_component_subgraph( G )`.
+```python
+# Import necessary modules
+from nxviz.plots import ArcPlot
+import matplotlib.pyplot as plt
+
+# Iterate over all the nodes in G, including the metadata
+for n, d in G.nodes( data = True):
+
+    # Calculate the degree of each node: G.node[n]['degree']
+    G.node[n]['degree'] = nx.degree( G, n )
+
+# Create the ArcPlot object: a
+a = ArcPlot( graph = G, node_order = 'degree')
+
+# Create the CircosPlot object: c
+c = CircosPlot( G, node_order = 'degree', node_grouping = 'grouping', node_color = 'grouping')
+
+# Draw the ArcPlot to the screen
+a.draw()
+plt.show()
+
+c.draw()
+plt.show()
+```
+-
+
 
 # Research:
 - [Konect](http://konect.uni-koblenz.de/)
--
 
 
 # Reference:

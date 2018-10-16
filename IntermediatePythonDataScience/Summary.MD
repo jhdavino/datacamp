@@ -8,7 +8,7 @@ year = [1950, 1970, 1990, 2010]
 pop =  [2.519, 3.692, 5.263, 6.972]
 
 # call plot  (x, y)
-plot.plot(year, pop)
+plt.plot(year, pop)
 plt.show()
 ```
 
@@ -93,7 +93,7 @@ plt.show()
 - Law of Large Numbers:
 	* `As the number of iterations approaches an infinite number of times, then the actual distribution approaches the theoretical probability.
 - Numpy can transpose a list of lists using `np.transpose()`.
-                       
+
 ## Research:
 
 ## Further Reading:

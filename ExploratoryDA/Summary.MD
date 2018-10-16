@@ -33,13 +33,13 @@
 	3. Mode.
 - The mean is sensitive to outliers.
 - The median is resistant to outliers.
-- The mode is the hightest set of counted values.
-- Meausure of Variablility:
+- The mode is the highest set of counted values.
+- Measure of Variability:
 	1. Variance.
 	2. Standard Deviation.
 	3. Interquartile Range.
 - The shape of a distribution can be described by the modality and the skew.
-- Transformations can help hightlight underlying patterns missed due to the large values.
+- Transformations can help highlight underlying patterns missed due to the large values.
 - The last feature is outliers.
 
 # Case Study
