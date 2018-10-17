@@ -81,6 +81,24 @@ node_df = pd.DataFrame( nodelist )
 
 
 # Comparing Graphs & Time-Dynamic Graphs
+- In many cases, we want to check now some number or function changes over time.
+- An example of an **Evolving Graph** is a communication network.
+- *NetworkX* has a function to tell the difference between Graphs called `.difference(G1, G2 )`.
+- Remember that the order submitted matters.
+```python
+# Compute graph difference here
+    added.append( nx.difference(g2, g1))   
+    removed.append( nx.difference( g1, g2 ))
+
+    # Compute change in graph size over time
+    fractional_changes.append((len(g2.edges()) - len(g1.edges())) / len(g1.edges()))
+```
+- We can summarize the graphs over time using:
+  1. Number of Nodes.
+  2. Number of Edges.
+  3. Degree distribution.
+  4. Centrality distribution.
+
 
 # Tying it up
 
