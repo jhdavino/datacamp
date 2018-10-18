@@ -101,6 +101,49 @@ node_df = pd.DataFrame( nodelist )
 
 
 # Tying it up
+- Now we're going to examine how to build a dataset.
+- Once the the data is in a dataframe, we can use `G.add_nodes_from(df['columnname'], bipartite = "<category>")`.
+- Using the function `zip()` is great way to iterate of a dataframe and add them as edges.
+```python
+import networkx as nx
+
+# Instantiate a new Graph: G
+G = nx.Graph()
+
+# Add nodes from each of the partitions
+G.add_nodes_from( data['student'], bipartite = "student")
+G.add_nodes_from( data['forum'], bipartite = "forum")
+
+# Add in each edge along with the date the edge was created
+for r, d in data.iterrows():
+    G.add_edge( r, d )
+
+    # Get the student partition's nodes: student_nodes
+    student_nodes = [n for n, d in G.nodes(data=True) if d['bipartite'] == 'student']
+
+    # Create the students nodes projection as a graph: G_students
+    G_students = nx.bipartite.projected_graph(G, nodes = student_nodes)
+
+    # Calculate the degree centrality using nx.degree_centrality: dcs
+    dcs = nx.degree_centrality(G_students)
+
+    # Plot the histogram of degree centrality values
+    plt.hist(list(dcs.values()))
+    plt.yscale('log')  
+    plt.show()
+
+# Instantiate a new graph: G_sub
+G_sub = nx.Graph()
+
+# Add nodes from the original graph
+G_sub.add_nodes_from( G.nodes(data=True))
+
+# Add edges using a list comprehension with one conditional on the edge dates, that the date of the edge is earlier than 2004-05-16.
+G_sub.add_edges_from([(u, v, d) for u, v, d in G.edges(data=True) if d['date'] < datetime(2004,5,16)])
+```
+- Now for Time Series Analysis.
+- You can use the function `datetime.timedelta(<duration>)` to generate a delta object.
+
 
 # Research:
 

@@ -65,7 +65,7 @@
 | Fundamentals of Bayesian Data Analysis  | [/BayesianDataAnalysisInR]         | {2018/09/14}   |
 | Deep Learning in Python                 | [/DeepLearningPython]              | {2018/09/20}   |
 | Network Analysis in Python, Part 1      | [/NetworkingAnaysisP1]             | {2018/10/11}   |
-| Netowrk Analysis in Python, Part 2      | [/NetworkingAnaysisP2]             |                |
+| Netowrk Analysis in Python, Part 2      | [/NetworkingAnaysisP2]             | {2018/10/18}   |
 
 R Review/Redo.
 O Organize.
