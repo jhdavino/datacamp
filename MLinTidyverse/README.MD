@@ -55,10 +55,25 @@ algeria_fitted %>%
 
 
 # Multiple Models with broom
-- 
+- We're going to be using glance and tidy to check the fit of 77 different models.
+```
+best_augmented <- best_fit %>%
+  # Build the augmented dataframe for each country model
+  mutate(augmented = map(model, ~augment(.x))) %>%
+  # Expand the augmented dataframes
+  unnest(augmented)
+
+# View the performance for the four countries with the worst fitting
+# four simple models you looked at before
+fullmodel_perf %>%
+  filter(country %in% worst_fit$country) %>%
+  select(country, adj.r.squared)
+```
 
 
 # Build, Tune & Evaluate Regression Models
+- 
+
 
 # Build, Tune & Evaluate Classification Models
 
