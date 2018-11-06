@@ -66,6 +66,7 @@
 | Deep Learning in Python                 | [/DeepLearningPython]              | {2018/09/20}   |
 | Network Analysis in Python, Part 1      | [/NetworkingAnaysisP1]             | {2018/10/11}   |
 | Netowrk Analysis in Python, Part 2      | [/NetworkingAnaysisP2]             | {2018/10/18}   |
+| Machine Learning in the Tidyverse       | [/MLinTidyverse]                   |                |
 
 R Review/Redo.
 O Organize.
