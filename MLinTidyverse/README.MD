@@ -72,11 +72,70 @@ fullmodel_perf %>%
 
 
 # Build, Tune & Evaluate Regression Models
-- 
+- The two questions Data Scientists should keep in mind are:
+  1. How well does my model fit new data?
+  2. Did I select the best model?
+- We split data into a train and a test set, which I know.
+- We will use the function `rsample::initial_split( <data>, prop = <.x>)`.
+- Then, you call function `training()` on the returned object to get the training data.
+- You call the function `testing()` on the returned object to get the testing data.
+- Do not use the test dataset for training, obv.
+- You can also split your train into a train/validate split.
+- Taking this to the next step, you can do this many times and it is called Cross Validation.
+- You can use the function `rsample::vfold_cv(<train-data>, v = <splits>)`.
+- You will use the `mutate()` function to split the CVs into train/validate.
+```
+cv_data <- cv_split %>%
+  mutate(train = map(splits, ~training(.x)),
+         validate = map(splits, ~testing(.x)))
+
+#====
+cv_data <- cv_split %>%
+  mutate(
+    # Extract the train dataframe for each split
+    train = map(splits, ~training(.x)),
+    # Extract the validate dataframe for each split
+    validate = map(splits, ~testing(.x))
+  )
+```
+- The lecturer's preferred metric is **Mean Absolute Error**.
+- This is defined as the sum of the Absolute Value of the Actual values - the predicted values divided by the number of measurements.
+```
+cv_prep_lm <- cv_eval_lm %>%
+  mutate(validate_actual = map(validate, ~.x$life_expectancy),
+         validate_predicted = map2(model, validate, ~predict(.x, .y)))
+```
+- We will be using the function `Metrics::mae()` to do the caluculation for us.
+```
+library(Metrics)
+cv_eval_lm <- cv_prep_lm %>%
+  mutate(validate_mae = map2_dbl(validate_actual, validate_predicted,
+                                ~mae(actual = .x, predicted = .y)))
+```
+- We will ne using the function `ranger::ranger()` to create a Random Forest.
+- The arguments are `forumula`, `data` and `seed`.
+```
+library(ranger)
+
+# Build a random forest model for each fold
+cv_models_rf <- cv_data %>%
+  mutate(model = map(train, ~ranger(formula = life_expectancy~., data = .x,
+                                    num.trees = 100, seed = 42)))
+
+# Generate predictions using the random forest model
+cv_prep_rf <- cv_models_rf %>%
+  mutate(validate_predicted = map2(.x = model, .y = validate, ~predict(.x, .y)$predictions))
+```
 
 
 # Build, Tune & Evaluate Classification Models
+-
+
 
 # Research:
+- ranger function?
+- ranger package?
+-
+
 
 # Reference:
