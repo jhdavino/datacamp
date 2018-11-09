@@ -129,7 +129,33 @@ cv_prep_rf <- cv_models_rf %>%
 
 
 # Build, Tune & Evaluate Classification Models
--
+- We're going to be using the function `glm()`.
+```
+# Build a model using the train data for each fold of the cross validation
+cv_models_lr <- cv_data %>%
+  mutate(model = map(train, ~glm(formula = Attrition ~ .,
+                               data = .x, family = "binomial")))
+```
+- To make predictions, you will need to pass the argument `type = "response"` to function `predict()`.
+- You can calculate the accuracy of prediction using the function `Metrics::accuracy()`
+- You can calculate the precision of predictions using the function `Metrics::precision()`.
+- You can calculate the recall of predictions using the function `Metrics::recall()`.
+
+
+
+```
+library(ranger)
+
+# Prepare for tuning your cross validation folds by varying mtry
+cv_tune <- cv_data %>%
+  crossing(mtry = c(2,4,8,16))
+
+# Build a cross validation model for each fold & mtry combination
+cv_models_rf <- cv_tune %>%
+  mutate(model = map2(train, mtry, ~ranger(formula = Attrition~.,
+                                           data = .x, mtry = .y,
+                                           num.trees = 100, seed = 42)))
+```
 
 
 # Research:
