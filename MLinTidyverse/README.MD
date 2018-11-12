@@ -129,8 +129,15 @@ cv_prep_rf <- cv_models_rf %>%
 
 
 # Build, Tune & Evaluate Classification Models
--
 
+
+
+- The order submitted to these functions matters:
+```
+# Calculate the accuracy
+accuracy(validate_actual, validate_predicted)
+```
+-
 
 # Research:
 - ranger function?
