@@ -57,6 +57,37 @@ plot(mod_city2, all.terms = TRUE, pages = 1)
 
 
 # Interpreting and Visualizing GAMs
+- You can get a summary of a model using the function `summary()` as per normal.
+- The summary does not print the coefficients since there are more than one.
+- Instead, it lists *edf* or *Effective Degrees of Freedom*.
+- If you cannot draw a line through the 90% confidence interval, then it's considered good.
+- Remember that a high *edf* doesn't mean it is significant.
+- The plots that are created from mgcv are Partial Effect Plots.
+- You can pass the argument `rug = TRUE` to get he values showing at the bottom of the chart.
+- You can pass the argument `residuals = TRUE` to get residuals on the plot.
+```
+library(mgcv)
+# Fit the model
+mod <- gam(hw.mpg ~ s(weight) + s(rpm) + s(price) + comp.ratio,
+           data = mpg, method = "REML")
+
+# Plot the price effect
+plot(mod, select = 3)
+
+# Plot all effects
+plot(mod, pages = 1, all.terms = TRUE)
+```
+- There are several pitfalls while working with model fits in GAMs.
+- We can check if there are enough basis functions using the function `gam.check()`.
+- If the model has not fully convergence then it is not fit.
+- For p-values in the test for the count of basis, we actually want it to *not* be significant.
+- Increase the number of basis until this is true.
+- With GAMs, even if we don't have collinearity then we still have to worry about **Concurvity**.
+- This is when one curve is a smooth of another.
+- If we have a relationship between two features that is a parabola, then we will get large confidence intervals.
+- We can use the function `concurvity(<model>, full = TRUE)` to check for this.
+- If any of the worst values are high, then we'll want to use `full = FALSE`.
+
 
 # Spatial GAMs and Interactions
 
