@@ -90,6 +90,49 @@ plot(mod, pages = 1, all.terms = TRUE)
 
 
 # Spatial GAMs and Interactions
+- We're now going to use Smooths from 2 Dimensions.
+- You can mix features by using the function `s(x1, x2)` which is like an interaction effect.
+- In mgcv's plot command, interactions are plotted as contour plots.
+- A Contour plot is not always the best way to visualize this.
+- You cam see the model as a surface by passing `scheme = 1` to the function `plot`.
+- You can see it as a heatmap using `scheme = 2`.
+- Sometimes you will want to customize the plot and that can be done with the function `vis.gam()`.
+- The parameters are as follows:
+  * `x` is the model.
+  * `view` are the features you want to use.
+  * `plot.type` for the type of plot.
+    - The two common ones are `persp` for surface and `contour` for heatmap.
+  * `too.far` tells it to ignore predictions too far from data.
+  * You can include a confidence interval by passing `se = 2`.
+```
+vis.gam(g, view = c("x1", "x2"), plot.type = "persp", theta = 220) # horizontal
+vis.gam(g, view = c("x1", "x2"), plot.type = "persp", phi = 55)    # vertical
+vis.gam(g, view = c("x1", "x2"), plot.type = "persp", r = 0.1)     # zoom
+
+# ======
+
+# Rotate the same plot
+vis.gam(mod2d,
+  view = c('x', 'y'),
+  plot.type = 'persp',
+  se = 2,
+  theta = 135)
+
+```
+- There is another kind of categorical continuous interaction called **Factor Smooth**.
+- Instead of using the `by` argument, we use the basis type `fs`.
+- We don't include a linear term since this accounts for that term by default.
+```
+```
+- Now we're going to discuss **Tensor Smooths**.
+- These allow us to model data that is on different scales.
+- You can tell `gam()` to use them by passing `te()` instead.
+```
+gam(y ~ s(x1) + s(x2) + ti(x1, x2), data = data, method = "REML")
+```
+- Smooths that have only interactions, but have multiple lambda terms or scales, use `ti()`.
+
+
 
 # Logistic GAMs for Classification
 
