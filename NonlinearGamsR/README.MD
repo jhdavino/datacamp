@@ -133,8 +133,36 @@ gam(y ~ s(x1) + s(x2) + ti(x1, x2), data = data, method = "REML")
 - Smooths that have only interactions, but have multiple lambda terms or scales, use `ti()`.
 
 
-
 # Logistic GAMs for Classification
+- We're now going to figure out how to model Classification problems.
+- In R, the logistic function is `plogis()`.
+- In R, the logit function is `qlogis()`.
+- To create logistic GAMs, we add the parameter `family = binomial` in `gam()`.
+- Remember that the outputs are on the log-odds scale.
+- To interpret them as probabilities, we need to convert them using `plogis( <n> )`.
+- When plotting, we can convert our output to probability scales using:
+```
+plot(binom_mod, pages = 1, trans = plogis)
+```
+```
+# Plot with intercept uncertainty
+plot(log_mod2, pages = 1, trans = plogis,
+     shift = coef(log_mod2)[1], seWithMean = TRUE)
+```
+- When using the function `predict()` on the model, it will return results on the *link scale* or the scale of the inputs.
+- If you want it to return probabilities instead, then pass `type = 'response'` to the function `predict()`.
+- You can also request that it return the Standard Error by also passing `se.fit = TRUE`.
+- We can get the impact of each term per individual prediction using the parameter `type = terms` in `predict()`.
+```
+# Calculate high and low predictions intervals
+high_pred <- predictions$fit + 2*predictions$se.fit
+low_pred <- predictions$fit - 2*predictions$se.fit
+
+# Convert intervals to probability scale
+high_prob <- plogis(high_pred)
+low_prob <- plogis(low_pred)
+```
+
 
 # Research:
 - termplot?
