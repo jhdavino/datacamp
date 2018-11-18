@@ -67,7 +67,12 @@
 | Network Analysis in Python, Part 1      | [/NetworkingAnaysisP1]             | {2018/10/11}   |
 | Network Analysis in Python, Part 2      | [/NetworkingAnaysisP2]             | {2018/10/18}   |
 | Machine Learning in the Tidyverse       | [/MLinTidyverse]                   | {2018/11/09}   |
-| Nonlinear Modeling in R with GAMs       | [/NonlinearGamsR]                  | {}             |
+| Nonlinear Modeling in R with GAMs       | [/NonlinearGamsR]                  | {2018/11/14}   |
+| Factor Analysis in R                    | [/FactorAnalysisR]                 | {}             |
+
+
+
+
 
 R Review/Redo.
 O Organize.
