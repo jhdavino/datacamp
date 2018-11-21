@@ -78,7 +78,31 @@ bfi_eigen <- fa(bfi_EFA, nfactors = 6)
 
 
 # Confirmatory Factor Analysis
-- 
+- You use a Confirmatory Analysis when you want to confirm a theory that you've already developed.
+- You also want to publish the CFA when presenting a new measurement.
+- The function `tructure.sem( <model> )` will convert EFA into CFA for you.
+- You can setup the theory for the functions using a format similar to:
+```
+# Set up syntax specifying which items load onto each factor
+
+theory_syn_eq <- "
+AGE: A1, A2, A3, A4, A5     #Agreeableness
+CON: C1, C2, C3, C4, C5     #Conscientiousness
+EXT: E1, E2, E3, E4, E5     #Extraversion
+NEU: N1, N2, N3, N4, N5     #Neuroticism
+OPE: O1, O2, O3, O4, O5     #Openness
+"
+```
+- You will need to add in the variances and covariances but that can be done for you.
+- You can use `theory_syn <- sem::cfa(text = theory_syn_eq, reference.indicators = FALSE)` to run this for you.
+- You can use the function `sem()` to run the CFA by passing the theoretical model as well as the data.
+```
+#Use the sem() function to run a CFA
+theory_CFA <- sem(theory_syn, data = bfi_CFA)
+```
+- You will still need to investigate and report the fit of a CFA as well.
+- You can add other fit statistics to the results using `options(fit.indices = c("CFI", "GFI", "RMSEA", "BIC"))`
+
 
 # Refining Your Measurement or Model
 
