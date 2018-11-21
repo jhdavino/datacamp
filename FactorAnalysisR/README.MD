@@ -47,13 +47,43 @@ statsBy(gcbs_grouped, group = 'group_var')
 
 
 # Multidimensional EFA
--
+- You can use Exploratory Factor Analysis for Dimensional Reduction.
+- In the absence of a theory, you can use an Empirical approach,
+- You can use thee **Eigenvalues** of the correlation matrix for unique factors.
+- Once you have the matrix, you can use the function `eigen(<matrix>)` to calculate the values.
+- You can find the values in the object's `values` column.
+- A good rule of thumb is that *eigen values* greater than one represent meaningful factors.
+```
+# Then use that correlation matrix to create the scree plot
+scree(bfi_EFA_cor, factors = FALSE)
+```
+```
+# Then use that correlation matrix to create the scree plot
+scree(bfi_EFA_cor, factors = FALSE)
+```
+- A **Construct** is a attribute of interest that cannot be directly observed.
+- You can view the loadings of the Factor analysis inside the `<object>$loadings` column.
+- Do not interpret factor loadings until you have a theory to test!
+- You can tell the function `fa()` how many factors to use using the parameter `nfactors = <n>`.
+- There are two kinds of model fits to compare with:
+  1. Absolute: `have intrinsic meaning and suggested cutoff values.`
+  2. Relative: `have meaning when comparing models.`
+- To use relative models, we need to models to compare.
+```
+# Run each theorized EFA on your dataset
+bfi_theory <- fa(bfi_EFA, nfactors = 5)
+bfi_eigen <- fa(bfi_EFA, nfactors = 6)
+```
+- You can access the **Bayes Information Criterion** using the column name `BIC`.
 
 
 # Confirmatory Factor Analysis
+- 
 
 # Refining Your Measurement or Model
 
 # Research:
+- Tucker Lewis Index?
+
 
 # Reference:
