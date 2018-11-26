@@ -105,9 +105,21 @@ theory_CFA <- sem(theory_syn, data = bfi_CFA)
 
 
 # Refining Your Measurement or Model
+- Don't forget the differene between EFA and CFA.
+- Make sure to pay attention to what the factor is vs the labelled name.
+```
+# Calculate factor scores for the EFA dataset
+CFA_scores <- fscores(EFA_CFA, data = bfi_EFA)
+```
+- To improve model fitting, you can add more loadings.
+- Be careful about doing this as it might violate the Theoretical Model.
+- You can add those new loadings to the theory syntax.
+- You can also remove factors from the equation by simply removing them from the syntax.
+
 
 # Research:
 - Tucker Lewis Index?
 
 
 # Reference:
+- [Model Fit Discussion](http://davidakenny.net/cm/fit.htm)
