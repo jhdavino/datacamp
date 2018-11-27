@@ -68,7 +68,8 @@
 | Network Analysis in Python, Part 2      | [/NetworkingAnaysisP2]             | {2018/10/18}   |
 | Machine Learning in the Tidyverse       | [/MLinTidyverse]                   | {2018/11/09}   |
 | Nonlinear Modeling in R with GAMs       | [/NonlinearGamsR]                  | {2018/11/14}   |
-| Factor Analysis in R                    | [/FactorAnalysisR]                 | {}             |
+| Factor Analysis in R                    | [/FactorAnalysisR]                 | {2018/11/26}   |
+| Linear Algebra for Data Science in R    | [LinearAlgebraR]                   | {}             |
 
 
 
