@@ -42,7 +42,12 @@ x <- solve(A)%*%b
 
 
 # Eigenvalues and Eigenvectors
-- 
+- Eigenvalues and Eigenvectors are what are used for Computer Vision.
+- The goal is to create a few matrices that have the same effect as scalar multiplication.
+- Eigenvectors are entirely about direction and not magnitude.
+- You can get the eigen values using the function `eigen()`.
+- If the eigenvalues λ1, λ2, ..., λn of AA are distinct and v1, v2, ..., vn is a set of associated eigenvectors, then this set of vectors forms a **Basis** for the set of n-dimensional vectors.
+- Eigenpairs turn matrix multiplication into a linear combination of scalar multiplications.
 
 
 # Principal Component Analysis
