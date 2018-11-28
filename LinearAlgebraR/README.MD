@@ -19,8 +19,31 @@
 
 
 # Matrix-Vector Equations
+- A Fundamental question is whether an object can be built from other atomic objects; are they unique?
+- A system of linear equations must have only a single solution.
+- To check to if a solution exists:
+  * Does it have an inverse?
+  * The determinant is non-zero.
+  * The rows and columns of the Matrix form a basis.
+    - A **Basis** being the set of all vectors with n elements.
+- You can tell if a matrix is invertible in if you get a return matrix from the function `solve(<M>)`.
+- You can get the determinant of a matrix using the function `det(<M>)`.
+```
+# A-1 * b equation in R
+x <- solve(A)%*%b
+```
+- If you have more equations than unknownws, then there must be redundant information.
+- Some options for solving non-square matrices:
+  * Row Reduction: by hand.
+  * Least Squares: more rows than columns.
+  * Singular Value Decomposition: More columns than rows.
+- You can find the Moore Penrose Generalized inverse using the function `MASS::ginv()`.
+- This is not a true inverse but a best attempt at some of the same properties.
+
 
 # Eigenvalues and Eigenvectors
+- 
+
 
 # Principal Component Analysis
 
