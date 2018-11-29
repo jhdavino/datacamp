@@ -51,6 +51,13 @@ x <- solve(A)%*%b
 
 
 # Principal Component Analysis
+- **Principle Component Analysis** is the most common form of dimensional reduction in Machine Learning.
+- While having more rows is usually an improvement, it is not always the case thinking about columns.
+- The *eigenvectors* on (A^t*A)/(n-1) and the corresponding eigenvectors are orthogonal.
+- The total variance of the data is the sum of the eigenvalues in this calculation.
+- Those *eigenvalues* are the principle components of the data in matrix A.
+- You can get the *PCA* using the function `prcomp()`.
+
 
 # Research:
 
