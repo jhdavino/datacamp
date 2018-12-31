@@ -7,7 +7,7 @@
 - Create confidence intervals for the slope.
 - You can use the function `tidy(<model>)` to create a "pretty printed" version of the output.
 - You can sample from a dataset using `sample_n(<data>, <n>)`\
-- You can sample multiple sets from a data set using `oiolabs::rep_sample-n(<data>, size = <n>, reps = <samples_n>)`.
+- You can sample multiple sets from a data set using `oilabs::rep_sample_n(<data>, size = <n>, reps = <samples_n>)`.
 - You can insert a function to run in a `do()` call within the pipe structure:
 ```r
 results <- <data> %>%

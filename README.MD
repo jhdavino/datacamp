@@ -70,6 +70,7 @@
 | Nonlinear Modeling in R with GAMs       | [/NonlinearGamsR]                  | {2018/11/14}   |
 | Factor Analysis in R                    | [/FactorAnalysisR]                 | {2018/11/26}   |
 | Linear Algebra for Data Science in R    | [/LinearAlgebraR]                  | {2018/11/29}   |
+| Foundations of Functional Programming   | [/FoundationsofFunctionalWithPurrr]| {}             |
 
 
 
