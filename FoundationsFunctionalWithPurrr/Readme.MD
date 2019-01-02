@@ -50,8 +50,8 @@ plots <- map2(gap_split[1:10],
 walk(plots, print)
 ```
 
-
 # Problem Solving with purrr
+
 
 # Research:
 
