@@ -15,6 +15,10 @@
 
 
 # More Complex Iterations
+- I know all this already.
+
+
+# Troubleshooting Lists with purrr
 - When you have large lists to iterate over, errors can be hard to manage.
 - You can use the function `safely()` to deal with those situations.
 - You can pass the parameter `otherwise` to the function `safely()` to control how it behaves with those issues.
@@ -45,11 +49,7 @@ plots <- map2(gap_split[1:10],
 # Object name, then function name
 walk(plots, print)
 ```
-- 
 
-
-
-# Troubleshooting Lists with purrr
 
 # Problem Solving with purrr
 
