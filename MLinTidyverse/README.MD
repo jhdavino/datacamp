@@ -9,7 +9,7 @@
   2. map().
   3. unnest(), map_*()
 - First, you have to use the function `group_by()` on the feature you want to focus on.
-- Then, you want to use `next()` to create a series of data.frames for the data of each country.
+- Then, you want to use `nest()` to create a series of data.frames for the data of each country.
 - Remember that the data list can be assessed via normal list subsetting.
 - You can then run `unnest()` on it to turn it back into a regular dataframe.
 ```R
