@@ -15,6 +15,11 @@
 
 
 # More Complex Iterations
+- When you have large lists to iterate over, errors can be hard to manage.
+- You can use the function `safely()` to deal with those situations.
+- You can pass the parameter `otherwise` to the function `safely()` to control how it behaves with those issues.
+-
+
 
 # Troubleshooting Lists with purrr
 
