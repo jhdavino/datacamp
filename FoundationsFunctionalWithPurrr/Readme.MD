@@ -51,6 +51,32 @@ walk(plots, print)
 ```
 
 # Problem Solving with purrr
+- We'll now explore adding this to our workflow.
+```
+# Determine who has the most public repositories
+map_int(gh_users, ~.x[["public_repos"]]) %>%
+      set_names(map_chr(gh_users, "name")) %>%
+    sort()
+```
+- You can use the function `map_df()` to iterate over a data frame.
+```
+bird_measurements %>%
+  map_df(~ data_frame(
+  weight = .x[["weight"]],
+  wing_length = .x[["wing length"]],
+  taxa = "bird")) %>%
+     select_if(is.numeric)  %>%
+     summary(.x)
+```
+```
+birddf <- bird_measurements %>%
+ map_df(~ data_frame(
+            wing_length = .x[["wing length"]],
+            weight = .x[["weight"]])) %>%
+    ggplot(aes(x = weight,
+            y = wing_length))+
+    geom_point()
+```
 
 
 # Research:
