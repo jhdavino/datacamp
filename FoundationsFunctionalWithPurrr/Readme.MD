@@ -15,6 +15,25 @@
 
 
 # More Complex Iterations
+- The `purrr` package works well with pipes `%>%`.
+- You can always set names by using the function `names(<list>)`.
+- `map()` makes simulating data simple.
+```
+bird_measurements %>%
+   map_df(~ data.frame(weight=.x[["weight"]],
+                       wing_length = .x[["wing length"]]))
+```
+- When we have to check against multiple datasets, then we can use functions `pmap()` or `map2()`.
+```
+# Map over the master list
+list_of_files_pmap <- pmap(pmapinputs,
+  function(sites, means, sigma, means2, sigma2)
+    data.frame(sites = sites,
+        a = rnorm(mean = means, n = 200, sd = sigma),
+        b = rnorm(mean = means2, n = 200, sd = sigma2)))
+```
+
+
 
 # Troubleshooting Lists with purrr
 
