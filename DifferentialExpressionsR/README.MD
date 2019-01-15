@@ -88,6 +88,49 @@ summary(results)
 
 
 # Flexible Models for Common Study Designs
+- The linear regression model will become clumsy with many more groups.
+- **Treatment Contrast Paramatization**.
+- This meanbs that each coefficient models the group mean.
+![Group Means Paramatization](./images/Group-Means-Parametrization.png)
+- Since there is no Intercept term in this equation, you cannot do a difference anymore.
+- Instead, you will need to do a comparison.
+- Now as the number of groups increases, one can simply construct as many contrasts as necessary.
+- To create a model without and intercept term, you prepend a `0` to the formula passed.
+```
+design <- model.matrix(~0 + er, data = pData(eset))
+```
+- The numbers in each column will be the total of each type of sample.
+- We will use the function `limma:makeContrasts( <formula>, levels = <design>)`
+```
+# Fit the contrasts
+fit2 <- contrasts.fit(fit, contrasts = cm)
+```
+- Remember you just need to pass the column names for each contrast you care about:
+```
+# Create a contrasts matrix
+cm <- makeContrasts(ox05vox01 = oxygenox05 - oxygenox01,
+                    ox21vox01 = oxygenox21 - oxygenox01,
+                    ox21vox05 = oxygenox21 - oxygenox05,
+                    levels = design)
+```
+- Now we're going to discuss Factorial Experimental Design.
+- Since there is no single *Total* attribute, then one will need to be created.
+```
+# Create design matrix with no intercept
+design <- model.matrix(~0 + group)
+colnames(design) <- levels(group)
+```
+- Notice that there is an interaction contrast:
+```
+cm <- makeContrasts(type_normal = vte2.normal - col.normal,
+                    type_low = vte2.low - col.low,
+                    temp_vte2 = vte2.low - vte2.normal,
+                    temp_col = col.low - col.normal,
+                    interaction = (vte2.low - vte2.normal) -
+                                  (col.low - col.normal),
+                    levels = design)
+```
+
 
 # Pre- and post-processing
 
