@@ -71,7 +71,8 @@
 | Factor Analysis in R                    | [/FactorAnalysisR]                 | {2018/11/26}   |
 | Linear Algebra for Data Science in R    | [/LinearAlgebraR]                  | {2018/11/29}   |
 | Foundations of Functional Programming   | [/FoundationsFunctionalWithPurrr]  | {2019/01/03}   |
-| Differential Expression Analysis in R   | [/DifferentialExpressionsR]        | {}
+| Differential Expression Analysis in R   | [/DifferentialExpressionsR]        | {}             | F
+| Hyperparameter Tuning in R              | [/HyperparameterTuningR]           | {}             |
 
 
 

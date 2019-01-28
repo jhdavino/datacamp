@@ -133,6 +133,54 @@ cm <- makeContrasts(type_normal = vte2.normal - col.normal,
 
 
 # Pre- and post-processing
+- Now we're going to move on to how to manage unclean data.
+- Steps that will apply to most data will be:
+  1. Log transform.
+  2. Quantile Normalize.
+  3. Filter.
+- To investigate first, you will want to use `limma:plotDensities( <data>, legend = False)`.
+- When data has many 0's, then it the density plot will be very *Right Skewed.*.
+- You can use the function `limma:normailzeBetweenArrays( exprs( <data> ))` to normalize by quantiles.
+- If there is *still* a right skew, then you can take a sum of the rows and then only keep values above a certain point:
+```
+# Create logical vector
+keep <- rowMeans(exprs(eset)) > 5
+# Filter the genes
+eset <- eset[keep, ]
+plotDensities(eset, legend = FALSE)
+
+# -------------------
+# Determine the genes with mean expression level greater than 5
+keep <- rowMeans(exprs(eset)) > 5
+sum(keep)
+
+# Filter the genes
+eset <- eset[keep,]
+plotDensities(eset, legend = FALSE)
+```
+- The next biggest concern is **Technical Batch Effects**.
+- This is not unique to genomic data, but since there are so many features it is possible to detect them.
+- You need to balance variables of interest across batches.
+- To diagnose *Technical Batch Effects*, you can use dimensional reduction techniques:
+  * Principle Component Analysis.
+  * Multidimensional Scaling.
+- It starts with the largest source of variation in the Data set.
+- You can plot this using the function `limma::plotMDS(<data>, <labels>)`:
+```
+library(limma)
+plotMDS(eset, labels = pData(eset)[, "time"], gene.selection = "common")
+```
+- When you detect this *batch effect*, it can be undone using the function `removeBatchEffect()`
+```
+exprs(eset) <- removeBatchEffect(eset, batch = pData(eset)[, "batch"],
+                                 covariates = pData(eset)[, "rin"])
+```
+- This fits a linear model and returns the residuals.
+- When constructing your analysis, it is better to create a column for the batches and check how strong the affect is.
+- Once you have a model,
+-
+
+
 
 # Case Study: Effect of Doxorubicin Treatment
 
