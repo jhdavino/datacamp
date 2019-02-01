@@ -182,6 +182,113 @@ plotHyperParsEffect(hyperpar_effects,
 
 
 # Hyperparameter Turning with H20
+- Now we're going to talk about H2O.
+- This can be installed using `install.packages('h2o')`.
+- This package is for effeciently scaling Machine Learning.
+- You need to initialize it using function `h2o.init()`.
+- This can be run on a cluster but can run just fine locally.
+- You will need to convert the data into h20 frames using the function `as.h2o( <dataframe> )`.
+- **H20** has a built in function for splitting into train, validation and test sets.
+- This function is `h2o.splitFrame( data = <data>, ratios = c(<.n1>, <.n2>), seed = <n>)`.
+- They are contained in lists:
+  1. for train.
+  2. for validation.
+  3. for test.
+- You can use the function `summary()` with the passed parameter of `exact_quantiles = TRUE` to get the ratio of instances in each split.
+- The package comes with quite a few algorithms that can be used for distributed computing.
+  * Gradient Boosted models with `h2o.gbm()` & `h2o.xgboost()`.`
+  * Generalized linear models with `h2o.glm()`
+  * Random Forest models with `h2o.randomForest()`.
+  * Neural Networks with `h2o.deeplearning()`.
+- It also comes with functions to evaluate the performance.
+- An example would be the function `h2o,performance( gbm_model, test)`.
+```
+# Train random forest model
+rf_model <- h2o.randomForest(x = x,
+                             y = y,
+                             training_frame = train,
+                             validation_frame = valid)
+
+# Calculate model performance
+perf <- h2o.performance(rf_model, valid = TRUE)
+perf
+```
+```
+# Extract confusion matrix
+h2o.confusionMatrix(perf)
+```
+```
+# Extract logloss
+h2o.logloss(perf)
+```
+- *H2O* also supports *Cartesian Gird Search* and *Random Search*.
+- To adjust the hyperparameters, we would create a list with the values.
+- Then, we would pass the list to the parameter `hyper_params = <list>` inside the function `h2o.grid()`.
+```
+gbm_grid <- h2o.grid("gbm",
+                     grid_id = "gbm_grid",
+                     x = x,
+                     y = y,
+                     training_frame = train,
+                     validation_frame = valid,
+                     seed = 42,
+                     hyper_params = gbm_params)
+```
+- To get the results, we would use the function `h2o.getGrid()` using the defined *grid_id* we set above.
+- You can also sort the values by passing `sort_by = <metric>`.
+- Don't forget to tell it to set the `decreasing = TRUE` parameter.
+- Since we sorted the models, we can pull the best model using `best_gbm <- h2o.getModel(gbm_gridperf@model_ids[[1]])`
+- Each generated model has its own distinct ID.
+- We can get a summary of the hyperparameters using `best_gbm@model[["model_summary"]]`.
+- If you want to run a *Random Search* instead, then you will need to create a list with:
+```
+search_criteria <- list(strategy = "RandomDiscrete",
+                        max_runtime_secs = 60,
+                        seed = 42)
+```
+- Then, you would pass the that list to the parameter `search_criteria` in the function `h2o.grid()`.
+- You can also define stopping criteria inside the list passed.
+```
+# Define hyperparameters
+dl_params <- list(hidden = list(c(50, 50), c(100, 100)),
+                  epochs = c(5, 10, 15),
+                  rate = c(0.001, 0.005, 0.01))
+```
+
+```
+# Define early stopping
+stopping_params <- list(strategy = "RandomDiscrete",
+                        stopping_metric = "misclassification",
+                        seed = 42)
+```
+```
+# Define early stopping
+stopping_params <- list(strategy = "RandomDiscrete",
+                        stopping_metric = "misclassification",
+                        stopping_rounds = 2,
+                        stopping_tolerance = .1,
+                        seed = 42)
+```
+- The most interesting is *H2O's* **Automatic Machine Learning**.
+- **AutoML** goes beyond just one algorithm but instead tunes multiple algorithms.
+- This is much faster since all you need to do is pass three things:
+  1. A dataset.
+  2. A target.
+  3. A time or model number limit.
+- To run this, you call the function `h2o.automl()`.
+- You can get the best model by saving `automl_model@leader`.
+```
+# Run automatic machine learning
+automl_model <- h2o.automl(x = x,
+                           y = y,
+                           training_frame = train,
+                           max_runtime_secs = 10,
+                           sort_metric = "mean_per_class_error",
+                           valid = valid,
+                           seed = 42)
+```
+- These are also h2o objects and so can be fed to other h2o functions.
+
 
 # Research:
 - What is package `tictoc`?
