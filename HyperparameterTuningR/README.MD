@@ -88,6 +88,98 @@ fitControl <- trainControl(method = "adaptive_cv",
 ```
 
 # Hyperparameter Tuning in mlr
+- We're going to be exploring another Machine Learning Framework in R called **mlr**.
+- The workflow follows three steps:
+  1. Define the Task.
+  2. Define the Learner.
+  3. Fit the Model.
+```
+knowledge_data %>%
+  count(UNS)
+```
+- There are a few tasks:
+  * Regression: `RegrTask()`.
+  * Binary/Multi-class Classification: `ClassifTask()`.
+  * Multi-Label Classification: `MultilabelTask()`.
+  * General Cost Sensitive Classification: `ConstSensTask()`.
+- You will define the task with the format:
+```
+task <- makeClassifTask(data = knowledge_train_data,
+                        target = "UNS")
+```
+- You can find out what learners are available by calling the function `listLearners()`.
+- This is the format for a learner:
+```
+# Define learner
+lrn <- makeLearner("classif.h2o.deeplearning",
+                   fix.factors.prediction = TRUE,
+                   predict.type = "prob")
+```
+- This is the format you would use to train:
+```
+# Fit model
+model <- train(lrn,
+               task)
+```
+- To declare *hyperparameters*, you need three more steps:
+  1. Define the Search Space.
+  2. Define the Tuning Method; Grid vs Random.
+  3. Define the Resampling method.
+- To define the *Search Space*, we will need the function `makeParamSet()`.
+- There are lots of options for the type here.
+- You can get the parameters for a learner using the function `getParamSet('<learner-name>')`.
+- Once you have them, you will define the ranges that you're looking for in `makeParamSet()`.
+```
+param_set <- makeParamSet(
+  makeDiscreteParam("hidden", values = list(one = 10, two = c(10, 5, 10))),
+  makeDiscreteParam("activation", values = c("Rectifier", "Tanh")),
+  makeNumericParam("l1", lower = 0.0001, upper = 1),
+  makeNumericParam("l2", lower = 0.0001, upper = 1)
+)
+```
+- The tuning method still only has two options: Grid vs Random.
+- You select them with a function name:
+  * `makeTuneControlRandom()`
+  * `makeTuneControlGrid()`
+- There is a limitation on Grid in that it can *only* deal with discrete parameter sets.
+- Lastly, you define the resample strategy using function `makeResampleDesc()`.
+```
+cross_val <- makeResampleDesc("RepCV",
+                              predict = "both",
+                              folds = 5 * 3)
+```
+- You glue everything together with the function `tuneParams()`.
+```
+lrn_tune <- tuneParams(lrn,
+                       task,
+                       resampling = cross_val,
+                       control = ctrl_grid,
+                       par.set = param_set)
+```
+- Generally, we want to evaluate how different hyperparameters affect the performance.
+- You can collect the Hyperparameter values using the function `generateHyperParsEffectData( <lrn_tune>, partial.dep = TRUE)`.
+- You can then plot that data using the function `plotHyperParseEffect( <hyperpar_effects>, partial.dep.learn = "regr.randomForest", x = "l1", y = "mmce.test.mean", z = "hidden", plot.type = "line")`.
+```
+# Create holdout sampling
+holdout <- makeResampleDesc("Holdout")
+```
+```
+# Plot hyperparameter effects
+plotHyperParsEffect(hyperpar_effects,
+    partial.dep.learn = "regr.glm",
+    x = "minsplit", y = "mmce.test.mean", z = "maxdepth",
+    plot.type = "line")
+```
+- There are other more advanced tuning controls.
+  * makeTuneControlCMAES: CMA Evolution Strategy
+  * makeTuneControlDesign: Predefined data frame of hyperparameters
+  * makeTuneControlGenSA: Generalized simulated annealing
+  * makeTuneControlIrace: Tuning with iterated F-Racing
+  * makeTuneControlMBO: Model-based / Bayesian optimization
+- You can pass more than one metric for tuning the hyperparameters.
+- This parameter gets passed to the function `tuneParams( ..., measures = list( acc, mmce ))`
+- You can use the function `makeMeasure()` to create your own custom measurement functions.
+
 
 # Hyperparameter Turning with H20
 
@@ -95,7 +187,8 @@ fitControl <- trainControl(method = "adaptive_cv",
 - What is package `tictoc`?
 - " AdaBoost optimization algorithm from Freund and Shapire (1997)"
 - Bradley-Terry?
--
+
 
 
 # Reference:
+- [mlr package](https://mlr-org.github.io/mlr)
