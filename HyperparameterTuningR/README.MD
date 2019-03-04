@@ -296,6 +296,5 @@ automl_model <- h2o.automl(x = x,
 - Bradley-Terry?
 
 
-
 # Reference:
 - [mlr package](https://mlr-org.github.io/mlr)

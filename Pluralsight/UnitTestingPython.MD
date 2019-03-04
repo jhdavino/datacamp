@@ -5,7 +5,7 @@
 - A **Unit Test** is defined as a small test for a single element of code.
 - Where **element of code** means a method or function.
 - These are automated and report a simple pass/fail to each test.
-- With the strictest definition, if must not use the filesystem, a database or the network.
+- With the strictest definition, it must not use the filesystem, a database or the network.
 - You will import from the package `unittest`:
 ```python
 import unittest
@@ -50,7 +50,7 @@ def test_missing_entry_raises_KeyError(self):
 - To understand what you need to build, you will certainly need to collaborate.
 - You can think of the tests as *Executable Specification*.
 - The tests will force you to decompose your problem into units that are independently testable.
-- A **Regression** is when something used to work by no longer does.
+- A **Regression** is when something used to work but no longer does.
 - There are three places for tests:
   1. Test First.
   2. Test Last.
@@ -60,7 +60,7 @@ def test_missing_entry_raises_KeyError(self):
 # Using Pytest for Unit Testing in Python
 - We'll be switching over to using **PyTest** now.
 - **xUnit** is based on **JUnit** which is authored by Kent Beck and Erich Gamma.
-- *PyTest* is not included by default and you wil need to install it yourself.
+- *PyTest* is not included by default and you will need to install it yourself.
 - This can be done using `pip install -U pytest`.
 - Functions and files *must* be prefixed with `test_` for *pytest* to find it.
 - When you run tests - using `python -m pytest` - it will show you relevant information around the failure.
@@ -111,7 +111,7 @@ request.addfinalizer( cleanup_resource )
 
 
 # Test Doubles: Mocks, Fakes and Stubs
-- **Test Dboule** is whnen a class under test doesn't know it's not talking to a real object.
+- **Test Double** is when a class under test doesn't know it's not talking to a real object.
 - This allows you to control what happens to the class while being tested.
 - A **Stub** is something that stands in for a class of function that is difficult to use in a test case.
 - *unittest* comes with something called **Mock** for building stubs.

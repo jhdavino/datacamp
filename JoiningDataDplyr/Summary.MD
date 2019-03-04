@@ -39,7 +39,7 @@
 	2. `bind_cols()`
 - `bind_rows()` is similair to `rbind()`
 - You can think of `bind_cols` as a lazy join.
-- `bing_cols` assumes joining rows are already in order.
+- `bind_cols` assumes joining rows are already in order.
 - You can mark which datatable the data came from using `bind_rows( datatable1 = <dt_1>, datatable2 = <dt_2>, .id = originalTable )`
 - Dplyr also has its own `data.table()` and `as.data.table()` in `data_table()` and `as_data_table()`.
 - It avoids the following undesirable behavior:
