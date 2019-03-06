@@ -93,6 +93,160 @@ print(df.agg({'LISTPRICE': 'skewness'}).collect())
 ```
 
 # Wrangling with Spark Functions
+- Garbage in, Garbage Out Mantra.
+- Issues that can crop up with data:
+  * Recorded wrong.
+  * Unique events.
+  * Formatted Incorrectly.
+  * Duplications.
+  * Missing.
+  * Data not relevant.
+- You can drop columns using the function `df.drop()`
+```python
+# List of columns to drop
+cols_to_drop = ['NO', 'UNITNUMBER', 'CLASS']
+# Drop the columns; don't forget the star.
+df = df.drop(*cols_to_drop)
+```
+- You can filter text in a dataframe using:
+  1. `.where()` by passing a condition.
+  2. `.like()` is similar to SQL like for pattern matching.
+  3. The `~` means logical not inside these conditions.
+```
+df = df.where(~df['POTENTIALSHORTSALE'].like('Not Disclosed'))
+```
+- It might be worth filtering Outliers.
+- You can drop `NA` or `Null` values using the function `df.dropna()`
+  * `.dropna()` by itself will drop any record that has any.
+  * `.dropna( how=all, subset['col1', 'col2'])` will drop columns only if all of `col1` and `col2` have NAs.
+  * `.dropna( thresh = 2)` will drop the record if `<n>` values are found.
+- You can drop duplicate rows with the function `df.dropDuplicates()`.
+- You can always pass a list of column names to limit the drop search to only certain columns.
+```python
+# Filter the text values out of df but keep null values
+text_filter = ~df['ASSUMABLEMORTGAGE'].isin(yes_values) | df['ASSUMABLEMORTGAGE'].isNull()
+df = df.where(text_filter)
+```
+- "Data does not give up its secrets easily; it must confess" *Jeff Huber*
+- One way to deal with data is to scale it so that it's on the same scale.
+- This is sometimes called **MinMax Scalaing**
+![MinMax Scaling formula]()
+- **Standardization** is when you transform the data into a Standard Normal Distribution.
+- I way to manage skewed data is to log transform it.
+```
+# import the log function
+from pyspark.sql.functions import log
+ # Recalculate log of SALESCLOSEPRICE
+df = df.withColumn('log_SalesClosePrice', log(df['SALESCLOSEPRICE']))
+```
+```
+# Compute the skewness
+print(df.agg({"YEARBUILT": 'skewness'}).collect())
+```
+- There are a few kinds of different missing values:
+  * **Missing Completely at Random**: just completely random.
+  * **Missing at Random**: Missing conditionally at random based on another observation.
+  * **Missing Not at Random**: Data is missing because of how it is collected.
+- If you only have a few missing values and they're missing *completely at random* then it might be fine to remove the rows.
+- You can also use visualizations to assist with reasoning about missing values:
+```python
+# Import library
+import seaborn as sns
+# subset the dataframe
+sub_df = df.select(['ROOMAREA1'])
+# sample the dataframe
+sample_df = sub_df.sample(False, .5, 4)
+# Convert to Pandas DataFrame
+pandas_df = sample_df.toPandas()
+# Plot it
+sns.heatmap(data=pandas_df.isnull())
+```
+- Another way to deal with missing data is to do an Imputation of Missing Values.
+- Make sure you **really** understand the data before even attempting to make decisions about imputing missing values.
+- You can use the function `df.fillna()` to replace missing values:
+```python
+# Replacing missing values with zero
+df.fillna(0, subset=['DAYSONMARKET'])
+
+# Replacing with the mean value for that column
+col_mean = df.agg({'DAYSONMARKET': 'mean'}).collect()[0][0]
+df.fillna(col_mean, subset=['DAYSONMARKET'])
+```
+```
+# Sample the dataframe and convert to Pandas
+sample_df = df.select( columns ).sample(False, 0.5, 42)
+pandas_df = sample_df.toPandas()
+
+# Convert all values to T/F
+tf_df = pandas_df.isnull()
+
+# Plot it
+sns.heatmap(data=tf_df)
+plt.xticks(rotation=30, fontsize=10)
+plt.yticks(rotation=0, fontsize=10)
+plt.show()
+```
+- Adding external data may add important predictors, but too many features might end up with spurious correlations.
+- The extra data may supplement or replace values, but could also induce data leakage.
+- Getting more data could be really cheap to include, but just means that you'll need domain expertise to understand it.
+- There are a few ways to do joins, but will mostly be *Left* and *Inner* Joins.
+- An example:
+```python
+DataFrame.join(
+    other,      # Other DataFrame to merge
+    on=None,    # The keys to join on
+    how=None)   # Type of join to perform (default is 'inner')
+```
+- If you're more familiar with SQL statements, then *PySpark* provides the function `spark.sql()`:
+```python
+# Register the dataframe as a temp table
+df.createOrReplaceTempView("df")
+hdf.createOrReplaceTempView("hdf")
+
+# Write a SQL Statement
+sql_df = spark.sql("""
+                      SELECT
+                        *
+                      FROM df
+                      LEFT JOIN hdf
+                      ON df.OFFMARKETDATE = hdf.dt
+                   """)
+```
+```
+# Cast data types
+walk_df = walk_df.withColumn('longitude', walk_df['longitude'].cast('double'))
+walk_df = walk_df.withColumn('latitude', walk_df['latitude'].cast('double'))
+
+# Round percision
+df = df.withColumn('longitude', round(df['longitude'], 5))
+df = df.withColumn('latitude', round(df['latitude'], 5))
+
+# Create join condition
+condition = [(df['longitude'] == walk_df['longitude']), (df['latitude'] == walk_df['latitude'])]
+
+# Join the dataframes together
+join_df = df.join(walk_df, on=condition, how='left')
+# Count non-null records from new field
+print(join_df.where(~join_df['walkscore'].isNull()).count())
+```
+```
+# Register dataframes as tables
+df.createOrReplaceTempView("df")
+walk_df.createOrReplaceTempView("walk_df")
+
+# SQL to join dataframes
+join_sql = 	"""
+			SELECT
+				*
+			FROM df
+			LEFT JOIN walk_df
+			ON df.longitude = walk_df.longitude
+			AND df.latitude = walk_df.latitude
+			"""
+# Perform sql join
+joined_df = spark.sql(join_sql)
+```
+
 
 # Feature Engineering
 
