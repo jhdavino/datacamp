@@ -172,7 +172,7 @@ df.fillna(0, subset=['DAYSONMARKET'])
 col_mean = df.agg({'DAYSONMARKET': 'mean'}).collect()[0][0]
 df.fillna(col_mean, subset=['DAYSONMARKET'])
 ```
-```
+```python
 # Sample the dataframe and convert to Pandas
 sample_df = df.select( columns ).sample(False, 0.5, 42)
 pandas_df = sample_df.toPandas()
@@ -212,7 +212,7 @@ sql_df = spark.sql("""
                       ON df.OFFMARKETDATE = hdf.dt
                    """)
 ```
-```
+```python
 # Cast data types
 walk_df = walk_df.withColumn('longitude', walk_df['longitude'].cast('double'))
 walk_df = walk_df.withColumn('latitude', walk_df['latitude'].cast('double'))
@@ -229,7 +229,7 @@ join_df = df.join(walk_df, on=condition, how='left')
 # Count non-null records from new field
 print(join_df.where(~join_df['walkscore'].isNull()).count())
 ```
-```
+```python
 # Register dataframes as tables
 df.createOrReplaceTempView("df")
 walk_df.createOrReplaceTempView("walk_df")
@@ -249,9 +249,133 @@ joined_df = spark.sql(join_sql)
 
 
 # Feature Engineering
+- Simply because you have data and Machine Learning does not mean it can figure out everything itself.
+- You can generate new features using Multiplication, Summing, Differencing and Dividing.
+```python
+# Linear model plots
+sns.jointplot(x="Total_SQFT", y="SALESCLOSEPRICE", data=pandas_df, kind="reg", stat_func=r2)
+plt.show()
+sns.jointplot(x="BATHS_PER_1000SQFT", y="SALESCLOSEPRICE", data=pandas_df, kind="reg", stat_func=r2)
+plt.show()
+```
+- We want to assist our model in managing cycles in data.
+- You can convert to a data using the function `to_date()`.
+- If you want to keep the timestamps, then use function `to_timestamp()`.
+- You can also extract the year and month once in time format using the functions `year()` and `month()`.
+- You can also get the day of the month or the week of the year with functions `dayofmonth()` and `yearofmonth()`.
+- **Lagging Features** is for features where there is a time difference between when the impact is felt and the event.
+- We will need the function `window()` to allow us to run an aggregation against a group of records.
+- The function `lag()` will return the value that is `count` rows before the current row.
+```python
+from pyspark.sql.functions import lag
+from pyspark.sql.window import Window
+ # Create Window
+w = Window().orderBy(m_df['DATE'])
+ # Create lagged column
+m_df = m_df.withColumn('MORTGAGE-1wk', lag('MORTGAGE', count=1).over(w))
+ # Inspect results
+m_df.show(3)
+```
+- You can calculate the difference between two dates using the function `datediff()`.
+```python
+# Calculate difference between date columns
+mort_df = mort_df.withColumn('Days_Between_Report', datediff('DATE', 'DATE-1'))
+# Print results
+mort_df.select('Days_Between_Report').distinct().show()
+```
+- Extracting and creating a Boolean value form text can be done with the function `when()`
+```python
+# Create boolean filters
+find_under_8 = df['ROOF'].like('%Age 8 Years or Less%')
+find_over_8 = df['ROOF'].like('%Age Over 8 Years%')
 
-# Building a Model
+# Apply filters using when() and otherwise()
+df = df.withColumn('old_roof', (when(find_over_8, 1)
+                               .when(find_under_8, 0)
+                               .otherwise(None)))
+```
+- You can split a column using the function `split()`.
+```python
+# Put the first value of the list into a new column
+df = df.withColumn('Roof_Material', split_col.getItem(0))
+# Inspect results
+df[['ROOF', 'Roof_Material']].show(5, truncate=100)
+```
+- **Exploding** is when you take the values from a split and duplicate the columns.
+
+```python
+from pyspark.sql.functions import split, explode, lit, coalesce, first
+
+ # Split the column on commas into a list
+df = df.withColumn('roof_list', split(df['ROOF'], ', '))
+
+ # Explode list into new records for each value
+ex_df = df.withColumn('ex_roof_list', explode(df['roof_list']))
+
+ # Create a dummy column of constant value
+ex_df = ex_df.withColumn('constant_val', lit(1))
+
+ # Pivot the values into boolean columns
+piv_df = ex_df.groupBy('NO').pivot('ex_roof_list')\
+  .agg(coalesce(first('constant_val')))
+```
+
+- **Binarizing** is a great way to collapse some of the complexity of the features to YES or NO.
+
+```python
+from pyspark.ml.feature import Binarizer
+ # Cast the data type to double
+df = df.withColumn('FIREPLACES', df['FIREPLACES'].cast('double'))
+ # Create binarizing transformer
+bin = Binarizer(threshold=0.0, inputCol='FIREPLACES', outputCol='FireplaceT')
+# Apply the transformer
+df = bin.transform(df)
+```
+
+- **Bucketing** is a way to define ordinal values.
+
+```python
+from pyspark.ml.feature import Bucketizer
+# Define how to split data
+splits = [0, 1, 2, 3, 4, float('Inf')]
+# Create bucketing transformer
+buck = Bucketizer(splits=splits, inputCol='BATHSTOTAL', outputCol='baths')
+# Apply transformer
+df = buck.transform(df)
+# Inspect results
+df[['BATHSTOTAL', 'baths']].show(4)
+```
+
+- **One Hot Encoding** is where you pivot values in a column into their own TRUE/FALSE columns.
+
+```python
+from pyspark.ml.feature import OneHotEncoder, StringIndexer
+# Create indexer transformer
+stringIndexer = StringIndexer(inputCol='CITY', outputCol='City_Index')
+ # Fit transformer
+model = stringIndexer.fit(df)
+# Apply transformer
+indexed = model.transform(df)
+
+# Create encoder transformer
+encoder = OneHotEncoder(inputCol='City_Index', outputCol='City_Vec)
+
+# Apply the encoder transformer
+encoded_df = encoder.transform(indexed)
+
+# Inspect results
+encoded_df[['City_Vec']].show(4)
+```
+
+- Note that the last value in the list is not included since it is linearly dependent on the others.
+-
+
+
+python# Building a Model
 
 # Research:
+- FeatureTools package.
+- TSFresh package.
+
 
 # Reference:
