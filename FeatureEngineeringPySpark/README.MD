@@ -130,7 +130,6 @@ df = df.where(text_filter)
 - "Data does not give up its secrets easily; it must confess" *Jeff Huber*
 - One way to deal with data is to scale it so that it's on the same scale.
 - This is sometimes called **MinMax Scalaing**
-![MinMax Scaling formula]()
 - **Standardization** is when you transform the data into a Standard Normal Distribution.
 - I way to manage skewed data is to log transform it.
 ```
@@ -316,12 +315,9 @@ ex_df = df.withColumn('ex_roof_list', explode(df['roof_list']))
 ex_df = ex_df.withColumn('constant_val', lit(1))
 
  # Pivot the values into boolean columns
-piv_df = ex_df.groupBy('NO').pivot('ex_roof_list')\
-  .agg(coalesce(first('constant_val')))
+piv_df = ex_df.groupBy('NO').pivot('ex_roof_list').agg(coalesce(first('constant_val')))
 ```
-
 - **Binarizing** is a great way to collapse some of the complexity of the features to YES or NO.
-
 ```python
 from pyspark.ml.feature import Binarizer
  # Cast the data type to double
@@ -331,9 +327,7 @@ bin = Binarizer(threshold=0.0, inputCol='FIREPLACES', outputCol='FireplaceT')
 # Apply the transformer
 df = bin.transform(df)
 ```
-
 - **Bucketing** is a way to define ordinal values.
-
 ```python
 from pyspark.ml.feature import Bucketizer
 # Define how to split data
@@ -345,9 +339,7 @@ df = buck.transform(df)
 # Inspect results
 df[['BATHSTOTAL', 'baths']].show(4)
 ```
-
 - **One Hot Encoding** is where you pivot values in a column into their own TRUE/FALSE columns.
-
 ```python
 from pyspark.ml.feature import OneHotEncoder, StringIndexer
 # Create indexer transformer
@@ -366,12 +358,155 @@ encoded_df = encoder.transform(indexed)
 # Inspect results
 encoded_df[['City_Vec']].show(4)
 ```
-
 - Note that the last value in the list is not included since it is linearly dependent on the others.
--
+- One Hot Encoding is a great way to handle categorial variables.
+- The implementation in PySpark is different than Pandas `get_dummies()` as it puts everything into a single column of type vector rather than a new column for each value.
+- It's also different from sklearn's OneHotEncoder in that the last categorical value is captured by a vector of all zeros.
 
 
-python# Building a Model
+# Building a Model
+- While Spark has lots of different Algorithms for us to select from, the onus is on us to pick the right one.
+- Here is a handy graph to assist:
+![Graph to assist in picking the right Algorithm](images/algorithm-selector-reminder.png)
+- Running a Time Series analysis is harder since it leaks information from the future.
+- We will need to adjust for this:
+```python
+# Create variables for max and min dates in our dataset
+max_date = df.agg({'OFFMKTDATE': 'max'}).collect()[0][0]
+min_date = df.agg({'OFFMKTDATE': 'min'}).collect()[0][0]
+ # Find how many days our data spans
+from pyspark.sql.functions import datediff
+range_in_days = datediff(max_date, min_date)
+
+# Find the date to split the dataset on
+from pyspark.sql.functions import date_add
+split_in_days = round(range_in_days * 0.8)
+split_date = date_add(min_date, split_in_days)
+
+# Split the data into 80% train, 20% test
+train_df = df.where(df['OFFMKTDATE'] < split_date)
+test_df = df.where(df['OFFMKTDATE'] >= split_date)\
+  .where(df['LISTDATE'] >= split_date)
+```
+- This example will use the lit() function. This function is used to allow single values where an entire column is expected in a function call.
+```python
+from pyspark.sql.functions import datediff, to_date, lit
+
+split_date = to_date(lit('2017-12-10'))
+# Create Sequential Test set
+test_df = df.where(df["OFFMKTDATE"] >= split_date).where(df["LISTDATE"] <= split_date)
+
+# Create a copy of DAYSONMARKET to review later
+test_df = test_df.withColumn('DAYSONMARKET_Original', test_df['DAYSONMARKET'])
+
+# Recalculate DAYSONMARKET from what we know on our split date
+test_df = test_df.withColumn('DAYSONMARKET', datediff(split_date, "LISTDATE"))
+
+# Review the difference
+test_df[['LISTDATE', 'OFFMKTDATE', 'DAYSONMARKET_Original', 'DAYSONMARKET']].show()
+```
+- Each Machine Learning Algorithm has its own assumptions that you need to take into account when building models.
+- PySpark Machine Learning Algos expect the features to all be in one column of type **Vector**.
+- Sadly, while Regression Trees can handle missing values, Vectors cannot.
+- We can just replace the missing values with something outside the variables to tell it to ignore it.
+```python
+from pyspark.ml.feature import VectorAssembler
+ # Replace Missing values
+df = df.fillna(-1)
+
+# Define the columns to be converted to vectors
+features_cols = list(df.columns)
+ # Remove the dependent variable from the list
+features_cols.remove('SALESCLOSEPRICE')
+
+# Create the vector assembler transformer
+vec = VectorAssembler(inputCols=features_cols, outputCol='features')
+# Apply the vector transformer to data
+df = vec.transform(df)
+# Select only the feature vectors and the dependent variable
+ml_ready_df = df.select(['SALESCLOSEPRICE', 'features'])
+# Inspect Results
+ml_ready_df.show(5)
+```
+```python
+# Replace missing values
+df = df.fillna(-1, subset=['WALKSCORE', 'BIKESCORE'])
+
+# Create list of StringIndexers using list comprehension
+indexers = [StringIndexer(inputCol=col, outputCol=col+"_IDX")\
+            .setHandleInvalid("keep") for col in categorical_cols]
+# Create pipeline of indexers
+indexer_pipeline = Pipeline(stages=indexers)
+# Fit and Transform the pipeline to the original data
+df_indexed = indexer_pipeline.fit(df).transform(df)
+
+# Clean up redundant columns
+df_indexed = df_indexed.drop(*categorical_cols)
+# Inspect data transformations
+print(df_indexed.dtypes)
+```
+- There are some parameters that you will need to pass to our Model:
+  * `featureCol` for the feature data.
+  * `labelCol` which sets the dependent variable.
+  * `predictionCol` for the name we can to call the prediction result column.
+  * `seed` to ensure that the model is reproducible.
+```python
+from pyspark.ml.regression import RandomForestRegressor
+ # Initialize model with columns to utilize
+rf = RandomForestRegressor(featuresCol="features",
+                           labelCol="SALESCLOSEPRICE",
+                           predictionCol="Prediction_Price",
+                           seed=42
+                           )
+ # Train model
+model = rf.fit(train_df)
+```
+- To make predictions now, we just call `model.transform(<test_df>)`; or, new data that we have.
+- You will just need to apply the same preprocessing to new data.
+- To evaluate the model, we will need the function `RegressionEvaluator`.
+- Once the *Evaluator* object is created, we can then then metrics against it.
+```python
+from pyspark.ml.evaluation import RegressionEvaluator
+ # Select columns to compute test error
+evaluator = RegressionEvaluator(labelCol="SALESCLOSEPRICE",
+                                predictionCol="Prediction_Price")
+ # Create evaluation metrics
+rmse = evaluator.evaluate(predictions, {evaluator.metricName: "rmse"})
+r2 = evaluator.evaluate(predictions, {evaluator.metricName: "r2"})
+```
+```python
+from pyspark.ml.evaluation import RegressionEvaluator
+
+# Select columns to compute test error
+evaluator = RegressionEvaluator(labelCol="SALESCLOSEPRICE",
+                                predictionCol="Prediction_Price")
+# Dictionary of model predictions to loop over
+models = {'Gradient Boosted Trees': gbt_predictions, 'Random Forest Regression': rfr_predictions}
+for key, preds in models.items():
+  # Create evaluation metrics
+  rmse = evaluator.evaluate(preds, {evaluator.metricName: "rmse"})
+  r2 = evaluator.evaluate(preds, {evaluator.metricName: "r2"})
+```
+- Now we'll move on to intepreting the model.
+- Doing this in Spark would be overkillself.
+```python
+import pandas as pd
+ # Convert feature importances to a pandas column
+fi_df = pd.DataFrame(model.featureImportances.toArray(),
+                     columns=['importance'])
+ # Convert list of feature names to pandas column
+fi_df['feature'] = pd.Series(feature_cols)
+ # Sort the data based on feature importance
+fi_df.sort_values(by=['importance'], ascending=False, inplace=True)
+```
+- You can easily save your model using then function `model.save('a-name')`.
+- To import a model, you will need the necessary model that you used to build it first.
+```python
+from pyspark.ml.regression import RandomForestRegressionModel
+
+# Load model from
+model2 = RandomForestRegressionModel.load('rfr_real_estate_model')
+```
 
 # Research:
 - FeatureTools package.
