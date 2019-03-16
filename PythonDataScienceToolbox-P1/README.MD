@@ -37,7 +37,40 @@ for key,value in kwargs.items():
 
 
 # Lambda Functions and Error-Handling
-- 
+- A **Lambda** function is a function without a name.
+- We define one using:
+```python
+lambda x, y: <what-it-does>
+```
+- You can do something like:
+```python
+map( <func>, <target>)
+echo_word = (lambda word1,echo: word1 * echo)
+```
+```python
+# Use filter() to apply a lambda function over fellowship: result
+result = filter(lambda member: len(member)>6, fellowship)
+```
+- If your program runs into a problem, then it should throw an error.
+- Unlike Web Design, programs should not fail silently.
+- We should also write errors that are interpretable to users.
+- Python uses a *try-except* clause for errors.
+- In circumstances where we would like to intentionally use the error structure of Python, we can:
+```python
+if x < 0:
+  raise ValueError('x must be non-negative')
+```
+```python
+# Select retweets from the Twitter DataFrame: result
+result = filter(lambda x: x[0:2] == 'RT', tweets_df['text'])
+
+# Create list from filter object result: res_list
+res_list = list( result )
+
+# Print all retweets in res_list
+for tweet in res_list:
+    print(tweet)
+```
 
 
 # Research:
