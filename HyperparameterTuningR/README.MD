@@ -87,6 +87,7 @@ fitControl <- trainControl(method = "adaptive_cv",
                            search = "random")
 ```
 
+
 # Hyperparameter Tuning in mlr
 - We're going to be exploring another Machine Learning Framework in R called **mlr**.
 - The workflow follows three steps:
@@ -201,7 +202,7 @@ plotHyperParsEffect(hyperpar_effects,
   * Random Forest models with `h2o.randomForest()`.
   * Neural Networks with `h2o.deeplearning()`.
 - It also comes with functions to evaluate the performance.
-- An example would be the function `h2o,performance( gbm_model, test)`.
+- An example would be the function `h2o.performance( gbm_model, test)`.
 ```
 # Train random forest model
 rf_model <- h2o.randomForest(x = x,

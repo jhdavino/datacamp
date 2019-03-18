@@ -12,7 +12,7 @@
  * Randomize.
  * Replication.
  * Blocking.
-- **Randomizatoin** evenly distributes any variability in outcome due to outside factors across treatment groups.
+- **Randomization** evenly distributes any variability in outcome due to outside factors across treatment groups.
 - **Replication** must repeat an experiment to fully access variability.
 - To run a two sided T-Test use `t.test(x = ToothGrowth$len, alternative = "two.sided" , mu = 18)`.
 - Generate and Analysis of Variance using the function `aov(<formula>, <data>)`.
