@@ -61,8 +61,47 @@ df[ column_list2 ].plot()
 plt.show()
 ```
 
-
 # Exploratory Data Analysis
+- Now we'll discuss *Visual Exploratory Data Analysis*.
+- By default, `.plot(x= <col1>, y=<col2>)` plots a line plot.
+- You can change the type of plot using the parameter `kind='scatter'`.
+- Types:
+  * `box` is a boxplot
+  * `hist` is a histogram.
+![Historgram options](images/Histogram-options.png)
+- You can specify that you want a **Cumulative Density Function** using the parameter `cumulative=True`.
+- You can specify that you want the data normed using the parameter `normed=True`.
+```python
+# Create a list of y-axis column names: y_columns
+y_columns = ['AAPL', 'IBM']
+
+# Generate a line plot
+df.plot(x='Month', y=y_columns)
+
+# Add the title
+plt.title('Monthly stock prices')
+
+# Add the y-axis label
+plt.ylabel('Price ($US)')
+
+# Display the plot
+plt.show()
+```
+```python
+# Make a list of the column names to be plotted: cols
+cols = ['weight', 'mpg']
+
+# Generate the box plots
+df[cols].plot(kind = 'box', subplots = True)
+
+# Display the plot
+plt.show()
+```
+- You can use the function `.describe()` to get summary statistics.
+- If you want the actual value then you need to call the function `.count()`.
+- This is because Python is lazy loading and wont actually calculate it until you do.
+- 
+
 
 # Time Series in Pandas
 
