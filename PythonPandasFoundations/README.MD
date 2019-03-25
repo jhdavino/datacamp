@@ -100,10 +100,26 @@ plt.show()
 - You can use the function `.describe()` to get summary statistics.
 - If you want the actual value then you need to call the function `.count()`.
 - This is because Python is lazy loading and wont actually calculate it until you do.
-- 
+- Asking *pandas* to `.describe()` a row with species information then it will return:
+  * The **count** of objects in the column.
+  * The number of *unique* values in the column.
+  * The most common category.
+  * The frequency of the most common.
+- To filter in pandas, you will need to select out the indices and then subset them.
+```python
+indices = iris['species'] == 'setosa'
+setosa = iris.loc[indices,:]
+```
+- You can show multiple plots with:
+```python
+# Display the box plots on 3 separate rows and 1 column
+fig, axes = plt.subplots(nrows=3, ncols=1)
+```
 
 
 # Time Series in Pandas
+
+
 
 # Case Study: Sunlight in Austin
 
