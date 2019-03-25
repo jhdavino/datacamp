@@ -118,7 +118,69 @@ fig, axes = plt.subplots(nrows=3, ncols=1)
 
 
 # Time Series in Pandas
+- Now we'll see how to deal the **Time Series** information.
+- The data is stored internally as datetime objects.
+- The parameter `parse_dates = True` will help with converting strings of date data into datetime objects.
+- When dealing with dates, it is best practice to set the data's index to the date column with `index_col = '<col-name>'`.
+- When selecting columns based on data - and the date being the index -, one can use a subset of the date string.
+- This feature is called **Partial String Selection**.
+- You can use the function `pd.to_datetime()` to convert strings to datetime objects.
+- You can *re-index* data using the function `.reindex()`.
+- When re-indexing, you can override the default filling of missing values using the parameter `method=<method>`.
+- Here are some of the options:
+  * `method = 'ffill'` for **Forward Fill**.
+  * `method = 'bfill'` for **Back Fill**.
+```python
+# Prepare a format string: time_format
+time_format = '%Y-%m-%d %H:%M'
 
+# Convert date_list into a datetime object: my_datetimes
+my_datetimes = pd.to_datetime(date_list, format=time_format)  
+```
+```python
+# Extract the hour from 9pm to 10pm on '2010-10-11': ts1
+ts1 = ts0.loc['2010-10-11 21:00:00':'2010-10-11 22:00:00']
+
+# Extract '2010-07-04' from ts0: ts2
+ts2 = ts0.loc['2010-07-04']
+
+# Extract data from '2010-12-15' to '2010-12-31': ts3
+ts3 = ts0.loc['2010-12-15':'2010-12-31']
+```
+- You can added times series values together.
+- Now we'll discuss sampling from Time Series.
+- **Down Sampling** is reducing the datetime rows to slower frequency.
+  * I.e. going from daily samples to weekly samples.
+- **Up Sampling** is increasing the datetime rows to faster frequency.
+  * I.e. going from daily to hourly.
+- To specify, you would call `sales.resample('D').<statistic>`.
+- Here the `D` stands for *Daily* and not *Down Sample*.
+- Columns that are not numerical are ignored.
+- Remember to use method chaining when doing the resampling since it's best practice.
+- Here are some of the options:
+![Pandas Resample Options](images\resampling-cheetsheet.png)
+- It allows you to multiply them as well; `.resample('2W')` means over 2 weeks.
+- The fill methods are also their own functions: `.ffill()`, `.bfill()`.
+```python
+# Extract temperature data for August: august
+august = df['Temperature']['2010-August']
+```
+- You can calculate a **Rolling Statistic** using the function `.rolling()`.
+```python
+# Apply a rolling mean with a 24 hour window: smoothed
+smoothed = unsmoothed.rolling(window=24).mean()
+```
+- You can use some string manipulation methods.
+  * `.str.upper()` to convert to all upper case.
+  * `.contains()` to look for a particular string.
+  * `.dt.tz_localize('US/Central')` to convert times to different timezone.
+  * or `.dt.tz_convert('US/Eastern')`.
+- You can extract the first value using the function `.first()`.
+- Rather than filling, one can also interpolate using the function `.interpolate()`
+- There are a few options for this:
+  * `linear` for linear regression.
+- You can re-set the index using the function `pd.set_index('<column>')`.
+- You can also tell it to replace that column using the parameter `inplace=True`.
 
 
 # Case Study: Sunlight in Austin
