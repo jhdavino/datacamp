@@ -184,6 +184,24 @@ smoothed = unsmoothed.rolling(window=24).mean()
 
 
 # Case Study: Sunlight in Austin
+- Don't forget to specify the axis when dropping data:
+```python
+# Remove the appropriate columns: df_dropped
+df_dropped = df.drop( list_to_drop, axis = 'columns')
+```
+```python
+# Convert the dry_bulb_faren column to numeric values: df_clean['dry_bulb_faren']
+df_clean['dry_bulb_faren'] = pd.to_numeric(df_clean['dry_bulb_faren'], errors='coerce')
+```
+```python
+# Extract the Temperature column from daily_climate using .reset_index(): daily_temp_climate
+daily_temp_climate = daily_climate.reset_index()['Temperature']
+```
+- You don't always need to aggregate:
+```python
+# Resample is_sky_clear by day
+resampled = is_sky_clear.resample('D')
+```
 
 # Research:
 

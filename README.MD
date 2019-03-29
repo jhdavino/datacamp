@@ -75,7 +75,7 @@
 | Hyperparameter Tuning in R              | [/HyperparameterTuningR]           | {2019/02/1}    |
 | Feature Engineering in PySpark          | [/FeatureEngineeringPySpark]       | {2019/03/11}   |
 | Python Data Science Toolbox, Part 1     | [/PythonDataScienceToolbox-P1]     | {2019/03/16}   |
-| Pandas Foundations                      | [/PythonPandasFoundations]         | {}             |
+| Pandas Foundations                      | [/PythonPandasFoundations]         | {2019/03/29}   |
 
 
 
