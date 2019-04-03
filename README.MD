@@ -76,6 +76,7 @@
 | Feature Engineering in PySpark          | [/FeatureEngineeringPySpark]       | {2019/03/11}   |
 | Python Data Science Toolbox, Part 1     | [/PythonDataScienceToolbox-P1]     | {2019/03/16}   |
 | Pandas Foundations                      | [/PythonPandasFoundations]         | {2019/03/29}   |
+| Writing Efficient Python Code           | [/EfficientPython]                 | {}             |
 
 
 
