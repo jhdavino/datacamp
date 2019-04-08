@@ -90,6 +90,77 @@ times.worst   # for the worst run.
 
 
 # Gaining Efficiencies
+- We could enumerate over the list to collect all the data together.
+- But, Python has the function `zip()` which can do this for us.
+- The function returns a class that needs to be unpacked to collect the actual values.
+- The *collections* module has lots of general purpose alternatives to the default data structures.
+- Here are some examples:
+![Example of Collection Data Structures](images/collections-data-structure-examples.png)
+- Normally, to count the number of distinct objects has some logically overhead.
+- With the `collections.Counter()` function, it can take care of that overhead for us.
+```python
+from collections import Counter
+
+type_counts = Counter( poke_types )
+```
+- *Counter* returns a dictionary of type based key,value pairs with the value being the actual counts.
+- Another module called *itertools* is useful for creating and using iterators.
+- Here are some examples:
+![Examples of some itertool types](images/itertools-examples.png)
+- Say that we wanted to create a combinatorial list of all values from a list.
+- We could do this ourselves but *itertools* already has a function to efficiently do this.
+```python
+from itertools import combinations
+combos = combinations( poke_types, 2)
+```
+- You will need to unpack the values into a list once generated.
+- If you combine lists with multiple lengths, then it will only return up to the length of the shortest list.
+```python
+# Combine five items from names and three items from primary_types
+differing_lengths = [*zip(names[:5], primary_types[:3])]
+```
+- Often, we'd like to compare objects for their similarities and differences.
+- When doing this, it is best to use **Set Theory** from Mathematics.
+- Python comes with a built-in *set* datatype.
+- Here are some examples:
+![Examples of Set Functions in Python](images/set-theory-functions.png)
+- Sets also have very fast membership testing.
+```python
+set_a.intersection( set_b )
+set_a.difference( set_b )
+
+# is in one of them but not both:
+set_a.symmetic_difference( set_b )
+```
+- A **Set** is defined as a collection of distinct elements.
+- Loops are not necessarily poor practice but they can slow down code.
+- There are some benefits to eliminating loops:
+  * Fewer lines of code.
+  * Better code readability.
+- You can sum columns in numpy much faster than in a for loop:
+```python
+# Create a total stats array
+total_stats_np = names.sum(axis=1)
+```
+- Sometimes you cannot remove the loops though.
+- The best way to refactor loops is to analyze what's done per loop iteration.
+- Anything that is done once should be moved outside of the loop.
+```python
+# Import Counter
+from collections import Counter
+
+# Collect the count of each generation
+gen_counts = Counter( generations )
+
+# Improve for loop by moving one calculation above the loop
+total_count = sum( gen_counts.values())
+
+for gen,count in gen_counts.items():
+    gen_percent = round( count / total_count, 2)
+    print('generation {}: count = {:3} percentage = {}'
+          .format(gen, count, gen_percent))
+```
+
 
 # Basic Pandas Optimizations
 
