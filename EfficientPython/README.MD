@@ -16,7 +16,7 @@ best_list = [name for name in names if len(name) >= 6]
 print(best_list)
 ```
 - Python's built-ins have been optimized to work quickly within python.
-- The function `range()` is exclusive; meaning a paramater `11` will give the list `[0, ..., 10]`.
+- The function `range()` is exclusive; meaning a parameter `11` will give the list `[0, ..., 10]`.
 - To create a list of indexed items from a list, use the function `enumerate( <list> )`.
 - You can also tell it to skip values and start later using the parameter `start=<n>`.
 - You can use a function on all values in a list using the function `map()`.
@@ -163,6 +163,40 @@ for gen,count in gen_counts.items():
 
 
 # Basic Pandas Optimizations
+- Pandas comes with a few methods to efficiently iterate over a dataframe.
+- The first one we're going to look at is the function `.iterrows()` which returns each row as a tuple of index,  Panda Series pairs.
+- Another function that we'll be using will be `.itertuples()` which does the same thing but for tuples.
+- It returns what is called a **Named Tuple** back.
+- This is a special datatype from the *collections* module.
+- This allows us to access elements using dot notation: `print( row_named_tuple.Index )`.
+- They do not support bracket indexing though.
+```python
+run_diffs = []
+
+# Loop over the DataFrame and calculate each row's run differential
+for row in yankees_df.itertuples():
+
+    runs_scored = row.RS
+    runs_allowed = row.RA
+
+    run_diff = calc_run_diff(runs_scored, runs_allowed)
+
+    run_diffs.append(run_diff)
+
+# Append new column
+yankees_df['RD'] = run_diffs
+print(yankees_df)
+```
+- An alternative to running a for loop is to use Panda's `.apply()` function.
+- It acts like the `map()` we've used before but for data frames.
+```python
+# Convert numeric playoffs to text
+textual_playoffs = rays_df.apply(lambda row: text_playoffs(row['Playoffs']), axis=1)
+print(textual_playoffs)
+```
+- Since Pandas are built on top of NumPy, we can use the habits we learned about those.
+- Remember that *Broadcasting* is very efficient.
+
 
 # Research:
 
