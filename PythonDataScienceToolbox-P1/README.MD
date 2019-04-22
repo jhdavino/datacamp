@@ -53,7 +53,7 @@ result = filter(lambda member: len(member)>6, fellowship)
 ```
 - If your program runs into a problem, then it should throw an error.
 - Unlike Web Design, programs should not fail silently.
-- We should also write errors that are interpretable to users.
+- We should also write errors that are interpret-able to users.
 - Python uses a *try-except* clause for errors.
 - In circumstances where we would like to intentionally use the error structure of Python, we can:
 ```python
