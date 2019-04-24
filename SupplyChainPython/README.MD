@@ -9,7 +9,7 @@
   * Internal Manufacturing.
   * Outsourced Logistics Suppliers.
 - When fulfilling the request, there are often multiple routes through the supply chain:
-![Supply Chain Visualization](images\SupplyChainVisual.png)
+![Supply Chain Visualization](images/SupplyChainVisual.png)
 - We're going to get a crash course in **Linear Programming**.
   * It is a Optimzation method using a mathematical model whose requirements are linear relationships.
 - It's a powerful modeling tool for Optimization.
@@ -21,7 +21,7 @@
   1. Linear Programming.
   2. Integer Programming.
   3. Mixed Integer Programming.
-![Different Types of these LP Models](images\LPvsIPvsMIP.png)
+![Different Types of these LP Models](images/LPvsIPvsMIP.png)
 - The course will focus on using the Python **PuLP** library.
 - It is a framework for linear and Integer Programming Problems.
 - It is maintained by the **Computational Infrastructure for Operations Research(COIN-OR)**.
@@ -51,7 +51,7 @@
 - The `e` parameter is about *column based modeling* which will not get talked about in this course.
 - Then, we define our **Objective Function** using the *Variables*.
 - Then, we define the constraints.
-![Full Code Example](images\Basics-of-PuLP.png)
+![Full Code Example](images/Basics-of-PuLP.png)
 ```python
 # Initialize Class
 model = LpProblem("Maximize Glass Co. Profits", LpMaximize)
@@ -109,6 +109,75 @@ for c in customers:
 
 
 # Modeling in PuLP
+- We have not discussed how to create Variables at scale.
+- We can use the function `LpVariable.dicts()` function to help us define them at scale.
+- It has the arguments:
+  1. `name` for the prefix per LP Variables.
+  2. `indexs` for the list of strings of the keys to the dictionary.
+  3. Same as before.
+```python
+# Define decision variables
+key = [(m, w, c) for m in months for w in warehouse for c in customers]
+var_dict = LpVariable.dicts('num_of_shipments',
+                            key,
+                            lowBound=0, cat='Integer')
+
+# Use the LpVariable dictionary variable to define objective
+model += lpSum([costs[(w, c)] * var_dict[(m, w, c)]
+                for m in months for w in warehouse for c in customers])
+```
+- Example of solving the Traveling Salesmen Problem:
+```python
+# Define Decision Variables
+x = LpVariable.dicts('X', [(c1, c2) for c1 in cities for c2 in cities],
+                     cat='Binary')
+u = LpVariable.dicts('U', [c1 for c1 in cities],
+                     lowBound=0, upBound=(n-1), cat='Integer')
+
+# Define Objective
+model += lpSum([dist.iloc[c1, c2] * x[(c1, c2)]
+                for c1 in cities for c2 in cities])
+
+# Define Constraints
+for c2 in cities:
+    model += lpSum([x[(c1, c2)] for c1 in cities]) == 1
+for c1 in cities:
+    model += lpSum([x[(c1, c2)] for c2 in cities]) == 1
+```
+- It is not uncommon to realize that you'll need to adjust the model once you've started.
+![ Ways to Mitigate Duplicate Counting](images/FormulationOfFormula.png)
+- When we define the dictionary method, we'll need to insert the values:
+```python
+# The class has been initialize, and x, and days defined
+model = LpProblem("Minimize Staffing", LpMinimize)
+days = list(range(7))
+x = LpVariable.dicts('staff_', days, lowBound=0, cat='Integer')
+
+# Define Objective
+model += lpSum([x[i] for i in days])
+```
+![Regional Product Demand](images/RegionalProductDemand.png)
+![Shipping Example](images/ShippingExample.png)
+```python
+# Initialize, and Define Decision Vars.
+model = LpProblem("Capacitated Plant Location Model", LpMinimize)
+loc = ['USA', 'Germany', 'Japan', 'Brazil', 'India']
+size = ['Low_Cap','High_Cap']
+x = LpVariable.dicts("production_", [(i,j) for i in loc for j in loc],
+                     lowBound=0, upBound=None, cat='Continous')
+y = LpVariable.dicts("plant_",
+                     [(i,s) for s in size for i in loc], cat='Binary')
+
+# Define objective function
+model += (lpSum([fix_cost.loc[i,s] * y[(i,s)]
+                 for s in size for i in loc])
+          + lpSum([var_cost.loc[i,j] * x[(i,j)]
+                   for i in loc for j in loc]))
+```
+- Now w're going to talk about **Logical Constraints**.
+
+
+
 
 # Solve and Evaluate Model
 
@@ -116,6 +185,8 @@ for c in customers:
 
 # Research:
 - column based modeling?
+- Miller-Tucker-Zemlin (MTZ) showed it can be completed using Integer Linear Programing ( Traveling Salesmen Problem).
+-
 
 
 # Reference:
