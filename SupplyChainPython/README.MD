@@ -174,9 +174,17 @@ model += (lpSum([fix_cost.loc[i,s] * y[(i,s)]
           + lpSum([var_cost.loc[i,j] * x[(i,j)]
                    for i in loc for j in loc]))
 ```
-- Now w're going to talk about **Logical Constraints**.
-
-
+- Now we're going to talk more about **Logical Constraints**.
+- What happens when you need to select when two features are not allowed at the same time?
+![Constraint Solution](images/LogicalConstraint.png)
+- What happens when there is a dependency where one feature **must** also come along?
+![Logically Must Follow](images/LogicallyMustFollow.png)
+![More Logically Constraints](images/OtherLogicalConstraints.png)
+```python
+# if first location is selected, then second location is as well.
+model += x['A'] - x['D'] <= 0
+model += x['B'] - x['E'] <= 0
+```
 
 
 # Solve and Evaluate Model
@@ -186,6 +194,7 @@ model += (lpSum([fix_cost.loc[i,s] * y[(i,s)]
 # Research:
 - column based modeling?
 - Miller-Tucker-Zemlin (MTZ) showed it can be completed using Integer Linear Programing ( Traveling Salesmen Problem).
+- Review the MIT courseware linked in the Other Logical Constraints image.
 -
 
 
