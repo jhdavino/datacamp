@@ -254,6 +254,55 @@ print("Total Cost = ", value(model.objective))
 
 
 # Sensitivity and Simulation Testing of Model
+- When Modeling, we sometimes need to model constraints on input data.
+- **Shadow Prices**: The change in optimal value of the objective function per unit increase in the right hand side ofr a constraint, given everything else remain unchanged.
+- You can print the *shadow price* of the model by accessing the `.pi` attribute.
+- **Slack**: the amount of resource that is unused.
+- You can print the *slack* of each unit using the `.slack` attribute.
+```python
+# Print Shadow Price and Slack
+o = [{'name': name, 'shadow price': c.pi, 'slack': c.slack}
+     for name, c in model.constraints.items()]
+print(pd.DataFrame(o))
+```
+```
+Awesome job! In Step 1, You notice that changing the right-hand-side of a constraint by 1 increases the objective value by the amount of the shadow price. In Step 2, you should have noticed that increasing the right-hand-side of a non-binding constraint will not change the optimal solution. In Step 3, you should have noticed that decreasing the right-hand-side of a non-binding constraint equal to slack will not change the optimal solution but make it a binding constraint. In Step 4, you should have noticed that increasing the right-hand-side by more than the slack with change the optimal solution.
+```
+- You can actually set the slack to be 0 for a constraint.
+```python
+# Print the Production Quantities
+o = [{'prod':'{} to {}'.format(i,j), 'quantity':x[(i,j)].varValue}
+     for i in loc for j in loc]
+print(pd.DataFrame(o))
+
+# Print the Plant Values of the different regions
+o = [{'lowCap':y[(i,size[0])].varValue, 'highCap':y[(i,size[1])].varValue}
+     for i in loc]
+print(pd.DataFrame(o, index=loc))
+
+# Print the Objective Value
+print('Objective = ', value(model.objective))
+```
+- Problems that take a long time to solve should not be used with LP or IP.
+- In general, we are trying to add random noise to key inputs.
+- Keep in mind that *inputs are estimates and there is a risk of them being inaccurate*.
+- We start with a basic model without noise.
+- Then, we create some noise using the function `normalvariate(0,25)` per input.
+![Adding Noise to Inputs to the Model](images/Model-Noise.png)
+```python
+# Print the value count df series Midwest from Atlanta
+print(df['Midwest from Atlanta'].value_counts())
+
+# Print the value count df series East from Atlanta
+print( df['East from Atlanta'].value_counts())
+```
+- We can use the Sensitivity Analysis to observe how factors impact the demand and costs of a model.
+```python
+# Define the Constraints
+for j in loc:
+    rd = random.normalvariate(0, demand.loc[j,'Dmd'] * 0.05)
+    model += lpSum([x[(i, j)] for i in loc]) == (demand.loc[j,'Dmd'] + rd)
+```
 
 # Research:
 - column based modeling?
@@ -264,3 +313,4 @@ print("Total Cost = ", value(model.objective))
 
 # Reference:
  - *Supply Chain Management: Strategy, Planning, and Operations.*
+![PuLP Resources](images/pulp-resources.png)
