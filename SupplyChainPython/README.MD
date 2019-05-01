@@ -2,7 +2,7 @@
 ## Aaren Stubberfield
 
 # Basics of Supply Chain Optimization and PuLP
-- We'll start with the basics of Supply Optimzation.
+- We'll start with the basics of Supply Optimization.
 - A **Supply Chain** Consists of all parties involved, directly of indirectly, in fulfilling a customer's request.
 - This includes:
   * Suppliers.
@@ -11,12 +11,12 @@
 - When fulfilling the request, there are often multiple routes through the supply chain:
 ![Supply Chain Visualization](images/SupplyChainVisual.png)
 - We're going to get a crash course in **Linear Programming**.
-  * It is a Optimzation method using a mathematical model whose requirements are linear relationships.
+  * It is a Optimization method using a mathematical model whose requirements are linear relationships.
 - It's a powerful modeling tool for Optimization.
 - The three pieces to these models are:
   1. Decision Variable: what you can control.
-  2. Objective Function: Math expression taht uses variables to express goals.
-  3. Contraints: Math expressions that describe the limits of a solution.
+  2. Objective Function: Math expression that uses variables to express goals.
+  3. Constraints: Math expressions that describe the limits of a solution.
 - There are three kinds of these models:
   1. Linear Programming.
   2. Integer Programming.
@@ -188,6 +188,70 @@ model += x['B'] - x['E'] <= 0
 
 
 # Solve and Evaluate Model
+- **Dependent Demand** is where one product is used as a input to another product.
+- The correct constraint formula for 3 of Product A for each Product A is: `3B <= A`
+- Common incorrect versions include:
+  * `B >= 3A`
+  * `B = 3A`
+- Once you have a formula for A week, you can set the constraint to 4 instead of 1 to make it for the month.
+![Constraint Sum Over a Month](images/Constraint-Montthly-Example.png)
+```python
+# Initialize, Define Decision Vars., Objective Function, and Constraints
+model = LpProblem("Distribution Planning", LpMinimize)
+wh = ['W1','W2']
+prod = ['A', 'B', 'C']
+X = LpVariable.dicts("ship", [(w, p, c) for c in cust for p in prod for w in wh],
+                     lowBound=0, cat="Integer")
+model += lpSum([X[(w, p, c)]*costs.loc[(w, p), c]  for c in cust for p in prod for w in wh])
+for c in cust:
+    for p in prod:
+        model += lpSum([X[(w, p, c)] for w in wh]) == demand.loc[p, c]
+
+# Define Dependent Demand Constraints
+model += ((1/10) * lpSum([X[('W1', 'A', c)] for c in cust])
+          + (1/15) * lpSum([X[('W1', 'B', c)] for c in cust])
+          + (1/20) * lpSum([X[('W1', 'C', c)] for c in cust])) <= 4
+```
+- Another example of a constraint:
+```python
+# Define the constraints
+for j in loc:
+    model += lpSum([x[(i, j)] for i in loc]) == demand.loc[j,'Dmd']
+```
+- Now we're going to look at Solving the model.
+- This includes:
+  1. Call the Solve Method.
+  2. Check the Status of the Solution.
+  3. Print optimized Decision Variables.
+  4. Print optimized Objective Functions.
+- The function `.solve()` is what you call to actually attempt to solve the solution.
+- Optionally, it takes the name of the solver you want to use as parameter `solver=<None>`.
+- Once we have called the solve method, we'll want to check the status of the Solution using `LpStatus[model.status]`.
+- There are five possible results:
+  1. **Not Solved**.
+  2. **Optimal**.
+  3. **Infeasible**.
+  4. **Unbounded**: probably wrong objective.
+  5. **Undefined**: Optimal Solution may exist but may not have been found.
+- We often want to konw the values of the optimized solution.
+- We can get those using `for v in model.variables(): print( v.name, "=", v.varValue)`
+- You can also loop over them and put them in a pandas data frame.
+```python
+# Print variables
+o = [{'prod':x[t].varValue, 'stock':s[t].varValue} for t in time]
+print(pd.DataFrame(o, index=time))
+```
+```python
+# Print Objective Fun. Value
+print("Total Cost = ", value(model.objective))
+```
+- When checking a Solution, there are two questions:
+  1. Was an Optimal Solution found?
+  2. Check the decision variables for being in the expected range.
+- If you get a response other than *Optimal* then it should be considered a red flag.
+- The package uses a set of heuristics to mitigate the runtime.
+- We can also review the model specificatin using the function `writeLP( <filename> )`.
+
 
 # Sensitivity and Simulation Testing of Model
 
@@ -195,7 +259,7 @@ model += x['B'] - x['E'] <= 0
 - column based modeling?
 - Miller-Tucker-Zemlin (MTZ) showed it can be completed using Integer Linear Programing ( Traveling Salesmen Problem).
 - Review the MIT courseware linked in the Other Logical Constraints image.
--
+- "Linear Programming with Python and PuLP" - Ben Keen
 
 
 # Reference:
