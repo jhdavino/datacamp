@@ -83,11 +83,48 @@ source = ColumnDataSource(df)
 # Add circle glyphs to the figure p
 p.circle(x='Year', y='Time', color='color', size=8, source=source)
 ```
-- 
+- Bokeh has several different tools to enable users to interact with points and plots.
+- In this example, we use the tools `box_select,lasso_select`.
+- By default, Bokeh draws the non-selected points with a very low transparency.
+- Selected features for this are prepended with either `selection_` or `nonselection_`.
+- You will need to:
+```python
+from bokeh.models import HoverTool
+hover = HoverTool(tooltips=None, mode='hline')
 
+# add for detection.
+plot = figure(tools=[hover, 'crosshair'])
+```
+- Then, we specify the hover policy in the same way that selections are done: `hover_color='red'`
+- If we want to color data differently, then we can do a color mapping to a column in the data.
+- We do this using:
+```python
+from bokeh.models import CategoricalColorMapper
+mapper = CategoricalColorMapper( factors = [ ... ], pallette = [ ... ])
+```
+- Now you can just pass a dictionary in the color parameter:
+```python
+color={'field': 'species', transform: mapper}
+```
 
+```python
+# Create a HoverTool: hover
+hover = HoverTool(tooltips=None, mode = 'vline')
+
+# Add the hover tool to the figure p
+p.add_tools( hover )
+```
+```python
+# Make a CategoricalColorMapper object: color_mapper
+color_mapper = CategoricalColorMapper(factors=['Europe', 'Asia', 'US'],
+                                      palette=['red', 'green', 'blue'])
+
+# Add a circle glyph to the figure p
+p.circle('weight', 'mpg', source=source, color=dict(field='origin', transform=color_mapper), legend='origin')
+```
 
 # Layouts, Interactions, and Annotations.
+
 
 # Building Ineteractive Apps with Bokeh.
 
