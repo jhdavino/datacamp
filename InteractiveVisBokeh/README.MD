@@ -123,10 +123,90 @@ color_mapper = CategoricalColorMapper(factors=['Europe', 'Asia', 'US'],
 p.circle('weight', 'mpg', source=source, color=dict(field='origin', transform=color_mapper), legend='origin')
 ```
 
+
 # Layouts, Interactions, and Annotations.
+- Now we're going to learn about layouts for plots.
+- The simplest is putting plots in rows and columns.
+- Layouts can be nested for more sophisticated layouts.
+- It also supports grid arrangements and tabbed layouts.
+- To place plots in a row, first you'd import it:
+```python
+from bokeh.layouts import row
+
+# pass plots to rows.
+layout = row(p1,p2,p3)
+```
+- Columns are just as simple; they come from `column` instead.
+- You can pass row or column as arguments to the others.
+- You can also create more complicated graphing layouts:
+```python
+# Make a column layout that will be used as the second row: row2
+row2 = column([mpg_hp, mpg_weight], sizing_mode='scale_width')
+
+# Make a row layout that includes the above column layout: layout
+layout = row([avg_mpg, row2], sizing_mode='scale_width')
+```
+- Bokeh also supports gridplots which you will import with:
+```python
+from bokeh.layouts import gridplot
+
+layout = gridplot([[None,p1], [p2,p3]], toolbar_location = None)
+```
+- The dimensions of the lists need to be the same length.
+- The `toolbar_location` can be set to:
+  * `above`
+  * `below`
+  * `left`
+  * `right`
+- Creating Tabbed layouts is more involved and will require two steps.
+- First, we need to create the layouts and then we need to collect them into a tabs object.
+- The imports are:
+```python
+from bokeh.models.widgets import Tabs, Panel
+
+# create the panels:
+first = Panel( child=row(p1,p2), title = 'first')
+second = Panel( child=row(p3), title = 'second')
+
+# collect them together:
+tabs = Tabs(tabs=[first,second])
+```
+- Once we have multiple plots, we could consider linking them together.
+- Conceptually, it means that two plots share a range.
+- In fact, *bokeh* makes this explicit in how it expects you to do this.
+```python
+p3.x_range = p2.x_range
+```
+- There is also linking selections.
+- To do this, you only need to share the source between two different data plots.
+- Guides allow you to see meaningful information from a plot.
+- The package tries to use reasonable defaults.
+- For the modified visuals to be useful, there needs to be legend.
+- There are different ways to create legends in *bokeh* plots but we'll look at the simplest.
+- If you pass parameter `legend = '<column-name>'` then it will detect and display the legend.
+- The Hovertool can be configured to also display informational tool tips whenever a user hovers over them.
+- Instead of passing None to the parameter `tooltips`, we pass a list of tuples:
+```python
+hover = HoverTool(tooltips=[ ('species name', '@species'),
+                             ('petal length', '@petal_length'),
+                             ('sepal length', '@sepal_length') ])
+```
+- The first string is the value; the second the formatting.
+- The `@` values are replaced with the actual values in the data column.
+```python
+# Assign the legend to the bottom left: p.legend.location
+p.legend.location = 'bottom_left'
+
+# Fill the legend background with the color 'lightgray': p.legend.background_fill_color
+p.legend.background_fill_color = 'lightgray'
+```
+```python
+# Add the HoverTool object to figure p
+p.add_tools( hover )
+```
 
 
-# Building Ineteractive Apps with Bokeh.
+# Building Interactive Apps with Bokeh.
 
 # Putting it All Together! A Case Study
 
