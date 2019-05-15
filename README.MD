@@ -78,7 +78,7 @@
 | Pandas Foundations                      | [/PythonPandasFoundations]         | {2019/03/29}   |
 | Writing Efficient Python Code           | [/EfficientPython]                 | {2019/04/09}   |
 | Supply Chain Analytics in Python        | [/SupplyChainPython]               | {2019/5/1}     |
-| Interactive Data Visualization w/ Bokeh | [/InteractiveVisBokeh]             | {}             |
+| Interactive Data Visualization w/ Bokeh | [/InteractiveVisBokeh]             | {2019/5/15}    |
 
 
 
