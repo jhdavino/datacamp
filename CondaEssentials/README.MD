@@ -31,6 +31,14 @@
 
 
 # Utilizing Channels
+- A **Conda Channel** is an identifier of a path (e.g., as in a web address) from which Conda packages can be obtained.
+- Not all packages are vetted by Anaconda.
+- You can search for someone's channel using `conda search --channel [-c] <terms>`
+- You can use the command line flag `--override-channels` to ignore default channels.
+- You can use the command line argument `--platform <linux-64>` to limit the operating system searched.
+- The command `anaconda` searches in a different way that allows you to search all channels for a package.
+- The channel called *conda-forge* has a special status that acts as a community curation hub channel.
+
 
 # Working with Environments
 
