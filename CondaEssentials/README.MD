@@ -41,6 +41,40 @@
 
 
 # Working with Environments
+- Conda environments allow multiple incompatible versions of the same (software) package to coexist on your system.
+- You are always in an environment - even if its the called base or root.
+- You can get a list of existing environments using `conda env list`.
+  - It will also show you which is current using an `*`.
+- It also supports simple names or globbing.
+- You can also query inside an environment using the flag `--name|-n`.
+- The act of switching between environments is called **Activating** them.
+- You *activate* by using `conda activate <ENVNAME>`.
+- There is an older version - pre v4.4 - that had different ways to do this per OS.
+- This sucked though and was fixed in v4.4.
+- You can leave an environment using `conda deactivate`.
+- If you know you don't want an environment around anymore, then you can remove it.
+- You do this using `conda env remove --name <ENVNAME>`.
+- You can also create your own to configure using `conda create ...`.
+- There are lots of configurable flags but the basics would be:
+```
+conda create --name recent-pd python=3.6 pandas=0.22 scipy statsmodels
+```
+- You can output the installed packages using `conda env export`.
+- You can specify the environment using `--name|-n`.
+- You can specify the file using `--file|-f`.
+- You can also write your own YAML files:
+```
+name: shared-project
+channels:
+  - defaults
+dependencies:
+  - python=3.6
+  - pandas>=0.21
+  - scikit-learn
+  - statsmodels
+```
+- To create an environment using a file, use `conda env create --file <file-name.yml>`.
+
 
 # Case Study on Using Environments
 
