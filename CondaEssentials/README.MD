@@ -77,6 +77,11 @@ dependencies:
 
 
 # Case Study on Using Environments
+- The function `pd.rolling_mean()` exists.
+
+
+
+
 
 # Reference:
 
