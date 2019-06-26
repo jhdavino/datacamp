@@ -79,7 +79,7 @@
 | Writing Efficient Python Code           | [/EfficientPython]                 | {2019/04/09}   |
 | Supply Chain Analytics in Python        | [/SupplyChainPython]               | {2019/5/1}     |
 | Interactive Data Visualization w/ Bokeh | [/InteractiveVisBokeh]             | {2019/5/15}    |
-| Conda Essentials                        | [/CondaEssentials]                 | {}             |
+| Conda Essentials                        | [/CondaEssentials]                 | {2019/6/26}    |
 
 
 
