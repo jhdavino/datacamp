@@ -80,9 +80,6 @@ dependencies:
 - The function `pd.rolling_mean()` exists.
 
 
-
-
-
 # Reference:
 
 # Research:
