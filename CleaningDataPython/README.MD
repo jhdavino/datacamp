@@ -36,6 +36,43 @@ df[df.population > 1000000000 ]
 
 
 # Tidying Data for Anaylsis
+- Data comes in lots of formats but we want it in the **Tidy Data** format.
+- Hadley Wickham wrote a paper that defines this called *Tidy Data*.
+- There are three principles of this format:
+  1. Columns represent separate variables.
+  2. Rows represent different observations.
+  3. Observational units form tables.
+- We'll want to reformat the data:
+![Converting Example 1](images\TidyDataConversion1.png)
+- The point is there are data formats that are better for reporting vs Analysis.
+- We can solve the problem of columns containing values with `pd.melt()`.
+- We specify which columns we want to hold constant with `id_vars = []`
+```python
+# Melt airquality: airquality_melt
+airquality_melt = pd.melt(airquality, id_vars=['Month', 'Day'])
+```
+- We can change what the resulting columns will be called with `var_name` and `value_name` respectively.
+```python
+# Melt airquality: airquality_melt
+airquality_melt = pd.melt(airquality, id_vars=['Month', 'Day'], var_name='measurement', value_name='reading')
+```
+- The opposite process to **Melting** is called **Pivoting**.
+- We'll take the unique values and turn them into separate columns.
+- One reason to do this would be to convert from an Analysis Shape to a Report friendly shape.
+- To do the pivot, we use the function `df.pivot()`.
+- We tell it which column to fix using `index = '<column>'`.
+- We tell it which column to pivot into using `columns = '<col-name>'`.
+- We tell it what column to use for values using `values = '<col-name>'`.
+- If there is a duplicate value is the column we selected, it will fail.
+- To manage this, we'll use a different method called `df.pivot_table()`.
+- The passed variables are the same but we will use a function to aggregate called `aggfunc = <func>`.
+- After the pivot, we got what is called a **Heirarchical Index** or **Multiindex** dataframe.
+- We can fix this by re-indexing with the function `df.reset_index()`.
+```python
+# Create the 'type' column
+ebola_melt['type'] = ebola_melt.str_split.str.get(0)
+```
+
 
 # Combining Data for Analysis
 
