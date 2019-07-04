@@ -43,7 +43,7 @@ df[df.population > 1000000000 ]
   2. Rows represent different observations.
   3. Observational units form tables.
 - We'll want to reformat the data:
-![Converting Example 1](images\TidyDataConversion1.png)
+![Converting Example 1](images/TidyDataConversion1.png)
 - The point is there are data formats that are better for reporting vs Analysis.
 - We can solve the problem of columns containing values with `pd.melt()`.
 - We specify which columns we want to hold constant with `id_vars = []`
@@ -75,6 +75,32 @@ ebola_melt['type'] = ebola_melt.str_split.str.get(0)
 
 
 # Combining Data for Analysis
+- Data doesn't usually come in a single large file.
+- Many times it is easier to split up the files for some reason - such as daily.
+- You can concatenate using the function `pd.concat(<list-of-dfs>)`.
+- When we concatenate data, it keeps its original indexes
+![Concatenate Example](images/ConcatentateImage.png)
+- If you select on index after concatenating, you will get multiple rows back.
+![Multiple Indexes](images/MultipleIndexes.png)
+- You can tell it to ignore the indexes and reindex after concatenating using `ignore_index=True`.
+- If you want to add them via column vs row, use the argument `axis = 1`.
+```python
+# Concatenate ebola_melt and status_country column-wise: ebola_tidy
+ebola_tidy = pd.concat( [ebola_melt, status_country], axis = 1)
+```
+- We can use the python glob library to filter files and collect them for reading.
+- **Globbing** is a simple way for python to pattern match files.
+- You get glob using `import glob`.
+- Pandas has the same ability to join tables as SQL.
+- To join to dataframes, you use `pd.merge()`.
+- You can tell it which data to join per side using `left = <askdfjaslk>` and `right= <asdjfldsafjkl>`.
+- If the names are the same then you can use the `on= <sdlfakj>` argument.
+- If they're not, then you will need to specify both column names: `left_on= '<jlsdjfk>'` and `right_on='<sdalfjask>'`.
+- There are three kinds of merges:
+  1. One-to-One.
+  2. Many-to-One.
+  3. Many-to-Many
+
 
 # Cleaning Data for Analysis
 
