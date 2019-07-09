@@ -103,6 +103,60 @@ ebola_tidy = pd.concat( [ebola_melt, status_country], axis = 1)
 
 
 # Cleaning Data for Analysis
+- The object datatype is a general catch all usually encoded as a string.
+- There are times when we want to convert from one type to another.
+- We can convert to another type using `df['<column>].astype(<type>)`.
+-  You can convert to factors or categories using `.astype('category')`.
+- There are two advantages to converting to categorical.
+  1. Can make DataFrames smaller in memory.
+  2. Can be utilized by other libraries while doing anaylsis.
+- When deal with numbers, you can force errors into numbers using `errors = 'coerce'` inside `pd.to_numeric(df['<column>'])`.
+```python
+df['treatment a'] = pd.to_numeric(df['treatment a'], errors = 'coerce')
+```
+- Most of the world's data is contained in unstructured string data.
+- Python has many built in libraries for string manipulation.
+- The *re* library is for regular expressions.
+![Regex example](images/Regex-example.png)
+- In python, you'll want to compile the expression and then match values after.
+```python
+import re
+pattern = re.compile('\$\d*\.\d{2}')
+result = pattern.match('$17.89')
+```
+```python
+# Compile the pattern: prog
+prog = re.compile('\d{3}-\d{3}-\d{4}')
+
+# See if the pattern matches
+result = prog.match('123-456-7890')
+print(bool(result))
+
+# See if the pattern matches
+result2 = prog.match('1123-456-7890')
+print(bool(result2))
+```
+- We can use the function `df.apply()` to use a function on an axis: row or columns.
+- Writing a function is outside the scope of the class.
+- When you apply a function over a row, you only get the row itself and not the dataframe.
+```python
+# Write the lambda function using replace
+tips['total_dollar_replace'] = tips.total_dollar.apply(lambda x: x.replace('$', ''))
+
+# Write the lambda function using regular expressions
+tips['total_dollar_re'] = tips.total_dollar.apply(lambda x: re.findall('\d+\.\d+', x)[0])
+```
+- You can drop duplicates using the function `df.drop_duplicates()`.
+- For managing missing values, one can:
+  1. Leave them.
+  2. Drop them.
+  3. Fill them.
+- You can drop them using `df.dropna()`.
+- You can fill the values in with `df.fillna()`.
+  - We can fill them user provided values.
+  - We can fill with a statistical value.
+
+
 
 # Case Study
 
