@@ -31,7 +31,7 @@ print(nums_list2)
 indexed_names_unpack = [*enumerate(names, 1)]
 print(indexed_names_unpack)
 ```
-- NumPy arrays are memomry efficient versions of Python's lists.
+- NumPy arrays are memory efficient versions of Python's lists.
 - You can check the type of a numPy array using `<arrrayName>.dtypes`.
 - Python lists do not support broadcasts while numPy does.
 - NumPy Arrays also support boolean indexing.
