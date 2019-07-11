@@ -157,8 +157,19 @@ tips['total_dollar_re'] = tips.total_dollar.apply(lambda x: re.findall('\d+\.\d+
   - We can fill with a statistical value.
 
 
-
 # Case Study
+- Time to use everything we've played with.
+```python
+# Write the regular expression: pattern
+pattern = '^[A-Za-z\.\s]*$'
+
+# Create the Boolean vector: mask
+mask = countries.str.contains(pattern)
+
+# Invert the mask: mask_inverse
+mask_inverse = ~mask
+```
+
 
 # Research:
 
