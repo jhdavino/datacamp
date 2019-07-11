@@ -155,7 +155,9 @@ tips['total_dollar_re'] = tips.total_dollar.apply(lambda x: re.findall('\d+\.\d+
 - You can fill the values in with `df.fillna()`.
   - We can fill them user provided values.
   - We can fill with a statistical value.
-
+- We can you use assert statements to check our data after changes.
+- If it ends up being true, then it passes with no return result.
+- If it ends with being false, then it will throw an error.
 
 # Case Study
 - Time to use everything we've played with.
