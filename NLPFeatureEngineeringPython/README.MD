@@ -88,6 +88,72 @@ print(gunning_fog_scores)
 ```
 
 # Text Preprocessing, POS Tagging and NER
+- There are a lot of different types of text we'll need to process.
+- It is important that we standardize these texts.
+- We're be covering a many common corrections to text:
+  * Converting words to lowercase.
+  * Removing leading and trailing whitespaces.
+  * Removing punctuation.
+  * Removing stopwords.
+  * Expanding Contractions.
+  * Removing special Characters - such as nummbers and emojis.
+- Tokenization is the process of splitting a string into its constitute tokens.
+![Tokenization Example](images\Tokenization-Example.png)
+- We'll be using the spacy library for tokenization.
+- We pass the string to the function `nlp()`.
+- This will create a spacy Doc object.
+- We will generate a list of tokens then by iterating over the doc object.
+-
+```python
+import spacy
+
+# Load the en_core_web_sm model
+nlp = spacy.load('en_core_web_sm')
+
+# Create a Doc object
+doc = nlp(gettysburg)
+
+# Generate the tokens
+tokens = [token.text for token in doc]
+print(tokens)
+```
+- **Lemmatization** is the process of converting a word to its lowercase and base form.
+- It also allows us to convert contractions to their real forms.
+- We'll be iterating over the doc again, but will be pulling out the .lemma_ of each token.
+```python
+# Create a Doc object
+doc = nlp(gettysburg)
+
+# Generate lemmas
+lemmas = [token.lemma_ for token in doc]
+```
+- With these, we are now ready to start cleaning text.
+- in short, we're going to want to remove aspects that are so common that they're not useful for analysis.
+- Every string in python has a method called `.isalpha()` is all the characters in it are letters.
+- Beware though that tokens that you'd want - such as abbreviations - will get flagged as false with this method.
+- Words that are so common that we would want to ignore them are called **Stop Words**.
+- Always keep in mind that the text processing you use will be dependent on the application.
+```python
+# Remove stopwords and non-alphabetic tokens
+a_lemmas = [lemma for lemma in lemmas
+            if lemma.isalpha() and lemma not in stopwords]
+```
+- Now we're going to look at Part of Speech Tagging.
+- This is popular.
+- This is useful to assist with Word-sense Disambiguation.
+![Example of POS tagging](images\POS-Example.png)
+- Remember that POS tagging is not an exact science.
+- The final techique is **Named Entity Recognition**.
+- This is the process of identifying and classifying named entities into predefined categories.
+- spacy will do this automatically when it processes a document.
+- You can access them via the doc.ents part of the processed document.
+```python
+# Print all named entities and their labels
+for ent in doc.ents:
+    print(ent.text, ent.label_)
+```
+- It domain specific termonology, it is best to train your own models.
+
 
 # N-Gram Models.
 
@@ -96,3 +162,4 @@ print(gunning_fog_scores)
 # Research:
 
 # Reference:
+- [Spacy Annotations Documentation](https://spacy.io/api/annotations)
