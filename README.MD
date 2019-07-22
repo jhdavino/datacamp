@@ -81,7 +81,7 @@
 | Interactive Data Visualization w/ Bokeh | [/InteractiveVisBokeh]             | {2019/5/15}    |
 | Conda Essentials                        | [/CondaEssentials]                 | {2019/6/26}    |
 | Cleaning Data in Python                 | [/CleaningDataPython]              | {2019/7/11}    |
-| Feature Engineering for NLP in Python   | [/NLPFeatureEngineeringPython]     | {}             |
+| Feature Engineering for NLP in Python   | [/NLPFeatureEngineeringPython]     | {2019/8/22}    |
 
 
 

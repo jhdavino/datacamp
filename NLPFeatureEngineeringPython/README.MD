@@ -227,8 +227,72 @@ accuracy = clf.score(X_test_bow, y_test)
 
 
 # TF-IDF and Similarity Scores
+- **Term Frequency - Inverse Document Frequency** is a where the relationship of a word is weighted proportionally based on the number of times it appears in a document.
+![Formula for IF-IDF](images/TFIDF-Math.png)
+- It is mostly the same thing as we were doing but we'll be importing `TfidfVectorizer` instead.
+```python
+# Import TfidfVectorizer
+from sklearn.feature_extraction.text import TfidfVectorizer
+
+# Create TfidfVectorizer object
+vectorizer = TfidfVectorizer()
+
+# Generate matrix of word vectors
+tfidf_matrix = vectorizer.fit_transform(ted)
+```
+- **Cosine Similarity** is one of the most popular metrics in NLP.
+- It measures the how far away two vectors are from one another:
+![Visual Example of Cosine Similarity - and Formula](images/Cosine-Similarity.png)
+- Due to how it is calculated, it is bound between -1 and 1.
+- However, in NLP the values are always between 0 and 1; where 1 is most similar, 0 least similar.
+- You can import it from sklearn using `from sklearn.metrics.pairwise import cosine_similarity`.
+- It does expect 2D arrays.
+- You can use the function `np.dot()` to have numpy calculate the **Dot Product** for you.
+```python
+# Generate the tf-idf vectors for the corpus
+tfidf_matrix = tfidf_vectorizer.fit_transform(corpus)
+
+# Compute and print the cosine similarity matrix
+cosine_sim = cosine_similarity(tfidf_matrix,tfidf_matrix)
+print(cosine_sim)
+```
+- Now we're going to build a basic recommendation engine with movies.
+- The steps to do this are:
+  1. Text Preprocessing.
+  2. Generate Tf-Idf.
+  3. Geenrate Cosine Similarity Matrix.
+- Since the diagonals are always 1, we can ignore them.
+- But, to remove the calculation we will need to use `linear_kernel` instead.
+- It's imported from the same place but is much faster.
+- We're going to touch on an advanced topic with a lot of applications: **Word Embeddings**.
+- This is a process of mapping words into an B-Dimensional Vector Space.
+- This is out of the scope of the course but we'll touch them.
+```python
+# Create the doc object
+doc = nlp(sent)
+
+# Compute pairwise similarity scores
+for token1 in doc:
+  for token2 in doc:
+    print(token1.text, token2.text, token1.similarity(token2))
+
+# Different exercise
+    # Create Doc objects
+  mother_doc = nlp(mother)
+  hopes_doc = nlp(hopes)
+  hey_doc = nlp(hey)
+
+  # Print similarity between mother and hopes
+  print(mother_doc.similarity(hopes_doc))
+
+  # Print similarity between mother and hey
+  print(mother_doc.similarity(hey_doc))
+
+```
+
 
 # Research:
+- Hans Peter Luhn?
 
 # Reference:
 - [Spacy Annotations Documentation](https://spacy.io/api/annotations)
