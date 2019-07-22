@@ -156,6 +156,75 @@ for ent in doc.ents:
 
 
 # N-Gram Models.
+- In this section, we're going to be coverting **Vectorization**.
+- The **Bag of Words** model extracts word tokens from a word document and counts them.
+- The rules of text processing still apply: preprocess where necessary.
+- To do this, we'll use the *sklearn* library.
+```python
+# library to count
+from sklearn.feature_extraction.text import CountVerctorizer
+
+# actual object itself that does the counting:
+vectorizer = CountVectorizer()
+
+# "build model":
+results = vectorizer.fit_transform( corpus )
+results.toarray()
+```
+- You can get the features names from an object using the function `.get_feature_names()`.
+```python
+# Convert bow_matrix into a DataFrame
+bow_df = pd.DataFrame(bow_matrix.toarray())
+
+# Map the column names to vocabulary
+bow_df.columns = vectorizer.get_feature_names()
+```
+- For a Spam Filtering problem, here are the steps:
+  1. Text Preprocessing.
+  2. Build Bag of Words model.
+  3. Machine Learning.
+- `CountVectorizer()` can also do text preprocessing.
+  * `lowercase` changes letters to lowercase.
+  * `strip_accents` substitutes accented characters ('unicode', 'ascii', None)
+  * `stop_words` tells it what to use for stopwords ('english', <list>, None)
+  * `token_pattern` tells it what regex to accept as the tokenizer.
+  * `tokenizer` a function that accepts a string and returns a list of tokens.
+- We will not use **Naive Bayes** to build the model.
+```python
+# import package:
+from sklearn.naive_bayes import MultinominalNB
+
+clf = MultinominalNB()
+clf.fit( train, y_train )
+```
+- Here is an example of using `CountVectorizer` with arguements:
+```python
+# Create a CountVectorizer object
+vectorizer = CountVectorizer(lowercase=True, stop_words='english')
+
+# Fit and transform X_train
+X_train_bow = vectorizer.fit_transform(X_train)
+
+# Transform X_test
+X_test_bow = vectorizer.transform(X_test)
+```
+- You can calculate the accuracy using the function `.score()`:
+```python
+# Fit the classifier
+clf.fit(X_train_bow , y_train)
+
+# Measure the accuracy
+accuracy = clf.score(X_test_bow, y_test)
+```
+- Just because the same words exist doesn't mean that they're the same sentiment:
+![Bag of Words Shortcoming](images/Same-Words-Different-Sentiment.png)
+- The context of the word is lost.
+- The Bag of words is just an N-Gram with n=1.
+- Generating bigrams is easy in `CountVectorizer()`
+- You can just pass `ngram_range = (2,2)`.
+- Adding dimensions can cause a **Curse of Dimensionality**.
+- Also, ngrams larger than 3 are quite rare.
+
 
 # TF-IDF and Similarity Scores
 
