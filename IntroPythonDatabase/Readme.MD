@@ -93,7 +93,7 @@ df.columns = results[0].keys()
 - A **Case Statement** is a statement that is used to treat data differently based on a condition.
 - The function is called `case()` and is imported as per normal.
 ```python
-stmy = select([
+stmt = select([
   func.sum(
     case([
       (census.columns.state == 'New York',

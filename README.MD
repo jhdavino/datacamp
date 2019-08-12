@@ -61,7 +61,7 @@
 | Network Science in R - A Tidy Approach  | [/NetworkScienceInR]               | {2018/07/19}   |
 | Experimental Design in R                | [/ExperimentalDesignR]             | {2018/08/01}   |
 | Structural Equation Modeling with Lavaan| [/StructuralModelingWithLavaan]    | {2018/08/10}   |
-| Network Analysis in R: Case Studies   d | [/NetowrkInRCaseStudy]             | {2018/09/06}   |
+| Network Analysis in R: Case Studies     | [/NetowrkInRCaseStudy]             | {2018/09/06}   |
 | Fundamentals of Bayesian Data Analysis  | [/BayesianDataAnalysisInR]         | {2018/09/14}   |
 | Deep Learning in Python                 | [/DeepLearningPython]              | {2018/09/20}   |
 | Network Analysis in Python, Part 1      | [/NetworkingAnaysisP1]             | {2018/10/11}   |
@@ -82,6 +82,8 @@
 | Conda Essentials                        | [/CondaEssentials]                 | {2019/6/26}    |
 | Cleaning Data in Python                 | [/CleaningDataPython]              | {2019/7/11}    |
 | Feature Engineering for NLP in Python   | [/NLPFeatureEngineeringPython]     | {2019/8/22}    |
+| Machine Learning With Apache Spark      | [/MLWithApacheSpark]               | {}             |
+
 
 
 
