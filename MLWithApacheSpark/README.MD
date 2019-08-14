@@ -105,6 +105,69 @@ sms = spark.read.csv('sms.csv', sep=';', header=False, schema=schema)
 
 
 # Classification
+- There are two ways to manage columns you care about: drop unnecessary or select necessary.
+```python
+data = df.drop('column1', 'column2')
+
+data2 = df.select( 'column1', ...)
+```
+- You can use the function `.filter()` with a logical predicate to select rows:
+```python
+data.filter('col IS NULL').count()
+```
+- Or, you can drop any record with missing values using `df.dropna()`; take care when doing this.
+- You can create new columnns using the function `.withColumn()`.
+```python
+from pyspack.sql.functions import round
+
+data = data.withColumn('new-name', <func> )
+```
+- To one hot encode a column from string to number using the function `StringIndexer`.
+```python
+from pyspark.ml.feature import StringIndexer
+
+indexer = StringIndexer(inputCol = '<name1>', outputCol = '<name2>')
+
+# Assign index values to strings
+indexer = indexer.fit( cars )
+
+# create column with index values
+cars = indexer.transform(cars)
+```
+- If you want to setup the order independent of frequency, then use the function `stringOrderType`.
+- You will need to force the data into a single vector for Spark to compute with.
+```python
+from pyspark.ml.feature import VectorAssembler
+
+assembler = VectorAssembler( inputCols = ['col1', 'col2'], outputCol = 'features')
+assembler.transform(cars)
+```
+- Example:
+```python
+# Repeat the process for the other categorical feature
+flights_indexed = StringIndexer(inputCol='org', outputCol='org_idx').fit(flights_indexed).transform(flights_indexed)
+```
+- Our first model is going to be a **Decision Tree** since it's the most intuitive.
+- It is created using **Recursive Partitioning**.
+- Before training, we'll want to randomly split our data using the function `.randomSplit([.8,.2], seed=<n>)`
+```python
+data_train, data_test = cars.randomSplit([.8,.2], seed=<n>)
+```
+- Now we're going to start making the model.
+- We're going to need `DecisionTreeClassifier`.
+```python
+from pyspark.ml.classification import DecisionTreeClassifier
+
+tree = DecisionTreeClassifier()
+tree tree.fit(cars_train)
+```
+- Now you'll be able to make predictions from the test set.
+```python
+predictions = tree.transform( cars_test)
+```
+- A good way to confirm the model success is a **Confusion Matrix**.
+- You can calculate that with: `prediction.groupBy('label', 'prediction').count().show()`.
+- 
 
 # Regression
 
