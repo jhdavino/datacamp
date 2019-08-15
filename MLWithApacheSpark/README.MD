@@ -167,7 +167,126 @@ predictions = tree.transform( cars_test)
 ```
 - A good way to confirm the model success is a **Confusion Matrix**.
 - You can calculate that with: `prediction.groupBy('label', 'prediction').count().show()`.
-- 
+```python
+# Create a confusion matrix
+prediction.groupBy('label', 'prediction').count().show()
+
+# Calculate the elements of the confusion matrix
+TN = prediction.filter('prediction = 0 AND label = prediction').count()
+TP = prediction.filter('prediction = 1 AND label = prediction').count()
+FN = prediction.filter('prediction = 0 AND label != prediction').count()
+FP = prediction.filter('prediction = 1 AND label != prediction').count()
+
+# Accuracy measures the proportion of correct predictions
+accuracy = (TP + TN) / ( TP + TN + FP + FN )
+print(accuracy)
+```
+- Logistic Regression is another commonly used Classification Model.
+- Since the logistic regression has values between 0 and 1, it is sometimes thought of as a probability.
+- Setting up the Logistic Regresion from spark is very similar to the Tree:
+```python
+from pyspark.ml.classification import LogisticRegression
+logistic = LogisticRegression()
+logistic = logistic.fit( data_train)
+```
+- **Precision** is the number of positive predictions which are correct.
+- **Recall** is the number of positive targets predicted.
+- Another way to score the model is weighting them based on positive and negative predictions.
+- You can do this by creating and calling an *Evaluator Metric*.
+```python
+from pyspark.ml.evaluation import MulticlassClassificationEvaluator
+evaluator = MulticlassClassificationEvaluator()
+evaluator.evaluate(prediction, {evaluator.metricName: 'weightedPrecision'})
+```
+- By default, the threshold is set to half but it's not the only choice.
+- The **ROC Curve** plots the True Positive rate vs the False Positive rate.
+```python
+from pyspark.ml.evaluation import MulticlassClassificationEvaluator, BinaryClassificationEvaluator
+
+# Calculate precision and recall
+precision = TP / (TP + FP)
+recall = TP / (TP + FN)
+print('precision = {:.2f}\nrecall    = {:.2f}'.format(precision, recall))
+
+# Find weighted precision
+multi_evaluator = MulticlassClassificationEvaluator()
+weighted_precision = multi_evaluator.evaluate(prediction, {multi_evaluator.metricName: "weightedPrecision"})
+
+# Find AUC
+binary_evaluator = BinaryClassificationEvaluator()
+auc = binary_evaluator.evaluate(prediction, {binary_evaluator.metricName: "areaUnderROC"})
+```
+- It's said that 80% of Machine Learning is data preparation.
+- Now we're going to look at making a Term Document Matrix.
+- First we'll need to tokenize the input strings with `Tokenizer`.
+```python
+from pyspark.ml.feature import Tokenizer
+books = Tokenizer(inpoutCol='<col1>', outputCol='<col2>').transfrom(books)
+```
+- Some words are cofrequent and are **Stop Words** that contain very little information.
+- We'll remove them using an instance of the class `StopWordsRemover`.
+```python
+from pyspark.ml.fetaure import StopWordsRemover
+stopwords = StopWordsRemover()
+
+# look at stop words
+stopwords.getStopWords()
+```
+- Since you didn't give the column name before, you'll need to do that now:
+```python
+stopwords = stopwords.setInputCol('tokens').setOutputCol('words')
+books = stopwords.transform(books)
+```
+- However, since most documents don't contain most values it's most columns will be empty.
+- We deal with this **Sparse Matrix** using **Feature Hashing**
+```python
+from pyspark.ml.feature import HashingTF
+hasher = HashingTF(inputCol='words', outputCol='hash', numFeatures=32)
+books = hasher.transform(books)
+```
+- Finally, if a word is very common then it's going to be less useful for being a classifier.
+- We want to weight how frequently a word shows up in a document vs all documents.
+```python
+from pyspark.ml.feature import IDF
+books = IDF(inputCol='hash', outputCol='features').fit(books).transform(books)
+```
+- Here is some code to do tokenizing:
+```python
+# Import the necessary functions
+from pyspark.sql.functions import regexp_replace
+from pyspark.ml.feature import Tokenizer
+
+# Remove punctuation (REGEX provided) and numbers
+wrangled = sms.withColumn('text', regexp_replace(sms.text, '[_():;,.!?\\-]', ' '))
+wrangled = wrangled.withColumn('text', regexp_replace(wrangled.text, '[0-9]', ' '))
+
+# Merge multiple spaces
+wrangled = wrangled.withColumn('text', regexp_replace(wrangled.text, ' +', ' '))
+
+# Split the text into words
+wrangled = Tokenizer(inputCol='text', outputCol='words').transform(wrangled)
+
+wrangled.show(4, truncate=False)
+```
+- Example of tokenization:
+```python
+from pyspark.ml.feature import StopWordsRemover, HashingTF, IDF
+
+# Remove stop words.
+wrangled = StopWordsRemover(inputCol='words', outputCol='terms')\
+      .transform(sms)
+
+# Apply the hashing trick
+wrangled = HashingTF(inputCol='terms', outputCol='hash', numFeatures=1024)\
+      .transform(wrangled)
+
+# Convert hashed symbols to TF-IDF
+tf_idf = IDF(inputCol='hash', outputCol='features')\
+      .fit(wrangled).transform(wrangled)
+
+tf_idf.select('terms', 'features').show(4, truncate=False)
+```
+
 
 # Regression
 
@@ -176,3 +295,4 @@ predictions = tree.transform( cars_test)
 # Reference:
 
 # Research:
+- HashingTF?
