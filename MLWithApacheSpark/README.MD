@@ -289,6 +289,125 @@ tf_idf.select('terms', 'features').show(4, truncate=False)
 
 
 # Regression
+- We'll usually one-hot encode categorical values but the numbers don't have objective meaning.
+- Instead, we will create a dummy value that shows which column is flagged:
+![Dummy Variables](images/dummy-variables.png)
+- This can get quite expensive though and we'll replace this with this:
+![Sparse Representation](images/sparse-variables.png)
+- Now for how to do this in spark:
+```python
+from pyspark.ml.feature import OneHotEncoderEstimator
+onehot = OneHotEncoderEstimator(inputCols=['type_idx'], outputCols=['type_dummy'])
+onehot = onehot.fit(cars)
+```
+- A **Dense Vector** is where each element is stored explicitly.
+```python
+# Import the one hot encoder class
+from pyspark.ml.feature import OneHotEncoderEstimator
+
+# Create an instance of the one hot encoder
+onehot = OneHotEncoderEstimator(inputCols=['org_idx'], outputCols=['org_dummy'])
+
+# Apply the one hot encoder to the flights data
+onehot = onehot.fit(flights)
+flights_onehot = onehot.transform(flights)
+
+# Check the results
+flights_onehot.select('org', 'org_idx', 'org_dummy').distinct().sort('org_idx').show()
+```
+- This is essential for building regression models.
+- Review of Linear Regression for the 10000000000x time.
+- The model is creatd using the Linear Regresssion Class.
+```python
+from pyspark.ml.regression import LinearRegression
+regression = LinearRegression(labelCol='consumption')
+regression = regression.fit(cars_train)
+predictions = regression.transform(cars_test)
+
+from pyspark.ml.evaluation import RegressionEvaluator
+RegressionEvaluator(labelCol='consumption').evalutate(predictions)
+
+# feature coefficients
+regression.coefficients
+# feature intercept:
+regression.intercept
+```
+- Example:
+```python
+from pyspark.ml.regression import LinearRegression
+from pyspark.ml.evaluation import RegressionEvaluator
+
+# Create a regression object and train on training data
+regression = LinearRegression(labelCol='duration').fit(flights_train)
+
+# Create predictions for the testing data and take a look at the predictions
+predictions = regression.transform(flights_test)
+predictions.select('duration', 'prediction').show(5, False)
+
+# Calculate the RMSE
+RegressionEvaluator(labelCol='duration').evaluate(predictions)
+```
+- It is often convenient to bucket continuous values such as age to make calculations faster.
+- You can do this with:
+```python
+from pyspark.ml.feature import Bucketizer
+bucketizer = Bucketizer(splits=[3500, 4500,6000,6500], inputCol = 'rpm', outputCol='rbm_bin')
+cars = bucketizer.transform(cars)
+```
+- There are other kinds of feature engineering as well:
+  * `log()`
+  * `sqrt()`
+  * `pow()`
+- Example:
+```python
+# Find the RMSE on testing data
+from pyspark.ml.evaluation import RegressionEvaluator
+RegressionEvaluator(labelCol='duration').evaluate(predictions)
+
+# Average minutes on ground at OGG for flights departing between 21:00 and 24:00
+avg_eve_ogg = regression.intercept
+print(avg_eve_ogg)
+
+# Average minutes on ground at OGG for flights departing between 00:00 and 03:00
+avg_night_ogg = regression.intercept + regression.coefficients[8]
+print(avg_night_ogg)
+
+# Average minutes on ground at JFK for flights departing between 00:00 and 03:00
+avg_night_jfk = regression.intercept + regression.coefficients[8] + regression.coefficients[3]
+print(avg_night_jfk)
+```
+- Now we're going to learn about how to build a model which only selects the most important features.
+- This is called **Regularization**.
+- The idea is that the model is punished for having too many coefficients.
+- There are two standard regularization terms:
+  1. **Lasso**: absolute value of the coefficients.
+  2. **Ridge**: square of the coefficients.
+- It is also possible to have a mix of them.
+- The strength of the regularization is managed by a variable denoted as Llambda.
+- When L is 0, there is no regularization.
+- When L is INF, all coefficients are 0.
+- To control this, you'd pass the parameter `elasticNetParam=0` for Ridge and `elasticNetParam=1` for lasso.
+- Example:
+```python
+from pyspark.ml.regression import LinearRegression
+from pyspark.ml.evaluation import RegressionEvaluator
+
+# Fit Lasso model (α = 1) to training data
+regression = LinearRegression(labelCol='duration', regParam=1, elasticNetParam=1).fit(flights_train)
+
+# Calculate the RMSE on testing data
+rmse = RegressionEvaluator(labelCol='duration').evaluate(regression.transform(flights_test))
+print("The test RMSE is", rmse)
+
+# Look at the model coefficients
+coeffs = regression.coefficients
+print(coeffs)
+
+# Number of zero coefficients
+zero_coeff = sum([beta == 0 for beta in regression.coefficients])
+print("Number of ceofficients equal to 0:", zero_coeff)
+```
+
 
 # Ensembles and Pipelines
 
