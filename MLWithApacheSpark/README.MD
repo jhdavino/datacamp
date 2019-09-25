@@ -410,6 +410,207 @@ print("Number of ceofficients equal to 0:", zero_coeff)
 
 
 # Ensembles and Pipelines
+- Now we're going to learn how to improve the models with pipelines.
+- Make sure to only apply the fit method to training data.
+- **Leakage** occurs whenever a fit model is applied to testing data.
+![Example of Leaky model vs Good Model](images/leaky-visualization.png)
+- A pipeline is a method to combine a series of steps or operations together.
+![Pipeline Visualization](images/pipeline-visualization.png)
+- We will be importing and using the pipeline class:
+```python
+from pyspark.ml import Pipeline
+
+pipeline = Pipeline(stages=[indexer, onehot, assemble, regression])
+pipeline = pipeline.fit( cars_train )
+predictions = pipeline.transform( cars_test )
+```
+- You can access the stages in the pipeline using the `.stages` attribute of the pipeline.
+- Example:
+```python
+# Import class for creating a pipeline
+from pyspark.ml import Pipeline
+# Convert categorical strings to index values
+indexer = StringIndexer(inputCol='org', outputCol='org_idx')
+
+# One-hot encode index values
+onehot = OneHotEncoderEstimator(
+    inputCols=['org_idx', 'dow'],
+    outputCols=['org_dummy', 'dow_dummy']
+)
+
+# Assemble predictors into a single column
+assembler = VectorAssembler(inputCols=['km', 'org_dummy', 'dow_dummy'], outputCol='features')
+
+# A linear regression object
+regression = LinearRegression(labelCol='duration')
+
+# Construct a pipeline
+pipeline = Pipeline(stages=[indexer, onehot, assembler, regression])
+
+# Train the pipeline on the training data
+pipeline = pipeline.fit( flights_train )
+
+# Make predictions on the testing data
+predictions = pipeline.transform(flights_test)
+```
+- or
+```python
+from pyspark.ml.feature import Tokenizer, StopWordsRemover, HashingTF, IDF
+
+# Break text into tokens at non-word characters
+tokenizer = Tokenizer(inputCol='text', outputCol='words')
+
+# Remove stop words
+remover = StopWordsRemover(inputCol=tokenizer.getOutputCol(), outputCol='terms')
+
+# Apply the hashing trick and transform to TF-IDF
+hasher = HashingTF(inputCol=remover.getOutputCol(), outputCol="hash")
+idf = IDF(inputCol=hasher.getOutputCol(), outputCol="features")
+
+# Create a logistic regression object and add everything to a pipeline
+logistic = LogisticRegression()
+pipeline = Pipeline(stages=[tokenizer, remover, hasher, idf, logistic])
+```
+- We've been using a pretty rudimentary testing on the data.
+- The problem with this is you only get one estimate on the model performance.
+- You would get a better idea if we could test it multiple times.
+- Bring it **Cross Validation**.
+![Cross Validation](images/cross-validation-visualization.png)
+- One split, you can start cross validating.
+- To do this, you will first need a model and an evaluator.
+- Now we're going to be using two new classes:
+```python
+from pyspark.ml.tuning import CrossValidator, ParamGridBuilder
+params = ParamGridBuilder().build()
+
+cv = CrossValidator(estimator=regression,
+                    estiamtorParamMaps=params,
+                    evaluator=evaluator,
+                    numFolds=10, seed=13)
+cv = cv.fit(cars_train)
+cv.avgMetrics
+```
+- or
+```
+# Create an indexer for the org field
+indexer = StringIndexer(inputCol='org', outputCol='org_idx')
+
+# Create an one-hot encoder for the indexed org field
+onehot = OneHotEncoderEstimator(inputCols=['org_idx'], outputCols=['org_dummy'])
+
+# Assemble the km and one-hot encoded fields
+assembler = VectorAssembler(inputCols=['km', 'org_dummy'], outputCol='features')
+
+# Create a pipeline and cross-validator.
+pipeline = Pipeline(stages=[indexer, onehot, assembler, regression])
+cv = CrossValidator(estimator=pipeline,
+          estimatorParamMaps=params,
+          evaluator=evaluator)
+```
+- The model works but we could probably improve it by selecting better model parameters.
+- The optimal set of parameters will depend on the data.
+- We'll use the `ParamGridBuilder` from before but we'll add to it.
+```python
+params.addGrid(regression.fitIntercept, [True, False])
+# build the grid
+params = params.build()
+```
+- You get the best values from it using the `cv.bestModel`
+- Example:
+```python
+# Create parameter grid
+params = ParamGridBuilder()
+
+# Add grids for two parameters
+params = params.addGrid(regression.regParam, [0.01, 0.1, 1.0, 10.0]) \
+               .addGrid(regression.elasticNetParam, [0.0, 0.5, 1.0])
+
+# Build the parameter grid
+params = params.build()
+print('Number of models to be tested: ', len(params))
+
+# Create cross-validator
+cv = CrossValidator(estimator=pipeline, estimatorParamMaps=params, evaluator=evaluator, numFolds=5)
+```
+- Now we're going to learn about how to combine models together.
+- This is called an **Ensemble Model**.
+- A **Random Forest** is a collection of Trees - specifically decision trees.
+- Here is how we build them in spark:
+```python
+from pyspark.ml.classification import RandomForestClassifier
+forest = RandomForestClassifier(numTrees=5)
+forest.fit( cars_train)\
+
+# you can see the trees using:
+forest.trees
+```
+- The second model we're going to look at is **Graident-Boosted Trees**.
+- Instead of building trees that work in parallel, we build trees that work in series.
+- Steps:
+  1. Build a Decision Tree and add to ensemble.
+  2. Predict label for each training instance using ensemble.
+  3. Compare Predictions with known labels.
+  4. Emphasize training instances with incorrect predictions.
+  5. Return to step 1.
+- You do this with:
+```python
+from pyspark.ml.classification import GBTClassifier
+
+gbt = GBTClassifier(maxIter=10)
+gbt = gbt.fit(cars_train)
+
+#
+```
+- You can reason about the trees success rate using the AUC values generated.
+- Examples:
+```python
+from pyspark.ml.classification import DecisionTreeClassifier, GBTClassifier
+from pyspark.ml.evaluation import BinaryClassificationEvaluator
+
+# Create model objects and train on training data
+tree = DecisionTreeClassifier().fit(flights_train)
+gbt = GBTClassifier().fit(flights_train)
+
+# Compare AUC on testing data
+evaluator = BinaryClassificationEvaluator()
+evaluator.evaluate(tree.transform(flights_test))
+evaluator.evaluate(gbt.transform(flights_test))
+
+# Find the number of trees and the relative importance of features
+print(gbt.getNumTrees)
+print(gbt.featureImportances)
+```
+```python
+# Create a random forest classifier
+forest = RandomForestClassifier()
+
+# Create a parameter grid
+params = ParamGridBuilder() \
+            .addGrid(forest.featureSubsetStrategy, ['all', 'onethird', 'sqrt', 'log2']) \
+            .addGrid(forest.maxDepth, [2, 5, 10]) \
+            .build()
+
+# Create a binary classification evaluator
+evaluator = BinaryClassificationEvaluator()
+
+# Create a cross-validator
+cv = CrossValidator(estimator=forest, estimatorParamMaps=params, evaluator=evaluator, numFolds=5)
+```
+```python
+# Average AUC for each parameter combination in grid
+avg_auc = cv.avgMetrics
+
+# Average AUC for the best model
+best_model_auc = max(cv.avgMetrics)
+
+# What's the optimal parameter value?
+opt_max_depth = cv.bestModel.explainParam('maxDepth')
+opt_feat_substrat = cv.bestModel.explainParam('featureSubsetStrategy')
+
+# AUC for best model on testing data
+best_auc = evaluator.evaluate(cv.transform(flights_test))
+```
+
 
 # Reference:
 

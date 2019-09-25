@@ -82,7 +82,7 @@
 | Conda Essentials                        | [/CondaEssentials]                 | {2019/6/26}    |
 | Cleaning Data in Python                 | [/CleaningDataPython]              | {2019/7/11}    |
 | Feature Engineering for NLP in Python   | [/NLPFeatureEngineeringPython]     | {2019/8/22}    |
-| Machine Learning With Apache Spark      | [/MLWithApacheSpark]               | {}             |
+| Machine Learning With Apache Spark      | [/MLWithApacheSpark]               | {2019/9/25}    |
 
 
 
