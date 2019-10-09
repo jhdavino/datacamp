@@ -55,6 +55,58 @@ lines(SMA(Cl(SPY), n = 200), col = 'red')
 
 
 # A Biolerplate for Quantstrat Strategies
+- There are three important dates for the strategy:
+  1. The initial date.
+  2. A from date.
+  3. A to date.
+- To properly align the dates, it needs to know what timezone it's in.
+- You will need to set this using: `Sys.setenv(TZ = 'UTC')`
+- Then we have to tell it what currency to use: `currency("USD")`.
+- Using the function `stock()` to tell it to treat the stock as basic equity.
+```
+stock("LQD", currency = "USD", multiplier = 1)
+```
+- Examples:
+```
+# Load the quantstrat package
+library(quantstrat)
+
+# Create initdate, from, and to strings
+initdate <- "1999-01-01"
+from <- "2003-01-01"
+to <- "2015-12-31"
+
+# Set the timezone to UTC
+Sys.setenv(TZ = "UTC")
+
+# Set the currency to USD
+currency("USD")
+```
+- In `quantstrat` trade size and initial equity are important to work in "Return Space."
+- Working in trade-space allows for more functionality than "P-L-Space"
+- We will need to also initialize:
+  1. The account.
+  2. The Portfolio.
+  3. The Strategy.
+- If a strategy already exists, then it cannot be re-run!
+- You will need to remove it with `rm.strat( strategy.st )`.
+- Now to initialize all the items.
+- You initialize the portfolio using `initPortf()`:
+```
+initPortf(portfolio.st, symbols = "LQD", initDate = initDate, currency = "USD")
+
+```
+- Next, you initialize the account with `initAcct()`:
+```
+initAcct( account.st, portfolios = portfolio.st, initDate = initDate, currency="USD", initEq = initEq)
+```
+- ... where `account.st` is the account and `initEq` is the inital equity.
+- Next we initialize the Orders using `initOrders()`:
+```
+initOrders(portfolio.st, initDate=initDate)
+```
+- Then, you initialize the strategy with `strategy(strategy.st, store = TRUE)`.
+
 
 # Indicators
 
