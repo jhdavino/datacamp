@@ -109,6 +109,69 @@ initOrders(portfolio.st, initDate=initDate)
 
 
 # Indicators
+- Markets are exceptionally noisy.
+- **Indicators** are transformations of market data.
+- Better indicators try to have more smoothness without sacrificing responsiveness.
+- The most common is the 200-day moving average.
+- Another is the **Relative Strength Indicator (RSI)**.
+- This is a kind of **Osscilation Indicator** which is centered around 0.
+- This indicator we're building is not in a package to prove you are only limited by what you can think of.
+```
+# Create a 200-day SMA
+spy_sma <- SMA(x = Cl(SPY), n=200)
+
+# Create an RSI with a 3-day lookback period
+spy_rsi <- RSI(price = Cl(SPY), n=3)
+```
+- The function to add an indicator to a strategy is `add.indicator()`.
+- It requires:
+  1. The name of your strategy.
+  2. The name of  the function your indicator will call.
+  3. The inputs for the function as a list.
+- Examples:
+```
+# Add a 200-day SMA indicator to strategy.st
+add.indicator(strategy = strategy.st,
+
+              # Add the SMA function
+              name = "SMA",
+
+              # Create a lookback period
+              arguments = list( quote(Cl(mktdata)), n=200),
+
+              # Label your indicator SMA200
+              label = 'SMA200')
+```            
+- It is good practice to use descriptive names.
+- You can use the function `applyIndicators()` to test the indicators on test data.
+```
+# Declare the DVO function
+DVO <- function(HLC, navg = 2, percentlookback = 126) {
+
+  # Compute the ratio between closing prices to the average of high and low
+  ratio <- Cl(HLC)/((Hi(HLC) + Lo(HLC))/2)
+
+  # Smooth out the ratio outputs using a moving average
+  avgratio <- SMA(ratio, n = navg)
+
+  # Convert ratio into a 0-100 value using runPercentRank()
+  out <- runPercentRank(avgratio, n = percentlookback, exact.multiplier = 1) * 100
+  colnames(out) <- "DVO"
+  return(out)
+}
+
+# Add the DVO indicator to your strategy
+add.indicator(strategy = strategy.st, name = "DVO",
+              arguments = list(HLC = quote(HLC(mktdata)), navg = 2, percentlookback = 126),
+              label = "DVO_2_126")
+
+# Use applyIndicators to test out your indicators
+test <- applyIndicators(strategy = strategy.st, mktdata = OHLC(mktdata))
+
+# Subset your data between Sep. 1 and Sep. 5 of 2013
+test_subset <- test["2013-09-01/2013-09-05"]
+```
+
 
 # Signals
 
