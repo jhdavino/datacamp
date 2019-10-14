@@ -174,6 +174,48 @@ test_subset <- test["2013-09-01/2013-09-05"]
 
 
 # Signals
+- **Signals** are the interactions of market data with indicators or indicators with other indicators.
+- These may sound complicated but they are similar to and simpler than indicators.
+- The function that will be used for this is `add.signal()`.
+- There are four common signals:
+  * **sigComparison**: Relationship between two indicators; returns 1 if relationship is true.
+  * **sigCrossover**: similar to *sigComparison*; returns 1 on the first occurrence.
+  * **sigThreshold**: Compares range-bound indicator to a static quantity.
+  * **sigFormula**: Flexible Signal creation.
+![add.signal examples](images/examples-add-signal.png)
+```
+# Add a sigComparison which specifies that SMA50 must be greater than SMA200, call it longfilter
+add.signal(strategy.st, name = "sigComparison",
+
+           # We are interested in the relationship between the SMA50 and the SMA200
+           arguments = list(columns = c("SMA50", "SMA200"),
+
+                            # Particularly, we are interested when the SMA50 is greater than the SMA200
+                            relationship = "gt"),
+
+           # Label this signal longfilter
+           label = "longfilter")
+```
+```
+# Implement a sigThreshold which specifies that DVO_2_126 must be less than 20, label it longthreshold
+add.signal(strategy.st, name = "sigThreshold",
+
+           # Use the DVO_2_126 column
+           arguments = list(column = "DVO_2_126",
+
+                            # The threshold is 20
+                            threshold = 20,
+
+                            # We want the oscillator to be under this value
+                            relationship = "lt",
+
+                            # We're interested in every instance that the oscillator is less than 20
+                            cross = FALSE),
+
+           # Label it longthreshold
+           label = "longthreshold")
+```
+
 
 # Rules
 
