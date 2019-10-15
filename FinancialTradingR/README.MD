@@ -15,7 +15,7 @@
 - The package that we'll be using has a dependency:
 ```
 install.packages('remotes')
-remotes::install_github("braverock/quantstart")
+remotes::install_github("braverock/quantstrat")
 ```
 - Market data is a mix of fear, greed and noise of millions.
 - **Past Performance is not indicative of future results.**.
@@ -218,6 +218,42 @@ add.signal(strategy.st, name = "sigThreshold",
 
 
 # Rules
+- **Rules** are functions used to create a transaction given you wish to make on based on a singal.
+- These can get quite complicated and much of it will be outside the scope of the course.
+- The function we'll use to create these will be `add.rule()`.
+- There are two kinds of rules:
+  1. Enter Rules: Buying Shares.
+  2. Exit Rules: Selling Shares.
+- Exmples of an exit rule:
+```
+# Fill in the rule's type as exit
+add.rule(strategy.st, name = "ruleSignal",
+         arguments = list(sigcol = "filterexit", sigval = TRUE, orderqty = "all",
+                        ordertype = "market", orderside = "long",
+                        replace = FALSE, prefer = "Open"),
+         type = "exit")
+```
+- The name will always be `ruleSignal`..
+- The argument `sigcol` tells you which column in the strategy to watch.
+- The argument `sigval` will tell you what the signal should be to trigger the rule.
+- The argument `orderqty` will determine how much to buy or sell.
+- The argument `ordertype` will determine what kind of order is to be made; we'll stick with market for this class.
+- The argument `orderside` is how the package tells how to categorize the rule.
+- More examples:
+```
+# Fill in the orderqty argument in add.rule()
+add.rule(strategy.st, name = "ruleSignal",
+         arguments = list(sigcol = "filterexit", sigval = TRUE, orderqty = "all",
+                        ordertype = "market", orderside = "long",
+                        replace = FALSE, prefer = "Open"),
+         type = "exit")
+```
+- The argument `replace` will inform the strategy whether it should cancel all other actions that day.
+- The argument `prefer` will tell the package when to actually act on it.
+
+
+# Analyzing Your Strategy
+
 
 # Research:
 
