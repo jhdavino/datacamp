@@ -253,6 +253,37 @@ add.rule(strategy.st, name = "ruleSignal",
 
 
 # Analyzing Your Strategy
+- Now we're going to approach analyzing the strategy.
+- Now you'll want to apply it, then update the portfolio:
+```
+# update portfolio:
+applyStrategy(strategy = strategy.st, portfolios = portfolio.st)
+updatePortf( portfolio.st)
+daterange <- time(getPortfolio(portfolio.st)$summary)[-1]
+
+# update account:
+updateAcct( account.st, daterange )
+updateEndEq( account.st )
+```
+- The most vital is the trade statistics table which you get with `tradeStats(Portfolios = portfolio.st)`
+- You can get the profitability of your trading using `tradeStats(Portfolios = portfolio.st)$Profit.Factor`
+- You can check on how many trades where positive with the attribute `<dt>$Percent.Positive`.
+- You can plot a lot of information about the history or the trades using `chart.Posn( Portfolio = <portfolio.st>, Symbol="SPY")`
+- You can overlay positions on top of the display.
+- To do this, you will need to recalculate the indicators outside the strategy to add to the chart.
+- You can then add them with `add_TA( ...., on = 1 )`.
+- You can also zoom in on certain dates using `zoom_Chart("<dts1/dts2")`
+- The *blotter environment* contains the history of transations and you can actually access it using `.blotter`.
+- The **Sharpe Ratio** is the ratio of how much money you made vs how risky the transation was.
+- The function to check this is `SharpRatio.annulaized(portPL, geometric = FALSE)`.
+- Not that `geometric` must be false since this is not returns data.
+```
+> portpl <- .blotter$portfolio.firststrat$summary$Net.Trading.PL
+> SharpeRatio.annualized(portpl, geometric=FALSE)
+                                Net.Trading.PL
+Annualized Sharpe Ratio (Rf=0%)      0.5165484
+>
+```
 
 
 # Research:
