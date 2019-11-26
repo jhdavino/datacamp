@@ -83,7 +83,8 @@
 | Cleaning Data in Python                 | [/CleaningDataPython]              | {2019/7/11}    |
 | Feature Engineering for NLP in Python   | [/NLPFeatureEngineeringPython]     | {2019/8/22}    |
 | Machine Learning With Apache Spark      | [/MLWithApacheSpark]               | {2019/9/25}    |
-| Financial Trading in R                  | [/FinancialTradingR]               | { }            |
+| Financial Trading in R                  | [/FinancialTradingR]               | {2019/10/16}   |
+| Streamlined Data Ingestion with pandas  | [/StreamlinedDataIngestion]        | { }            |
 
 
 
