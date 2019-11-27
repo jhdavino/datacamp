@@ -98,6 +98,105 @@ except pd.io.common.CParserError:
 
 
 # Importing Data From Excel Files
+- Spreadsheets are sometimes called Excel files.
+- These are also arranged in tabluar fashion.
+- Pandas will not import Spreadsheet formatting.
+- Reading them is the same as csvs but with a different function: `pd.read_excel()`.
+- While reading them can be easy, formatting intended for human will complicate the process.
+- They arguments from `pd.read_csv()` are mostly the same but can behave differently.
+```python
+# Create string of lettered columns to load
+col_string = "AD,AW:BA"
+
+# Load data with skiprows and usecols set
+survey_responses = pd.read_excel("fcc_survey_headers.xlsx",
+                        skiprows = 2,
+                        usecols = col_string)
+
+# View the names of the columns selected
+print(survey_responses.columns)
+```
+- It is fairly common for spreadsheets to contain multiple worksheets.
+- By default, it will only pull data from the 1st worksheet.
+- This can be changed with `sheet_name` parameter.
+- You can pass a name, a number or a list of either kind.
+- All arguments, are applied to all worksheets.
+- If you want to read all the worksheets, then just pass `sheet_name=None`.
+```python
+# Create df from second worksheet by referencing its position
+responses_2017 = pd.read_excel("fcc_survey.xlsx",
+                               sheet_name = '2017')
+
+# Graph where people would like to get a developer job
+job_prefs = responses_2017.groupby("JobPref").JobPref.count()
+job_prefs.plot.barh()
+plt.show()
+```
+```python
+# Create an empty data frame
+all_responses = pd.DataFrame()
+
+# Set up for loop to iterate through values in responses
+for df in responses.values():
+  # Print the number of rows being added
+  print("Adding {} rows".format(df.shape[0]))
+  # Append df to all_responses, assign result
+  all_responses = all_responses.append(df)
+
+# Graph employment statuses in sample
+counts = all_responses.groupby("EmploymentStatus").EmploymentStatus.count()
+counts.plot.barh()
+plt.show()
+```
+- Boolean values only have two possible values: True or False.
+- You can conform the true or false values found using `true_values` and `false_values`.
+- Each will accept a list of possible values.
+- For NAs, you'll need to make a judgment call based on the data itself.
+```python
+# Load file with Yes as a True value and No as a False value
+survey_subset = pd.read_excel("fcc_survey_yn_data.xlsx",
+                              dtype={"HasDebt": bool,
+                              "AttendedBootCampYesNo": bool},
+                              false_values = ['No'],
+                              true_values = ['Yes'])
+
+# View the data
+print(survey_subset.head())
+```
+- Datetimes will can be translated into many string representations.
+- By default, pandas loads datetime as objects.
+- We use the parameter `parse_dates` to specify the columns with dates in them.
+- This will only work for formats that pandas understands.
+- If this happens, then use `pd.to_datetime()` afterwords to correct it.
+```python
+# Load file, with Part1StartTime parsed as datetime data
+survey_data = pd.read_excel("fcc_survey.xlsx",
+                            parse_dates = ['Part1StartTime'])
+
+# Print first few values of Part1StartTime
+print(survey_data.Part1StartTime.head())
+```
+```python
+# Create dict of columns to combine into new datetime column
+datetime_cols = {"Part2Start": ['Part2StartDate', 'Part2StartTime']}
+
+
+# Load file, supplying the dict to parse_dates
+survey_data = pd.read_excel("fcc_survey_dts.xlsx",
+                            parse_dates = datetime_cols)
+
+# View summary statistics about Part2Start
+print(survey_data.Part2Start.describe())
+```
+```python
+# Parse datetimes and assign result back to Part2EndTime
+survey_data["Part2EndTime"] = pd.to_datetime(survey_data["Part2EndTime"],
+                                             format="%m%d%Y %H:%M:%S")
+
+# Print first few values of Part2EndTime
+print(survey_data.Part2EndTime.head())
+```
+
 
 # Importing Data from Databases
 
@@ -106,3 +205,4 @@ except pd.io.common.CParserError:
 # Research:
 
 # Reference:
+- Reference to time strings: [strftime.org](strftime.org)
