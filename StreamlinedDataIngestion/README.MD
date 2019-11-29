@@ -375,6 +375,159 @@ print(df.head())
 
 
 # Importing JSON Data and Working with APIs
+- We're moving from databases to **Javascript Object Notation**, or JSON.
+- This is a common web format.
+- It is not tabular though.
+- Data is organized into objects.
+- These are arranged in collectsion of attribute,value pairs.
+- They can also be nested values.
+- The function to read json is - of course - `pd.read_json()`.
+- The argument is a URL or a string.
+- Since it is not tabluar, pandas will need to make assumptions about how it is arranged.
+- There are different orientations which can also be passed.
+```python
+# Load pandas as pd
+import pandas as pd
+
+# Load the daily report to a data frame
+pop_in_shelters = pd.read_json('dhs_daily_report.json')
+
+# View summary stats about pop_in_shelters
+print(pop_in_shelters.describe())
+```
+- When the data is oriented differently and pandas guesses wrong, you can specify it:
+```python
+try:
+    # Load the JSON with orient specified
+    df = pd.read_json("dhs_report_reformatted.json",
+                      orient = 'split')
+
+    # Plot total population in shelters over time
+    df["date_of_census"] = pd.to_datetime(df["date_of_census"])
+    df.plot(x="date_of_census",
+            y="total_individuals_in_shelter")
+    plt.show()
+
+except ValueError:
+    print("pandas could not parse the JSON.")
+```
+- An **Application Programming Interface** defines how an application communicates with other programs.
+- They are often shared resources and limit accessibility.
+- We're going to use the *requests* library to manage the connections.
+- The function to get the data is `requests.get()`.
+- It has some valuable arguments to interact with APIs.
+- `params` allows you to pass a dictionary of keys and values to the API.
+- `headers` does something similar but should be used to authentication with the API.
+- A response is a `response` object and will require us using `response.josn()` to convert it to a usable format.
+- It gives us a dictionary back.
+- Since `pd.read_json()` cannot read this format, we need to use `pd.DataFrame()` instead.
+```python
+api_url = "https://api.yelp.com/v3/businesses/search"
+
+# Get data about NYC cafes from the Yelp API
+response = requests.get(api_url,
+                headers=headers,
+                params=params)
+
+# Extract JSON data from the response
+data = response.json()
+
+# Load data to a data frame
+cafes = pd.DataFrame(data = data['businesses'])
+
+# View the data's dtypes
+print(cafes.dtypes)
+```
+```python
+# Create dictionary to query API for cafes in NYC
+parameters = {'term':'cafe',
+          	  'location':'NYC'}
+
+# Query the Yelp API with headers and params set
+response = requests.get(api_url,
+                params=parameters,
+                headers=headers)
+
+# Extract JSON data from response
+data = response.json()
+
+# Load "businesses" values to a data frame and print head
+cafes = pd.DataFrame(data['businesses'])
+print(cafes.head())
+```
+```python
+# Create dictionary that passes Authorization and key string
+headers = {"Authorization": "Bearer {}".format(api_key)}
+
+# Query the Yelp API with headers and params set
+response = requests.get(api_url,
+                        headers=headers,
+                        params=params)
+
+# Extract JSON data from response
+data = response.json()
+
+# Load "businesses" values to a data frame and print names
+cafes = pd.DataFrame(data["businesses"])
+print(cafes.name)
+```
+- A JSON is *nested* when the value itself is an object.
+- There is a function to flatten JSON but is in a different subpackage: `pandas.io.json`.
+- This function is `json_normalize()`.
+- It will return a flattened data frame.
+- Sometimes it wont get all of it; this is called **Deeply Nested Data**.
+```python
+# Load json_normalize()
+from pandas.io.json import json_normalize
+
+# Isolate the JSON data from the API response
+data = response.json()
+
+# Flatten business data into a data frame, replace separator
+cafes = json_normalize(data["businesses"],
+             sep = '_')
+
+# View data
+print(cafes.head())
+```
+```python
+# Load other business attributes and set meta prefix
+flat_cafes = json_normalize(data["businesses"],
+                            sep="_",
+                    		record_path="categories",
+                    		meta=['name',
+                                  'alias',  
+                                  'rating',
+                          		  ['coordinates', 'latitude'],
+                          		  ['coordinates', 'longitude']],
+                    		meta_prefix='biz_')
+
+# View the data
+print(flat_cafes.head())
+```
+- No we'll look at adding lots of different types of data imports sources.
+- Use the `.append()` function then passing `ignore_index = True` to renumber the rows.
+- There are usually limits on the number of records returned; you can move to the next set of results using the `offsite` variable.
+- Pandas has its own function that acts similar to SQL joins called `pd.merge()`.
+![Panda Merge Information](images/pandas-merge.png)
+```python
+# Add an offset parameter to get cafes 51-100
+params = {"term": "cafe",
+          "location": "NYC",
+          "sort_by": "rating",
+          "limit": 50,
+          "offset": 50}
+
+result = requests.get(api_url, headers=headers, params=params)
+next_50_cafes = json_normalize(result.json()["businesses"])
+
+# Append the results, setting ignore_index to renumber rows
+cafes = top_50_cafes.append(next_50_cafes, ignore_index=True)
+
+# Print shape of cafes
+print(cafes.shape)
+```
+
 
 # Research:
 
