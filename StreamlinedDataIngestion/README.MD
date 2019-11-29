@@ -199,6 +199,180 @@ print(survey_data.Part2EndTime.head())
 
 
 # Importing Data from Databases
+- Relational Databases organize entries into tables.
+- Each Row or record is an instance of an entity.
+- Each Column has information about an attribute.
+- Databases allow you to *relate* tables together via unique records or keys.
+- There are lots of different kinds of DBs.
+- Connecting to the Database:
+  1. Create the connection.
+  2. Query it.
+- We're going to use the **SQLAlchemy** library.
+- Specifically, we'll be using the function `create_engine()`.
+- It takes a url that is different based on which Database you're using.
+- Once created, we can request data using `pd.read_sql(<query>, engine)`.
+- The query can also just be the name of a table and it will return the whole table.
+- While the SQL keywords themselves do not need to be capitalized, it is common convention.
+- It is also convention to end them with a semicolon.
+```python
+# Import sqlalchemy's create_engine() function
+from sqlalchemy import create_engine
+
+# Create the database engine
+engine = create_engine("sqlite:///data.db")
+
+# View the tables in the database
+print(engine.table_names())
+```
+```python
+# Create the database engine
+engine = create_engine("sqlite:///data.db")
+
+# Create a SQL query to load the entire weather table
+query = """
+SELECT *
+  FROM weather;
+"""
+
+# Load weather with the SQL query
+weather = pd.read_sql(query, engine)
+
+# View the first few rows of data
+print(weather.head())
+```
+- It's not always a good idea to query all data in a database.
+- You can filter the columns by replacing the `*` with the names you're after.
+- You can use a `WHERE` clause to filter rows.
+- They can also be used to filter numbers using relational operators - `>`, `<`, etc.
+- They can also be used to match strings.
+  * The `=` means to match exactly; it is case sensitive.
+- You can also combine clauses using the logical *OR* and *AND* clauses.
+```python
+# Create database engine for data.db
+engine = create_engine('sqlite:///data.db')
+
+# Write query to get date, tmax, and tmin from weather
+query = """
+SELECT date,
+       tmax,
+       tmin
+  FROM weather;
+"""
+
+# Make a data frame by passing query and engine to read_sql()
+temperatures = pd.read_sql(query, engine)
+
+# View the resulting data frame
+print(temperatures)
+```
+```python
+# Create query to get hpd311calls records about safety
+query = """
+SELECT *
+FROM hpd311calls
+WHERE complaint_type = 'SAFETY';
+"""
+
+# Query the database and assign result to safety_calls
+safety_calls = pd.read_sql(query, engine)
+
+# Graph the number of safety calls by borough
+call_counts = safety_calls.groupby('borough').unique_key.count()
+call_counts.plot.barh()
+plt.show()
+```
+- Sometimes you will need unique values in a column or rows and you can do this with the clause `DISTINCT`.
+- Sometimes you want aggregate data and there are functions for that too:
+  * `SUM`.
+  * `AVG`.
+  * `MAX`.
+  * `MIN`.
+  * `COUNT`
+- But, more often you want aggregation by a column which can be done using `GROUP BY`.
+```python
+# Create query for unique combinations of borough and complaint_type
+query = """
+SELECT DISTINCT borough,
+       complaint_type
+  FROM hpd311calls;
+"""
+
+# Load results of query to a data frame
+issues_and_boros = pd.read_sql( query, engine )
+
+# Check assumption about issues and boroughs
+print(issues_and_boros)
+```
+```python
+# Create query to get call counts by complaint_type
+query = """
+SELECT complaint_type,
+       COUNT(*)
+  FROM hpd311calls
+ GROUP BY complaint_type;
+"""
+
+# Create data frame of call counts by issue
+calls_by_issue = pd.read_sql(query, engine)
+
+# Graph the number of calls for each housing issue
+calls_by_issue.plot.barh(x="complaint_type")
+plt.show()
+```
+```python
+# Create query to get temperature and precipitation by month
+query = """
+SELECT month,
+        MAX(tmax),
+        MIN(tmin),
+        SUM(prcp)
+  FROM weather
+ GROUP BY month;
+"""
+
+# Get data frame of monthly weather stats
+weather_by_month = pd.read_sql(query, engine)
+
+# View weather stats by month
+print(weather_by_month)
+```
+- Database records have unique identifiers, or keys.
+- At the simplest, they can just be row numbers.
+- By default, a join will only return records whose key value appear in both tables.
+```python
+# Query to get hpd311calls and precipitation values
+query = """
+SELECT hpd311calls.*, weather.prcp
+  FROM hpd311calls
+  JOIN weather
+    ON hpd311calls.created_date = weather.date;"""
+
+# Load query results into the leak_calls data frame
+leak_calls = pd.read_sql(query, engine)
+
+# View the data frame
+print(leak_calls.head())
+```
+```python
+# Modify query to join tmax and tmin from weather by date
+query = """
+SELECT hpd311calls.created_date,
+       COUNT(*),
+       weather.tmax,
+       weather.tmin
+  FROM hpd311calls
+       JOIN weather
+       ON hpd311calls.created_date = weather.date
+ WHERE hpd311calls.complaint_type = 'HEAT/HOT WATER'
+ GROUP BY hpd311calls.created_date;"""
+
+# Query database and save results as df
+df = pd.read_sql(query, engine)
+
+# View first 5 records
+print(df.head())
+```
+
 
 # Importing JSON Data and Working with APIs
 
