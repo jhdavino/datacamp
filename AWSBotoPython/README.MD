@@ -190,6 +190,105 @@ objects_df['Link'] = base_url + objects_df['Key']
 
 
 # Reporting and Notifying!
+- Amazon SNS stands for **Simple Notification Service**.
+- In this Architecture, Publishers publish messages to an SNS Topic and Subscribers receive them.
+- To create an SNS Topic:
+```python
+sns = boto3.client(
+  'sns',
+  region_name='<region>',
+  aws_access_key_id=<AWS_ID>,
+  aws_secret_access_key=<AWS_SECRET>
+)
+
+response = sns.create_topic(Name='<topic-name>')
+```
+- In return, we will get an API response with the details we need to send results.
+- If you try and create a topic with the same name, then it will return the ARN of the already existing topic.
+- You can get the list of topics are user has acess to using `sns.list_topics()`
+- To delete a topic, you pass a *TopicARN* to `sns.delete_topic()`.
+```python
+# Get the current list of topics
+topics = sns.list_topics()['Topics']
+
+for topic in topics:
+  # For each topic, if it is not marked critical, delete it
+  if "critical" not in topic['TopicArn']:
+    sns.delete_topic(TopicArn=topic['TopicArn'])
+
+# Print the list of remaining critical topics
+print(sns.list_topics()['Topics'])
+```
+- There are three parts to a Subscriber:
+  1. ID
+  2. Endpoint.
+  3. Protocol
+- To set this up via code:
+```python
+response = sns.subscribe(
+  TopicArn = '<arn>',
+  Protocol = '<protocol>',
+  Endpoint = '<endpoint>'
+)
+```
+- In response, we will get a *SubscriptionArn*.
+- Don't forget that an email user will need to to confirm.
+- To see what users belong to a topic, you can use:
+```python
+sns.list_subscriptions_by_topic(
+  TopicArn = '<topic-arn>'
+)
+```
+- To delete a subscription, we do:
+```python
+sns.unsubscribe(
+  SubscriptionArn='<subscription-arn>'
+)
+```
+```python
+# List subscriptions for streets_critical topic, convert to DataFrame
+response = sns.list_subscriptions_by_topic(
+  TopicArn = str_critical_arn)
+subs = pd.DataFrame(response['Subscriptions'])
+```
+```python
+# For each subscription, if the protocol is SMS, unsubscribe
+for sub in response['Subscriptions']:
+  if sub['Protocol'] == 'sms':
+	  sns.unsubscribe(SubscriptionArn=sub['SubscriptionArn'])
+
+# List subscriptions for streets_critical topic in one line
+subs = sns.list_subscriptions_by_topic(
+  TopicArn=str_critical_arn)['Subscriptions']
+```
+- By publishing a message to a Topic, all our subscribers will receive it.
+- To do this:
+```python
+repsonse = sns.publish(
+  TopicArn = '<topic-arn>',
+  Message = '<body>',
+  Subject = 'Subject for email'
+)
+```
+- To send a single SMS message use:
+```python
+response = sns.publish(
+  PhoneNumber = '<phone-number>',
+  Message = '<text>'
+)
+```
+- One of the important roles of a Data Engineer is balancing getting stuff done and maintaining it.
+```python
+for index, user_row in contacts.iterrows():
+  # Get topic names for the users's dept
+  critical_tname = '{}_critical'.format(user_row['Department'])
+  extreme_tname = '{}_extreme'.format(user_row['Department'])
+
+  # Get or create the TopicArns for a user's department.
+  critical_arn = sns.create_topic(Name=critical_tname)['TopicArn']
+  extreme_arn = sns.create_topic(Name=extreme_tname)['TopicArn']
+```
+
 
 # Pattern Rekognition
 
