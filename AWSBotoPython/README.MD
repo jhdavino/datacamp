@@ -121,6 +121,73 @@ for obj in response['Contents']:
 
 
 # Sharing Files Securely
+- AWS defaults to deny access.
+- There are Four Ways we can control permissions:
+  1. IAM
+  2. Bucket Policies.
+  3. ACLs
+  4. Presigned URLs
+- ACLs are entities attached to objects.
+- To change the ACL, you would use:
+```python
+s3.put_object_acl(
+  Bucket='<bucket-name>',
+  Key='<file-name>',
+  ACL='public-read'
+)
+```
+- You can also include `ExtraArgs = {'ACL':'public-read'}`.
+- Once uploaded, anyone can access it using the url *https://{bucket}.s3.amazon.com/{key}*.
+- We can use the function `.download_file()` to download private files.
+- You can also use:
+```python
+obj = s3.get_object(Bucket='gid-requests', Key='<filenam>')
+print( obj )
+```
+- This will give you some metadata about the file as well as a **StreamingBody** object.
+- These are a special kind of object that doesn't actually download all of the file but Pandas can deal with just fine.
+- You can generate a **Pre-signed URL** for others to use for a short time.
+- You can do this with:
+```python
+share_url = s3.generate_presigned_url(
+  ClientMethod = 'get_object',
+  ExpiresIn=3600,
+  Params={'Bucket', 'git-requests', 'Key':'potholes.csv'}
+)
+```
+```python
+for file in response['Contents']:
+    # For each file in response load the object from S3
+    obj = s3.get_object(Bucket='gid-requests', Key=file['Key'])
+    # Load the object's StreamingBody with pandas
+    obj_df = pd.read_csv(obj['Body'])
+    # Append the resulting DataFrame to list
+    df_list.append(obj_df)
+```
+- S3 can serve HTML pages.
+- Pandas has a method called `.to_html()` which will convert dataframes to HTML tables.
+- We can use the parameter `render_links=True` to turn links into hyperlinks.
+- We can pass the columns that we want as well.
+- We have some limited control over the formatting too.
+- When sending the file to S3, you will want to add `'ContentType':'text/html'` to the `ExtraArgs` parameter.
+- You will want to make sure to get the *ContentType* correct so it renders properly.
+```python
+# Generate an HTML table with no border and selected columns
+services_df.to_html('./services_no_border.html',
+           # Keep specific columns only
+           columns=['service_name', 'link'],
+           # Set border
+           border=0)
+```
+```python
+# Convert the response contents to DataFrame
+objects_df = pd.DataFrame(objects_list['Contents'])
+
+# Create a column "Link" that contains Public Object URL
+base_url = "http://gid-reports.s3.amazonaws.com/"
+objects_df['Link'] = base_url + objects_df['Key']
+```
+
 
 # Reporting and Notifying!
 
