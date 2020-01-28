@@ -291,6 +291,72 @@ for index, user_row in contacts.iterrows():
 
 
 # Pattern Rekognition
+- Over the last few sections, we learned a pattern for AWS services not limited to what we did.
+- **Rekognition** is a computer vision recognition by AWS.
+- We'll be focusing on:
+  1. Detecting Objects in an Image.
+  2. Extracting Text from Images.
+![Own vs AWS](images/why-not-our-own.png)
+```python
+# Use Rekognition client to detect labels
+image1_response = rekog.detect_labels(
+    # Specify the image as an S3Object; Return one label
+    Image=image1, MaxLabels=1)
+```
+```python
+# Iterate over the TextDetections in the response dictionary
+for text_detection in response['TextDetections']:
+  	# If TextDetection type is WORD, append it to words list
+    if text_detection['Type'] == 'WORD':
+        # Append the detected text
+        words.append(text_detection['DetectedText'])
+```
+```python
+# Iterate over the TextDetections in the response dictionary
+for text_detection in response['TextDetections']:
+  	# If TextDetection type is LINE, append it to lines list
+    if text_detection['Type'] == 'LINE':
+      	# Append the detected text
+        lines.append(text_detection['DetectedText'])
+```
+```python
+# For each dataframe row
+for index, row in dumping_df.iterrows():
+    # Get the public description field
+    description = dumping_df.loc[index, 'public_description']
+    if description != '':
+        # Detect language in the field content
+        resp = comprehend.detect_dominant_language(Text=description)
+        # Assign the top choice language to the lang column.
+        dumping_df.loc[index, 'lang'] = resp['Languages'][0]['LanguageCode']
+```
+```python
+for index, row in dumping_df.iterrows():
+  	# Get the public_description into a variable
+    description = dumping_df.loc[index, 'public_description']
+    if description != '':
+      	# Translate the public description
+        resp = translate.translate_text(
+            Text=description,
+            SourceLanguageCode='auto', TargetLanguageCode='en')
+        # Store original language in original_lang column
+        dumping_df.loc[index, 'original_lang'] = resp['SourceLanguageCode']
+        # Store the translation in the translated_desc column
+        dumping_df.loc[index, 'translated_desc'] = resp['TranslatedText']
+```
+```python
+for index, row in dumping_df.iterrows():
+  	# Get the translated_desc into a variable
+    description = dumping_df.loc[index, 'public_description']
+    if description != '':
+      	# Get the detect_sentiment response
+        response = comprehend.detect_sentiment(
+          Text=description,
+          LanguageCode='en')
+        # Get the sentiment key value into sentiment column
+        dumping_df.loc[index, 'sentiment'] = response['Sentiment']
+```
+
 
 # Research:
 

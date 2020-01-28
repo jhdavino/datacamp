@@ -85,7 +85,7 @@
 | Machine Learning With Apache Spark      | [/MLWithApacheSpark]               | {2019/9/25}    |
 | Financial Trading in R                  | [/FinancialTradingR]               | {2019/10/16}   |
 | Streamlined Data Ingestion with pandas  | [/StreamlinedDataIngestion]        | {2019/11/29}   |
-| Introduction to AWS Boto in Python      | [/AWSBotoPython]                   | { }            |
+| Introduction to AWS Boto in Python      | [/AWSBotoPython]                   | {2020/01/28}   |
 
 
 
