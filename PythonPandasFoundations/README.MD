@@ -21,7 +21,7 @@ df[:5,:]
 - You can use the function `.tail()` to return the last 5 rows of the dataframe.
 - You can use the function `.info()` to return information about all the columns.
 - You can broadcast values.
-- The columns themselves are their own kind of datastructure called a **Series**.
+- The columns themselves are their own kind of data structure called a **Series**.
 - You can get the values of a *series* using the `.values` accessor.
 - You can convert a dictionary into a Dataframe using the function `pd.DataFrame()`.
 - It is useful to be able to create data frames from lists since they're so common in python.
