@@ -167,6 +167,146 @@ dag = DAG(dag_id="car_factory_simulation",
 
 
 # Extract, Transform, Load ( ETL )
+- Extracting data means taking data from persistent storage into memory for processsing.
+- There are lots of different formats where data is stored:
+  1. Unstructured; plain text.
+  2. Flat Files; .tsv, .csv
+  3. Javascript Object Notation (JSON)
+  4. APIs
+  5. Databases.
+```python
+import requests
+
+# Fetch the Hackernews post
+resp = requests.get("https://hacker-news.firebaseio.com/v0/item/16222426.json")
+
+# Print the response parsed as JSON
+print(resp.json())
+
+# Assign the score of the test to post_score
+post_score = resp.json()["score"]
+print(post_score)
+```
+```python
+# Function to extract table to a pandas DataFrame
+def extract_table_to_pandas(tablename, db_engine):
+    query = "SELECT * FROM {}".format(tablename)
+    return pd.read_sql(query, db_engine)
+
+# Connect to the database using the connection URI
+connection_uri = "postgresql://repl:password@localhost:5432/pagila"
+db_engine = sqlalchemy.create_engine(connection_uri)
+
+# Extract the film table into a pandas DataFrame
+extract_table_to_pandas("film", db_engine)
+
+# Extract the customer table into a pandas DataFrame
+extract_table_to_pandas("customer", db_engine)
+```
+- Now we'll talk about what kind of transformations you can expect to do to data.
+- You can select attributes from the data.
+- You can translate values in the data ( 'New York' => 'NY').
+- Validate that the data makes sense.
+- While you can use pandas to do this, we're going to be using pyspark.
+- You can connect spark to a sql database using:
+```python
+import pyspark.sql
+
+spark = pyspark.sql.SparkSession.builder.getoOrCreate()
+spark.read.jdbc("jdbc:<db-type>://<connection-address>:<port>/<database>",
+  "<table-name>",
+  properties = {"user": "<username>", "password":"password"})
+````
+- An example of joining:
+```python
+# Get the rental rate column as a string
+rental_rate_str = film_df.rental_rate.astype("str")
+
+# Split up and expand the column
+rental_rate_expanded = rental_rate_str.str.split(".", expand=True)
+
+# Assign the columns to film_df
+film_df = film_df.assign(
+    rental_rate_dollar=rental_rate_expanded[0],
+    rental_rate_cents=rental_rate_expanded[1],
+)
+```
+```python
+# Use groupBy and mean to aggregate the column
+ratings_per_film_df = rating_df.groupBy('film_id').mean('rating')
+
+# Join the tables using the film_id column
+film_df_with_ratings = film_df.join(
+    ratings_per_film_df,
+    film_df.film_id==ratings_per_film_df.film_id
+)
+
+# Show the 5 first results
+print(film_df_with_ratings.show(5))
+```
+- The last step would be to load the data into an Analytics Database or Application.
+![Column vs Row](images/column-vs-row.png)
+- Most often the data will be pushed into a **Massively Parallel Processing Database**.
+- There are multiple tools for this:
+  1. Amazon Redshift.
+  2. Azure SQL Data Warehouse
+  3. Google BigQuery.
+- Sometimes you'll want to convert the data to a Columnar format using `pandas.to_parquet()`
+- Sometimems you'll want to push the computation results into a SQL database:
+```python
+results = transform_for_results( data_df)
+
+# load into PostgreSQL database:
+results.to_sql(
+  "<table>",
+  db_engine,
+  schema="store",
+  if_exists = "replace"
+)
+```
+```python
+# Write the pandas DataFrame to parquet
+film_pdf.to_parquet("films_pdf.parquet")
+
+# Write the PySpark DataFrame to parquet
+film_sdf.write.parquet("films_sdf.parquet")
+```
+```python
+# Finish the connection URI
+connection_uri = "postgresql://repl:password@localhost:5432/dwh"
+db_engine_dwh = sqlalchemy.create_engine(connection_uri)
+
+# Transformation step, join with recommendations data
+film_pdf_joined = film_pdf.join(recommendations)
+
+# Finish the .to_sql() call to write to store.film
+film_pdf_joined.to_sql("film", db_engine_dwh, schema="store", if_exists="replace")
+
+# Run the query to fetch the data
+pd.read_sql("SELECT film_id, recommended_film_ids FROM store.film", db_engine_dwh)
+```
+- Now here is our example ETL job:
+![Example ETL Job Flow](images/example-etl.png)
+- First, we'll create a DAG is Apache Airflow.
+- The normal format to specify the job runtime is a cron format:
+![Cron Specification](images/cron-format.png)
+- While setting up the job, since this is using python then it makes sense to use Airflow's PythonOperator.
+```python
+from airflow.models import DAG
+from airflow.operators.python_operator imoprt PythonOperator
+
+dag = DAG(dag_id="etl_pipeline",
+  schedule_interval="0 0 * * *"
+)
+
+etl_task = PythonOperator(
+  task_id='etl_task',
+  python_callable=etl,
+  dag
+)
+```
+- Once this is done, you can write the files in `~/airflow/dags/` folder for them to just work.
+
 
 # Case Study: Datacamp
 
