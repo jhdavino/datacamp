@@ -309,6 +309,41 @@ etl_task = PythonOperator(
 
 
 # Case Study: Datacamp
+- We're going to use Datacamp's Course Ratings in a real example.
+```python
+# Complete the transformation function
+def transform_avg_rating(rating_data):
+  # Group by course_id and extract average rating per course
+  avg_rating = rating_data.groupby('course_id').rating.mean()
+  # Return sorted average ratings per course
+  sort_rating = avg_rating.sort_values(ascending=False).reset_index()
+  return sort_rating
+
+# Extract the rating data into a DataFrame    
+rating_data = extract_rating_data(db_engines)
+
+# Use transform_avg_rating on the extracted data and print results
+avg_rating_data = transform_avg_rating(rating_data)
+print(avg_rating_data)
+```
+- Making recommendations is usually about Matrix Factorization - which, in detail, is beyond the scope of the course.
+```python
+# Complete the transformation function
+def transform_recommendations(avg_course_ratings, courses_to_recommend):
+    # Merge both DataFrames
+    merged = courses_to_recommend.merge(avg_course_ratings)
+    # Sort values by rating and group by user_id
+    grouped = merged.sort_values("rating", ascending = False).groupby('user_id')
+    # Produce the top 3 values and sort by user_id
+    recommendations = grouped.head(3).sort_values("user_id").reset_index()
+    final_recommendations = recommendations[["user_id", "course_id","rating"]]
+    # Return final recommendations
+    return final_recommendations
+
+# Use the function with the predefined DataFrame objects
+recommendations = transform_recommendations(avg_course_ratings, courses_to_recommend)
+```
+
 
 # Research:
 - `@print_timing`?
