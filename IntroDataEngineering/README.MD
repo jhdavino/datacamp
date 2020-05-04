@@ -115,7 +115,7 @@ parallel_apply(take_mean_age, athlete_events.groupby('Year'), 4)
   2. Actions.
 - When working with *Spark*, people use a programming language API like PySpark.
 ```python
-rom pyspark.sql import SparkSession
+from pyspark.sql import SparkSession
 
 
 if __name__ == "__main__":
@@ -287,7 +287,7 @@ pd.read_sql("SELECT film_id, recommended_film_ids FROM store.film", db_engine_dw
 ```
 - Now here is our example ETL job:
 ![Example ETL Job Flow](images/example-etl.png)
-- First, we'll create a DAG is Apache Airflow.
+- First, we'll create a DAG in Apache Airflow.
 - The normal format to specify the job runtime is a cron format:
 ![Cron Specification](images/cron-format.png)
 - While setting up the job, since this is using python then it makes sense to use Airflow's PythonOperator.
