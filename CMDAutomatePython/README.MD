@@ -137,6 +137,103 @@ print(f"cmd: {cmd}")
 
 
 # Walking the file system
+- In big data, there are two kinds of users who create data on a file system:
+  1. Machine.
+  2. Human.
+- The underlying assumption is that it is a heirarcy.
+- You can see this using the `tree` command in Unix.
+![Filesystem Tree](images/tree-example.png)
+- You can walk a filesystem in python using `os.walk()`.
+- **Lazy Evaluation** can be handy because it only runs when you ask it to.
+- It is a common pattern to split a file into the name, extension.
+- This pattern is done with ` _, ext = os.path.splittext(fullpath)`.
+```python
+# Walk the filesystem starting at the test_dir
+for root, _, files in os.walk('cattle'):
+    for name in files:
+
+        # Create the full path to the file by using os.path.join()
+        fullpath = os.path.join(root, name)
+        print(f"Processing file: {fullpath}")
+
+        # Rename file
+        if "shorthorn" in name:
+            p = pathlib.Path(fullpath)
+            shortname = name.split("_")[0] # You need to split the name by underscore
+            new_name = f"{shortname}_longhorn"
+            print(f"Renaming file {name} to {new_name}")
+            p.rename(new_name)
+```
+- There are a few advantages to `Path.glob()`:
+  1. finds patterns in directories.
+  2. yeilds matches.
+  3. can recursively search.
+- The pattern is simple:
+```python
+from pathlib import Path
+path = Path('data')
+list(path.glob('*.csv'))
+```
+- To search recursively, you would simply add wildcards in front: `path.glob("**/*.csv")`.
+- Another filewalking utilities is `fnmatch()`.
+- You can translate a glob into a regex using this function:
+```python
+import fnmath, re
+regex = fnmath.translate('*.csv')
+pattern = re.complite(regex)
+print(pattern)
+```
+- An example of using `fnmatch`:
+```python
+import fnmatch
+
+# List of file names to process
+files = ["data1.csv", "script.py", "image.png", "data2.csv", "all.py"]
+
+# Function that returns
+def csv_matches(list_of_files):
+    """Return matches for csv files"""
+
+    matches = fnmatch.filter(list_of_files, "*.csv")
+    return matches
+
+# Call function to find matches
+matches = csv_matches(files)
+print(f"Found matches: {matches}")
+```
+- The packages `shutil` and `tempfile` can solve  problems that come up in automation.
+![ Copy a Directory and Subdirectories](images/shutil-copytree.png)
+- You can also delete a full tree:
+```python
+from shutil import rmtree
+rmtree(source, destination)
+```
+- A new feature is the ability to archive a tree of data using `shutil.make_archive()`:
+```python
+from shutil import make_archive
+make_archive("some_archive", 'gztar', 'inside_tmp_dir')
+```
+- Remember that the less code you write, the less bugs there can be.
+- Here is an example of using a temporary file:
+```python
+# Create a self-destructing temporary file
+with tempfile.NamedTemporaryFile() as exploding_file:
+  	# This file will be deleted automatically after the with statement block
+    print(f"Temp file created: {exploding_file.name}")
+    exploding_file.write(b"This message will self-destruct in 5....4...\n")
+
+    # Get to the top of the file
+    exploding_file.seek(0)
+
+    #Print the message
+    print(exploding_file.read())
+
+# Check to sure file self-destructed
+if not os.path.exists(exploding_file.name):
+    print(f"self-destruction verified: {exploding_file.name}")
+```
+- The key advantage of `pathlib` is to use object oriented path objects.
+
 
 # Command line functions
 
