@@ -87,7 +87,7 @@
 | Streamlined Data Ingestion with pandas  | [/StreamlinedDataIngestion]        | {2019/11/29}   |
 | Introduction to AWS Boto in Python      | [/AWSBotoPython]                   | {2020/01/28}   |
 | Introduction to Data Engineering        | [/IntroDataEngineering]            | {2020/04/01}   |
-| Command Line Automation in Python       | [/CMDAutomatePython]               | {}             |
+| Command Line Automation in Python       | [/CMDAutomatePython]               | {2020/05/07}   |
 
 
 

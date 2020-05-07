@@ -212,7 +212,7 @@ rmtree(source, destination)
 ```python
 from shutil import make_archive
 make_archive("some_archive", 'gztar', 'inside_tmp_dir')
-```
+````  
 - Remember that the less code you write, the less bugs there can be.
 - Here is an example of using a temporary file:
 ```python
@@ -236,6 +236,72 @@ if not os.path.exists(exploding_file.name):
 
 
 # Command line functions
+- Functions can be thought of as units of work.
+- **Decorators** are powerful; they wrap other functions and make them more powerful.
+- Here is an example:
+![Wraps Decorator](images/decorator-wraps-example.png)
+- The main purpose of `wraps()` is to preserve the name of the function that it wraps.
+- The `__name__` stores the name of the function.
+```python
+# create sample blobs from sklearn datasets
+def blobs():
+    X,y = make_blobs(n_samples=10, centers=3, n_features=2,random_state=0)
+    return X,y
+
+# Perform KMeans cluster
+def cluster(X, random_state=170, num=2):
+    return KMeans(n_clusters=num, random_state=random_state).fit_predict(X) # Returns cluster assignment
+
+#Run everything:  Call both functions. `X` creates the data and `cluster`, clusters the data.
+def main():
+    X,_ = blobs()
+    return cluster(X)
+
+print(main()) #print the KMeans cluster assignments
+```
+- The `sys.argv` array collects all the command line arguments as a list.
+- You will need to import `sys` to actually access it.
+- The name of the script is in index 0.
+- Now we're going to discuss the package **Click**.
+- This is a Python package who's job is to create beautiful command line interfaces.
+- There are three main features:
+  1. Arbitrary nesting of commands.
+  2. Automatic help page generation.
+  3. Lazy Loading subcommands at runtime.
+- You would import it using `import click`.
+- The decorator `@click.command()` is how to convert a function into a command.
+- Here is a simple example:
+![Simple Click Example](images/simple-click-example.png)
+- You can get help information when you call `--help` while using *click*,
+- One of the more powerful features is to map a function to a subcommand.
+![Click Subcommands](images/click-group-commands.png)
+- Click also comes with the ability to:
+  * Colorize output.
+  * Generate paginated output
+  * Clear the screen.
+  * Wait for a key press.
+  * Launch Editors.
+  * Write files.
+- You can also test the code using the CliRunner.
+![CLI Runner Example](images/clirunner-example.png)
+- Example of CliRunner:
+```python
+#define the click command
+@click.command()
+@click.option("--num", default=2, help="Number of clusters")
+def run_cluster(num):
+    result = main(num)
+    click.echo(f'Cluster assignments: {result} for total clusters [{num}]')
+
+# Create the click test runner
+runner = CliRunner()
+
+# Run the click app and assert it runs without error
+result = runner.invoke(run_cluster, ['--num', '2'])
+assert result.exit_code == 0
+print(result.output)
+```
+
 
 # Research:
 
