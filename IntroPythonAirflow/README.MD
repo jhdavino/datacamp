@@ -69,6 +69,86 @@ cleanup = BashOperator(
     dag=analytics_dag
 )
 ```
+- Tasks are instantiated operators.
+- Task dependencies are not required for a workflow but are usually present.
+- Tasks are usually referred to as **Upstream** or **Downstream** depending on its relationship to other tasks.
+- Since 1.8, tasks are defined using the bit shift operators:
+  * `>>`: Upstream
+  * `<<`: Downstream
+- Examples:
+```python
+# Set pull_sales to run prior to cleanup
+pull_sales >> cleanup
+
+# Configure consolidate to run after cleanup
+consolidate << cleanup
+
+# Set push_data to run last
+consolidate >> push_data
+```
+- the `PythonOperator()` is like the bash version but instead expects python code.
+- Print statements end up in the logs.
+- You can pass a `opt_kwargs` defined dictionary to pass values to the functions.
+```python
+def sleep(length_of_time):
+  time.sleep( length_of_time)
+
+sleep_task = PythonOperator(
+  task_id='sleep',
+  python_callable='sleep',
+  op_kwargs = {'length_of_time':5},
+  dag=example_dag
+)
+```
+- There are other operators in the ecosystem.
+- One such is the `EmailOperator` from the `airflow.operators` sublibrary.
+![Email Operator Example](images/email-operator-example.png)
+```python
+# Import the Operator
+from airflow.operators.email_operator import EmailOperator
+
+# Define the task
+email_manager_task = EmailOperator(
+    task_id='email_manager',
+    to ='manager@datacamp.com',
+    subject='Latest sales JSON',
+    html_content='Attached is the latest sales JSON file as requested.',
+    files='parsedfile.json',
+    dag=process_sales_dag
+)
+
+# Set the order of tasks
+pull_file_task >> parse_file_task >> email_manager_task
+```
+- A **GAG Run** is a specific instance of a workflow at a point in time.
+- It can be run manually or scheduled via the parameter `schedule_interval`
+- You can see all the dag runs under the Browse Page:
+![Visual of the Dag Runs Page](images/browse-dag-runs.png)
+- There are some attributes that we should be aware of while building runs:
+  * `start_date`: when the Dag is allowed to start running.
+  * `end_date`: An optional argument which can define when it should stop being scheduled.
+  * `max_tries`: Optional attribute for how many attempts to make.
+  * `schedule_interval`: defines how often the dag shoudl run.
+- The actual schedule can be defined using the cron sytle syntax or prebuilt presets.
+- Some presets are:
+![Preset Comparison](images/airflow-schedule-presets.png)
+![More Presets](images/more-airflow-schedule-presets.png)
+- Remember that the `state_date` is exclusive and not inclusive.
+```python
+# Update the scheduling arguments as defined
+default_args = {
+  'owner': 'Engineering',
+  'start_date': datetime(2019, 11, 1),
+  'email': ['airflowresults@datacamp.com'],
+  'email_on_failure': False,
+  'email_on_retry': False,
+  'retries': 3,
+  'retry_delay': timedelta(minutes=20)
+}
+
+dag = DAG('update_dataflows', default_args=default_args, schedule_interval='30 12 * * 3')
+```
+
 
 # Maintaining and monitoring Airflow workflows
 
