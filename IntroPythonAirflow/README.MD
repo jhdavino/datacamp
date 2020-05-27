@@ -151,6 +151,80 @@ dag = DAG('update_dataflows', default_args=default_args, schedule_interval='30 1
 
 
 # Maintaining and monitoring Airflow workflows
+- A **Sensor** is an operator that waits for a condition to be true.
+- Examples could be:
+  * Creation of a file.
+  * Upload of a database record.
+  * Certain response from a web request.
+- Since they're operators, they're assigned to tasks the same.
+- All *sensors* are derevied from `airflow.sensors.base_sensor_operator`.
+![Sensor Detials](images/sensor-details-part1.png)
+- The *File Sensor* checks for the existence of a file.
+- It can be found in `airflow.contrib.sensors.`.
+```python
+from airflow.contrib.sensors.file_sensor import file_sensor
+
+file_sensor_task = FileSensor(
+  task_id='file_sense',
+  filepath = 'salesdata.csv',
+  poke_interval=300,
+  dag=sales_report_dag
+)
+```
+- There are plenty of other sensors as well:
+![Other Sensors](images/other-sensors.png)
+- You should use a sensor when:
+  * Uncertain when it will be true.
+  * If failure not immediately desired.
+  * To add task repetition without loops.
+- In Airflow, an **Executor** is what actually runs the task.
+- Different Executors handle running tasks differently.
+- Here are a few examples:
+  * SequentialExecutor
+  * LocalExecutor
+  * CeleryExecutor
+- The default is `SequentialExecutor` which only runs one task at a time.
+- It is useful for debugging since it is simple to follow the flow of tasks.
+- The `LocalExecutor` treats each task as a process on the system.
+- It does only run on a single system though.
+- The last we'll look at is `CeleryExecutor` which uses **Celery** as a backend task manager.
+- This is significantly more difficult to setup and configure.
+- You can check which is being used via the airflow.cfg file.
+- It should also be listed in the `airflow list_dags` command.
+- The most common reason a Dag is not run on schedule is that the Scheduler is not running.
+- Don't forget that there is only one task slot by default since `SequentialExecutor` is the default executor.
+- Sometimes the dag just wont show up in the list of dags so make sure it's in the correct folder.
+- The sometimes there is just a syntax error in the actual dag file you're trying to run.
+- An **SLA** stands for a **Service Level Agreement**.
+- In Airflow, this is the amount of time a task is thought should take to run.
+- An email gets sent out but also can be seen in the UI.
+- This is passed along with the task:
+```python
+task1 = BashOperator(task_id='sla_task',
+  bash_command = 'runcode.sh',
+  sla=timedelta(seconds=30),
+  dag=dag)
+```
+- You can also add it to the default args dictionary which is then applied to all tasks in the dag.
+- Airflow also comes with some general reporting options.
+- These are passed with the default_args dict:
+![General Reporting Dictionary](images/general-reporting.png)
+- Here is an example:
+```python
+# Define the email task
+email_report = EmailOperator(
+        task_id='email_report',
+        to='airflow@datacamp.com',
+        subject='Airflow Monthly Report',
+        html_content="""Attached is your monthly workflow report - please refer to it for more detail""",
+        files=['monthly_report.pdf'],
+        dag=report_dag
+)
+
+# Set the email task to run after the report is generated
+email_report << generate_report
+```
+
 
 # Building production pipelines in Airflow
 
