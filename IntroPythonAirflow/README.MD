@@ -227,6 +227,116 @@ email_report << generate_report
 
 
 # Building production pipelines in Airflow
+- **Airflow Templates** allow substituting information when a DAG runs.
+- They provide added flexibility with tasks.
+- These are done using `Jinja`.
+- First, we create a variable with out template:
+```python
+templated_command = """
+echo "Reading {{ params.filename }}"
+"""
+
+t1 = BashOperator(task_id = 'template_task',
+  bash_command=templated_command,
+  params={'filename': 'file1.txt'},
+  dag=example_dag)
+```
+- Example:
+```python
+default_args = {
+  'start_date': datetime(2020, 4, 15),
+}
+
+cleandata_dag = DAG('cleandata',
+                    default_args=default_args,
+                    schedule_interval='@daily')
+
+# Create a templated command to execute
+# 'bash cleandata.sh datestring'
+templated_command = """
+  bash cleandata.sh {{ ds_nodash }} {{ params.filename }}
+"""
+
+# Modify clean_task to use the templated command
+clean_task = BashOperator(task_id='cleandata_task',
+                          bash_command=templated_command,
+                          params={'filename': 'salesdata.txt'},
+                          dag=cleandata_dag)
+
+# Create a new BashOperator clean_task2
+clean_task2 = BashOperator(task_id='cleandata_task2',
+                           bash_command=templated_command,
+                           params={'filename': 'supportdata.txt'},
+                           dag=cleandata_dag)
+
+# Set the operator dependencies
+clean_task >> clean_task2
+```
+- While this is possible, Jinja lets us iterate over them:
+```python
+templated_command="""
+{% for filename in params.filenames %}
+echo "Reading {{ filename }}"
+{% endfor %}
+"""
+
+t1 = BashOperator(task_id='template_task',
+  bash_command=templated_command,
+  params={'filenames': ['file1.txt', 'file2.txt']},
+  dag=example_dag)
+```
+- Airflow comes with some built-in runtime variables which provide information on DAG runs, tasks, system configs.
+- Some examples are:
+  * `{{ ds }}` for execution date.
+  * `{{ ds_nodash}}` for execution date without dashes.
+  * `{{ prev_ds }}` for previous execution date.
+  * `{{ prev_ds_nodash }}` for previous execution date with no dashes.
+  * `{{ dag }}` for the full dag object.
+  * `{{ conf }}` for the airflow configs.
+- In addition, there is a `{{ macro }}` variable with lots of other useful objects and methods.
+![ Macro Template Examples](images/macro-examples.png)
+- Example HTML template:
+```python
+
+html_email_str = """
+Date: {{ ds }}
+Username: {params.username}
+"""
+
+email_dag = DAG('template_email_test',
+                default_args={'start_date': datetime(2020, 4, 15)},
+                schedule_interval='@weekly')
+
+email_task = EmailOperator(task_id='email_task',
+                           to='testuser@datacamp.com',
+                           subject="{{ macros.uuid.uuid4() }}",
+                           html_content=html_email_str,
+                           params={'username': 'testemailuser'},
+                           dag=email_dag)
+```
+- Branching allows for conditional logic in Airflow.
+- You can import it using `from airflow.operators.python_operator import BranchPythonOperator`.
+- It will take a `python_callable` to return the next task or list of ids.
+![Branching Example](images/branching-example.png)
+```python
+# Create a function to determine if years are different
+def year_check(**kwargs):
+    current_year = int(kwargs['ds_nodash'][0:4])
+    previous_year = int(kwargs['prev_ds_nodash'][0:4])
+    if current_year == previous_year:
+        return 'current_year_task'
+    else:
+        return 'new_year_task'
+
+# Define the BranchPythonOperator
+branch_task = BranchPythonOperator(task_id='branch_task', dag=branch_dag,
+                                   python_callable=year_check, provides_context=True)
+# Define the dependencies
+branch_dag >> current_year_task
+branch_dag >> new_year_task
+```
+- The help for an operator will tell you if it supports templates_fields.
+
 
 # Review:
 
