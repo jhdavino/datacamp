@@ -49,6 +49,125 @@ map(function, list)
 
 
 # Programming in PySpark RDD’s
+- The fundamental unit of data in Spark is the **Resliient Distributed Dataset(RDD)**.
+- The name captures three important properties:
+  1. *Resilient*: Ability to withstand failures.
+  2. *Distributed*: Spanning across multiple nodes.
+  3. *Dataset*: Collection of Partitioned data.
+- There are three methods - and the last one to know is creating them from existing RDDs.
+- Understanding partitioning in PySpark helps control parallelism.
+- A **Partition** is a logical division of a large dataset distributed to multiple locations.
+- You can control this by setting the minimum number of partitions using `minPartitions` passed to the creation functions.
+- You can find out how many partitions exist uing the function `.getNumPartitions()`.
+- Spark Operations are broken into **Transformations** and **Actions**.
+- *Transformations* create new RDDs and *Actions* perform computations on the RDDs.
+- Transformations follow **Lazy Evaluation** which is when the transformations are graphed but not executed:
+![A Spark Graph](images/example-spark-graph.png)
+- You can join multiple RDDs together using the `.union()` function:
+![Union Transformation](images/example-union-rdd.png)
+- **Actions** are what return values and execute on the graph.
+- The actions we're going to learn about are `collect()`, `take()`, `first()` and `count()`.
+  * `collect()` returns all the elements.
+  * `take()` returns `<n>` values from the RDD.
+  * `first()` returns a single element from the RDD.
+  * `count()` returns the number of elements.
+- Plenty of real world data sets are key,value pairs.
+- To manage this data, PySpark uses a special data structure called a **Paired RDD**.
+- With these, the *key* is the identifier and the *value* is the data.
+- The two most common ways to create these is from a key,value tuplue or a regular RDD.
+- Here is an example using tuples:
+```python
+my_tuple = [('Sam', 23), ("Mary", 34), ("Peter", 25)]
+pairRDD_tuple = sc.parallelize(my_tuple)
+```
+- ... or from a regular RDD:
+```python
+my_list = ['Sam 23', "Mary 34", "Peter 25"]
+regularRDD = sc.parallelize(my_list)
+pairRDD_RDD = regularRDD.map(lambda s: (s.split(' ')[0], s.split(' ')[1]))
+```
+- Make sure when calling functions, that they expect key,value pairs.
+- The most common is `.reduceByKey()` which combines values with the same key.
+- Note that this is not an action but is a transformation.
+- The next common is `.sortByKey()` which orders pair RDD's by Key.
+- Note that the keys must be sortable.
+- Another is `.groupByKey()` which is useful to group all values with the same key.
+- The `.join()` function will join two RDD values together by the shared keys.
+![Example of Join](images/example-join-rdds.png)
+```python
+# Create PairRDD Rdd with key value pairs
+Rdd = sc.parallelize([(1,2), (3,4), (3,6), (4,5)])
+
+# Apply reduceByKey() operation on Rdd
+Rdd_Reduced = Rdd.reduceByKey(lambda x, y: x + y)
+
+# Iterate over the result and print the output
+for num in Rdd_Reduced.collect():
+  print("Key {} has {} Counts".format(num[0], num[1]))
+```
+```python
+# Sort the reduced RDD with the key by descending order
+Rdd_Reduced_Sort = Rdd_Reduced.sortByKey(ascending=False)
+
+# Iterate over the result and print the output
+for num in Rdd_Reduced_Sort.collect():
+  print("Key {} has {} Counts".format(num[0], num[1]))
+```
+- The `.reduce()` action is used to aggregate the elements of a RDD.
+- This function should be commutative and associative.
+- The `.saveAsTextFile()` action saves a RDD into a text file inside a directory with each partition as a separate file.
+- However, you can force it into a single file using the `.coalesce()` function.
+- Now we'll check out `.countByKey()` which is only available for RDDs with a key,value relationship.
+- It will count the number of keys per dataset.
+- You should not call this function unless the data is small enough to fit in memory.
+- The function `.collectAsMap()` return the key-value pairs in the RDD as a dictionary.
+```python
+# Transform the rdd with countByKey()
+total = Rdd.countByKey()
+
+# What is the type of total?
+print("The type of total is", type(total))
+
+# Iterate over the total and print the output
+for k, v in total.items():
+  print("key", k, "has", v, "counts")
+```
+```python
+# Create a baseRDD from the file path
+baseRDD = sc.textFile(file_path)
+
+# Split the lines of baseRDD into words
+splitRDD = baseRDD.flatMap(lambda x: x.split())
+
+# Count the total number of words
+print("Total number of words in splitRDD:", splitRDD.count())
+```
+```python
+# Convert the words in lower case and remove stop words from stop_words
+splitRDD_no_stop = splitRDD.filter(lambda x: x.lower() not in stop_words)
+
+# Create a tuple of the word and 1
+splitRDD_no_stop_words = splitRDD_no_stop.map(lambda w: (w, 1))
+
+# Count of the number of occurences of each word
+resultRDD = splitRDD_no_stop_words.reduceByKey(lambda x, y: x + y)
+```
+```python
+# Display the first 10 words and their frequencies
+for word in resultRDD.take(10):
+	print(word)
+
+# Swap the keys and values
+resultRDD_swap = resultRDD.map(lambda x: (x[1], x[0]))
+
+# Sort the keys in descending order
+resultRDD_swap_sort = resultRDD_swap.sortByKey(ascending=False)
+
+# Show the top 10 most frequent words and their frequencies
+for word in resultRDD_swap_sort.take(10):
+	print("{} has {} counts". format(word[1], word[0]))
+```
+
 
 # PySpark SQL & DataFrames
 
