@@ -70,7 +70,7 @@ df.agg({'SALESCLOSEPRICE': 'mean'}).collect()
 # Sample 50% of the PySpark DataFrame and count rows; replacement off
 df.sample(False, 0.5, 42).count()
 ```
-```
+```python
 # Import your favorite visualization library
 import seaborn as sns
 # Sample the dataframe
@@ -80,11 +80,11 @@ pandas_df = sample_df.toPandas()
 # Plot it
 sns.distplot(pandas_df)
 ```
-```
+```python
 # Check the correlation of a pair of columns
 corr_val = df.corr('SALESCLOSEPRICE', col)
 ```
-```
+```python
 # Import skewness function
 from pyspark.sql.functions import skewness
 
@@ -129,9 +129,9 @@ df = df.where(text_filter)
 ```
 - "Data does not give up its secrets easily; it must confess" *Jeff Huber*
 - One way to deal with data is to scale it so that it's on the same scale.
-- This is sometimes called **MinMax Scalaing**
+- This is sometimes called **MinMax Scaling**
 - **Standardization** is when you transform the data into a Standard Normal Distribution.
-- I way to manage skewed data is to log transform it.
+- One way to manage skewed data is to log transform it.
 ```
 # import the log function
 from pyspark.sql.functions import log
@@ -464,7 +464,7 @@ model = rf.fit(train_df)
 - To make predictions now, we just call `model.transform(<test_df>)`; or, new data that we have.
 - You will just need to apply the same preprocessing to new data.
 - To evaluate the model, we will need the function `RegressionEvaluator`.
-- Once the *Evaluator* object is created, we can then then metrics against it.
+- Once the *Evaluator* object is created, we can then metrics against it.
 ```python
 from pyspark.ml.evaluation import RegressionEvaluator
  # Select columns to compute test error

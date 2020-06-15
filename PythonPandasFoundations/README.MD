@@ -68,7 +68,6 @@ plt.show()
 - Types:
   * `box` is a boxplot
   * `hist` is a histogram.
-![Historgram options](images/Histogram-options.png)
 - You can specify that you want a **Cumulative Density Function** using the parameter `cumulative=True`.
 - You can specify that you want the data normed using the parameter `normed=True`.
 ```python
@@ -158,7 +157,7 @@ ts3 = ts0.loc['2010-12-15':'2010-12-31']
 - Columns that are not numerical are ignored.
 - Remember to use method chaining when doing the resampling since it's best practice.
 - Here are some of the options:
-![Pandas Resample Options](images\resampling-cheetsheet.png)
+![Pandas Resample Options](images/resampling-cheetsheet.png)
 - It allows you to multiply them as well; `.resample('2W')` means over 2 weeks.
 - The fill methods are also their own functions: `.ffill()`, `.bfill()`.
 ```python
