@@ -170,6 +170,67 @@ for word in resultRDD_swap_sort.take(10):
 
 
 # PySpark SQL & DataFrames
+- PySpark SQL is a Spark library for structured data.
+- PySpark DataFrame is an immutable distributed collection of data with named Columns.
+- They support SQL queries or expressions.
+- Spark Session provides a single point of entry to Spark DataFrames.
+- This is exposed as `spark` in a Pyspark shell.
+- There are two main ways to create these:
+  1. From an existing RDD.
+  2. From data sources using a `.read()` method.
+![Create DataFrame from RDD](images/create-dataFrame-from-rdd.png)
+- To create a DataFrame from a CSV file use:
+```python
+df_csv = spark.read.csv("people.csv",   header=True, inferSchema=True)
+df_csv = spark.read.json("people.json", header=True, inferSchema=True)
+df_csv = spark.read.txt("people.txt",   header=True, inferSchema=True)
+```
+- DataFrames of course also support Transformations and Actions.
+- `.show()` is an action and will get values.
+- Operations that are also support:
+  * `.groupBy()`
+  * `.filter()`
+  * `.orderBy()`
+  * `.dropDuplicates()`
+- You can rename a column and return a new dataFrame using `.withColumnRenamed()`:
+```python
+test_df_sex = test_df.withColumnRenamed('Gender', 'Sex')
+test_df_sex.show(3)
+```
+- You can print the schema of the data frame using `.printSchema()`.
+- You can print just the column names using `.columns`
+- You can calculate and print the summary statistics using `.describe()`.
+- In PySpark you can interact with SparkSQL through the dataFrame API and SQL Queries.
+- The API provides a programmatic domain-specific language for data.
+- The spark session has a method for this called `.sql()`.
+- You will need to create a temporary table for this to work:
+```python
+df.createOrReplaceTempView('table1')
+df2 = spark.sql("SELECT field1, field2 FROM table1")
+df2.collect()
+```
+- Data visualization is fundamental to solving problems.
+- While there are plenty of tools to visualize data, none of the common ones can be used directly with Spark.
+- There are at least three though:
+  1. pyspark_dist_explore library
+  2. `.toPandas()`
+  3. HandySpark
+- We'll start with pyspark_dist_explore first.
+- It supports the functions `.hist()`, `.distplot()` and `pandas_histogram()`.
+- For a histogram, you would select the column you wanted and then call the function:
+```python
+test_df_age = test_df.select('Age')
+hist(test_df_age, bins=20, color = 'red')
+```
+- It it really easy to create charts in pandas Data Frames.
+- See the other courses.
+- The package *Handy Spark* is designed to improve the PySpark User Experience.
+- Once the data is loaded, you would create a Handy Data Frame.
+```python
+hdf = test_df.toHandy()
+hdf.cols['Age'].hist()
+```
+
 
 # Machine Learning with PySpark MLlib
 
