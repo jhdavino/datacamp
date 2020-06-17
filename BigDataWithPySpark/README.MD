@@ -233,7 +233,156 @@ hdf.cols['Age'].hist()
 
 
 # Machine Learning with PySpark MLlib
+- Now we're going to work with getting Machine Learning in Spark working.
+-  To do this, Spark comes with **MLlib** which implements some common Machine Learning algorithms at scale.
+- While scikit for python is useful, they only work for small to medium data sets.
+- It also provides a high-level API for making pipelines.
+- There are different categories of Machine Learning:
+![Examples of Machine Learning Algorithms](images/categories-of-machine-learning-algorithms.png)
+- We will focus on three of them:
+  1. Collaboration.
+  2. Classification.
+  3. Clustering.
+- You import **Collaborative Filtering**  via `pyspark.mllib.recommendation import ALS`.
+- You import **Logistic Regression** via ` pyspark.mllib.classification import LogisticRegressionWithLBFGS`
+- You import **KMeans using** via `pyspark.mllib.clustering import KMeans`
+- **Collaborative Filtering** is finding users that share common interests.
+- This has two kinds:
+  * *User-User* which finds users that a similar to the target user.
+  * *Item-item* finds and recommends items that are similar to items with the target user.
+- The Rating Class is a wrapper around a tuple.
+- It is useful for creating an RDD with user,product ratings.
+```python
+from pyspark.mllib.recommendation import Rating
+r = Rating(user = 1, product = 2, rating = 5.0)
+```
+- Don't forget to split the data into a training,testing subsets for evaluating predictive modeling.
+- Pyspark comes with a function called `.randomSplit()` which can do this for us.
+```python
+data = sc.parallelize(range(1,11))
+training,test = data.randomSplit([.6,.4])
+training.collect()
+test.collect()
+```
+- **Alternating Least Squares** checks previous user purchases and compares them to what they might purchase.
+```python
+# build
+r1 = Rating(1,1,1.0)
+r2 = Rating(1,2,2.0)
+r3 = Rating(2,1,2.0)
+
+# collect
+ratings = sc.parallelize([r1,r2,r3])
+ratings.collect()
+
+# train
+model = ALS.train(ratings, rank=10, iterations=10)
+```
+- Then, you apply the model using `.predictAll()`
+```python
+predictions = model.predictAll(unrated_RDD)
+predictions.collect()
+```
+- For model evaluation, we will measure it with the **Mean Square Error** which is the average value of the square of `(<actual-rating> - <predicted-rating)`.
+```python
+# Prepare ratings data
+rates = ratings_final.map(lambda r: ((r[0], r[1]), r[2]))
+
+# Prepare predictions data
+preds = predictions.map(lambda r: ((r[0], r[1]), r[2]))
+
+# Join the ratings data with predictions data
+rates_and_preds = rates.join(preds)
+
+# Calculate and print MSE
+MSE = rates_and_preds.map(lambda r: (r[1][0] - r[1][1])**2).mean()
+print("Mean Squared Error of the model for the test data = {:.2f}".format(MSE))
+```
+- **Classification** is a supervised machine learning algorithm for sorting the input data into different categories.
+- Classification can be either Binary - between two categories - or Multi-class.
+- The most common method to solve this is **Logistic Regression** which predicts a binary response based on some variables.
+- To use this, we will need to understand *Vectors* and *LabelledPoints*.
+- There are two kinds of Vectors:
+  1. Dense: which store all the entries.
+  2. Sparse: store only the non-zero values.
+- You create it using `Vectors.dense()` or `Vectors.sparse()`.
+- A **LabelledPoint** is a wrapper for input features and a predicted Value.
+- For binary classification, a label is either 0 or 1.
+```python
+# Create a HashingTf instance with 200 features
+tf = HashingTF(numFeatures=200)
+
+# Map each word to one feature
+spam_features = tf.transform(spam_words)
+non_spam_features = tf.transform(non_spam_words)
+
+# Label the features: 1 for spam, 0 for non-spam
+spam_samples = spam_features.map(lambda features:LabeledPoint(1, features))
+non_spam_samples = non_spam_features.map(lambda features:LabeledPoint(0, features))
+
+# Combine the two datasets
+samples = spam_samples.join(non_spam_samples)
+
+# Split the data into training and testing
+train_samples,test_samples = samples.randomSplit([0.8, 0.2])
+
+# Train the model
+model = LogisticRegressionWithLBFGS.train(train_samples)
+
+# Create a prediction label from the test data
+predictions = model.predict(test_samples.map(lambda x: x.features))
+
+# Combine original labels with the predicted labels
+labels_and_preds = test_samples.map(lambda x: x.label).zip(predictions)
+
+# Check the accuracy of the model on the test data
+accuracy = labels_and_preds.filter(lambda x: x[0] == x[1]).count() / float(test_samples.count())
+print("Model accuracy : {:.2f}".format(accuracy))
+```
+- There is also a way to product a Term Frequency Document using the function `HashingTF()`.
+- Example:
+```python
+from pyspark.mllin.feature import HashingTF
+
+sentence = "hello hello hello"
+words = sentence.split()
+tf = HashingTF(10000) # vectors of size 10000
+tf.transform(words)
+```
+- **Clustering** is the unsupervised learning task to organize a collection of data into Groups.
+- For this, PySpark comes with some options:
+  1. K-Means
+  2. Gaussian Mixture
+  3. Power Iteration Clustering( PIC )
+  4. BiSection K-means
+  5. Streaming K-Means
+- We'll be focusing on Kmeans.
+- A constraint is that the data is a set of numerical features.
+- Example:
+```python
+from pyspark.mllib.clustering import KMeans
+model = KMeans.train(RDD, k = 2, maxIterations = 10)
+model.clusterCenters
+```
+![KMeans Error Code](images/kmeans-error-code.png)
+```python
+# Train the model with clusters from 13 to 16 and compute WSSSE
+for clst in range(13, 17):
+    model = KMeans.train(rdd_split_int, clst, seed=1)
+    WSSSE = rdd_split_int.map(lambda point: error(point)).reduce(lambda x, y: x + y)
+    print("The cluster {} has Within Set Sum of Squared Error {}".format(clst, WSSSE))
+
+# Train the model again with the best k
+model = KMeans.train(rdd_split_int, k=15, seed=1)
+
+# Get cluster centers
+cluster_centers = model.clusterCenters
+```
+
 
 # Research:
+- pyspark.ml ?
+- HashingTF?
+
 
 # Reference:
