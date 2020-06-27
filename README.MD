@@ -24,7 +24,7 @@
 | Data Visualization in R                 | [/DataVisInR]                      | {2017/08/04}   |          |
 | Introduction to Data                    | [/IntroToData]                     | {2017/08/04}   |          |
 | Exploratory Data Analysis               | [/ExploratoryDA]                   | {2017/08/07}   |          |
-| Correlation and Regression              | [/CorrAndRegress]                  | {2017/08/09}   |          |
+| Correlation and Regression              | [/CorrAndRegress]                  | {2017/08/09}   |    R     |
 | Machine Learning Toolbox                | [/MLToolbox]                       | {2017/08/11}   |          |
 | Unsupervised Learning in R              | [/UnsupervisedInR]                 | {2017/08/09}   |          |
 | Data Visualization in R with ggvis      | [/DataVisGGVis]                    | {2017/08/23}   |          |
@@ -54,7 +54,7 @@
 | Web Applications with Shiny: Case Study | [/WebAppsShinyCaseStudy]           | {2018/02/09}   |          |
 | Introduction to the Tidyverse           | [/IntroToTidyverse]                | {2018/02/15}   |          |
 | Introduction to Databases in Python     | [/IntroPythonDatabase]             | {2018/02/23}   |          |
-| Intro To Stats: Corr. & Linear Reg.     | [/IntroCorrLinearRegression]       | {2018/03/02}   |          |
+| Intro To Stats: Corr. & Linear Reg.     | [/IntroCorrLinearRegression]       | {2018/03/02}   |     A    |
 | Building Chatbots in Python             | [/ChatbotsInPython]                | {2018/03/09}   |          |
 | Parallel Computing with Dask            | [/ParallelComputingDask]           | {2018/03/16}   |          |
 | Interactive Maps with leaflet in R      | [/InteractiveMapsLeafletR]         | {2018/07/13}   |          |
@@ -75,17 +75,17 @@
 | Hyperparameter Tuning in R              | [/HyperparameterTuningR]           | {2019/02/1}    |          |
 | Feature Engineering in PySpark          | [/FeatureEngineeringPySpark]       | {2019/03/11}   |          |
 | Python Data Science Toolbox, Part 1     | [/PythonDataScienceToolbox-P1]     | {2019/03/16}   |          |
-| Pandas Foundations                      | [/PythonPandasFoundations]         | {2019/03/29}   |          |
-| Writing Efficient Python Code           | [/EfficientPython]                 | {2019/04/09}   |          |
+| Pandas Foundations                      | [/PythonPandasFoundations]         | {2019/03/29}   |     R    |
+| Writing Efficient Python Code           | [/EfficientPython]                 | {2019/04/09}   |     R    |
 | Supply Chain Analytics in Python        | [/SupplyChainPython]               | {2019/5/1}     |          |
 | Interactive Data Visualization w/ Bokeh | [/InteractiveVisBokeh]             | {2019/5/15}    |          |
 | Conda Essentials                        | [/CondaEssentials]                 | {2019/6/26}    |          |
-| Cleaning Data in Python                 | [/CleaningDataPython]              | {2019/7/11}    |          |
+| Cleaning Data in Python                 | [/CleaningDataPython]              | {2019/7/11}    |     R    |
 | Feature Engineering for NLP in Python   | [/NLPFeatureEngineeringPython]     | {2019/8/22}    |          |
-| Machine Learning With Apache Spark      | [/MLWithApacheSpark]               | {2019/9/25}    |          |
+| Machine Learning With Apache Spark      | [/MLWithApacheSpark]               | {2019/9/25}    |     R    |
 | Financial Trading in R                  | [/FinancialTradingR]               | {2019/10/16}   |          |
 | Streamlined Data Ingestion with pandas  | [/StreamlinedDataIngestion]        | {2019/11/29}   |          |
-| Introduction to AWS Boto in Python      | [/AWSBotoPython]                   | {2020/01/28}   |          |
+| Introduction to AWS Boto in Python      | [/AWSBotoPython]                   | {2020/01/28}   |     R    |
 | Introduction to Data Engineering        | [/IntroDataEngineering]            | {2020/04/01}   |          |
 | Command Line Automation in Python       | [/CMDAutomatePython]               | {2020/05/07}   |          |
 | Introduction to Airflow in Python       | [/IntroPythonAirflow]              | {2020/05/28}   |          |
@@ -94,7 +94,8 @@
 
 
 | Key |    Meaning   |
-|------------------- |
-| R   | Review/Redo. |
+| --- | ------------ |
+| A   |  Audit       |
 | O   |  Organize.   |
-| F   |   Freeze.    |
+| F   |  Freeze.     |
+| R   |  Reviewed    |
