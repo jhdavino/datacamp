@@ -13,7 +13,7 @@
     * Phenomenon measured by manifest variables.
     * Represented by Circles.
 - Load the library with `libray( lavaan )`.
-- We're going to be using the dataset *HolzingerSwineford1939*.
+- We're going to be using the dataset *HolzingerSwineford 1939*.
 - The formula is a bit different for these models; it uses a `=~` to indicate the direction.
 ```r
 # Define your model specification
@@ -26,7 +26,7 @@ text.model <- "textspeed =~ x4 + x5 + x6 + x7 + x8 + x9"
   1. Inlclude at least three manifest variables.
   2. Create models with df > 0.
   3. Use Scaling and constrains to control df.
-- The function `cfa()` runs a confirmatory Factor Analysis.
+- The function `cfa()` runs a Confirmatory Factor Analysis.
 ```r
 visual.fit <- cfa( model = <model>,
                     data = <data>)

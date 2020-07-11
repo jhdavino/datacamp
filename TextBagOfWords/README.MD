@@ -2,7 +2,7 @@
 ## Ted Kwartler
 
 # Jumping Into Text Mining With Bag of Words
-- "The process of distilling actionable insights from text"
+- **Text Mining** is the process of distilling actionable insights from text.
 - Unorganized -> Organized -> Insight.
 - Six Steps:
 	1. Problem definition

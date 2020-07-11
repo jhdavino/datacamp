@@ -8,7 +8,7 @@
 | Data Visualization with ggplot2, Part 3 | [/DataVisGgplot2P3]                | {2017/01/27}   |          |
 | Writing Functions in R                  | [/WritingFunctionsInR]             | {2017/02/01}   |          |
 | Reporting with R Markdown               | [/ReportingWithRMarkdown]          | {2017/02/02}   |          |
-| Text Mining: Bag of Words               | [/TextBagOfWords]                  | {2017/02/08}   |          |
+| Text Mining: Bag of Words               | [/TextBagOfWords]                  | {2017/02/08}   |    A     |
 | Working With RStudio, Part 1            | [/WorkingWithRStudioP1]            | {2017/02/12}   |          |
 | Working With RStudio, Part 2            | [/WorkingWithRStudioP2]            | {2017/03/11}   |          |
 | Intro to Python for Data Science        | [/IntroPythonDataScience]          | {2017/03/18}   |          |
@@ -46,13 +46,13 @@
 | Introduction to Portfolio Analysis in R | [/IntroPortfolioAnalysisR]         | {2017/12/14}   |          |
 | Sentiment Analysis in R                 | [/SentimentAnalysisR]              | {2017/12/15}   |          |
 | NLP Fundamentals in Python              | [/NLPInFundamentalsPython]         | {2017/12/03}   |          |
-| Foundations of Probability in R         | [/FoundationsProbabilityR]         | {2017/12/23}   |          |
+| Foundations of Probability in R         | [/FoundationsProbabilityR]         | {2017/12/23}   |     A    |
 | Building Web Applications With Shiny    | [/WebAppsShiny]                    | {2017/12/29}   |          |
 | Network Analysis in R                   | [/NetworkAnalysisR]                | {2018/1/04}    |          |
 | Geospatial Data in R                    | [/GeospatialDataR]                 | {2018/01/11}   |          |
 | Scalable Data Processing in R           | [/ScalableDataProcessingR]         | {2018/02/02}   |          |
 | Web Applications with Shiny: Case Study | [/WebAppsShinyCaseStudy]           | {2018/02/09}   |          |
-| Introduction to the Tidyverse           | [/IntroToTidyverse]                | {2018/02/15}   |          |
+| Introduction to the Tidyverse           | [/IntroToTidyverse]                | {2018/02/15}   |     A    |
 | Introduction to Databases in Python     | [/IntroPythonDatabase]             | {2018/02/23}   |          |
 | Intro To Stats: Corr. & Linear Reg.     | [/IntroCorrLinearRegression]       | {2018/03/02}   |     A    |
 | Building Chatbots in Python             | [/ChatbotsInPython]                | {2018/03/09}   |          |
@@ -60,7 +60,7 @@
 | Interactive Maps with leaflet in R      | [/InteractiveMapsLeafletR]         | {2018/07/13}   |          |
 | Network Science in R - A Tidy Approach  | [/NetworkScienceInR]               | {2018/07/19}   |          |
 | Experimental Design in R                | [/ExperimentalDesignR]             | {2018/08/01}   |          |
-| Structural Equation Modeling with Lavaan| [/StructuralModelingWithLavaan]    | {2018/08/10}   |          |
+| Structural Equation Modeling with Lavaan| [/StructuralModelingWithLavaan]    | {2018/08/10}   |     A    |
 | Network Analysis in R: Case Studies     | [/NetowrkInRCaseStudy]             | {2018/09/06}   |          |
 | Fundamentals of Bayesian Data Analysis  | [/BayesianDataAnalysisInR]         | {2018/09/14}   |          |
 | Deep Learning in Python                 | [/DeepLearningPython]              | {2018/09/20}   |          |
@@ -74,7 +74,7 @@
 | Differential Expression Analysis in R   | [/DifferentialExpressionsR]        | {}             |          |
 | Hyperparameter Tuning in R              | [/HyperparameterTuningR]           | {2019/02/1}    |          |
 | Feature Engineering in PySpark          | [/FeatureEngineeringPySpark]       | {2019/03/11}   |          |
-| Python Data Science Toolbox, Part 1     | [/PythonDataScienceToolbox-P1]     | {2019/03/16}   |          |
+| Python Data Science Toolbox, Part 1     | [/PythonDataScienceToolbox-P1]     | {2019/03/16}   |     A    |
 | Pandas Foundations                      | [/PythonPandasFoundations]         | {2019/03/29}   |     R    |
 | Writing Efficient Python Code           | [/EfficientPython]                 | {2019/04/09}   |     R    |
 | Supply Chain Analytics in Python        | [/SupplyChainPython]               | {2019/5/1}     |          |
