@@ -90,6 +90,7 @@
 | Command Line Automation in Python       | [/CMDAutomatePython]               | {2020/05/07}   |          |
 | Introduction to Airflow in Python       | [/IntroPythonAirflow]              | {2020/05/28}   |          |
 | Big Data Fundamentals with PySpark      | [/BigDataWithPySpark]              | {2020/06/17}   |          |
+| Experimental Design in Python           | [/ExperimentDesignPython]          |      {}        |          |
 
 
 

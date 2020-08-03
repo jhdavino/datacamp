@@ -51,7 +51,7 @@
 - Should also have a random sample design.
 - A **Multiple Factor Experiment** is where there is a single outcome variable and more than one dependent variable.
 - You can use the function `recode()` to update, condense, or expand categorical variables in a dataset.
-```R
+```
 purpose_recode_model <- lm(funded_amnt ~ purpose_recode, data = lendingclub )
 
 # Look at results of purpose_recode_model
@@ -64,7 +64,7 @@ summary( purpose_recode_model )
 class( purpose_recode_anova )
 ```
 - You can use the function `TukeyHSD( <model> )` to compare the model's features variable-by-variable.
-```R
+```
 # Use aov() to build purpose_recode_aov
 purpose_recode_aov <- aov(funded_amnt ~ purpose_recode, data = lendingclub )
 
@@ -79,7 +79,7 @@ tukey_output %>% tidy()
 - Finally, you should do post model verification too.
 - Make sure to try non-parametric alternatives to ANOVA.
 - You can test the **Homogeneity of Variance** using the function `bartlett.test( <int_rate ~ grade>, data = <lendingclub> )`.
-```R
+```
 # Conduct the Kruskal-Wallis rank sum test
 kruskal.test(int_rate ~ grade ,
              data = lendingclub )
@@ -109,7 +109,7 @@ nhanes_cluster <- cluster(nhanes_final, c('indhhin2'), 6, method = "srswor")
 - You can build this using the function `design.rcbd( <treatment-group>, r = <repetitions>, seed = <n>, serie = <n>)`
 - The parameter `serie` is for tagging groups in larger experiments.
 - You can check the breakdown using `design.rcbd.object$sketch`.
-```R
+```
 # Build trt and rep
 trt <- LETTERS[1:5]
 rep <- 4
@@ -118,12 +118,12 @@ rep <- 4
 my_design_rcbd <- design.rcbd(trt, r=rep, seed = 42, serie=0)
 my_design_rcbd$sketch
 ```
-```R
+```
 with(nhanes_final, interaction.plot(riagendr, mcq365d, bmxwt))
 ```
 - When you can't fit each treatment in a block, then you use a **Balanced Incomplete Block Design**.
 - When **Lambda**, which is <rep>* ( <k> - 1 / <t> - 1), is not a whole number then a BIBD is not possible.
-```R
+```
 my_design_bibd_1 <- design.bib(LETTERS[1:3], k = 4, r = 16, serie = 0, seed = 42)
 ```
 
@@ -136,7 +136,7 @@ my_design_bibd_1 <- design.bib(LETTERS[1:3], k = 4, r = 16, serie = 0, seed = 42
   * Analyze like a RCBD.
 - Both the rows and columns of a *Latin Square* are blocking factors.
 - Check for missing values using `mice::md.pattern( )`
-```r
+```
 # Load agricolae
 library( agricolae )
 
@@ -146,7 +146,7 @@ my_design_lsd$sketch
 ```
 - **Graeco-Latin Squares** are similar to *Latin Squares* except they have three blocking factors.
 - The Greek letters are added next to the other letters to indicate the treatment.
-```r
+```
 # Create trt1 and trt2
 trt1 <- LETTERS[1:5]
 trt2 <- 1:5
