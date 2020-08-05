@@ -100,8 +100,68 @@ else:
 
 
 # Design Considerations in Experimental Design
+- A **Confounding Variable** is one that was not taken into account in the study.
+- It may have an impact on the whether we can trust out analysis.
+- If we're making comparison's between samples then we will want ensure that only the variable of interest is different.
+- A simple way to manage this would be with random samples.
+- In practice, this is called a **Random Block Design**.
+```python
+# Define random seed
+seed = 2397
+
+# Create subsets
+subsetathl = athletes[athletes.Sport == "Athletics"].sample(n=30, random_state= seed)
+subsetswim = athletes[athletes.Sport == "Swimming"].sample(n=30, random_state= seed)
+
+# Perform the two-sample t-test
+t_result = stats.ttest_ind(subsetathl.Weight, subsetswim.Weight)
+print(t_result)
+```
+- You can run a paired T-Test using:
+```python
+# Perform paired t-test
+ttestpair = stats.ttest_rel(podataframe.Yield2018,podataframe.Yield2019)
+print(ttestpair)
+```
+- To deal with multiple values, you'll want to use **Analysis of Variance (ANOVA)**.
+- It seeks to partition the variation into separate components.
+- We're going to specify this via a formula notation:
+```python
+# Create model
+formula = 'Weight ~ Sex + Team'
+model = sm.api.formula.ols(formula, data=athletes).fit()
+
+# Perform ANOVA and print table
+aov_table = sm.api.stats.anova_lm(model, typ=2)
+print(aov_table)
+```
+```python
+# Create arrays
+France_athletes = athletes[athletes.Team == "France"].Weight
+US_athletes = athletes[athletes.Team == "United States"].Weight
+China_athletes = athletes[athletes.Team == "China"].Weight
+
+# Perform one-way ANOVA
+anova = stats.f_oneway(France_athletes, US_athletes, China_athletes)
+print(anova)
+```
+- Another advantage of *Anova* is that it can reveal interactive effects between variables.
+- To account for this, we change the formula to add an **Interactive Effect**:
+```python
+# Run the ANOVA
+model = sm.api.formula.ols('Weight ~ Sex + Event + Sex:Event', data = athletes).fit()
+
+# Extract our table
+aov_table = sm.api.stats.anova_lm(model, typ=2)
+
+# Print the table
+print(aov_table)
+```
+
 
 # Sample size, Power analysis, and Effect size
+- 
+
 
 # Testing Normality: Parametric and Non-parametric Tests
 
