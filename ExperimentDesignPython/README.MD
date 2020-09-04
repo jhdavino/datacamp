@@ -160,11 +160,158 @@ print(aov_table)
 
 
 # Sample size, Power analysis, and Effect size
-- 
+- When we run a statistical test, we can either fail to reject or reject the null hypothesis.
+- There is always a chance that the results came back by chance.
+- We can account for multiple tests in a few ways:
+  * From the Experimental Design.
+  * Correct out P-Values for presence of multiple tests.
+- The **Bonferroni Correction** can be used when tests are not independent of each other.
+- You will want to use the function:
+```python
+# Create an array of p-value results
+pvals_array = [t_result_1924v2016[1], t_result_1952v2016[1], t_result_1924v1952[1]]
+print(pvals_array)
+
+# Perform Bonferroni correction
+adjustedvalues = sm.stats.multitest.multipletests(pvals_array, alpha=0.05, method='b')
+print(adjustedvalues)
+```
+- The **Sidak** test can be used when tests are independent from each other.
+- A warning that it is less conservative.
+```python
+# Create array of p-values
+pvals_array = [pearson100[1], pearsonHigh[1], pearsonMara[1]]
+print(pvals_array)
+
+# Perform Šídák correction
+adjustedvalues=  sm.stats.multitest.multipletests(pvals_array, method= 's')
+print(adjustedvalues)
+```
+- A Type II error is a False Negative and we cannot ever remove the risk.
+- We can reduce the risk by increasing the sample size though.
+- Figuring out what sample size we require means checking other factors.
+```pyton
+# Create sample with defined random seed and perform t-test
+subset = athletes.sample(n=200, random_state= 1007)
+print(stats.ttest_ind(subset[subset.Sport == "Athletics"].Weight,
+                      subset[subset.Sport == "Swimming"].Weight))
+```
+- The **Power** is the probability we correctly reject the null hypothesis.
+- The **Effect Size** is how much we depart from the null hypothesis.
+- To checked for this, we use the function `TTestIndPower()`.
+- For the *effect size**, we will use **Cohen's D**.
+- It is defined as the difference between the two samples means divided by the pooled standard deviation.
+- We will also need to feed it the `ratio` of 1 if the experiment is balanced.
+```python
+# Set parameters
+effect = 0.4
+power = 0.8
+alpha = 0.05
+
+# Calculate ratio
+swimmercount = float(len(athletes[athletes.Sport == "Swimming"].index))
+athletecount = float(len(athletes[athletes.Sport == "Athletics"].index))
+ratio = swimmercount/athletecount
+
+# Initialize analysis and calculate sample size
+analysis = pwr.TTestIndPower()
+ssresult = analysis.solve_power(effect_size=effect, power=power, alpha=alpha, nobs1=None, ratio=ratio)
+print(ssresult)
+```
+- Significance is how sure we are that the effect exists.
+- The **Effect Size** is how important that effect is.
+- We can measure this in a few ways:
+  * Cohen's D.
+  * Odds Ratio. [ Fisher's Exactness ]
+  * Correlation Coefficients.
+```python
+# Set parameters
+alpha = 0.05
+power = 0.8
+ratio = 1
+samp_size = 300
+
+# Initialize analysis & calculate sample size
+analysis = pwr.TTestIndPower()
+esresult = analysis.solve_power(effect_size=None, power=power, nobs1=samp_size, ratio=ratio, alpha=alpha)
+print(esresult)
+```
+- Calculate Cohen's D by hand:
+```python
+# Calculate difference between means and pooled standard deviation
+diff = swim.mean() - athl.mean()
+pooledstdev = ma.sqrt((athl.std()**2 + swim.std()**2)/2 )
+
+# Calculate Cohen's d
+cohend = diff / pooledstdev
+print(cohend)
+```
+```python
+# Perform the Fisher exact test
+chi = stats.fisher_exact(table, alternative='two-sided')
+
+# Print p-value
+print("p-value of test: " + str(round(chi[1], 5))  )
+
+# Print odds ratio  
+print("Odds ratio between groups: " + str(round(chi[0], 1))  )
+```
+- **Statistical Power** is the probability of detecting an effect.
+- Always remember that statistical tests are always dealing with *likilihood*.
 
 
 # Testing Normality: Parametric and Non-parametric Tests
+- The **Mean** is the sum of the samples divided by the count.
+- The **Median** is the the value which half the values fall on each side when sorted.
+- The **Mode** is the value that appears the most.
+- The **Standard Deviation** is the measure of variability of the data around the mean.
+- A **Normal Distribution** has the same mean, median and mode.
+- The **Quantile-Quantile (QQ) Plot** is a measure of the distribution of the data.
+```python
+# Calculate theoretical quantiles
+tq = stats.probplot(countrydata.Unemployment, dist="norm")
+
+# Create Dataframe
+df = pd.DataFrame(data= {'Theoretical Quantiles': tq[0][0],
+                         "Ordered Values": countrydata.Unemployment.sort_values() })
+
+# Create Q-Q plot
+print(p9.ggplot(df)+ p9.aes('Theoretical Quantiles', "Ordered Values") +p9.geom_point())
+```
+- The **Shapiro-Wilk Test** follows the same logic as the *Q-Q Plot*.
+- This test is only appropriate for small samples sizes.
+- The closer to 1 the result, the more likely to be normally distributed.
+- Many tests assume normality that we're using for Statistical Testing.
+- When samples sizes are large, the population tends towards normally distributed.
+- If the assumption is violated, then we try different tests.
+- These are called **Non-Parametric Tests**.
+- These make fewer assumptions, no fixed population parameters and when data doesn't fit known distributions.
+- A non-parametric version of the T-Test is the **Wilcox Rank-Sum Test**.
+- It checks whether random samples of A are greater than random samples from B.
+```python
+# Perform Wilcoxon rank-sum test
+wilc = stats.ranksums(Europe_Sex_ratio, Asia_Sex_ratio)
+print(wilc)
+```
+```python
+# Separate the heights by country
+NorwayHeights = athletes[athletes['Team'] == "Norway"].Height
+ChinaHeights = athletes[athletes['Team'] == "China"].Height
+
+# Shapiro-wilks test on the heights
+print(stats.shapiro(NorwayHeights)[1])
+print(stats.shapiro(ChinaHeights)[1])
+
+# Perform the Wilcoxon rank-sum test
+wilc = stats.ranksums(NorwayHeights, ChinaHeights)
+print(wilc)
+```
+- The **Spearman Test** is the non-parametric version of Correlation.
+- This version deals with the ranks of the arrays.
+
 
 # Research:
+ - Bonferroni?
+ - Sidak?
 
 # Reference:
